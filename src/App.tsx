@@ -5,7 +5,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { EditorNavbar, EditorTabs } from "./components";
-import { $ } from "./utils";
+import { $, createHex } from "./utils";
 
 const App = () => {
 	useEffect(() => {
@@ -20,21 +20,24 @@ const App = () => {
 			1000,
 		);
 
-		const renderer = new THREE.WebGLRenderer({ canvas });
+		const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
 		renderer.setSize(clientWidth, clientHeight);
 
-		const control = new OrbitControls(camera, renderer.domElement);
+		const controls = new OrbitControls(camera, renderer.domElement);
 
-		const circleGeometry = new THREE.CircleGeometry(1, 6);
-		const circleMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-		const circle = new THREE.Mesh(circleGeometry, circleMaterial);
-		scene.add(circle);
+		scene.add(createHex());
 
 		camera.position.z = 10;
+		controls.update();
+
+		const gridXZ = new THREE.GridHelper(100, 10);
+		gridXZ.setColors(new THREE.Color(0xff0000), new THREE.Color(0xffffff));
+		scene.add(gridXZ);
 
 		const animate = () => {
 			try {
 				requestAnimationFrame(animate);
+				controls.update();
 				// cube.rotation.x += 0.01;
 				// cube.rotation.y += 0.01;
 				renderer.render(scene, camera);
