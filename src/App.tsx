@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./styles.css";
 
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import { EditorNavbar, EditorTabs } from "./components";
 import { $ } from "./utils";
@@ -18,27 +19,24 @@ const App = () => {
 			0.1,
 			1000,
 		);
+
 		const renderer = new THREE.WebGLRenderer({ canvas });
 		renderer.setSize(clientWidth, clientHeight);
 
-		const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
-		const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-		const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+		const control = new OrbitControls(camera, renderer.domElement);
 
-		scene.add(cube);
-
-		// const circleGeometry = new THREE.CircleGeometry(1, 6);
-		// const circleMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-		// const circle = new THREE.Mesh(circleGeometry, circleMaterial);
-		// scene.add(circle);
+		const circleGeometry = new THREE.CircleGeometry(1, 6);
+		const circleMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+		const circle = new THREE.Mesh(circleGeometry, circleMaterial);
+		scene.add(circle);
 
 		camera.position.z = 10;
 
 		const animate = () => {
 			try {
 				requestAnimationFrame(animate);
-				cube.rotation.x += 0.01;
-				cube.rotation.y += 0.01;
+				// cube.rotation.x += 0.01;
+				// cube.rotation.y += 0.01;
 				renderer.render(scene, camera);
 			} catch (e) {
 				return;
