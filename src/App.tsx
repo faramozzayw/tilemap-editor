@@ -27,10 +27,10 @@ const App = () => {
 
 		scene.add(cube);
 
-		const circleGeometry = new THREE.CircleGeometry(1, 6);
-		const circleMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-		const circle = new THREE.Mesh(circleGeometry, circleMaterial);
-		scene.add(circle);
+		// const circleGeometry = new THREE.CircleGeometry(1, 6);
+		// const circleMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+		// const circle = new THREE.Mesh(circleGeometry, circleMaterial);
+		// scene.add(circle);
 
 		camera.position.z = 10;
 
