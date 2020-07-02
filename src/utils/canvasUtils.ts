@@ -3,25 +3,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import { FaceNormalsHelper } from "three/examples/jsm/helpers/FaceNormalsHelper";
 import { VertexNormalsHelper } from "three/examples/jsm/helpers/VertexNormalsHelper";
 
-import { $ } from "./index";
-
-export const createHex = (color?: number | string) => {
-	const radiusTop = 5.0;
-	const radiusBottom = 5.5;
-	const height = 1.0;
-	const radialSegments = 6;
-	const geometry = new THREE.CylinderBufferGeometry(
-		radiusTop,
-		radiusBottom,
-		height,
-		radialSegments,
-	);
-
-	const material = new THREE.MeshPhongMaterial({ color: color ?? 0x4c37a6 });
-	const hex = new THREE.Mesh(geometry, material);
-
-	return hex;
-};
+import { $, Tile, range } from "./index";
 
 export const initCanvas = (selector: string) => {
 	const canvas = $(selector)[0] as HTMLCanvasElement;
@@ -41,7 +23,6 @@ export const initCanvas = (selector: string) => {
 	const renderer = new THREE.WebGLRenderer({
 		canvas,
 		alpha: true,
-		antialias: false,
 	});
 	renderer.setPixelRatio(window.devicePixelRatio);
 	renderer.setSize(clientWidth, clientHeight);
@@ -53,9 +34,26 @@ export const initCanvas = (selector: string) => {
 	const controls = new OrbitControls(camera, renderer.domElement);
 	const raycaster = new THREE.Raycaster();
 
-	hexagons.push(createHex());
-	hexagons.push(createHex(0xfff).translateZ(8.5).translateX(5));
-	hexagons.push(createHex(0xdedede).translateX(10));
+	const tileCount = 50;
+
+	const dx = 5;
+	const dy = 8.5 / 2;
+
+	for (let i of range(0, tileCount)) {
+		if (i % 2 === 0) {
+			hexagons.push(
+				new Tile().translateX(i * dx),
+				// .translateZ(i * dy * 2)
+			);
+		} else {
+			hexagons.push(new Tile().translateX(i * dx).translateZ(dy * 2));
+		}
+	}
+
+	// hexagons.push((new Tile()));
+	// hexagons.push((new Tile()).translateZ(8.5).translateX(5));
+	// hexagons.push((new Tile()).translateX(10));
+	// hexagons.push((new Tile()).translateZ(8.5 / 2 * 2).translateX(15));
 
 	camera.position.z = 25;
 	camera.position.y = 45;
