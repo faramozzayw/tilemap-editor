@@ -4,20 +4,22 @@ import { randomColor } from "./index";
 export interface ITileConfig {
 	readonly radiusBottom: number;
 	readonly radiusTop: number;
+	readonly height: number;
+	readonly radialSegments: number;
 }
 
 export const TileConfig: ITileConfig = {
 	radiusBottom: 5.5,
 	radiusTop: 5.0,
+	height: 0.25,
+	radialSegments: 6,
 };
 
 export class Tile extends THREE.Object3D {
 	constructor() {
 		super();
-		const { radiusTop, radiusBottom } = TileConfig;
+		const { radiusTop, radiusBottom, height, radialSegments } = TileConfig;
 
-		const height = 1.0;
-		const radialSegments = 6;
 		const geometry = new THREE.CylinderBufferGeometry(
 			radiusTop,
 			radiusBottom,
