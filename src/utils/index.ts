@@ -1,6 +1,7 @@
 export { $ } from "./domUtils";
 export { initCanvas } from "./canvasUtils";
-export { Tile } from "./Tile";
+export { Tile, TileConfig } from "./Tile";
+export { generateGridMatrix } from "./generatorGridMatrix";
 
 export const randomColor = () => {
 	const letters = "0123456789ABCDEF";
