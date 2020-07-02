@@ -1,18 +1,16 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import { FaceNormalsHelper } from "three/examples/jsm/helpers/FaceNormalsHelper";
-import { VertexNormalsHelper } from "three/examples/jsm/helpers/VertexNormalsHelper";
+// import { VertexNormalsHelper } from "three/examples/jsm/helpers/VertexNormalsHelper";
 
-import { $, Tile, range, generateGridMatrix } from "./index";
+import { $, generateGridMatrix } from "./index";
 
 export const initCanvas = (selector: string) => {
 	const canvas = $(selector)[0] as HTMLCanvasElement;
 	const { clientHeight, clientWidth } = canvas;
 	let entities: any[] = [];
-	// let hexagons = [];
-	let INTERSECTED = null;
 
-	const mouse = new THREE.Vector2();
+	const mouse = new THREE.Vector3(9999, 9999);
 	const scene = new THREE.Scene();
 	const camera = new THREE.PerspectiveCamera(
 		75,
@@ -40,12 +38,16 @@ export const initCanvas = (selector: string) => {
 	camera.position.y = 150;
 	controls.update();
 
-	entities.push(new THREE.GridHelper(200, 25));
+	const grid = new THREE.GridHelper(200, 25);
+	console.log(grid);
+	entities.push(grid);
 
 	// const vertexHelpers = hexagons.map(hex => new VertexNormalsHelper(hex, 2, 0x00ff00));
 	// entities.push(...vertexHelpers);
 
 	entities.push(...hexagons);
+
+	console.log(entities[15]);
 	entities.forEach((entity) => scene.add(entity));
 
 	return {

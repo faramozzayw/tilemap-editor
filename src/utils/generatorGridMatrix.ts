@@ -1,4 +1,4 @@
-import { Tile, TileConfig, range } from "./index";
+import { Tile, range } from "./index";
 
 export const generateGridMatrix = (
 	rows: number = 0,
