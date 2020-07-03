@@ -1,41 +1,43 @@
-import * as THREE from "three";
-import { randomColor } from "./index";
+import React, { useRef, useState } from "react";
 
 export interface ITileConfig {
-	readonly radiusBottom: number;
 	readonly radiusTop: number;
+	readonly radiusBottom: number;
 	readonly height: number;
 	readonly radialSegments: number;
 }
 
 export const TileConfig: ITileConfig = {
-	radiusBottom: 5.5,
 	radiusTop: 5.0,
+	radiusBottom: 5.5,
 	height: 0.25,
 	radialSegments: 6,
 };
 
-export class Tile extends THREE.Object3D {
-	constructor() {
-		super();
-		const { radiusTop, radiusBottom, height, radialSegments } = TileConfig;
+export const Tile = ({ position }: any) => {
+	const [hovered, setHover] = useState(false);
+	const mesh = useRef(null);
 
-		const geometry = new THREE.CylinderBufferGeometry(
-			radiusTop,
-			radiusBottom,
-			height,
-			radialSegments,
-		);
-		const tileColor = randomColor();
+	const { radiusBottom, radiusTop, height, radialSegments } = TileConfig;
 
-		let material = new THREE.MeshLambertMaterial({
-			color: tileColor,
-		});
-
-		material.flatShading = true;
-		const mesh = new THREE.Mesh(geometry, material);
-		this.add(mesh);
-
-		return this;
-	}
-}
+	return (
+		<group>
+			<mesh
+				position={position}
+				onClick={() => console.log("click")}
+				onPointerOver={() => setHover(true)}
+				onPointerOut={() => setHover(false)}
+				ref={mesh}
+			>
+				<cylinderBufferGeometry
+					attach="geometry"
+					args={[radiusTop, radiusBottom, height, radialSegments]}
+				/>
+				<meshStandardMaterial
+					attach="material"
+					color={hovered ? "hotpink" : "orange"}
+				/>
+			</mesh>
+		</group>
+	);
+};

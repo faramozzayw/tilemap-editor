@@ -6,9 +6,10 @@ body {
 }
 
 #canvas-wrapper {
-	position: relative;
+	background-color: hsla(271, 12%, 61%, 0.363);
+	width: 100% !important;
 }
-
+/*
 canvas {
 	position: absolute;
 	display: block;
@@ -20,3 +21,4 @@ canvas {
 canvas:focus {
 	outline: none;
 }
+*/

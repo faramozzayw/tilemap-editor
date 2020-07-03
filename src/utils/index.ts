@@ -1,5 +1,4 @@
 export { $ } from "./domUtils";
-export { initCanvas } from "./canvasUtils";
 export { Tile, TileConfig } from "./Tile";
 export { generateGridMatrix } from "./generatorGridMatrix";
 
