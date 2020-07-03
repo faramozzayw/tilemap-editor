@@ -1,52 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-import { initCanvas } from "./../utils";
+import { generateGridMatrix, $ } from "./../utils";
+import { Canvas } from "react-three-fiber";
+
+import { OrbitControls } from "drei";
+
+export type ISizes = null | {
+	width: number;
+	height: number;
+};
 
 export const EditorCanvas = () => {
+	const [size, setSize] = useState<ISizes>(null);
+
 	useEffect(() => {
-		let {
-			canvas,
-			mouse,
-			scene,
-			camera,
-			renderer,
-			//    light,
-			controls,
-			raycaster,
-		} = initCanvas("#main-canvas");
-
-		const onMouseMove = (event: any) => {
-			event.preventDefault();
-
-			mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-			mouse.y = -(event.clientY / canvas.clientHeight) * 2 + 1;
-		};
-
-		const onWindowResize = () => {
-			camera.aspect = window.innerWidth / canvas.clientHeight;
-			camera.updateProjectionMatrix();
-			renderer.setSize(window.innerWidth, canvas.clientHeight);
-		};
-
-		const animate = () => {
-			try {
-				requestAnimationFrame(animate);
-				controls.update();
-				renderer.render(scene, camera);
-			} catch (e) {
-				return;
-			}
-		};
-
-		animate();
-
-		canvas.addEventListener("mousemove", onMouseMove, false);
-		window.addEventListener("resize", onWindowResize, false);
-		return () => {
-			canvas.removeEventListener("mousemove", onMouseMove);
-			canvas.removeEventListener("resize", onWindowResize);
-		};
+		const { offsetWidth: width, offsetHeight: height } = $(
+			"#EditorCanvas-wrap",
+		)[0] as HTMLElement;
+		setSize({ width, height });
 	}, []);
 
-	return <canvas id="main-canvas" />;
+	const hexagons = generateGridMatrix(10, 10);
+
+	if (!size) {
+		return null;
+	}
+
+	return (
+		<Canvas
+			id="canvas-wrapper"
+			style={{ width: size!.width, height: size!.height }}
+			camera={{ position: [15, 15, 15] }}
+		>
+			<OrbitControls />
+			<gridHelper args={[500, 100]} />
+			<axesHelper />
+			<ambientLight />
+			<pointLight position={[10, 5, 10]} />
+			{hexagons}
+		</Canvas>
+	);
 };

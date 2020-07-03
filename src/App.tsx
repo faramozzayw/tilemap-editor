@@ -11,7 +11,7 @@ const App = () => {
 					<EditorNavbar />
 				</div>
 
-				<div className="hero-body is-paddingless" id="canvas-wrapper">
+				<div className="hero-body is-paddingless" id="EditorCanvas-wrap">
 					<EditorCanvas />
 				</div>
 
