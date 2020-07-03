@@ -31,15 +31,19 @@ export const Button: React.FC<ButtonProps<
 	type,
 	...props
 }) => {
-	const className = classnames("button", {
-		"is-inverted": isInverted,
-		"is-link": isLink,
-		"is-outlined": isOutlined,
-		"is-static": isStatic,
-		"is-light": isLight,
-		"is-rounded": isRounded,
-		...getColorModifiers({ isColor }),
-	});
+	const className = classnames(
+		"button",
+		{
+			"is-inverted": isInverted,
+			"is-link": isLink,
+			"is-outlined": isOutlined,
+			"is-static": isStatic,
+			"is-light": isLight,
+			"is-rounded": isRounded,
+			...getColorModifiers({ isColor }),
+		},
+		props.className,
+	);
 
 	const anchor = (
 		<a
