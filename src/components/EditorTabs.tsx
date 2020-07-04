@@ -1,27 +1,31 @@
 import React from "react";
 
+import { Button } from "./../bulma";
+
 export const EditorTabs = () => {
 	return (
 		<nav className="tabs">
 			<div className="container">
 				<ul>
 					<li className="is-active">
-						<button>Terrain</button>
+						<Button isColor="primary" isOutlined>
+							Terrain
+						</Button>
 					</li>
 					<li>
-						<button>Resource</button>
+						<Button>Resource</Button>
 					</li>
 					<li>
-						<button>Building</button>
+						<Button>Building</Button>
 					</li>
 					<li>
-						<button>Units</button>
+						<Button>Units</Button>
 					</li>
 					<li>
-						<button>Continents</button>
+						<Button>Continents</Button>
 					</li>
 					<li>
-						<button>Owner</button>
+						<Button>Owner</Button>
 					</li>
 				</ul>
 			</div>

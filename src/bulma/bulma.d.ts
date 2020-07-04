@@ -1,25 +1,37 @@
 export declare namespace Bulma {
-  type Sizes = "small" | "medium" | "large";
-  type Colors =
-    | "white"
-    | "light"
-    | "dark"
-    | "black"
-    | "primary"
-    | "info"
-    | "success"
-    | "warning"
-    | "danger";
+	export type Colors =
+		| "white"
+		| "light"
+		| "dark"
+		| "black"
+		| "primary"
+		| "info"
+		| "success"
+		| "warning"
+		| "danger";
 
-  interface Size {
-    isSize?: Sizes;
-  }
+	export interface Color {
+		isColor?: Colors;
+	}
 
-  interface Color {
-    isColor?: Colors;
-  }
+	export type Sizes = "small" | "normal" | "medium" | "large";
+	export interface Size {
+		isSize?: Sizes;
+	}
 
-  interface Tag {
-    tag?: string;
-  }
+	export interface Tag {
+		tag?: string;
+	}
+
+	export interface Loading {
+		isLoading?: boolean;
+	}
+
+	export interface Light {
+		isLight?: boolean;
+	}
+
+	export interface Rounded {
+		isRounded?: boolean;
+	}
 }
