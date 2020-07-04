@@ -28,9 +28,10 @@ export const EditorCanvas = () => {
 
 	return (
 		<Canvas
+			orthographic
 			id="canvas-wrapper"
 			style={{ width: size!.width, height: size!.height }}
-			camera={{ position: [15, 15, 15] }}
+			camera={{ position: [0, 5, 0], near: -50 }}
 		>
 			<OrbitControls />
 			<gridHelper args={[500, 100]} />
