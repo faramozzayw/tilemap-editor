@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import classnames from "classnames";
 import { Link } from "react-router-dom";
 
 import { Button } from "./../bulma";
 
 export const MainNavbar = () => {
+	const [isActive, togggleMenu] = useState(false);
+
 	return (
 		<nav
 			className="navbar is-dark"
@@ -11,9 +14,15 @@ export const MainNavbar = () => {
 			aria-label="main navigation"
 		>
 			<div className="navbar-brand">
+				<div className="navbar-item is-size-2 has-text-weight-bold is-family-code">
+					TW!+
+				</div>
 				<a
 					role="button"
-					className="navbar-burger burger"
+					className={classnames("navbar-burger burger", {
+						"is-active": isActive,
+					})}
+					onClick={() => togggleMenu(!isActive)}
 					aria-label="menu"
 					aria-expanded="false"
 					data-target="navbarBasicExample"
@@ -24,7 +33,12 @@ export const MainNavbar = () => {
 				</a>
 			</div>
 
-			<div id="navbarBasicExample" className="navbar-menu">
+			<div
+				id="navbarBasicExample"
+				className={classnames("navbar-menu", {
+					"is-active": isActive,
+				})}
+			>
 				<div className="navbar-start">
 					<Link to="/" className="navbar-item">
 						Home
@@ -38,17 +52,16 @@ export const MainNavbar = () => {
 						Start edit
 					</Link>
 				</div>
-			</div>
-
-			<div className="navbar-end">
-				<div className="navbar-item">
-					<div className="buttons">
-						<Button isOutlined isColor="success">
-							<strong>Sign up</strong>
-						</Button>
-						<Button isOutlined isColor="info">
-							Log in
-						</Button>
+				<div className="navbar-end">
+					<div className="navbar-item">
+						<div className="buttons">
+							<Button isOutlined isColor="success">
+								<strong>Sign up</strong>
+							</Button>
+							<Button isOutlined isColor="info">
+								Log in
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>
