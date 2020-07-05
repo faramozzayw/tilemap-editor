@@ -1,2 +1,5 @@
-export { default as Hero } from "./layout/Hero";
+// layout
+export { Hero, HeroBody, HeroHeader, HeroFooter } from "./layout/Hero";
+
+// elements
 export { Button } from "./elements/button";

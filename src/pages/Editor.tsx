@@ -1,23 +1,22 @@
 import React from "react";
 
 import { EditorNavbar, EditorTabs, EditorCanvas } from "../components";
+import { Hero, HeroBody, HeroHeader, HeroFooter } from "./../bulma";
 
 export const Editor = () => {
 	return (
-		<>
-			<section className="hero is-black is-fullheight">
-				<div className="hero-head">
-					<EditorNavbar />
-				</div>
+		<Hero isFullHeight isColor="black">
+			<HeroHeader>
+				<EditorNavbar />
+			</HeroHeader>
 
-				<div className="hero-body is-paddingless" id="EditorCanvas-wrap">
-					<EditorCanvas />
-				</div>
+			<HeroBody className="is-paddingless" id="EditorCanvas-wrap">
+				<EditorCanvas />
+			</HeroBody>
 
-				<div className="hero-foot">
-					<EditorTabs />
-				</div>
-			</section>
-		</>
+			<HeroFooter>
+				<EditorTabs />
+			</HeroFooter>
+		</Hero>
 	);
 };
