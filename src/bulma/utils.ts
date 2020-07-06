@@ -1,9 +1,15 @@
 import { Bulma } from "./bulma";
 
-export const getColorModifiers = ({ isColor: color }: Bulma.Color) => {
-	return color ? { [`is-${color}`]: true } : {};
-};
+export function getModifiersCreator<T>(key: string) {
+	return (props: { [key: string]: T | undefined }) => {
+		const modifier = props[key];
 
-export function getSizeModifiers({ isSize: size }: Bulma.Size) {
-	return size ? { [`is-${size}`]: true } : {};
+		return modifier ? { [`is-${modifier}`]: true } : {};
+	};
 }
+
+export const getColorModifiers = getModifiersCreator<Bulma.Colors>("isColor");
+export const getAlignmentModifiers = getModifiersCreator<Bulma.Align>(
+	"isAlign",
+);
+export const getSizeModifiers = getModifiersCreator<Bulma.Sizes>("isSize");
