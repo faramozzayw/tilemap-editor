@@ -16,6 +16,7 @@
 		"drei": "^0.0.60",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
+		"react-router-dom": "^5.2.0",
 		"react-scripts": "3.4.1",
 		"react-three-fiber": "^4.2.12",
 		"three": "^0.118.3",
@@ -43,6 +44,7 @@
 		]
 	},
 	"devDependencies": {
+		"@types/react-router-dom": "^5.1.5",
 		"husky": "^4.2.5",
 		"prettier": "^2.0.5",
 		"pretty-quick": "^2.0.1"

@@ -1,16 +1,17 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export const EditorNavbar: React.FC = () => {
 	return (
 		<nav className="navbar">
 			<div className="container">
 				<div className="navbar-brand">
-					<a
-						href="test"
+					<Link
+						to="/"
 						className="navbar-item has-text-weight-bold is-family-code"
 					>
 						HexMap Editor
-					</a>
+					</Link>
 					<span className="navbar-burger burger" data-target="navbarMenuHeroA">
 						<span />
 						<span />

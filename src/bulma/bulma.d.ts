@@ -34,4 +34,10 @@ export declare namespace Bulma {
 	export interface Rounded {
 		isRounded?: boolean;
 	}
+
+	export type Align = "left" | "centered" | "right";
+
+	export interface Alignment {
+		isAlign?: Align;
+	}
 }

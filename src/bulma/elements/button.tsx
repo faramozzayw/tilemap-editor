@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 
 import { Bulma } from "./../bulma";
-import { getColorModifiers } from "./../utils";
+import { getColorModifiers, getSizeModifiers } from "./../utils";
 
 export interface ButtonProps<T>
 	extends Bulma.Color,
@@ -26,6 +26,7 @@ export const Button: React.FC<ButtonProps<
 	isInverted,
 	isStatic,
 	isColor,
+	isSize,
 	isLight,
 	isRounded,
 	type,
@@ -41,15 +42,18 @@ export const Button: React.FC<ButtonProps<
 			"is-light": isLight,
 			"is-rounded": isRounded,
 			...getColorModifiers({ isColor }),
+			...getSizeModifiers({ isSize }),
 		},
 		props.className,
 	);
 
 	const anchor = (
+		// eslint-disable-next-line jsx-a11y/anchor-has-content
 		<a
 			{...(props as React.HTMLProps<HTMLAnchorElement>)}
 			role="button"
 			className={className}
+			href={props?.href}
 		/>
 	);
 

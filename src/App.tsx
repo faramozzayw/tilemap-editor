@@ -1,24 +1,21 @@
 import React from "react";
 import "./styles.css";
 
-import { EditorNavbar, EditorTabs, EditorCanvas } from "./components";
+import { Switch, Route } from "react-router-dom";
+
+import { Editor, Main } from "./pages";
 
 const App = () => {
 	return (
 		<>
-			<section className="hero is-black is-fullheight">
-				<div className="hero-head">
-					<EditorNavbar />
-				</div>
-
-				<div className="hero-body is-paddingless" id="EditorCanvas-wrap">
-					<EditorCanvas />
-				</div>
-
-				<div className="hero-foot">
-					<EditorTabs />
-				</div>
-			</section>
+			<Switch>
+				<Route path="/editor">
+					<Editor />
+				</Route>
+				<Route>
+					<Main />
+				</Route>
+			</Switch>
 		</>
 	);
 };
