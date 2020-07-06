@@ -48,9 +48,16 @@ export const MainNavbar = () => {
 						Documentation
 					</Link>
 
-					<Link to="/editor" className="navbar-item">
+					{/* 
+                    <Link to="/editor" className="navbar-item">
 						Start edit
-					</Link>
+                    </Link> 
+                    */}
+					<div className="navbar-item">
+						<Button isOutlined isColor="primary">
+							Create map!
+						</Button>
+					</div>
 				</div>
 				<div className="navbar-end">
 					<div className="navbar-item">

@@ -3,3 +3,4 @@ export { EditorTabs } from "./EditorTabs";
 export { EditorCanvas } from "./EditorCanvas";
 
 export { MainNavbar } from "./MainNavbar";
+export { MapPreviewCard } from "./MapPreviewCard";
