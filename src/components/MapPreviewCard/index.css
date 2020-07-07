@@ -1,0 +1,7 @@
+.MapPreviewCard .card-footer {
+	border: none;
+}
+
+.MapPreviewCard .card-footer .button {
+	border-radius: 0;
+}

@@ -3,9 +3,11 @@ import classnames from "classnames";
 import { Link } from "react-router-dom";
 
 import { Button } from "./../bulma";
+import { CreateMapModal } from "./CreateMapModal";
 
 export const MainNavbar = () => {
 	const [isActive, togggleMenu] = useState(false);
+	const [modalActive, toggleModal] = useState(true);
 
 	return (
 		<nav
@@ -47,10 +49,19 @@ export const MainNavbar = () => {
 					<Link to="/docs" className="navbar-item">
 						Documentation
 					</Link>
-
-					<Link to="/editor" className="navbar-item">
-						Start edit
-					</Link>
+					<div className="navbar-item">
+						<Button
+							isOutlined
+							isColor="primary"
+							onClick={() => toggleModal(true)}
+						>
+							Create map!
+						</Button>
+						<CreateMapModal
+							isActive={modalActive}
+							closeModal={() => toggleModal(false)}
+						/>
+					</div>
 				</div>
 				<div className="navbar-end">
 					<div className="navbar-item">

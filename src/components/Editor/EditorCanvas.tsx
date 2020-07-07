@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { generateGridMatrix, $ } from "./../utils";
+import { generateGridMatrix, $ } from "./../../utils";
 import { Canvas } from "react-three-fiber";
 
 import { OrbitControls } from "drei";
