@@ -3,6 +3,7 @@ import classnames from "classnames";
 import { Button, Control, Label, Box } from "./../bulma";
 
 import { createMap } from "./../store/mapsStore";
+import { useHistory } from "react-router-dom";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
@@ -18,6 +19,8 @@ export const CreateMapModal: React.FC<CreateMapModalProps> = ({
 
 	const rowRef = useRef<HTMLInputElement>(null);
 	const columnRef = useRef<HTMLInputElement>(null);
+
+	const history = useHistory();
 
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -40,6 +43,8 @@ export const CreateMapModal: React.FC<CreateMapModalProps> = ({
 				},
 				tiles: null,
 			});
+
+			history.push("/editor");
 		} catch (e) {}
 	};
 
