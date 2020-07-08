@@ -1,9 +1,20 @@
 import React from "react";
 import { Button } from "./../../bulma";
 
+import { MapConfig } from "./../../types";
+
 import "./index.css";
 
-export const MapPreviewCard = () => {
+export interface MapPreviewCardProps extends MapConfig {}
+
+export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
+	author,
+	name,
+	description,
+	size,
+	create_data,
+	last_edit,
+}) => {
 	return (
 		<div className="MapPreviewCard card has-background-grey-dark has-text-primary-light">
 			<div className="card-content">
@@ -17,17 +28,23 @@ export const MapPreviewCard = () => {
 						</figure>
 					</div>
 					<div className="media-content">
-						<p className="title is-4">John Smith</p>
-						<p className="subtitle is-6">@johnsmith</p>
+						<p className="title is-4">{name}</p>
+						<p className="subtitle is-6">@{author}</p>
 					</div>
 				</div>
 
 				<div className="content">
-					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-					iaculis mauris. <a>@bulmaio</a>.<a href="#">#css</a>{" "}
-					<a href="#">#responsive</a>
+					{description}
+					{description && <br />}
+					Map size: {size.row} x {size.column}
 					<br />
-					<time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+					Create:{" "}
+					<time dateTime="2016-1-1">{create_data.toLocaleDateString()}</time>
+					<br />
+					Last edit:{" "}
+					<time dateTime="2016-1-1">
+						{last_edit?.toLocaleDateString() ?? "not edited yet"}
+					</time>
 				</div>
 			</div>
 			<footer className="card-footer">
