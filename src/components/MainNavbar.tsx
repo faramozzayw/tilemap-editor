@@ -7,7 +7,7 @@ import { CreateMapModal } from "./CreateMapModal";
 
 export const MainNavbar = () => {
 	const [isActive, togggleMenu] = useState(false);
-	const [modalActive, toggleModal] = useState(true);
+	const [modalActive, toggleModal] = useState(false);
 
 	return (
 		<nav

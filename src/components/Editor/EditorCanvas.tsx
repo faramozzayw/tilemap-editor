@@ -37,7 +37,6 @@ export const EditorCanvas = () => {
 			<axesHelper />
 			<ambientLight />
 			<pointLight position={[10, 5, 10]} />
-			{hexagons}
 		</Canvas>
 	);
 };

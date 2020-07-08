@@ -3965,6 +3965,16 @@ ee-first@1.1.1:
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
+effector-react@^21.0.2:
+  version "21.0.2"
+  resolved "https://registry.yarnpkg.com/effector-react/-/effector-react-21.0.2.tgz#5faa879cf8fa0e401b6a25bb5b2a7ce25574ec6f"
+  integrity sha512-ffFDYHjlHd7NOjgncphVJGLWALS15upSy2Go7uYsOlo6GRu/Ja9AjAMBy0rOLHd5VHSgKaw7PcQNqksTYxagtQ==
+
+effector@^21.0.1:
+  version "21.0.1"
+  resolved "https://registry.yarnpkg.com/effector/-/effector-21.0.1.tgz#23279ac0e8e207497655eb718944b531fd072de2"
+  integrity sha512-A5uxaogWAQVSTT3GGK77n6GLEqcNv+sbb3nqqLyuccc6tQB6naFTEYz9tAxouSz2leOatIWmJ8iBo//oz6f/TQ==
+
 electron-to-chromium@^1.3.378:
   version "1.3.379"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.379.tgz#81dc5e82a3e72bbb830d93e15bc35eda2bbc910e"
