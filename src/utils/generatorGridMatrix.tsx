@@ -1,33 +1,49 @@
 import React from "react";
 import { Tile, range, randomColor } from "./index";
+import { TileConfig, Resource, Unit } from "./../types";
 
 type TileBox = typeof Tile;
+
+export interface TileEntity {
+	position: number[];
+}
+
+type RawTile = Omit<Omit<TileConfig, "id">, "position">;
+
+export const baseTile: RawTile = {
+	baseTerrain: "water",
+	terrainFeatures: "none",
+	resource: [] as Resource,
+	units: [] as Unit,
+};
 
 export const generateGridMatrix = (
 	rows: number = 0,
 	columns: number = 0,
-): TileBox[] => {
-	let tiles = [];
+): TileConfig[] => {
+	let id = 0;
+	let tiles: TileConfig[] = [];
 
 	const dx = 10;
 	const dy = 8.5 / 2;
 
 	for (const i of range(0, rows)) {
-		const row: any[] = [];
+		const row: TileConfig[] = [];
 
 		for (const j of range(0, columns)) {
 			const zOffset = j * dy * 2;
 			const basicXOffset = i * dx;
 
-			const key = randomColor();
+			const position =
+				j % 2 === 0
+					? [basicXOffset, 0, zOffset]
+					: [basicXOffset + dx / 2, 0, zOffset];
 
-			row.push(
-				j % 2 === 0 ? (
-					<Tile key={key} position={[basicXOffset, 0, zOffset]} />
-				) : (
-					<Tile key={key} position={[basicXOffset + dx / 2, 0, zOffset]} />
-				),
-			);
+			row.push({
+				...baseTile,
+				position,
+				id: id++,
+			});
 		}
 
 		tiles.push(...row);

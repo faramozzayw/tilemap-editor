@@ -1,6 +1,7 @@
 import { createStore, createEvent } from "effector";
 
 import { MapConfig, MapID } from "./../types";
+import { generateGridMatrix } from "./../utils";
 
 export interface IMapStore {
 	maps: MapConfig[];
@@ -17,12 +18,14 @@ export const initState: IMapStore = {
 export const mapStore = createStore<IMapStore>(initState)
 	.on(createMap, (store, newMap) => {
 		const { maps: oldMaps } = store;
+		const { row, column } = newMap.size;
 
 		return {
 			...store,
 			maps: oldMaps.concat({
 				...newMap,
-				id: oldMaps[oldMaps.length - 1].id + 1,
+				id: (oldMaps[oldMaps.length - 1]?.id ?? 0) + 1,
+				tiles: generateGridMatrix(row, column),
 			}),
 		};
 	})
