@@ -1,7 +1,9 @@
 import React from "react";
-import { Button } from "./../../bulma";
+import { Link, useHistory } from "react-router-dom";
 
+import { Button } from "./../../bulma";
 import { MapConfig } from "./../../types";
+import { deleteMap } from "./../../store/mapsStore";
 
 import "./index.css";
 
@@ -14,7 +16,13 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	size,
 	create_data,
 	last_edit,
+	id,
 }) => {
+	const history = useHistory();
+
+	const editHandler = () => history.push(`/editor/${id}`);
+	const deleteHandler = () => deleteMap(id);
+
 	return (
 		<div className="MapPreviewCard card has-background-grey-dark has-text-primary-light">
 			<div className="card-content">
@@ -48,10 +56,19 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 				</div>
 			</div>
 			<footer className="card-footer">
-				<Button isOutlined isColor="success" className="card-footer-item">
-					Edit
+				<Button
+					className="card-footer-item"
+					isColor="success"
+					isOutlined
+					onClick={editHandler}
+				>
+					<Link to={`/editor/${id}`}>Edit</Link>
 				</Button>
-				<Button isColor="danger" className="card-footer-item ">
+				<Button
+					className="card-footer-item"
+					isColor="danger"
+					onClick={deleteHandler}
+				>
 					Delete
 				</Button>
 			</footer>

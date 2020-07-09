@@ -22,7 +22,8 @@
 		"react-scripts": "3.4.1",
 		"react-three-fiber": "^4.2.12",
 		"three": "^0.118.3",
-		"typescript": "~3.7.2"
+		"typescript": "~3.7.2",
+		"uuidv4": "^6.1.1"
 	},
 	"scripts": {
 		"start": "react-scripts start",

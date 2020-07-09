@@ -7,7 +7,7 @@ export interface IMapStore {
 	maps: MapConfig[];
 }
 
-export const createMap = createEvent<Omit<MapConfig, "id">>("Create new map");
+export const createMap = createEvent<MapConfig>("Create new map");
 export const deleteMap = createEvent<MapID>();
 export const reset = createEvent();
 
@@ -24,11 +24,19 @@ export const mapStore = createStore<IMapStore>(initState)
 			...store,
 			maps: oldMaps.concat({
 				...newMap,
-				id: (oldMaps[oldMaps.length - 1]?.id ?? 0) + 1,
 				tiles: generateGridMatrix(row, column),
 			}),
+		};
+	})
+	.on(deleteMap, (store, mapID) => {
+		const { maps: oldMaps } = store;
+
+		return {
+			...store,
+			maps: oldMaps.filter(({ id }) => id !== mapID),
 		};
 	})
 	.reset(reset);
 
 createMap.watch((payload) => console.log("туц туц туц", payload));
+deleteMap.watch((payload) => console.info(`удалена карта с id: ${payload}`));
