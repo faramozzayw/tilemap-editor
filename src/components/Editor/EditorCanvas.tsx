@@ -5,6 +5,8 @@ import { OrbitControls } from "drei";
 import { $, Tile } from "./../../utils";
 import { MapConfig } from "./../../types";
 
+import { Panel } from "../Panels";
+
 export type ISizes = null | {
 	width: number;
 	height: number;
@@ -25,19 +27,22 @@ export const EditorCanvas: React.FC<MapConfig> = ({ tiles }) => {
 	}
 
 	return (
-		<Canvas
-			id="canvas-wrapper"
-			style={{ width: size!.width, height: size!.height }}
-			camera={{ position: [15, 15, 15] }}
-		>
-			<OrbitControls />
-			<gridHelper args={[200, 25]} />
-			<axesHelper />
-			<ambientLight />
-			<pointLight position={[10, 5, 10]} />
-			{tiles?.map((tile) => (
-				<Tile {...tile} key={tile.id} />
-			))}
-		</Canvas>
+		<>
+			<Canvas
+				id="canvas-wrapper"
+				style={{ width: size!.width, height: size!.height }}
+				camera={{ position: [15, 15, 15] }}
+			>
+				<OrbitControls />
+				<gridHelper args={[200, 25]} />
+				<axesHelper />
+				<ambientLight />
+				<pointLight position={[10, 5, 10]} />
+				{tiles?.map((tile) => (
+					<Tile {...tile} key={tile.id} />
+				))}
+			</Canvas>
+			<Panel />
+		</>
 	);
 };
