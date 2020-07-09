@@ -7,5 +7,5 @@
 
 .canvas-panel .panel-block {
 	background: hsl(0, 0%, 93%);
-	filter: invert(1);
+	filter: invert(1) opacity(0.99);
 }
