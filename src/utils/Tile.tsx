@@ -17,12 +17,9 @@ export const TileConfig: ITileConfig = {
 	radialSegments: 6,
 };
 
-const url = "https://threejsfundamentals.org/threejs/resources/images/wall.jpg";
-
 export const Tile = ({ position }: any) => {
 	const [hovered, setHover] = useState(false);
 	const mesh = useRef<THREE.Mesh | null>(null);
-	const texture = useMemo(() => loader.load(url), [url]);
 
 	const { radiusBottom, radiusTop, height, radialSegments } = TileConfig;
 
@@ -45,9 +42,8 @@ export const Tile = ({ position }: any) => {
 				/>
 				<meshBasicMaterial
 					attach="material"
-					// color={hovered ? "hotpink" : "orange"}
+					color={hovered ? "hotpink" : "orange"}
 					transparent
-					map={texture}
 				></meshBasicMaterial>
 			</mesh>
 		</group>

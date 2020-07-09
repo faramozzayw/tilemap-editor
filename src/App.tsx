@@ -9,7 +9,7 @@ const App = () => {
 	return (
 		<>
 			<Switch>
-				<Route path="/editor">
+				<Route path="/editor/:mapID">
 					<Editor />
 				</Route>
 				<Route>

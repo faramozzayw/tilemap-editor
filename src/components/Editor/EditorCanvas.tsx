@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-
-import { generateGridMatrix, $ } from "./../../utils";
 import { Canvas } from "react-three-fiber";
-
 import { OrbitControls } from "drei";
+
+import { $, Tile } from "./../../utils";
+import { MapConfig } from "./../../types";
 
 export type ISizes = null | {
 	width: number;
 	height: number;
 };
 
-export const EditorCanvas = () => {
+export const EditorCanvas: React.FC<MapConfig> = ({ tiles }) => {
 	const [size, setSize] = useState<ISizes>(null);
 
 	useEffect(() => {
@@ -19,8 +19,6 @@ export const EditorCanvas = () => {
 		)[0] as HTMLElement;
 		setSize({ width, height });
 	}, []);
-
-	const hexagons = generateGridMatrix(10, 10);
 
 	if (!size) {
 		return null;
@@ -37,6 +35,9 @@ export const EditorCanvas = () => {
 			<axesHelper />
 			<ambientLight />
 			<pointLight position={[10, 5, 10]} />
+			{tiles?.map((tile) => (
+				<Tile {...tile} key={tile.id} />
+			))}
 		</Canvas>
 	);
 };

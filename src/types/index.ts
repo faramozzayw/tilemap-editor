@@ -15,7 +15,7 @@ export interface TileConfig {
 	position: TilePosition;
 }
 
-export type MapID = number;
+export type MapID = string;
 export interface MapSize {
 	row: number;
 	column: number;

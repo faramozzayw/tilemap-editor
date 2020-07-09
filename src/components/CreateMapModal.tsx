@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import classnames from "classnames";
+import { useHistory } from "react-router-dom";
+import { uuid } from "uuidv4";
+
 import { Button, Control, Label, Box } from "./../bulma";
 
 import { createMap } from "./../store/mapsStore";
-import { useHistory } from "react-router-dom";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
@@ -31,10 +33,13 @@ export const CreateMapModal: React.FC<CreateMapModalProps> = ({
 			return alert("You must enter map name");
 		}
 
+		const id = uuid();
+
 		try {
 			createMap({
 				name,
 				author: "Anonim",
+				id,
 				description: descriptionRef.current?.value,
 				create_data: new Date(),
 				size: {
@@ -44,7 +49,7 @@ export const CreateMapModal: React.FC<CreateMapModalProps> = ({
 				tiles: null,
 			});
 
-			history.push("/editor");
+			history.push(`/editor/${id}`);
 		} catch (e) {}
 	};
 
@@ -75,6 +80,7 @@ export const CreateMapModal: React.FC<CreateMapModalProps> = ({
 										placeholder="Column"
 										ref={columnRef}
 										defaultValue="20"
+										min="0"
 									/>
 								</Control>
 								<Control isExpanded>
@@ -84,6 +90,7 @@ export const CreateMapModal: React.FC<CreateMapModalProps> = ({
 										placeholder="Row"
 										ref={rowRef}
 										defaultValue="20"
+										min="0"
 									/>
 								</Control>
 							</div>
