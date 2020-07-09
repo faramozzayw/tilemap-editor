@@ -1,5 +1,11 @@
 .canvas-panel {
 	z-index: 15;
 	position: absolute;
-	background: rebeccapurple;
+	margin-left: 1rem;
+	min-width: 10vmin;
+}
+
+.canvas-panel .panel-block {
+	background: hsl(0, 0%, 93%);
+	filter: invert(1);
 }

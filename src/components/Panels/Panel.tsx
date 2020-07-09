@@ -3,7 +3,7 @@ import "./index.css";
 
 export const Panel = ({}) => {
 	return (
-		<nav className="panel canvas-panel">
+		<nav className="panel is-info canvas-panel">
 			<p className="panel-heading">Repositories</p>
 			<div className="panel-block">
 				<p className="control has-icons-left">
@@ -13,13 +13,6 @@ export const Panel = ({}) => {
 					</span>
 				</p>
 			</div>
-			<p className="panel-tabs">
-				<a className="is-active">All</a>
-				<a>Public</a>
-				<a>Private</a>
-				<a>Sources</a>
-				<a>Forks</a>
-			</p>
 			<a className="panel-block is-active">
 				<span className="panel-icon">
 					<i className="fas fa-book" aria-hidden="true"></i>
@@ -62,7 +55,7 @@ export const Panel = ({}) => {
 			</label>
 			<div className="panel-block">
 				<button className="button is-link is-outlined is-fullwidth">
-					Reset all filters
+					Reset all
 				</button>
 			</div>
 		</nav>
