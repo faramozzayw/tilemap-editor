@@ -1,10 +1,16 @@
 import React from "react";
+import { useStore } from "effector-react";
+
 import "./index.css";
 
+import { editorStore } from "./../../store/editorStore";
+
 export const Panel = ({}) => {
+	const { currentInstrument } = useStore(editorStore);
+
 	return (
 		<nav className="panel is-info canvas-panel">
-			<p className="panel-heading">Repositories</p>
+			<p className="panel-heading">{currentInstrument}</p>
 			<div className="panel-block">
 				<p className="control has-icons-left">
 					<input className="input" type="text" placeholder="Search" />
