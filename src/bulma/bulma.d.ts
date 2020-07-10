@@ -40,4 +40,8 @@ export declare namespace Bulma {
 	export interface Alignment {
 		isAlign?: Align;
 	}
+
+	export interface Active {
+		isActive?: boolean;
+	}
 }

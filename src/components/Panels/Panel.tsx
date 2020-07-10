@@ -3,67 +3,61 @@ import { useStore } from "effector-react";
 
 import "./index.css";
 
+import {
+	Panel as BulmaPanel,
+	PanelHeading,
+	PanelBlock,
+	PanelIcon,
+} from "./../../bulma";
 import { editorStore } from "./../../store/editorStore";
 
 export const Panel = ({}) => {
 	const { currentInstrument } = useStore(editorStore);
 
 	return (
-		<nav className="panel is-info canvas-panel">
-			<p className="panel-heading">{currentInstrument}</p>
-			<div className="panel-block">
+		<BulmaPanel isColor="info" className="canvas-panel">
+			<PanelHeading>{currentInstrument}</PanelHeading>
+			<PanelBlock>
 				<p className="control has-icons-left">
 					<input className="input" type="text" placeholder="Search" />
 					<span className="icon is-left">
 						<i className="fas fa-search" aria-hidden="true"></i>
 					</span>
 				</p>
-			</div>
-			<a className="panel-block is-active">
-				<span className="panel-icon">
-					<i className="fas fa-book" aria-hidden="true"></i>
-				</span>
+			</PanelBlock>
+			<PanelBlock isActive>
+				<PanelIcon icon="fas fa-book" />
 				bulma
-			</a>
-			<a className="panel-block">
-				<span className="panel-icon">
-					<i className="fas fa-book" aria-hidden="true"></i>
-				</span>
+			</PanelBlock>
+			<PanelBlock>
+				<PanelIcon icon="fas fa-book" />
 				marksheet
-			</a>
-			<a className="panel-block">
-				<span className="panel-icon">
-					<i className="fas fa-book" aria-hidden="true"></i>
-				</span>
+			</PanelBlock>
+			<PanelBlock>
+				<PanelIcon icon="fas fa-book" />
 				minireset.css
-			</a>
-			<a className="panel-block">
-				<span className="panel-icon">
-					<i className="fas fa-book" aria-hidden="true"></i>
-				</span>
+			</PanelBlock>
+			<PanelBlock>
+				<PanelIcon icon="fas fa-book" />
 				jgthms.github.io
-			</a>
-			<a className="panel-block">
-				<span className="panel-icon">
-					<i className="fas fa-code-branch" aria-hidden="true"></i>
-				</span>
+			</PanelBlock>
+			<PanelBlock>
+				<PanelIcon icon="fas fa-code-branch" />
 				daniellowtw/infboard
-			</a>
-			<a className="panel-block">
-				<span className="panel-icon">
-					<i className="fas fa-code-branch" aria-hidden="true"></i>
-				</span>
+			</PanelBlock>
+			<PanelBlock>
+				<PanelIcon icon="fas fa-code-branch" />
 				mojs
-			</a>
-			<label className="panel-block">
+			</PanelBlock>
+			<PanelBlock>
 				<input type="checkbox" />
 				remember me
-			</label>
-			<div className="panel-block">
+			</PanelBlock>
+			<PanelBlock>
 				<button className="button is-link is-outlined is-fullwidth">
 					Reset all
 				</button>
-			</div>
-		</nav>
+			</PanelBlock>
+		</BulmaPanel>
 	);
 };

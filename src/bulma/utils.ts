@@ -13,3 +13,7 @@ export const getAlignmentModifiers = getModifiersCreator<Bulma.Align>(
 	"isAlign",
 );
 export const getSizeModifiers = getModifiersCreator<Bulma.Sizes>("isSize");
+
+export const getActiveModifiers = ({ isActive }: Bulma.Active) => {
+	return isActive ? { [`is-active`]: true } : {};
+};
