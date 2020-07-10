@@ -11,6 +11,8 @@ import {
 } from "./../../bulma";
 import { editorStore } from "./../../store/editorStore";
 
+import { BaseTerrainEnum } from "./../../types";
+
 export const Panel = ({}) => {
 	const { currentInstrument } = useStore(editorStore);
 
@@ -27,7 +29,17 @@ export const Panel = ({}) => {
 			</PanelBlock>
 			<PanelBlock isActive>
 				<PanelIcon icon="fas fa-book" />
-				bulma
+				Base terrain
+				<br />
+				<div className="select">
+					<select>
+						{Object.keys(BaseTerrainEnum).map((terrain) => (
+							<option value={terrain} key={terrain}>
+								{terrain}
+							</option>
+						))}
+					</select>
+				</div>
 			</PanelBlock>
 			<PanelBlock>
 				<PanelIcon icon="fas fa-book" />
