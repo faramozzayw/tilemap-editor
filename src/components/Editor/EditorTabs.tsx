@@ -20,7 +20,11 @@ export const EditorTabs = () => {
 		<div className="tabs is-centered is-boxed is-fullwidth">
 			<ul>
 				{tabs.map((tab) => (
-					<EditorTab tabName={tab} isActive={tab === currentInstrument} />
+					<EditorTab
+						tabName={tab}
+						isActive={tab === currentInstrument}
+						key={tab}
+					/>
 				))}
 			</ul>
 		</div>
