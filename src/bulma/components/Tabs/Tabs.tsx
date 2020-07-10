@@ -9,7 +9,6 @@ export interface Tabs<T>
 		Bulma.Size,
 		Bulma.Tag,
 		React.HTMLProps<T> {
-	isAlign?: "left" | "centered" | "right";
 	isBoxed?: boolean;
 	isToggle?: boolean;
 }

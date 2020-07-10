@@ -2,10 +2,19 @@
 	z-index: 15;
 	position: absolute;
 	margin-left: 1rem;
-	min-width: 10vmin;
+	width: 25vw;
 }
 
 .canvas-panel .panel-block {
 	background: hsl(0, 0%, 93%);
 	filter: invert(1) opacity(0.99);
+}
+
+.canvas-panel .panel-block.panel-select {
+	display: flex;
+	align-items: baseline;
+}
+
+.canvas-panel .panel-block.panel-select .select {
+	margin-left: auto;
 }

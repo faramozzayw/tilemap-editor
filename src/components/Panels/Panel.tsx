@@ -13,13 +13,13 @@ import { editorStore } from "./../../store/editorStore";
 
 import { BaseTerrainEnum } from "./../../types";
 
-export const Panel = ({}) => {
+export const Panel = () => {
 	const { currentInstrument } = useStore(editorStore);
 
 	return (
 		<BulmaPanel isColor="info" className="canvas-panel">
 			<PanelHeading>{currentInstrument}</PanelHeading>
-			<PanelBlock>
+			<PanelBlock className="panel-select">
 				<p className="control has-icons-left">
 					<input className="input" type="text" placeholder="Search" />
 					<span className="icon is-left">
@@ -27,10 +27,9 @@ export const Panel = ({}) => {
 					</span>
 				</p>
 			</PanelBlock>
-			<PanelBlock isActive>
+			<PanelBlock isActive className="panel-select">
 				<PanelIcon icon="fas fa-book" />
 				Base terrain
-				<br />
 				<div className="select">
 					<select>
 						{Object.keys(BaseTerrainEnum).map((terrain) => (
@@ -41,9 +40,18 @@ export const Panel = ({}) => {
 					</select>
 				</div>
 			</PanelBlock>
-			<PanelBlock>
+			<PanelBlock className="panel-select">
 				<PanelIcon icon="fas fa-book" />
-				marksheet
+				Base terrain
+				<div className="select">
+					<select>
+						{Object.keys(BaseTerrainEnum).map((terrain) => (
+							<option value={terrain} key={terrain}>
+								{terrain}
+							</option>
+						))}
+					</select>
+				</div>
 			</PanelBlock>
 			<PanelBlock>
 				<PanelIcon icon="fas fa-book" />

@@ -10,7 +10,7 @@ export interface PanelBlock<T>
 		React.HTMLProps<T> {}
 
 export const PanelBlock: React.FC<PanelBlock<HTMLElement>> = ({
-	tag = "nav",
+	tag = "a",
 	isActive,
 	...props
 }) => {
