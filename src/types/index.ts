@@ -1,6 +1,24 @@
-import { type } from "os";
+export const enum BaseTerrainEnum {
+	Coast,
+	Desert,
+	Grassland,
+	Hill,
+	Mountain,
+	Ocean,
+	Plains,
+	Snow,
+	Tundra,
+	Forest,
+	Jungle,
+	Marsh,
+	Atoll,
+	FloodPlains,
+	Ice,
+	Lakes,
+	Oasis,
+}
 
-export type BaseTerrain = any;
+export type BaseTerrain = keyof typeof BaseTerrainEnum;
 export type TerrainFeatures = any;
 export type Resource = any;
 export type Unit = any;
