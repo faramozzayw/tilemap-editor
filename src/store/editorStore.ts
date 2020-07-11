@@ -1,15 +1,10 @@
 import { createStore, createEvent } from "effector";
 
-export type Instrument =
-	| "Terrain"
-	| "Resource"
-	| "Building"
-	| "Units"
-	| "Continents"
-	| "Owner";
+import { InstrumentsEnum } from "./../types";
+
+export type Instrument = keyof typeof InstrumentsEnum;
 
 export const changeInstrument = createEvent<Instrument>();
-
 export const reset = createEvent();
 
 export interface IEditorStore {

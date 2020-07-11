@@ -8,7 +8,8 @@ export declare namespace Bulma {
 		| "info"
 		| "success"
 		| "warning"
-		| "danger";
+		| "danger"
+		| "text";
 
 	export interface Color {
 		isColor?: Colors;

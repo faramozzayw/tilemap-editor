@@ -1,6 +1,7 @@
 .canvas-panel {
-	z-index: 15;
 	position: absolute;
+	top: 1rem;
+	z-index: 15;
 	margin-left: 1rem;
 	width: 25vw;
 }
@@ -17,4 +18,12 @@
 
 .canvas-panel .panel-block.panel-select .select {
 	margin-left: auto;
+}
+
+.canvas-panel .panel-heading {
+	transition: border-radius 0.5s ease-out;
+}
+
+.canvas-panel .panel-heading:not(.canvas-panel-active) {
+	border-radius: 6px !important;
 }

@@ -18,6 +18,15 @@ export enum BaseTerrainEnum {
 	Oasis = "Oasis",
 }
 
+export enum InstrumentsEnum {
+	Terrain = "Terrain",
+	Resource = "Resource",
+	Building = "Building",
+	Units = "Units",
+	Continents = "Continents",
+	Owner = "Owner",
+}
+
 export type BaseTerrain = keyof typeof BaseTerrainEnum;
 export type TerrainFeatures = any;
 export type Resource = any;
