@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Canvas } from "react-three-fiber";
-import { OrbitControls } from "drei";
+import React, { useEffect } from "react";
 
-import { $, Tile } from "./../../utils";
+import { CanvasBuild, Tile } from "./../../utils";
 import { MapConfig } from "./../../types";
+
+import { onMouseMove, onWindowResize } from "./../../utils/canvas";
 
 import { Panel } from "../Panels";
 
@@ -13,35 +13,44 @@ export type ISizes = null | {
 };
 
 export const EditorCanvas: React.FC<MapConfig> = ({ tiles }) => {
-	const [size, setSize] = useState<ISizes>(null);
-
 	useEffect(() => {
-		const { offsetWidth: width, offsetHeight: height } = $(
-			"#EditorCanvas-wrap",
-		)[0] as HTMLElement;
-		setSize({ width, height });
-	}, []);
+		const map = tiles?.map(
+			(elem) =>
+				new Tile({
+					position: elem.position,
+				}),
+		);
+		const { canvas, controls, mouse, camera, renderer, scene } = CanvasBuild(
+			"#main-canvas",
+			map ?? [],
+		);
 
-	if (!size) {
-		return null;
-	}
+		const animate = () => {
+			try {
+				requestAnimationFrame(animate);
+				controls.update();
+				renderer.render(scene, camera);
+			} catch (e) {
+				return;
+			}
+		};
+
+		animate();
+
+		const onMouseMoveHandler = onMouseMove(mouse, canvas);
+		const onWindowResizeHandler = onWindowResize(camera, canvas, renderer);
+
+		canvas.addEventListener("mousemove", onMouseMoveHandler, false);
+		window.addEventListener("resize", onWindowResizeHandler, false);
+		return () => {
+			canvas.removeEventListener("mousemove", onMouseMoveHandler);
+			canvas.removeEventListener("resize", onWindowResizeHandler);
+		};
+	}, []);
 
 	return (
 		<>
-			<Canvas
-				id="canvas-wrapper"
-				style={{ width: size!.width, height: size!.height }}
-				camera={{ position: [15, 15, 15] }}
-			>
-				<OrbitControls />
-				<gridHelper args={[200, 25]} />
-				<axesHelper />
-				<ambientLight />
-				<pointLight position={[10, 5, 10]} />
-				{tiles?.map((tile) => (
-					<Tile {...tile} key={tile.id} />
-				))}
-			</Canvas>
+			<canvas id="main-canvas"></canvas>
 			<Panel />
 		</>
 	);

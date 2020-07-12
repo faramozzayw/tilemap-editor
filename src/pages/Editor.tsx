@@ -6,7 +6,6 @@ import { EditorNavbar, EditorTabs, EditorCanvas } from "../components";
 import { Hero, HeroBody, HeroHeader, HeroFooter } from "./../bulma";
 
 import { mapStore } from "./../store/mapsStore";
-import { MapID } from "./../types";
 
 export const Editor = () => {
 	const { mapID } = useParams();

@@ -1,8 +1,5 @@
-import React from "react";
-import { Tile, range, randomColor } from "./index";
+import { range } from "./index";
 import { TileConfig, Resource, Unit } from "./../types";
-
-type TileBox = typeof Tile;
 
 export interface TileEntity {
 	position: number[];

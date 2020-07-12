@@ -1,8 +1,9 @@
 import * as THREE from "three";
 
 export { $ } from "./domUtils";
-export { Tile, TileConfig } from "./Tile";
+export { Tile, TileGeometryConfig } from "./Tile";
 export { generateGridMatrix } from "./generatorGridMatrix";
+export { CanvasBuild } from "./canvas";
 
 export const loader = new THREE.TextureLoader();
 
