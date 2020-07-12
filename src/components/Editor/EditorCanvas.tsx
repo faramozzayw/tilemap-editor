@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Canvas } from "react-three-fiber";
-import { OrbitControls } from "drei";
+import React, { useEffect } from "react";
 
-import { $, Tile } from "./../../utils";
+import { CanvasBuild, Tile } from "./../../utils";
 import { MapConfig } from "./../../types";
 
 import { Panel } from "../Panels";
+import { WebGLRenderer, PerspectiveCamera, Vector3 } from "three";
 
 export type ISizes = null | {
 	width: number;
@@ -13,35 +12,63 @@ export type ISizes = null | {
 };
 
 export const EditorCanvas: React.FC<MapConfig> = ({ tiles }) => {
-	const [size, setSize] = useState<ISizes>(null);
+	const onMouseMove = (mouse: Vector3, canvas: HTMLCanvasElement) => (
+		event: any,
+	) => {
+		event.preventDefault();
+
+		mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+		mouse.y = -(event.clientY / canvas.clientHeight) * 2 + 1;
+	};
+
+	const onWindowResize = (
+		camera: PerspectiveCamera,
+		canvas: HTMLCanvasElement,
+		renderer: WebGLRenderer,
+	) => () => {
+		camera.aspect = window.innerWidth / canvas.clientHeight;
+		camera.updateProjectionMatrix();
+		renderer.setSize(window.innerWidth, canvas.clientHeight);
+	};
 
 	useEffect(() => {
-		const { offsetWidth: width, offsetHeight: height } = $(
-			"#EditorCanvas-wrap",
-		)[0] as HTMLElement;
-		setSize({ width, height });
-	}, []);
+		const map = tiles?.map(
+			(elem) =>
+				new Tile({
+					position: elem.position,
+				}),
+		);
+		const { canvas, controls, mouse, camera, renderer, scene } = CanvasBuild(
+			"#main-canvas",
+			map ?? [],
+		);
 
-	if (!size) {
-		return null;
-	}
+		const animate = () => {
+			try {
+				requestAnimationFrame(animate);
+				controls.update();
+				renderer.render(scene, camera);
+			} catch (e) {
+				return;
+			}
+		};
+
+		animate();
+
+		const onMouseMoveHandler = onMouseMove(mouse, canvas);
+		const onWindowResizeHandler = onWindowResize(camera, canvas, renderer);
+
+		canvas.addEventListener("mousemove", onMouseMoveHandler, false);
+		window.addEventListener("resize", onWindowResizeHandler, false);
+		return () => {
+			canvas.removeEventListener("mousemove", onMouseMoveHandler);
+			canvas.removeEventListener("resize", onWindowResizeHandler);
+		};
+	}, []);
 
 	return (
 		<>
-			<Canvas
-				id="canvas-wrapper"
-				style={{ width: size!.width, height: size!.height }}
-				camera={{ position: [15, 15, 15] }}
-			>
-				<OrbitControls />
-				<gridHelper args={[200, 25]} />
-				<axesHelper />
-				<ambientLight />
-				<pointLight position={[10, 5, 10]} />
-				{tiles?.map((tile) => (
-					<Tile {...tile} key={tile.id} />
-				))}
-			</Canvas>
+			<canvas id="main-canvas"></canvas>
 			<Panel />
 		</>
 	);

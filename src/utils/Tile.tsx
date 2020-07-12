@@ -1,7 +1,7 @@
 import React, { useRef, useState, useMemo } from "react";
 import * as THREE from "three";
 
-import { loader } from "./index";
+import { loader, randomColor } from "./index";
 
 export interface ITileConfig {
 	readonly radiusTop: number;
@@ -17,35 +17,27 @@ export const TileConfig: ITileConfig = {
 	radialSegments: 6,
 };
 
-export const Tile = ({ position }: any) => {
-	const [hovered, setHover] = useState(false);
-	const mesh = useRef<THREE.Mesh | null>(null);
+export class Tile extends THREE.Object3D {
+	constructor({ position }: any) {
+		super();
 
-	const { radiusBottom, radiusTop, height, radialSegments } = TileConfig;
+		const { radiusBottom, radiusTop, height, radialSegments } = TileConfig;
 
-	const onClick = () => {
-		console.log(mesh.current);
-	};
+		const geometry = new THREE.CylinderBufferGeometry(
+			radiusTop,
+			radiusBottom,
+			height,
+			radialSegments,
+		);
 
-	return (
-		<group>
-			<mesh
-				position={position}
-				onClick={onClick}
-				onPointerOver={() => setHover(true)}
-				onPointerOut={() => setHover(false)}
-				ref={mesh}
-			>
-				<cylinderBufferGeometry
-					attach="geometry"
-					args={[radiusTop, radiusBottom, height, radialSegments]}
-				/>
-				<meshBasicMaterial
-					attach="material"
-					color={hovered ? "hotpink" : "orange"}
-					transparent
-				></meshBasicMaterial>
-			</mesh>
-		</group>
-	);
-};
+		const tileColor = randomColor();
+		const material = new THREE.MeshLambertMaterial({
+			color: tileColor,
+		});
+
+		const mesh = new THREE.Mesh(geometry, material);
+		this.add(mesh);
+		this.position.set(position[0], position[1], position[2]);
+		return this;
+	}
+}
