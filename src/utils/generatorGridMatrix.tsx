@@ -1,5 +1,4 @@
-import React from "react";
-import { Tile, range } from "./index";
+import { range } from "./index";
 import { TileConfig, Resource, Unit } from "./../types";
 
 export interface TileEntity {

@@ -1,27 +1,35 @@
-import React, { useRef, useState, useMemo } from "react";
 import * as THREE from "three";
 
-import { loader, randomColor } from "./index";
+import { randomColor } from "./index";
+import { TileConfig } from "../types";
 
-export interface ITileConfig {
+export interface ITileGeometryConfig {
 	readonly radiusTop: number;
 	readonly radiusBottom: number;
 	readonly height: number;
 	readonly radialSegments: number;
 }
 
-export const TileConfig: ITileConfig = {
+export const TileGeometryConfig: ITileGeometryConfig = {
 	radiusTop: 5.0,
 	radiusBottom: 5.5,
 	height: 0.25,
 	radialSegments: 6,
 };
 
+type TileContructProps = Pick<TileConfig, "position"> &
+	Partial<Omit<TileConfig, "position">>;
+
 export class Tile extends THREE.Object3D {
-	constructor({ position }: any) {
+	constructor({ position }: TileContructProps) {
 		super();
 
-		const { radiusBottom, radiusTop, height, radialSegments } = TileConfig;
+		const {
+			radiusBottom,
+			radiusTop,
+			height,
+			radialSegments,
+		} = TileGeometryConfig;
 
 		const geometry = new THREE.CylinderBufferGeometry(
 			radiusTop,

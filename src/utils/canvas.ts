@@ -1,8 +1,26 @@
 import * as THREE from "three";
+import { WebGLRenderer, PerspectiveCamera, Vector3 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-// import { VertexNormalsHelper } from "three/examples/jsm/helpers/VertexNormalsHelper";
 import { $ } from "./index";
-// import { Object3D } from "three";
+
+export const onMouseMove = (mouse: Vector3, canvas: HTMLCanvasElement) => (
+	event: any,
+) => {
+	event.preventDefault();
+
+	mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+	mouse.y = -(event.clientY / canvas.clientHeight) * 2 + 1;
+};
+
+export const onWindowResize = (
+	camera: PerspectiveCamera,
+	canvas: HTMLCanvasElement,
+	renderer: WebGLRenderer,
+) => () => {
+	camera.aspect = window.innerWidth / canvas.clientHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, canvas.clientHeight);
+};
 
 export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 	const canvas = $(selector)[0] as HTMLCanvasElement;
