@@ -11,7 +11,7 @@ export interface TileEntity {
 type RawTile = Omit<Omit<TileConfig, "id">, "position">;
 
 export const baseTile: RawTile = {
-	baseTerrain: "water",
+	baseTerrain: "Ocean",
 	terrainFeatures: "none",
 	resource: [] as Resource,
 	units: [] as Unit,

@@ -24,7 +24,7 @@ export const Editor = () => {
 				<EditorNavbar />
 			</HeroHeader>
 
-			<HeroBody className="is-paddingless" id="EditorCanvas-wrap">
+			<HeroBody className="is-paddingless is-relative" id="EditorCanvas-wrap">
 				<EditorCanvas {...currentMap} />
 			</HeroBody>
 
