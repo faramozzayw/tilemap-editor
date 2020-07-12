@@ -38,7 +38,7 @@ export class Tile extends THREE.Object3D {
 			radialSegments,
 		);
 
-		const tileColor = randomColor();
+		const tileColor = "#9E1086";
 		const material = new THREE.MeshLambertMaterial({
 			color: tileColor,
 		});
