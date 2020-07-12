@@ -17,7 +17,7 @@ import { BaseTerrainEnum } from "./../../types";
 
 export const Panel = () => {
 	const { currentInstrument } = useStore(editorStore);
-	const [isOpenPanel, setOpenPanel] = useState(false);
+	const [isOpenPanel, setOpenPanel] = useState(true);
 
 	const togglePanel = () => setOpenPanel(!isOpenPanel);
 
@@ -38,69 +38,71 @@ export const Panel = () => {
 					<strong>{isOpenPanel ? "Close" : "Open"} panel</strong>
 				</Button>
 			</PanelHeading>
-			{isOpenPanel && (
-				<>
-					<PanelBlock className="panel-select">
-						<p className="control has-icons-left">
-							<input className="input" type="text" placeholder="Search" />
-							<span className="icon is-left">
-								<i className="fas fa-search" aria-hidden="true"></i>
-							</span>
-						</p>
-					</PanelBlock>
-					<PanelBlock isActive className="panel-select">
-						<PanelIcon icon="fas fa-book" />
-						Base terrain
-						<div className="select">
-							<select>
-								{Object.keys(BaseTerrainEnum).map((terrain) => (
-									<option value={terrain} key={terrain}>
-										{terrain}
-									</option>
-								))}
-							</select>
-						</div>
-					</PanelBlock>
-					<PanelBlock className="panel-select">
-						<PanelIcon icon="fas fa-book" />
-						Feature terrain
-						<div className="select">
-							<select>
-								{Object.keys(BaseTerrainEnum).map((terrain) => (
-									<option value={terrain} key={terrain}>
-										{terrain}
-									</option>
-								))}
-							</select>
-						</div>
-					</PanelBlock>
-					<PanelBlock>
-						<PanelIcon icon="fas fa-book" />
-						minireset.css
-					</PanelBlock>
-					<PanelBlock>
-						<PanelIcon icon="fas fa-book" />
-						jgthms.github.io
-					</PanelBlock>
-					<PanelBlock>
-						<PanelIcon icon="fas fa-code-branch" />
-						daniellowtw/infboard
-					</PanelBlock>
-					<PanelBlock>
-						<PanelIcon icon="fas fa-code-branch" />
-						mojs
-					</PanelBlock>
-					<PanelBlock>
-						<input type="checkbox" />
-						remember me
-					</PanelBlock>
-					<PanelBlock>
-						<button className="button is-link is-outlined is-fullwidth">
-							Reset all
-						</button>
-					</PanelBlock>
-				</>
-			)}
+			<div className="panel-body">
+				{isOpenPanel && (
+					<>
+						<PanelBlock className="panel-select">
+							<p className="control has-icons-left">
+								<input className="input" type="text" placeholder="Search" />
+								<span className="icon is-left">
+									<i className="fas fa-search" aria-hidden="true"></i>
+								</span>
+							</p>
+						</PanelBlock>
+						<PanelBlock isActive className="panel-select">
+							<PanelIcon icon="fas fa-book" />
+							Base terrain
+							<div className="select">
+								<select>
+									{Object.keys(BaseTerrainEnum).map((terrain) => (
+										<option value={terrain} key={terrain}>
+											{terrain}
+										</option>
+									))}
+								</select>
+							</div>
+						</PanelBlock>
+						<PanelBlock className="panel-select">
+							<PanelIcon icon="fas fa-book" />
+							Feature terrain
+							<div className="select">
+								<select>
+									{Object.keys(BaseTerrainEnum).map((terrain) => (
+										<option value={terrain} key={terrain}>
+											{terrain}
+										</option>
+									))}
+								</select>
+							</div>
+						</PanelBlock>
+						<PanelBlock>
+							<PanelIcon icon="fas fa-book" />
+							minireset.css
+						</PanelBlock>
+						<PanelBlock>
+							<PanelIcon icon="fas fa-book" />
+							jgthms.github.io
+						</PanelBlock>
+						<PanelBlock>
+							<PanelIcon icon="fas fa-code-branch" />
+							daniellowtw/infboard
+						</PanelBlock>
+						<PanelBlock>
+							<PanelIcon icon="fas fa-code-branch" />
+							mojs
+						</PanelBlock>
+						<PanelBlock>
+							<input type="checkbox" />
+							remember me
+						</PanelBlock>
+						<PanelBlock className="is-radiusless">
+							<button className="button is-link is-outlined is-fullwidth">
+								Reset all
+							</button>
+						</PanelBlock>
+					</>
+				)}
+			</div>
 		</BulmaPanel>
 	);
 };
