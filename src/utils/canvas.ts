@@ -1,10 +1,10 @@
 import * as THREE from "three";
-import { WebGLRenderer, PerspectiveCamera, Vector3 } from "three";
+import { WebGLRenderer, PerspectiveCamera, Vector3, Object3D } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { $ } from "./index";
 
 export const onMouseMove = (mouse: Vector3, canvas: HTMLCanvasElement) => (
-	event: any,
+	event: MouseEvent,
 ) => {
 	event.preventDefault();
 
@@ -22,7 +22,7 @@ export const onWindowResize = (
 	renderer.setSize(window.innerWidth, canvas.clientHeight);
 };
 
-export const CanvasBuild = (selector: string, tiles: any[] = []) => {
+export const CanvasBuild = (selector: string, tiles: Object3D[] = []) => {
 	const canvas = $(selector)[0] as HTMLCanvasElement;
 
 	if (!canvas) {
