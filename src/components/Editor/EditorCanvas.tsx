@@ -20,14 +20,21 @@ export const EditorCanvas: React.FC<MapConfig> = ({ tiles }) => {
 					position: elem.position,
 				}),
 		);
-		const { canvas, controls, mouse, camera, renderer, scene } = CanvasBuild(
-			"#main-canvas",
-			map ?? [],
-		);
+		const {
+			canvas,
+			controls,
+			mouse,
+			camera,
+			renderer,
+			scene,
+			raycaster,
+		} = CanvasBuild("#main-canvas", map ?? []);
 
 		const animate = () => {
 			try {
 				requestAnimationFrame(animate);
+				raycaster.setFromCamera(mouse, camera);
+
 				controls.update();
 				renderer.render(scene, camera);
 			} catch (e) {

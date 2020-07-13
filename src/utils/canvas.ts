@@ -1,9 +1,9 @@
 import * as THREE from "three";
-import { WebGLRenderer, PerspectiveCamera, Vector3, Object3D } from "three";
+import { WebGLRenderer, PerspectiveCamera, Vector2, Object3D } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { $ } from "./index";
 
-export const onMouseMove = (mouse: Vector3, canvas: HTMLCanvasElement) => (
+export const onMouseMove = (mouse: Vector2, canvas: HTMLCanvasElement) => (
 	event: MouseEvent,
 ) => {
 	event.preventDefault();
@@ -32,7 +32,7 @@ export const CanvasBuild = (selector: string, tiles: Object3D[] = []) => {
 	const { offsetWidth: canvasWidth, offsetHeight: canvasHeight } = canvas;
 	let entities: any[] = [];
 
-	const mouse = new THREE.Vector3(9999, 9999);
+	const mouse = new THREE.Vector2(9999, 9999);
 	const scene = new THREE.Scene();
 	const camera = new THREE.PerspectiveCamera(
 		75,
