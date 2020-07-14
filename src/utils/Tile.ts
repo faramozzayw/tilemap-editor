@@ -1,6 +1,13 @@
-import * as THREE from "three";
+import {
+	Scene,
+	Vector3,
+	Mesh,
+	ActionManager,
+	ExecuteCodeAction,
+	StandardMaterial,
+	Color3,
+} from "babylonjs";
 
-import { randomColor } from "./index";
 import { TileConfig } from "../types";
 
 export interface ITileGeometryConfig {
@@ -20,6 +27,7 @@ export const TileGeometryConfig: ITileGeometryConfig = {
 type TileContructProps = Pick<TileConfig, "position"> &
 	Partial<Omit<TileConfig, "position">>;
 
+/*
 export class Tile extends THREE.Object3D {
 	constructor({ position }: TileContructProps) {
 		super();
@@ -49,3 +57,46 @@ export class Tile extends THREE.Object3D {
 		return this;
 	}
 }
+*/
+export const Tile = ({ position, scene }: { position: any; scene: Scene }) => {
+	const {
+		radiusBottom,
+		radiusTop,
+		height,
+		radialSegments,
+	} = TileGeometryConfig;
+	const mesh = Mesh.CreateCylinder(
+		"tile",
+		height,
+		radiusTop * 2,
+		radiusBottom * 2,
+		radialSegments,
+		3,
+		scene,
+		false,
+	);
+	const material = new StandardMaterial("tile material", scene);
+
+	material.diffuseColor = new Color3(1, 0, 1);
+	material.specularColor = new Color3(0.5, 0.6, 0.87);
+	material.emissiveColor = new Color3(1, 1, 1);
+	material.ambientColor = new Color3(0.23, 0.98, 0.53);
+	//material.wireframe = true;
+
+	mesh.material = material;
+
+	mesh.rotation = new Vector3(0, 10, 0);
+	mesh.position = position;
+
+	const actionManager = new ActionManager(scene);
+	mesh.actionManager = actionManager;
+	mesh.actionManager.registerAction(
+		new ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, (event) => {
+			const wireframe = event.source.material.wireframe;
+			event.source.material.wireframe = !wireframe;
+			console.log(event.source.material);
+		}),
+	);
+
+	return mesh;
+};

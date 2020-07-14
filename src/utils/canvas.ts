@@ -1,80 +1,57 @@
-import * as THREE from "three";
-import { WebGLRenderer, PerspectiveCamera, Vector2, Object3D } from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import { $ } from "./index";
+import {
+	Scene,
+	Engine,
+	FreeCamera,
+	Vector3,
+	HemisphericLight,
+	Mesh,
+	ArcRotateCamera,
+	ActionManager,
+} from "babylonjs";
+import { $, Tile } from "./index";
 
-export const onMouseMove = (mouse: Vector2, canvas: HTMLCanvasElement) => (
-	event: MouseEvent,
-) => {
-	event.preventDefault();
-
-	mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-	mouse.y = -(event.clientY / canvas.clientHeight) * 2 + 1;
-};
-
-export const onWindowResize = (
-	camera: PerspectiveCamera,
-	canvas: HTMLCanvasElement,
-	renderer: WebGLRenderer,
-) => () => {
-	camera.aspect = window.innerWidth / canvas.clientHeight;
-	camera.updateProjectionMatrix();
-	renderer.setSize(window.innerWidth, canvas.clientHeight);
-};
-
-export const CanvasBuild = (selector: string, tiles: Object3D[] = []) => {
+export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 	const canvas = $(selector)[0] as HTMLCanvasElement;
 
 	if (!canvas) {
 		throw Error("Check your selector");
 	}
 
-	const { offsetWidth: canvasWidth, offsetHeight: canvasHeight } = canvas;
-	let entities: any[] = [];
-
-	const mouse = new THREE.Vector2(9999, 9999);
-	const scene = new THREE.Scene();
-	const camera = new THREE.PerspectiveCamera(
-		75,
-		canvasWidth / canvasHeight,
-		0.1,
-		1000,
-	);
-
-	const renderer = new THREE.WebGLRenderer({
-		canvas,
-		alpha: true,
+	const antialias = true;
+	const engine = new Engine(canvas, antialias, {
+		preserveDrawingBuffer: true,
+		stencil: true,
 	});
 
-	renderer.setPixelRatio(window.devicePixelRatio);
-	renderer.setSize(canvasWidth, canvasHeight);
+	const scene = new Scene(engine);
+	const camera = new ArcRotateCamera(
+		"camera1",
+		-Math.PI / 2,
+		Math.PI / 3,
+		10,
+		new Vector3(0, 2, -10),
+		scene,
+	);
 
-	const light = new THREE.PointLight(0xffffff);
-	light.position.set(-10, 15, 50);
-	entities.push(light);
+	camera.setTarget(Vector3.Zero());
+	camera.attachControl(canvas, false);
 
-	const controls = new OrbitControls(camera, renderer.domElement);
-	const raycaster = new THREE.Raycaster();
+	const light = new HemisphericLight("light1", new Vector3(0, 1, 0), scene);
 
-	camera.position.setY(150);
-	camera.position.setZ(50);
+	const mapTiles = tiles.map((tile) => {
+		const position = new Vector3(...tile.position);
 
-	controls.update();
-
-	entities.push(new THREE.GridHelper(200, 25));
-
-	entities.push(...tiles);
-
-	entities.forEach((entity) => scene.add(entity));
+		return Tile({
+			position,
+			scene,
+		});
+	});
 
 	return {
 		canvas,
-		mouse,
 		scene,
 		camera,
-		renderer,
 		light,
-		controls,
-		raycaster,
+		engine,
 	};
 };

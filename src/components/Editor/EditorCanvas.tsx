@@ -3,9 +3,8 @@ import React, { useEffect } from "react";
 import { CanvasBuild, Tile } from "./../../utils";
 import { MapConfig } from "./../../types";
 
-import { onMouseMove, onWindowResize } from "./../../utils/canvas";
-
 import { Panel } from "../Panels";
+import { Vector3 } from "babylonjs";
 
 export type ISizes = null | {
 	width: number;
@@ -14,44 +13,22 @@ export type ISizes = null | {
 
 export const EditorCanvas: React.FC<MapConfig> = ({ tiles }) => {
 	useEffect(() => {
-		const map = tiles?.map(
-			(elem) =>
-				new Tile({
-					position: elem.position,
-				}),
+		const { canvas, camera, scene, engine } = CanvasBuild(
+			"#main-canvas",
+			tiles as any[],
 		);
-		const {
-			canvas,
-			controls,
-			mouse,
-			camera,
-			renderer,
-			scene,
-			raycaster,
-		} = CanvasBuild("#main-canvas", map ?? []);
 
-		const animate = () => {
-			try {
-				requestAnimationFrame(animate);
-				raycaster.setFromCamera(mouse, camera);
+		engine.runRenderLoop(() => {
+			scene.render();
+		});
 
-				controls.update();
-				renderer.render(scene, camera);
-			} catch (e) {
-				return;
-			}
+		const resizeHandler = () => {
+			engine.resize();
 		};
 
-		animate();
-
-		const onMouseMoveHandler = onMouseMove(mouse, canvas);
-		const onWindowResizeHandler = onWindowResize(camera, canvas, renderer);
-
-		canvas.addEventListener("mousemove", onMouseMoveHandler, false);
-		window.addEventListener("resize", onWindowResizeHandler, false);
+		canvas.addEventListener("resize", resizeHandler, false);
 		return () => {
-			canvas.removeEventListener("mousemove", onMouseMoveHandler);
-			canvas.removeEventListener("resize", onWindowResizeHandler);
+			canvas.removeEventListener("resize", resizeHandler);
 		};
 	}, []);
 
