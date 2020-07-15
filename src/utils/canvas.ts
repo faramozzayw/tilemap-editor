@@ -4,6 +4,7 @@ import {
 	Vector3,
 	HemisphericLight,
 	ArcRotateCamera,
+	Mesh,
 } from "babylonjs";
 import { $, Tile } from "./index";
 
@@ -36,6 +37,10 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 	camera.attachControl(canvas, false);
 
 	const light = new HemisphericLight("light1", new Vector3(0, 1, 0), scene);
+	const ground = Mesh.CreateGround("ground1", 100, 100, 2, scene);
+	ground.position.x += 15;
+	ground.position.z += 15;
+	ground.position.y = -0.25;
 
 	const mapTiles = tiles.map((tile) => {
 		const position = new Vector3(...tile.position);

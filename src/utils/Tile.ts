@@ -56,7 +56,7 @@ export const Tile = ({ position, scene }: { position: any; scene: Scene }) => {
 	const actionManager = new ActionManager(scene);
 	mesh.actionManager = actionManager;
 	mesh.actionManager.registerAction(
-		new ExecuteCodeAction(BABYLON.ActionManager.OnPickTrigger, (event) => {
+		new ExecuteCodeAction(ActionManager.OnPickTrigger, (event) => {
 			setCurrentObject(event.source);
 		}),
 	);

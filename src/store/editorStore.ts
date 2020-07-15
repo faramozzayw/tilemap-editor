@@ -27,13 +27,11 @@ export const editorStore = createStore<IEditorStore>(initState)
 		};
 	})
 	.on(setCurrentObject, (state, newObject) => {
-		try {
-			state!.currentObject!.material!.wireframe = false;
-		} catch {}
+		if (state.currentObject) {
+			state.currentObject!.material!.wireframe = false;
+		}
 
-		try {
-			newObject!.material!.wireframe = true;
-		} catch {}
+		newObject!.material!.wireframe = true;
 
 		return {
 			...state,
