@@ -33,17 +33,6 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 		new Vector3(0, 2, -10),
 		scene,
 	);
-	/*
-    camera.mode = Camera.ORTHOGRAPHIC_CAMERA;
-
-    var distance = 500;
-    // @ts-ignore
-    var aspect = scene.getEngine().getRenderingCanvasClientRect().height / scene.getEngine().getRenderingCanvasClientRect().width; 
-    camera.orthoLeft = -distance / 6;
-    camera.orthoRight = distance / 6;
-    camera.orthoBottom = camera.orthoLeft * aspect;
-    camera.orthoTop = camera.orthoRight * aspect;
-    */
 
 	camera.upperBetaLimit = 2;
 	camera.wheelPrecision = 5;
