@@ -50,7 +50,7 @@ export const Tile = ({ position, scene }: { position: any; scene: Scene }) => {
 	material.diffuseColor = new Color3(1, 0, 1);
 	mesh.material = material;
 
-	mesh.rotation = new Vector3(0, 10, 0);
+	mesh.rotation = new Vector3(0, 11, 0);
 	mesh.position = position;
 
 	const actionManager = new ActionManager(scene);

@@ -22,13 +22,13 @@ export const generateGridMatrix = (
 	let tiles: TileConfig[] = [];
 
 	const dx = 10;
-	const dy = 8.5 / 2;
+	const dy = 8.5;
 
 	for (const i of range(0, rows)) {
 		const row: TileConfig[] = [];
 
 		for (const j of range(0, columns)) {
-			const zOffset = j * dy * 2;
+			const zOffset = j * dy;
 			const basicXOffset = i * dx;
 
 			const position =
