@@ -1,12 +1,9 @@
 import {
 	Scene,
 	Engine,
-	FreeCamera,
 	Vector3,
 	HemisphericLight,
-	Mesh,
 	ArcRotateCamera,
-	ActionManager,
 } from "babylonjs";
 import { $, Tile } from "./index";
 
@@ -33,7 +30,9 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 		scene,
 	);
 
-	camera.setTarget(Vector3.Zero());
+	camera.speed = 5;
+
+	camera.setTarget(new Vector3(0, 0, 30));
 	camera.attachControl(canvas, false);
 
 	const light = new HemisphericLight("light1", new Vector3(0, 1, 0), scene);

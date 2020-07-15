@@ -4,7 +4,6 @@ import { CanvasBuild, Tile } from "./../../utils";
 import { MapConfig } from "./../../types";
 
 import { Panel } from "../Panels";
-import { Vector3 } from "babylonjs";
 
 export type ISizes = null | {
 	width: number;
