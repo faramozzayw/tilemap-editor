@@ -25,9 +25,9 @@ export const EditorCanvas: React.FC<MapConfig> = ({ tiles }) => {
 			engine.resize();
 		};
 
-		canvas.addEventListener("resize", resizeHandler, false);
+		window.addEventListener("resize", resizeHandler, false);
 		return () => {
-			canvas.removeEventListener("resize", resizeHandler);
+			window.removeEventListener("resize", resizeHandler);
 		};
 	}, []);
 
