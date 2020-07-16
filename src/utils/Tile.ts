@@ -6,6 +6,7 @@ import {
 	ExecuteCodeAction,
 	StandardMaterial,
 	Color3,
+	Tools,
 } from "babylonjs";
 
 import { TileConfig } from "../types";
@@ -28,7 +29,16 @@ export const TileGeometryConfig: ITileGeometryConfig = {
 type TileContructProps = Pick<TileConfig, "position"> &
 	Partial<Omit<TileConfig, "position">>;
 
-export const Tile = ({ position, scene }: { position: any; scene: Scene }) => {
+export const tileRotation = Tools.ToRadians(90);
+console.log(tileRotation);
+
+export const Tile = ({
+	position,
+	scene,
+}: {
+	position: Vector3;
+	scene: Scene;
+}) => {
 	const {
 		radiusBottom,
 		radiusTop,
@@ -50,7 +60,7 @@ export const Tile = ({ position, scene }: { position: any; scene: Scene }) => {
 	material.diffuseColor = new Color3(1, 0, 1);
 	mesh.material = material;
 
-	mesh.rotation = new Vector3(0, 11, 0);
+	mesh.rotation = new Vector3(0, tileRotation, 0);
 	mesh.position = position;
 
 	const actionManager = new ActionManager(scene);
