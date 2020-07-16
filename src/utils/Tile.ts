@@ -7,10 +7,15 @@ import {
 	StandardMaterial,
 	Color3,
 	Tools,
+	SpriteManager,
+	Texture,
 } from "babylonjs";
+import { resolve } from "path";
 
 import { TileConfig } from "../types";
 import { setCurrentObject } from "../store/editorStore";
+
+import url from "./WWT-07.png";
 
 export interface ITileGeometryConfig {
 	readonly radiusTop: number;
@@ -19,8 +24,10 @@ export interface ITileGeometryConfig {
 	readonly radialSegments: number;
 }
 
+/// radiusTop <= radiusBottom
+
 export const TileGeometryConfig: ITileGeometryConfig = {
-	radiusTop: 5.0,
+	radiusTop: 5.5,
 	radiusBottom: 5.5,
 	height: 0.25,
 	radialSegments: 6,
@@ -51,13 +58,18 @@ export const Tile = ({
 		radiusTop * 2,
 		radiusBottom * 2,
 		radialSegments,
-		3,
+		1,
 		scene,
 		false,
 	);
 	const material = new StandardMaterial("tile material", scene);
 
-	material.diffuseColor = new Color3(1, 0, 1);
+	// material.diffuseColor = new Color3(1, 0, 1);
+	const texture = new Texture(url, scene);
+	material.diffuseTexture = texture;
+	material.specularTexture = texture;
+	material.emissiveTexture = texture;
+	material.ambientTexture = texture;
 	mesh.material = material;
 
 	mesh.rotation = new Vector3(0, tileRotation, 0);

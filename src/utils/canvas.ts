@@ -8,7 +8,11 @@ import {
 	StandardMaterial,
 	Color3,
 	Camera,
+	SpriteManager,
+	Sprite,
 } from "babylonjs";
+import { resolve } from "path";
+
 import { $, Tile } from "./index";
 
 export const CanvasBuild = (selector: string, tiles: any[] = []) => {
@@ -41,7 +45,7 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 	camera.setTarget(new Vector3(0, 0, 30));
 	camera.attachControl(canvas, false);
 
-	const light = new HemisphericLight("light1", new Vector3(0, 1, 0), scene);
+	const light = new HemisphericLight("light1", new Vector3(1, 1, 1), scene);
 	const ground = Mesh.CreateGround("ground1", 100, 100, 2, scene);
 	ground.position = new Vector3(15, -0.25, 15);
 
