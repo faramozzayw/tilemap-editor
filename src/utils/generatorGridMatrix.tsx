@@ -21,8 +21,8 @@ export const generateGridMatrix = (
 	let id = 0;
 	let tiles: TileConfig[] = [];
 
-	const dx = 10;
-	const dy = 8.5 / 2;
+	const dx = 9.5;
+	const dy = 8.25 / 2;
 
 	for (const i of range(0, rows)) {
 		const row: TileConfig[] = [];
