@@ -10,6 +10,8 @@ import {
 	Camera,
 	SpriteManager,
 	Sprite,
+	Texture,
+	MeshBuilder,
 } from "babylonjs";
 import { resolve } from "path";
 
