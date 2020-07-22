@@ -11,7 +11,7 @@ import {
 	PanelIcon,
 	Button,
 } from "./../../bulma";
-import { editorStore } from "./../../store/editorStore";
+import { editorStore, setCurrentTerrain } from "./../../store/editorStore";
 
 import { BaseTerrainEnum } from "./../../types";
 
@@ -53,7 +53,12 @@ export const Panel = () => {
 							<PanelIcon icon="fas fa-book" />
 							Base terrain
 							<div className="select">
-								<select>
+								<select
+									onChange={(e) => {
+										// @ts-ignore
+										setCurrentTerrain(e.target.value);
+									}}
+								>
 									{Object.keys(BaseTerrainEnum).map((terrain) => (
 										<option value={terrain} key={terrain}>
 											{terrain}
