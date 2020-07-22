@@ -1,19 +1,13 @@
 import {
 	Scene,
 	Vector3,
-	Mesh,
 	ActionManager,
 	ExecuteCodeAction,
 	StandardMaterial,
-	Color3,
 	Tools,
-	SpriteManager,
-	Texture,
 	MeshBuilder,
 } from "babylonjs";
-import { resolve } from "path";
 
-import { TileConfig } from "../../types";
 import { setCurrentObject } from "../../store/editorStore";
 
 import { TileGeometryConfig, textures } from "./index";
@@ -38,7 +32,7 @@ export const Tile = ({
 		height,
 		diameterTop: radiusTop * 2,
 		diameterBottom: radiusBottom * 2,
-		tessellation: 6,
+		tessellation: radialSegments,
 		hasRings: true,
 	});
 	const material = new StandardMaterial("tile material", scene);

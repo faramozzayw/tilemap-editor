@@ -44,6 +44,7 @@ export const editorStore = createStore<IEditorStore>(initState)
 		if (state.currentObject) {
 			// @ts-ignore
 			state.currentObject!.material!.diffuseColor =
+				// @ts-ignore
 				textures[newBaseTerrain] ?? new Color3(1, 1, 1);
 		}
 	})
