@@ -1,5 +1,5 @@
-import { TileConfig } from "./../../types";
-import { Color3 } from "babylonjs";
+import { TileConfig, BaseTerrain, BaseTerrainEnum } from "./../../types";
+import { Color3, Color3Gradient } from "babylonjs";
 
 export { Tile } from "./Tile";
 
@@ -13,6 +13,8 @@ export interface ITileGeometryConfig {
 export type TileContructProps = Pick<TileConfig, "position"> &
 	Partial<Omit<TileConfig, "position">>;
 
+export type TileMetadata = Partial<Omit<TileConfig, "position">>;
+
 export const TileGeometryConfig: ITileGeometryConfig = {
 	radiusTop: 5.5,
 	radiusBottom: 5.5,
@@ -20,8 +22,16 @@ export const TileGeometryConfig: ITileGeometryConfig = {
 	radialSegments: 6,
 };
 
-export const textures = {
-	Coast: new Color3(1, 0, 1),
-	Desert: new Color3(0.4, 0.1, 1),
-	Grassland: new Color3(0.25, 0.12, 0.14),
+export type Textures = {
+	[key in BaseTerrainEnum]: Color3;
+};
+
+export const textures: Textures = {
+	Coast: new Color3(0.1, 0.1, 0.1),
+	Desert: new Color3(1, 1, 0),
+	Grassland: new Color3(0, 0.9, 0.1),
+	Forest: new Color3(0.25, 0.7, 0),
+	Jungle: new Color3(0.1, 0.95, 0.1),
+	Ocean: new Color3(0.25, 0.1, 0.85),
+	Snow: new Color3(1, 1, 1),
 };

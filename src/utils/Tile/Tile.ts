@@ -1,22 +1,16 @@
 import {
 	Scene,
 	Vector3,
-	Mesh,
 	ActionManager,
 	ExecuteCodeAction,
 	StandardMaterial,
-	Color3,
 	Tools,
-	SpriteManager,
-	Texture,
 	MeshBuilder,
 } from "babylonjs";
-import { resolve } from "path";
 
-import { TileConfig } from "../../types";
 import { setCurrentObject } from "../../store/editorStore";
 
-import { TileGeometryConfig, textures } from "./index";
+import { TileGeometryConfig, textures, TileMetadata } from "./index";
 
 export const tileRotation = Tools.ToRadians(90);
 export const defaultTerrain = "Grassland";
@@ -24,9 +18,11 @@ export const defaultTerrain = "Grassland";
 export const Tile = ({
 	position,
 	scene,
+	metadata,
 }: {
 	position: Vector3;
 	scene: Scene;
+	metadata: TileMetadata;
 }) => {
 	const {
 		radiusBottom,
@@ -38,17 +34,20 @@ export const Tile = ({
 		height,
 		diameterTop: radiusTop * 2,
 		diameterBottom: radiusBottom * 2,
-		tessellation: 6,
+		tessellation: radialSegments,
 		hasRings: true,
 	});
 	const material = new StandardMaterial("tile material", scene);
 
-	material.diffuseColor = textures[defaultTerrain];
+	// @ts-ignore
+	material.diffuseColor = textures[metadata.baseTerrain];
 
 	mesh.material = material;
 
 	mesh.rotation = new Vector3(0, tileRotation, 0);
 	mesh.position = position;
+
+	mesh.metadata = metadata;
 
 	const actionManager = new ActionManager(scene);
 	mesh.actionManager = actionManager;
