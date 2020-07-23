@@ -51,6 +51,9 @@ export const editorStore = createStore<IEditorStore>(initState)
 				// @ts-ignore
 				textures[newBaseTerrain] ?? new Color3(1, 1, 1);
 
+			// @ts-ignore
+			console.log(state.currentObject!.material!.diffuseColor);
+
 			return {
 				...state,
 				currentBaseTerrain: newBaseTerrain,

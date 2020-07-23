@@ -10,7 +10,7 @@ import {
 
 import { setCurrentObject } from "../../store/editorStore";
 
-import { TileGeometryConfig, textures } from "./index";
+import { TileGeometryConfig, textures, TileMetadata } from "./index";
 
 export const tileRotation = Tools.ToRadians(90);
 export const defaultTerrain = "Grassland";
@@ -22,7 +22,7 @@ export const Tile = ({
 }: {
 	position: Vector3;
 	scene: Scene;
-	metadata?: any;
+	metadata: TileMetadata;
 }) => {
 	const {
 		radiusBottom,
@@ -39,7 +39,8 @@ export const Tile = ({
 	});
 	const material = new StandardMaterial("tile material", scene);
 
-	material.diffuseColor = textures[defaultTerrain];
+	// @ts-ignore
+	material.diffuseColor = textures[metadata.baseTerrain];
 
 	mesh.material = material;
 
