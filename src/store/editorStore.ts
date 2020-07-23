@@ -46,13 +46,11 @@ export const editorStore = createStore<IEditorStore>(initState)
 	.on(setCurrentTerrain, (state, newBaseTerrain) => {
 		if (state.currentObject) {
 			state.currentObject.metadata.baseTerrain = newBaseTerrain;
+
 			// @ts-ignore
 			state.currentObject!.material!.diffuseColor =
 				// @ts-ignore
 				textures[newBaseTerrain] ?? new Color3(1, 1, 1);
-
-			// @ts-ignore
-			console.log(state.currentObject!.material!.diffuseColor);
 
 			return {
 				...state,

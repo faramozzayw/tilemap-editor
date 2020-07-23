@@ -22,7 +22,11 @@ export const TileGeometryConfig: ITileGeometryConfig = {
 	radialSegments: 6,
 };
 
-export const textures = {
+export type Textures = {
+	[key in BaseTerrainEnum]: Color3;
+};
+
+export const textures: Textures = {
 	Coast: new Color3(0.1, 0.1, 0.1),
 	Desert: new Color3(1, 1, 0),
 	Grassland: new Color3(0, 0.9, 0.1),

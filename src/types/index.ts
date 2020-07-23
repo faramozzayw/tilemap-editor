@@ -13,7 +13,7 @@ export enum BaseTerrainEnum {
 	//	Marsh = "Marsh",
 	//	Atoll = "Atoll",
 	//	FloodPlains = "FloodPlains",
-	Ice = "Ice",
+	// Ice = "Ice",
 	//	Lakes = "Lakes",
 	//	Oasis = "Oasis",
 }
