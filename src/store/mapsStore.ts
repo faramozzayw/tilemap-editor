@@ -2,16 +2,23 @@ import { createStore, createEvent } from "effector";
 
 import { MapConfig, MapID } from "./../types";
 import { generateGridMatrix } from "./../utils";
+import { TileMetadata } from "../utils/Tile";
 
 export interface IMapStore {
+	currentMapID: MapID | null;
 	maps: MapConfig[];
 }
 
 export const createMap = createEvent<MapConfig>("Create new map");
-export const deleteMap = createEvent<MapID>();
+export const deleteMap = createEvent<MapID>("Delete map");
+export const saveMap = createEvent<TileMetadata>("Save map");
+
+export const changeCurrentMapID = createEvent<MapID>();
+
 export const reset = createEvent();
 
 export const initState: IMapStore = {
+	currentMapID: "id0",
 	maps: [],
 };
 
@@ -36,6 +43,38 @@ export const mapStore = createStore<IMapStore>(initState)
 			maps: oldMaps.filter(({ id }) => id !== mapID),
 		};
 	})
+	.on(saveMap, (store, metadata) => {
+		const { maps, currentMapID } = store;
+
+		const mapsClone = [...maps];
+
+		for (let map of mapsClone) {
+			if (map.id === currentMapID) {
+				const tileIndex = map.tiles.findIndex(
+					(tile) => metadata.id === tile.id,
+				);
+
+				map.tiles[tileIndex] = {
+					...map.tiles[tileIndex],
+					...metadata,
+				};
+
+				map.last_edit = new Date();
+
+				break;
+			}
+		}
+
+		return {
+			...store,
+			maps: mapsClone,
+		};
+	})
+
+	.on(changeCurrentMapID, (store, mapID) => ({
+		...store,
+		currentMapID: mapID,
+	}))
 	.reset(reset);
 
 createMap({
@@ -48,7 +87,7 @@ createMap({
 		row: 5,
 		column: 5,
 	},
-	tiles: null,
+	tiles: [],
 });
 
 createMap.watch((payload) => console.log("туц туц туц", payload));
