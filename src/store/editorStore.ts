@@ -14,6 +14,8 @@ export const reset = createEvent();
 export interface IEditorStore {
 	currentInstrument: Instrument;
 	currentObject: Mesh | null;
+
+	currentBaseTerrain?: BaseTerrain;
 }
 
 export const initState = {
@@ -38,14 +40,21 @@ export const editorStore = createStore<IEditorStore>(initState)
 		return {
 			...state,
 			currentObject: newObject,
+			currentBaseTerrain: newObject.metadata.baseTerrain,
 		};
 	})
 	.on(setCurrentTerrain, (state, newBaseTerrain) => {
 		if (state.currentObject) {
+			state.currentObject.metadata.baseTerrain = newBaseTerrain;
 			// @ts-ignore
 			state.currentObject!.material!.diffuseColor =
 				// @ts-ignore
 				textures[newBaseTerrain] ?? new Color3(1, 1, 1);
+
+			return {
+				...state,
+				currentBaseTerrain: newBaseTerrain,
+			};
 		}
 	})
 	.reset(reset);

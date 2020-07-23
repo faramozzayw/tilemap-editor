@@ -61,6 +61,9 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 		return Tile({
 			position,
 			scene,
+			metadata: {
+				...tile,
+			},
 		});
 	});
 

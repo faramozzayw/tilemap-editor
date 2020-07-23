@@ -16,7 +16,7 @@ import { editorStore, setCurrentTerrain } from "./../../store/editorStore";
 import { BaseTerrainEnum } from "./../../types";
 
 export const Panel = () => {
-	const { currentInstrument } = useStore(editorStore);
+	const { currentInstrument, currentBaseTerrain } = useStore(editorStore);
 	const [isOpenPanel, setOpenPanel] = useState(true);
 
 	const togglePanel = () => setOpenPanel(!isOpenPanel);
@@ -54,6 +54,7 @@ export const Panel = () => {
 							Base terrain
 							<div className="select">
 								<select
+									value={currentBaseTerrain}
 									onChange={(e) => {
 										// @ts-ignore
 										setCurrentTerrain(e.target.value);

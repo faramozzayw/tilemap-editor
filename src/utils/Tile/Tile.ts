@@ -18,9 +18,11 @@ export const defaultTerrain = "Grassland";
 export const Tile = ({
 	position,
 	scene,
+	metadata,
 }: {
 	position: Vector3;
 	scene: Scene;
+	metadata?: any;
 }) => {
 	const {
 		radiusBottom,
@@ -43,6 +45,8 @@ export const Tile = ({
 
 	mesh.rotation = new Vector3(0, tileRotation, 0);
 	mesh.position = position;
+
+	mesh.metadata = metadata;
 
 	const actionManager = new ActionManager(scene);
 	mesh.actionManager = actionManager;
