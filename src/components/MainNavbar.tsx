@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 
 import { Button } from "./../bulma";
 import { CreateMapModal } from "./CreateMapModal";
+import { LogOut, LogIn, SignUp } from "./AuthForms";
+import { Protected } from "./Protected";
 
 export const MainNavbar = () => {
 	const [isActive, togggleMenu] = useState(false);
@@ -66,12 +68,16 @@ export const MainNavbar = () => {
 				<div className="navbar-end">
 					<div className="navbar-item">
 						<div className="buttons">
-							<Button isOutlined isColor="success">
-								<strong>Sign up</strong>
-							</Button>
-							<Button isOutlined isColor="info">
-								Log in
-							</Button>
+							<Protected
+								isAuth={false}
+								fail={() => (
+									<>
+										<SignUp />
+										<LogIn />
+									</>
+								)}
+								render={() => <LogOut />}
+							/>
 						</div>
 					</div>
 				</div>
