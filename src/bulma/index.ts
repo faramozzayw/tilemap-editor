@@ -4,6 +4,7 @@ export { Hero, HeroBody, HeroHeader, HeroFooter } from "./layout/Hero";
 // elements
 export { Button } from "./elements/button";
 export { Box } from "./elements/box";
+export { Title } from "./elements/title";
 
 // forms
 export { Control } from "./form/control";

@@ -17,3 +17,15 @@ export const getSizeModifiers = getModifiersCreator<Bulma.Sizes>("isSize");
 export const getActiveModifiers = ({ isActive }: Bulma.Active) => {
 	return isActive ? { [`is-active`]: true } : {};
 };
+
+export const getHeadingModifiers = ({
+	isSize: size,
+	isSpaced,
+}: Bulma.Heading) => {
+	const isSize = size ? { [`is-${size}`]: true } : {};
+
+	return {
+		...isSize,
+		"is-spaced": isSpaced,
+	};
+};
