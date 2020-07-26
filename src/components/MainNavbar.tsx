@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 
-import { Button } from "./../bulma";
-import { CreateMapModal } from "./CreateMapModal";
+import { LogOut, LogIn, SignUp } from "./AuthForms";
+import { Protected } from "./../common";
+import { useAuthState } from "../hooks/auth";
+import { CreateMap } from "./CreateMap";
 
 export const MainNavbar = () => {
 	const [isActive, togggleMenu] = useState(false);
-	const [modalActive, toggleModal] = useState(false);
+
+	const { isAuthenticated, user } = useAuthState();
+
+	console.info(isAuthenticated);
 
 	return (
 		<nav
@@ -43,35 +48,34 @@ export const MainNavbar = () => {
 			>
 				<div className="navbar-start">
 					<Link to="/" className="navbar-item">
-						Home
+						Dashbord
 					</Link>
 
 					<Link to="/docs" className="navbar-item">
 						Documentation
 					</Link>
 					<div className="navbar-item">
-						<Button
-							isOutlined
-							isColor="primary"
-							onClick={() => toggleModal(true)}
-						>
-							Create map!
-						</Button>
-						<CreateMapModal
-							isActive={modalActive}
-							closeModal={() => toggleModal(false)}
-						/>
+						<Protected isAuth={isAuthenticated} render={() => <CreateMap />} />
 					</div>
 				</div>
 				<div className="navbar-end">
 					<div className="navbar-item">
 						<div className="buttons">
-							<Button isOutlined isColor="success">
-								<strong>Sign up</strong>
-							</Button>
-							<Button isOutlined isColor="info">
-								Log in
-							</Button>
+							<Protected
+								isAuth={isAuthenticated}
+								fail={() => (
+									<>
+										<SignUp />
+										<LogIn />
+									</>
+								)}
+								render={() => (
+									<>
+										<p>{user?.username}</p>
+										<LogOut />
+									</>
+								)}
+							/>
 						</div>
 					</div>
 				</div>
