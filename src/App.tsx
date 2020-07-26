@@ -5,18 +5,20 @@ import { Switch, Route } from "react-router-dom";
 
 import { Editor, Main } from "./pages";
 import { ProtectedRouter } from "./components/ProtectedRoute";
-import { AuthProvider } from "./hooks/auth";
+import { AuthProvider, useAuthState } from "./hooks/auth";
 
 const App = () => {
+	const { isAuthenticated } = useAuthState();
+
 	return (
 		<AuthProvider>
 			<Switch>
-				<ProtectedRouter path="/editor/:mapID">
-					<Editor />
-				</ProtectedRouter>
-				<Route>
-					<Main />
-				</Route>
+				<ProtectedRouter
+					isAuth={isAuthenticated}
+					path="/editor/:mapID"
+					component={Editor}
+				/>
+				<Route path="/" component={Main} />
 			</Switch>
 		</AuthProvider>
 	);

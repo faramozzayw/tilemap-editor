@@ -4,19 +4,28 @@ import { Route, Redirect, RouteProps } from "react-router-dom";
 
 export interface ProtectedRouterProps extends RouteProps {
 	isAuth?: boolean;
-	children: any;
+	component: any;
 }
 
 export const ProtectedRouter: React.FC<ProtectedRouterProps> = ({
 	isAuth,
-	children: Component,
-	...props
+	component: Component,
+	...rest
 }) => {
 	return (
 		<Route
-			{...props}
+			{...rest}
 			render={(props) =>
-				isAuth ? <Component {...props} /> : <Redirect to="/" />
+				isAuth ? (
+					<Component {...props} />
+				) : (
+					<Redirect
+						to={{
+							pathname: "/",
+							state: { from: props.location },
+						}}
+					/>
+				)
 			}
 		/>
 	);

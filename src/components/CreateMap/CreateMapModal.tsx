@@ -3,9 +3,9 @@ import classnames from "classnames";
 import { useHistory } from "react-router-dom";
 import { uuid } from "uuidv4";
 
-import { Button, Control, Label, Box } from "./../bulma";
+import { Button, Control, Label, Box } from "./../../bulma";
 
-import { createMap } from "./../store/mapsStore";
+import { createMap } from "./../../store/mapsStore";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
