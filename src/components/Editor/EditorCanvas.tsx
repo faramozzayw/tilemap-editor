@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { CanvasBuild, Tile } from "./../../utils";
+import { CanvasBuild } from "./../../utils";
 import { MapConfig } from "./../../types";
 
 import { Panel } from "../Panels";
@@ -12,7 +12,7 @@ export type ISizes = null | {
 
 export const EditorCanvas: React.FC<MapConfig> = ({ tiles }) => {
 	useEffect(() => {
-		const { canvas, camera, scene, engine } = CanvasBuild(
+		const { /* canvas, camera, */ scene, engine } = CanvasBuild(
 			"#main-canvas",
 			tiles as any[],
 		);
@@ -29,7 +29,7 @@ export const EditorCanvas: React.FC<MapConfig> = ({ tiles }) => {
 		return () => {
 			window.removeEventListener("resize", resizeHandler);
 		};
-	}, []);
+	}, [tiles]);
 
 	return (
 		<>

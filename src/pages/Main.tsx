@@ -18,8 +18,8 @@ export const Main = () => {
 			<HeroBody style={{ alignItems: "initial" }}>
 				<div className="columns is-multiline is-left" style={{ flex: "1" }}>
 					{store.maps.map((mapData, id) => (
-						<div className="column is-4">
-							<MapPreviewCard key={id} {...mapData} />
+						<div className="column is-4" key={id}>
+							<MapPreviewCard {...mapData} />
 						</div>
 					))}
 				</div>

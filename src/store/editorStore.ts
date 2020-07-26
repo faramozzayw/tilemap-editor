@@ -1,6 +1,6 @@
 import { createStore, createEvent } from "effector";
 
-import { InstrumentsEnum, BaseTerrain, BaseTerrainEnum } from "./../types";
+import { InstrumentsEnum, BaseTerrain } from "./../types";
 import { Mesh, Color3 } from "babylonjs";
 import { textures } from "../utils/Tile";
 import { saveMap } from "./mapsStore";

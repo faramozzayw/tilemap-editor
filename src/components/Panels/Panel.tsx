@@ -9,7 +9,7 @@ import { editorStore } from "./../../store/editorStore";
 import { TerrainPanel } from "./TerrainPanel";
 
 export const Panel = () => {
-	const { currentInstrument, currentBaseTerrain } = useStore(editorStore);
+	const { currentInstrument } = useStore(editorStore);
 	const [isOpenPanel, setOpenPanel] = useState(true);
 
 	const togglePanel = () => setOpenPanel(!isOpenPanel);

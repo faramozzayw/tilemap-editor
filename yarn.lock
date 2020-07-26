@@ -9077,6 +9077,11 @@ react-three-fiber@^4.2.12:
     tiny-emitter "^2.1.0"
     utility-types "^3.10.0"
 
+react-use-localstorage@^3.4.3:
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/react-use-localstorage/-/react-use-localstorage-3.4.3.tgz#a72465dd5de375c7f2f45429d13e7f9771a821b3"
+  integrity sha512-9iiduR7UsdeFX1h0fpv0wenmr5ZFSu7Nf3n3kPnNk/tHAOFTyScmS8ayG8VwiWierJycmiSTn04tWs+Lz7fQwg==
+
 react-use-measure@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/react-use-measure/-/react-use-measure-2.0.1.tgz#4f23f94c832cd4512da55acb300d1915dcbf3ae8"

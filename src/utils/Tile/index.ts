@@ -1,5 +1,5 @@
-import { TileConfig, BaseTerrain, BaseTerrainEnum } from "./../../types";
-import { Color3, Color3Gradient } from "babylonjs";
+import { TileConfig, BaseTerrainEnum } from "./../../types";
+import { Color3 } from "babylonjs";
 
 export { Tile } from "./Tile";
 

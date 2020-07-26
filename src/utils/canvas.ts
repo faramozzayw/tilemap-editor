@@ -7,13 +7,7 @@ import {
 	Mesh,
 	StandardMaterial,
 	Color3,
-	Camera,
-	SpriteManager,
-	Sprite,
-	Texture,
-	MeshBuilder,
 } from "babylonjs";
-import { resolve } from "path";
 
 import { $, Tile } from "./index";
 
@@ -55,7 +49,7 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 	material.diffuseColor = new Color3(0.4, 0.25, 1);
 	ground.material = material;
 
-	const mapTiles = tiles.map((tile) => {
+	tiles.map((tile) => {
 		const position = new Vector3(...tile.position);
 
 		return Tile({

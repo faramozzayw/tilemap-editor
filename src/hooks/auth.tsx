@@ -4,7 +4,6 @@ import { User, Tokens } from "./../types";
 import {
 	setTokensToCookies,
 	isAuthenticatedByToken,
-	getAccessToken,
 	removeTokens,
 } from "./utils";
 
