@@ -58,3 +58,15 @@ export interface MapConfig {
 	size: MapSize;
 	tiles: TileConfig[] | null;
 }
+
+export interface User {
+	username: string;
+	email: string;
+	[key: string]: any;
+}
+
+export interface Tokens {
+	access_token: string;
+	refresh_token?: string;
+	expires_in: number;
+}

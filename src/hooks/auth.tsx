@@ -1,21 +1,26 @@
-import React, { createContext, useState, useContext } from "react";
+import React, { createContext, useState, useContext, useEffect } from "react";
+
+import { User, Tokens } from "./../types";
+import {
+	setTokensToCookies,
+	isAuthenticatedByToken,
+	getAccessToken,
+	removeTokens,
+} from "./utils";
 
 export interface AuthProviderProps {
 	children: React.ReactChild;
 }
 
-export interface User {
-	username: string;
-	[key: string]: any;
-}
+export type AuthStatus = "pending" | "error" | "success";
 
 export interface AuthContextState {
-	status: "pending" | "error" | "success";
+	status: AuthStatus;
 	error: Error | null;
 	user: User | null;
 	logout?: () => any;
 	signup?: () => any;
-	login?: (user: User) => any;
+	login?: (user: User, tokens: Tokens) => any;
 }
 
 export const initialState: AuthContextState = {
@@ -29,20 +34,45 @@ export const AuthContext = createContext<AuthContextState>(initialState);
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [state, setState] = useState<AuthContextState>({ ...initialState });
 
+	useEffect(() => {
+		const isAuth = isAuthenticatedByToken();
+
+		const status: AuthStatus = isAuth ? "success" : "pending";
+		const rawUser = localStorage?.getItem("user");
+
+		let user: User | null = null;
+
+		if (isAuth && rawUser) {
+			user = JSON.parse(rawUser);
+		}
+
+		setState({
+			...initialState,
+			status,
+			user,
+		});
+	}, [setState]);
+
 	const logout = () => {
 		setState({
 			...state,
 			user: null,
 			status: "pending",
 		});
+
+		localStorage.removeItem("user");
+		removeTokens();
 	};
 
-	const login = (user: User) => {
+	const login = (user: User, tokens: Tokens) => {
 		setState({
 			...state,
 			user,
 			status: "success",
 		});
+
+		localStorage.setItem("user", JSON.stringify(user));
+		setTokensToCookies(tokens);
 	};
 
 	return (
@@ -64,6 +94,7 @@ export const useAuthState = () => {
 	const isPending = state.status === "pending";
 	const isError = state.status === "error";
 	const isSuccess = state.status === "success";
+
 	const isAuthenticated = (state.user && isSuccess) ?? false;
 
 	const logout = state?.logout ?? (() => {});

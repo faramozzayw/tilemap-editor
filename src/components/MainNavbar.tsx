@@ -3,7 +3,7 @@ import classnames from "classnames";
 import { Link } from "react-router-dom";
 
 import { LogOut, LogIn, SignUp } from "./AuthForms";
-import { Protected } from "./Protected";
+import { Protected } from "./../common";
 import { useAuthState } from "../hooks/auth";
 import { CreateMap } from "./CreateMap";
 
@@ -11,6 +11,8 @@ export const MainNavbar = () => {
 	const [isActive, togggleMenu] = useState(false);
 
 	const { isAuthenticated, user } = useAuthState();
+
+	console.info(isAuthenticated);
 
 	return (
 		<nav

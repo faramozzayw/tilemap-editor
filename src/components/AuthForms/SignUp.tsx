@@ -7,7 +7,6 @@ import { GoogleAuth } from "./GoogleAuth";
 
 export const SignUp = () => {
 	const [modalActive, toggleModal] = useState(false);
-	const submitHandler = () => {};
 
 	const openModal = () => toggleModal(true);
 	const closeModal = () => toggleModal(false);

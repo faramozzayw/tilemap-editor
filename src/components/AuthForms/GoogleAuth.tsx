@@ -4,22 +4,29 @@ import GoogleLogin from "react-google-login";
 import { Title } from "../../bulma";
 import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
+import { Tokens, User } from "../../types";
 
 export const GoogleAuth = () => {
 	const { login } = useAuthState();
 
-	const responseGoogle = (str: string) => (response: any) => {
-		console.log(str, response);
+	const onFailure = (response: any) => {
+		console.log(response);
 	};
 
 	const onSuccess = (response: any) => {
-		const user = {
+		console.log(response);
+		const user: User = {
 			email: response.profileObj.email,
 			username: response.profileObj.name,
 			image: response.profileObj.imageUrl,
 		};
 
-		login(user);
+		const tokens: Tokens = {
+			access_token: response.tokenObj.access_token,
+			expires_in: response.tokenObj.expires_in,
+		};
+
+		login(user, tokens);
 	};
 
 	return (
@@ -32,7 +39,7 @@ export const GoogleAuth = () => {
 					clientId={googleClientID}
 					buttonText="Login"
 					onSuccess={onSuccess}
-					onFailure={responseGoogle("onFailure")}
+					onFailure={onFailure}
 					cookiePolicy={"single_host_origin"}
 				/>
 			</div>
