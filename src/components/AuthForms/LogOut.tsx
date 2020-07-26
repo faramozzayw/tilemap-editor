@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "../../bulma";
-import { useGoogleLogout } from "react-google-login";
-import { googleClientID } from "./consts";
+// import { useGoogleLogout } from "react-google-login";
+// import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
 
 export const LogOut = () => {

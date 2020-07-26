@@ -4,7 +4,6 @@ import { User, Tokens } from "./../types";
 import {
 	setTokensToCookies,
 	isAuthenticatedByToken,
-	getAccessToken,
 	removeTokens,
 } from "./utils";
 
@@ -47,7 +46,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		}
 
 		setState({
-			...state,
+			...initialState,
 			status,
 			user,
 		});

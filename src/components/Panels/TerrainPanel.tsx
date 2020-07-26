@@ -6,7 +6,7 @@ import { PanelBlock, PanelIcon } from "./../../bulma";
 import { BaseTerrainEnum, BaseTerrain } from "../../types";
 
 export const TerrainPanel = ({ isOpenPanel }: { isOpenPanel?: boolean }) => {
-	const { currentInstrument, currentBaseTerrain } = useStore(editorStore);
+	const { /* currentInstrument, */ currentBaseTerrain } = useStore(editorStore);
 
 	return (
 		<div className="panel-body">
