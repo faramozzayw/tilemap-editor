@@ -47,7 +47,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		}
 
 		setState({
-			...initialState,
+			...state,
 			status,
 			user,
 		});

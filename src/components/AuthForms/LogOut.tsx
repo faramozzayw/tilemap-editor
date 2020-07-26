@@ -7,12 +7,14 @@ import { useAuthState } from "../../hooks/auth";
 export const LogOut = () => {
 	const { logout } = useAuthState();
 
+	/*
 	const { signOut, loaded } = useGoogleLogout({
 		clientId: googleClientID,
 		onFailure: () => console.error("onFailure"),
 		onLogoutSuccess: () => console.info("onLogoutSuccess"),
 		cookiePolicy: "single_host_origin",
 	});
+    */
 
 	return (
 		<div className="navbar-end">
