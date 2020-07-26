@@ -3,6 +3,7 @@ import { createStore, createEvent } from "effector";
 import { InstrumentsEnum, BaseTerrain, BaseTerrainEnum } from "./../types";
 import { Mesh, Color3 } from "babylonjs";
 import { textures } from "../utils/Tile";
+import { saveMap } from "./mapsStore";
 
 export type Instrument = keyof typeof InstrumentsEnum;
 
@@ -37,6 +38,8 @@ export const editorStore = createStore<IEditorStore>(initState)
 
 		newObject!.material!.alpha = 0.9;
 
+		console.log(newObject.metadata);
+
 		return {
 			...state,
 			currentObject: newObject,
@@ -49,8 +52,9 @@ export const editorStore = createStore<IEditorStore>(initState)
 
 			// @ts-ignore
 			state.currentObject!.material!.diffuseColor =
-				// @ts-ignore
 				textures[newBaseTerrain] ?? new Color3(1, 1, 1);
+
+			saveMap(state.currentObject.metadata);
 
 			return {
 				...state,

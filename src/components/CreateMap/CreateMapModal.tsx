@@ -46,7 +46,7 @@ export const CreateMapModal: React.FC<CreateMapModalProps> = ({
 					row: rowRef.current!.valueAsNumber,
 					column: columnRef.current!.valueAsNumber,
 				},
-				tiles: null,
+				tiles: [],
 			});
 
 			history.push(`/editor/${id}`);
