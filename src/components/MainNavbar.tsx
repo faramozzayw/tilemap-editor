@@ -6,10 +6,13 @@ import { Button } from "./../bulma";
 import { CreateMapModal } from "./CreateMapModal";
 import { LogOut, LogIn, SignUp } from "./AuthForms";
 import { Protected } from "./Protected";
+import { AuthProvider, AuthContext, useAuthState } from "../hooks/auth";
 
 export const MainNavbar = () => {
 	const [isActive, togggleMenu] = useState(false);
 	const [modalActive, toggleModal] = useState(false);
+
+	const { isAuthenticated, user } = useAuthState();
 
 	return (
 		<nav
@@ -69,14 +72,19 @@ export const MainNavbar = () => {
 					<div className="navbar-item">
 						<div className="buttons">
 							<Protected
-								isAuth={false}
+								isAuth={isAuthenticated}
 								fail={() => (
 									<>
 										<SignUp />
 										<LogIn />
 									</>
 								)}
-								render={() => <LogOut />}
+								render={() => (
+									<>
+										<p>{user?.username}</p>
+										<LogOut />
+									</>
+								)}
 							/>
 						</div>
 					</div>

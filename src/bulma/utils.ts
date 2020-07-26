@@ -22,7 +22,7 @@ export const getHeadingModifiers = ({
 	isSize: size,
 	isSpaced,
 }: Bulma.Heading) => {
-	const isSize = size ? { [`is-${size}`]: true } : {};
+	const isSize = size ? { [`is-${size}`]: true } : { [`is-1`]: true };
 
 	return {
 		...isSize,

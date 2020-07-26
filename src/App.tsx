@@ -4,19 +4,21 @@ import "./styles.css";
 import { Switch, Route } from "react-router-dom";
 
 import { Editor, Main } from "./pages";
+import { ProtectedRouter } from "./components/ProtectedRoute";
+import { AuthProvider } from "./hooks/auth";
 
 const App = () => {
 	return (
-		<>
+		<AuthProvider>
 			<Switch>
-				<Route path="/editor/:mapID">
+				<ProtectedRouter path="/editor/:mapID">
 					<Editor />
-				</Route>
+				</ProtectedRouter>
 				<Route>
 					<Main />
 				</Route>
 			</Switch>
-		</>
+		</AuthProvider>
 	);
 };
 

@@ -3,6 +3,7 @@ import classnames from "classnames";
 
 import { Button, Control, Label, Box, Title } from "./../../bulma";
 import { ModalBackground } from "../../bulma/components/Modal";
+import { GoogleAuth } from "./GoogleAuth";
 
 export const SignUp = () => {
 	const [modalActive, toggleModal] = useState(false);
@@ -58,6 +59,7 @@ export const SignUp = () => {
 									</Button>
 								</Control>
 							</div>
+							<GoogleAuth />
 						</form>
 					</Box>
 				</div>
