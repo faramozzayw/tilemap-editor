@@ -51,7 +51,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 					<br />
 					Last edit:{" "}
 					<time dateTime="2016-1-1">
-						{last_edit?.toLocaleDateString() ?? "not edited yet"}
+						{last_edit?.toLocaleString() ?? "not edited yet"}
 					</time>
 				</div>
 			</div>

@@ -56,5 +56,5 @@ export interface MapConfig {
 	last_edit?: Date;
 	create_data: Date;
 	size: MapSize;
-	tiles: TileConfig[] | null;
+	tiles: TileConfig[];
 }
