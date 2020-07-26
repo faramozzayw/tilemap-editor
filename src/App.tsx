@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./styles.css";
 
 import { Switch, Route } from "react-router-dom";
@@ -9,6 +9,10 @@ import { AuthProvider, useAuthState } from "./hooks/auth";
 
 const App = () => {
 	const { isAuthenticated } = useAuthState();
+
+	useEffect(() => {
+		console.info(isAuthenticated);
+	}, [isAuthenticated]);
 
 	return (
 		<AuthProvider>

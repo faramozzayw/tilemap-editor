@@ -9,10 +9,7 @@ import { CreateMap } from "./CreateMap";
 
 export const MainNavbar = () => {
 	const [isActive, togggleMenu] = useState(false);
-
 	const { isAuthenticated, user } = useAuthState();
-
-	console.info(isAuthenticated);
 
 	return (
 		<nav
