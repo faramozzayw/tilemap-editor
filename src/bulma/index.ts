@@ -12,3 +12,4 @@ export { Label } from "./form/label";
 
 // components
 export { Panel, PanelHeading, PanelBlock, PanelIcon } from "./components/Panel";
+export { NavbarItem, NavbarDivider, NavbarDropdown } from "./components/Navbar";
