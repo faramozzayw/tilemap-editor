@@ -1,29 +1,33 @@
 import React from "react";
-import GoogleLogin from "react-google-login";
+import GoogleLogin, { GoogleLoginResponse } from "react-google-login";
 
 import { Title } from "../../bulma";
 import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
 import { Tokens, User } from "../../types";
+import { isDevEnv } from "../../utils";
 
 export const GoogleAuth = () => {
 	const { login } = useAuthState();
 
 	const onFailure = (response: any) => {
-		console.log(response);
+		alert(JSON.stringify(response, null, 2));
 	};
 
-	const onSuccess = (response: any) => {
-		console.log(response);
+	const onSuccess = (response: GoogleLoginResponse) => {
+		const { access_token, expires_in } = response.getAuthResponse();
+
+		const basicProfile = response.getBasicProfile();
+
 		const user: User = {
-			email: response.profileObj.email,
-			username: response.profileObj.name,
-			image: response.profileObj.imageUrl,
+			email: basicProfile.getEmail(),
+			username: basicProfile.getName(),
+			image: basicProfile.getImageUrl(),
 		};
 
 		const tokens: Tokens = {
-			access_token: response.tokenObj.access_token,
-			expires_in: response.tokenObj.expires_in,
+			access_token,
+			expires_in,
 		};
 
 		login(user, tokens);
@@ -38,9 +42,10 @@ export const GoogleAuth = () => {
 				<GoogleLogin
 					clientId={googleClientID}
 					buttonText="Login"
+					// @ts-ignore
 					onSuccess={onSuccess}
 					onFailure={onFailure}
-					cookiePolicy={"single_host_origin"}
+					theme="dark"
 				/>
 			</div>
 		</>
