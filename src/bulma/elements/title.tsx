@@ -4,19 +4,21 @@ import classnames from "classnames";
 import { Bulma } from "./../bulma";
 import { getHeadingModifiers } from "../utils";
 
-export interface Title<T>
-	extends Bulma.Tag,
-		Bulma.Heading,
-		React.HTMLProps<T> {}
+export interface Title<T> extends Bulma.Tag, Bulma.Heading, React.HTMLProps<T> {
+	isSubtitle?: boolean;
+}
 
-export const Title = ({
+export const Title: React.FC<Title<HTMLElement>> = ({
 	tag = "h1",
 	isSize,
 	isSpaced,
+	isSubtitle,
 	...props
-}: Title<HTMLElement>) => {
+}) => {
+	const titleType = isSubtitle ? "subtitle" : "title";
+
 	const className = classnames(
-		"title",
+		titleType,
 		{
 			...getHeadingModifiers({
 				isSize,

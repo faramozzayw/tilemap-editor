@@ -1,3 +1,35 @@
+.MapPreviewCard {
+	border-radius: 1rem;
+	border: 3px outset #00947e;
+}
+
+.MapPreviewCard:hover {
+	box-shadow: 3px 4px 6px 1px #272727;
+}
+
+.MapPreviewCard a,
+.MapPreviewCard button {
+	color: #fff !important;
+}
+
+.MapPreviewCard .mapname {
+	font-weight: bold;
+	color: #66e499 !important;
+	text-shadow: 2px 2px 1px #3e2e72;
+}
+
+.MapPreviewCard .username {
+	font-weight: bold;
+	color: #3298dc !important;
+	text-shadow: 2px 2px 1px #242525;
+}
+
+.MapPreviewCard .config {
+	padding: 1rem;
+	border-radius: 0.25rem;
+	background-color: #3e3e3e;
+}
+
 .MapPreviewCard .card-footer {
 	border: none;
 }

@@ -1,22 +1,27 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import { Button } from "./../../bulma";
+import {
+	Button,
+	Title,
+	Content,
+	Card,
+	CardContent,
+	CardFooter,
+} from "./../../bulma";
 import { MapConfig } from "./../../types";
 import { deleteMap } from "./../../store/mapsStore";
 
 import "./index.css";
+import { PreviewCardInfo } from "./PreviewCardInfo";
 
 export interface MapPreviewCardProps extends MapConfig {}
 
 export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	author,
 	name,
-	description,
-	size,
-	create_data,
-	last_edit,
 	id,
+	...props
 }) => {
 	const history = useHistory();
 
@@ -24,8 +29,8 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	const deleteHandler = () => deleteMap(id);
 
 	return (
-		<div className="MapPreviewCard card has-background-grey-dark has-text-primary-light">
-			<div className="card-content">
+		<Card className="MapPreviewCard has-background-grey-dark has-text-primary-light is-clipped">
+			<CardContent>
 				<div className="media">
 					<div className="media-left">
 						<figure className="image is-48x48">
@@ -36,33 +41,31 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 						</figure>
 					</div>
 					<div className="media-content">
-						<p className="title is-4">{name}</p>
-						<p className="subtitle is-6">@{author}</p>
+						<Title isSize={4} className="mapname">
+							{name}
+						</Title>
+						<Title tag="p" isSubtitle isSize={6} className="username">
+							@{author}
+						</Title>
 					</div>
 				</div>
 
-				<div className="content">
-					{description}
-					{description && <br />}
-					Map size: {size.row} x {size.column}
-					<br />
-					Create:{" "}
-					<time dateTime="2016-1-1">{create_data.toLocaleDateString()}</time>
-					<br />
-					Last edit:{" "}
-					<time dateTime="2016-1-1">
-						{last_edit?.toLocaleString() ?? "not edited yet"}
-					</time>
-				</div>
-			</div>
-			<footer className="card-footer">
+				<PreviewCardInfo {...props} />
+			</CardContent>
+			<CardFooter>
 				<Button
 					className="card-footer-item"
 					isColor="success"
-					isOutlined
 					onClick={editHandler}
 				>
 					<Link to={`/editor/${id}`}>Edit</Link>
+				</Button>
+				<Button
+					className="card-footer-item"
+					isColor="info"
+					onClick={deleteHandler}
+				>
+					Fork
 				</Button>
 				<Button
 					className="card-footer-item"
@@ -71,7 +74,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 				>
 					Delete
 				</Button>
-			</footer>
-		</div>
+			</CardFooter>
+		</Card>
 	);
 };
