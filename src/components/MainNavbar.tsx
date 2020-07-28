@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 
-import { LogOut, LogIn, SignUp } from "./AuthForms";
+import { LogIn, SignUp } from "./AuthForms";
 import { Protected } from "./../common";
 import { useAuthState } from "../hooks/auth";
 import { CreateMap } from "./CreateMap";
+import { NavbarItem, NavbarEnd, NavbarStart } from "../bulma";
+
+const AvatarMenu = React.lazy(() => import("./AvatarMenu"));
 
 export const MainNavbar = () => {
 	const [isActive, togggleMenu] = useState(false);
@@ -43,7 +46,7 @@ export const MainNavbar = () => {
 					"is-active": isActive,
 				})}
 			>
-				<div className="navbar-start">
+				<NavbarStart>
 					<Link to="/" className="navbar-item">
 						Dashbord
 					</Link>
@@ -51,31 +54,28 @@ export const MainNavbar = () => {
 					<Link to="/docs" className="navbar-item">
 						Documentation
 					</Link>
-					<div className="navbar-item">
+					<NavbarItem>
 						<Protected isAuth={isAuthenticated} render={() => <CreateMap />} />
-					</div>
-				</div>
-				<div className="navbar-end">
-					<div className="navbar-item">
-						<div className="buttons">
-							<Protected
-								isAuth={isAuthenticated}
-								fail={() => (
-									<>
-										<SignUp />
-										<LogIn />
-									</>
-								)}
-								render={() => (
-									<>
-										<p>{user?.username}</p>
-										<LogOut />
-									</>
-								)}
-							/>
-						</div>
-					</div>
-				</div>
+					</NavbarItem>
+				</NavbarStart>
+				<NavbarEnd>
+					<NavbarItem>
+						<Protected
+							isAuth={isAuthenticated}
+							fail={() => (
+								<div className="buttons">
+									<SignUp />
+									<LogIn />
+								</div>
+							)}
+							render={() => (
+								<Suspense fallback={"Loading..."}>
+									<AvatarMenu username={user!.username} {...user} />
+								</Suspense>
+							)}
+						/>
+					</NavbarItem>
+				</NavbarEnd>
 			</div>
 		</nav>
 	);
