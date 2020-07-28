@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 
 import { Button } from "../../bulma";
-import { CreateMapModal } from "./CreateMapModal";
+
+const CreateMapModal = React.lazy(() => import("./CreateMapModal"));
 
 export const CreateMap = () => {
 	const [modalActive, toggleModal] = useState(false);
 
 	return (
-		<>
+		<Suspense fallback={null}>
 			<Button isOutlined isColor="primary" onClick={() => toggleModal(true)}>
 				Create map!
 			</Button>
@@ -15,6 +16,6 @@ export const CreateMap = () => {
 				isActive={modalActive}
 				closeModal={() => toggleModal(false)}
 			/>
-		</>
+		</Suspense>
 	);
 };
