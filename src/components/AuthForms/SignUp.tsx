@@ -1,8 +1,17 @@
 import React, { useState } from "react";
 import classnames from "classnames";
 
-import { Button, Control, Label, Box, Title } from "./../../bulma";
-import { ModalBackground } from "../../bulma/components/Modal";
+import {
+	Button,
+	Control,
+	Label,
+	Box,
+	Title,
+	ModalBackground,
+	Modal,
+	ModalContent,
+	ModalClose,
+} from "./../../bulma";
 import { GoogleAuth } from "./GoogleAuth";
 
 export const SignUp = () => {
@@ -16,11 +25,9 @@ export const SignUp = () => {
 			<Button isOutlined isColor="success" onClick={openModal}>
 				<strong>Sign up</strong>
 			</Button>
-			<div
-				className={classnames("modal has-text", { "is-active": modalActive })}
-			>
+			<Modal className="has-text" isActive={modalActive}>
 				<ModalBackground onClick={closeModal} />
-				<div className="modal-content">
+				<ModalContent>
 					<Box>
 						<form>
 							<Title className="has-text-dark">Sign Up</Title>
@@ -61,13 +68,9 @@ export const SignUp = () => {
 							<GoogleAuth />
 						</form>
 					</Box>
-				</div>
-				<button
-					className="modal-close is-large"
-					aria-label="Close sign up modal"
-					onClick={closeModal}
-				></button>
-			</div>
+				</ModalContent>
+				<ModalClose onClick={closeModal} isSize="large" />
+			</Modal>
 		</>
 	);
 };

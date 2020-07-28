@@ -27,3 +27,10 @@ export {
 	CardFooter,
 	CardFooterItem,
 } from "./components/Card";
+
+export {
+	Modal,
+	ModalBackground,
+	ModalContent,
+	ModalClose,
+} from "./components/Modal";

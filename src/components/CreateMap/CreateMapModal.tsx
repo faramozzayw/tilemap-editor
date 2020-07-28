@@ -3,7 +3,16 @@ import classnames from "classnames";
 import { useHistory } from "react-router-dom";
 import { uuid } from "uuidv4";
 
-import { Button, Control, Label, Box } from "./../../bulma";
+import {
+	Button,
+	Control,
+	Label,
+	Box,
+	ModalBackground,
+	Modal,
+	ModalContent,
+	ModalClose,
+} from "./../../bulma";
 
 import { createMap } from "./../../store/mapsStore";
 import { useAuthState } from "../../hooks/auth";
@@ -56,9 +65,9 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 	};
 
 	return (
-		<div className={classnames("modal has-text", { "is-active": isActive })}>
-			<div className="modal-background"></div>
-			<div className="modal-content">
+		<Modal className="has-text" isActive={isActive}>
+			<ModalBackground />
+			<ModalContent>
 				<Box>
 					<form onSubmit={submitHandler}>
 						<div className="field">
@@ -83,6 +92,7 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 										ref={columnRef}
 										defaultValue="20"
 										min="0"
+										max="500"
 									/>
 								</Control>
 								<Control isExpanded>
@@ -93,6 +103,7 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 										ref={rowRef}
 										defaultValue="20"
 										min="0"
+										max="500"
 									/>
 								</Control>
 							</div>
@@ -121,13 +132,9 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 						</div>
 					</form>
 				</Box>
-			</div>
-			<button
-				className="modal-close is-large"
-				aria-label="close"
-				onClick={closeModal}
-			></button>
-		</div>
+			</ModalContent>
+			<ModalClose onClick={closeModal} isSize="large" />
+		</Modal>
 	);
 };
 
