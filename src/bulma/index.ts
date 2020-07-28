@@ -21,3 +21,9 @@ export {
 	NavbarStart,
 	NavbarEnd,
 } from "./components/Navbar";
+export {
+	Card,
+	CardContent,
+	CardFooter,
+	CardFooterItem,
+} from "./components/Card";

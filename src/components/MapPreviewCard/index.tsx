@@ -1,7 +1,14 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
 
-import { Button, Title, Content } from "./../../bulma";
+import {
+	Button,
+	Title,
+	Content,
+	Card,
+	CardContent,
+	CardFooter,
+} from "./../../bulma";
 import { MapConfig } from "./../../types";
 import { deleteMap } from "./../../store/mapsStore";
 
@@ -22,8 +29,8 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	const deleteHandler = () => deleteMap(id);
 
 	return (
-		<div className="MapPreviewCard card has-background-grey-dark has-text-primary-light is-clipped">
-			<div className="card-content">
+		<Card className="MapPreviewCard has-background-grey-dark has-text-primary-light is-clipped">
+			<CardContent>
 				<div className="media">
 					<div className="media-left">
 						<figure className="image is-48x48">
@@ -44,8 +51,8 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 				</div>
 
 				<PreviewCardInfo {...props} />
-			</div>
-			<footer className="card-footer">
+			</CardContent>
+			<CardFooter>
 				<Button
 					className="card-footer-item"
 					isColor="success"
@@ -55,12 +62,19 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 				</Button>
 				<Button
 					className="card-footer-item"
+					isColor="info"
+					onClick={deleteHandler}
+				>
+					Fork
+				</Button>
+				<Button
+					className="card-footer-item"
 					isColor="danger"
 					onClick={deleteHandler}
 				>
 					Delete
 				</Button>
-			</footer>
-		</div>
+			</CardFooter>
+		</Card>
 	);
 };
