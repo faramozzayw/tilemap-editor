@@ -1,0 +1,43 @@
+.AvatarMenu {
+	--divider-color: #05b99e;
+
+	background: #262727;
+	border-radius: 1rem;
+	padding: 1rem;
+	transition: border-radius 0.2s ease-in-out;
+}
+
+.AvatarMenu:hover,
+.AvatarMenu:focus-within {
+	border-radius: 1rem 1rem 0 0;
+}
+
+.AvatarMenu a {
+	font-size: 1rem;
+	font-weight: bolder;
+}
+
+.AvatarMenu a:hover,
+.AvatarMenu a:focus {
+	color: #3273dc;
+	text-decoration: underline;
+}
+
+.AvatarMenu figure.image {
+	margin: 5px;
+}
+
+.AvatarMenu .username {
+	font-weight: bold;
+	color: #0deccb !important;
+	text-shadow: 2px 2px 1px #99469a;
+	border-bottom: 3px double hsl(269deg 64% 51% / 80%);
+}
+
+.AvatarMenu .navbar-dropdown {
+	border-top-color: var(--divider-color) !important;
+}
+
+.AvatarMenu hr {
+	background-color: var(--divider-color);
+}

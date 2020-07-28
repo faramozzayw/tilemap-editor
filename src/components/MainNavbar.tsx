@@ -6,7 +6,7 @@ import { LogIn, SignUp } from "./AuthForms";
 import { Protected } from "./../common";
 import { useAuthState } from "../hooks/auth";
 import { CreateMap } from "./CreateMap";
-import { NavbarItem } from "../bulma";
+import { NavbarItem, NavbarEnd, NavbarStart } from "../bulma";
 
 const AvatarMenu = React.lazy(() => import("./AvatarMenu"));
 
@@ -46,7 +46,7 @@ export const MainNavbar = () => {
 					"is-active": isActive,
 				})}
 			>
-				<div className="navbar-start">
+				<NavbarStart>
 					<Link to="/" className="navbar-item">
 						Dashbord
 					</Link>
@@ -57,8 +57,8 @@ export const MainNavbar = () => {
 					<NavbarItem>
 						<Protected isAuth={isAuthenticated} render={() => <CreateMap />} />
 					</NavbarItem>
-				</div>
-				<div className="navbar-end">
+				</NavbarStart>
+				<NavbarEnd>
 					<NavbarItem>
 						<Protected
 							isAuth={isAuthenticated}
@@ -75,7 +75,7 @@ export const MainNavbar = () => {
 							)}
 						/>
 					</NavbarItem>
-				</div>
+				</NavbarEnd>
 			</div>
 		</nav>
 	);

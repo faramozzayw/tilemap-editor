@@ -1,8 +1,10 @@
 import React from "react";
 
-import { NavbarItem } from "../bulma";
-import { LogOut } from "./AuthForms";
-import { NavbarDropdown, NavbarDivider } from "../bulma";
+import "./AvatarMenu.css";
+
+import { NavbarItem, NavbarDropdown, NavbarDivider } from "./../../bulma";
+import { LogOut } from "./../AuthForms";
+import { Link } from "react-router-dom";
 
 export interface AvatarMenuProps {
 	image?: string;
@@ -11,17 +13,19 @@ export interface AvatarMenuProps {
 
 const AvatarMenu: React.FC<AvatarMenuProps> = ({ username, image }) => {
 	return (
-		<NavbarItem isHoverable hasDropdown>
+		<NavbarItem isHoverable hasDropdown className="AvatarMenu" tabIndex={0}>
 			<NavbarItem>
 				{image && (
 					<figure className="image is-32x32">
 						<img src={image} className="is-rounded" alt="User picture" />
 					</figure>
 				)}
-				<span>{username}</span>
+				<span className="username">{username}</span>
 			</NavbarItem>
 			<NavbarDropdown className="is-right has-background-dark">
-				<NavbarItem>Profile</NavbarItem>
+				<NavbarItem>
+					<Link to="/profile">Profile</Link>
+				</NavbarItem>
 				<NavbarDivider />
 				<NavbarItem>
 					<LogOut />
