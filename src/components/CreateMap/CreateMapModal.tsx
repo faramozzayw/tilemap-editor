@@ -6,13 +6,14 @@ import { uuid } from "uuidv4";
 import { Button, Control, Label, Box } from "./../../bulma";
 
 import { createMap } from "./../../store/mapsStore";
+import { useAuthState } from "../../hooks/auth";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
 	closeModal?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-export const CreateMapModal: React.FC<CreateMapModalProps> = ({
+const CreateMapModal: React.FC<CreateMapModalProps> = ({
 	isActive,
 	closeModal,
 }) => {
@@ -23,6 +24,7 @@ export const CreateMapModal: React.FC<CreateMapModalProps> = ({
 	const columnRef = useRef<HTMLInputElement>(null);
 
 	const history = useHistory();
+	const { user } = useAuthState();
 
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -38,7 +40,7 @@ export const CreateMapModal: React.FC<CreateMapModalProps> = ({
 		try {
 			createMap({
 				name,
-				author: "Anonim",
+				author: user!.username,
 				id,
 				description: descriptionRef.current?.value,
 				create_data: new Date(),
@@ -128,3 +130,5 @@ export const CreateMapModal: React.FC<CreateMapModalProps> = ({
 		</div>
 	);
 };
+
+export default CreateMapModal;
