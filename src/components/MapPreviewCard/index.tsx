@@ -26,7 +26,12 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	const history = useHistory();
 
 	const editHandler = () => history.push(`/editor/${id}`);
-	const deleteHandler = () => deleteMap(id);
+	const forkHandler = () => alert("forked!");
+	const deleteHandler = () => {
+		if (window.confirm("Are you sure about that, honey?")) {
+			deleteMap(id);
+		}
+	};
 
 	return (
 		<Card className="MapPreviewCard has-background-grey-dark has-text-primary-light is-clipped">
@@ -63,7 +68,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 				<Button
 					className="card-footer-item"
 					isColor="info"
-					onClick={deleteHandler}
+					onClick={forkHandler}
 				>
 					Fork
 				</Button>
