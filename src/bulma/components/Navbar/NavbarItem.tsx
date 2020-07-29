@@ -10,12 +10,14 @@ export interface NavbarItem<T>
 		React.HTMLProps<T> {
 	isHoverable?: boolean;
 	hasDropdown?: boolean;
+	dropdownUp?: boolean;
 }
 
 export const NavbarItem: React.FC<NavbarItem<HTMLElement>> = ({
 	tag = "div",
 	isHoverable,
 	hasDropdown,
+	dropdownUp,
 	isActive,
 	...props
 }) => {
@@ -24,6 +26,7 @@ export const NavbarItem: React.FC<NavbarItem<HTMLElement>> = ({
 		{
 			"has-dropdown": hasDropdown,
 			"is-hoverable": isHoverable,
+			"has-dropdown-up": hasDropdown && dropdownUp,
 			...getActiveModifiers({ isActive }),
 		},
 		props.className,

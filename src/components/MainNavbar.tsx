@@ -6,7 +6,15 @@ import { LogIn, SignUp } from "./AuthForms";
 import { Protected } from "./../common";
 import { useAuthState } from "../hooks/auth";
 import { CreateMap } from "./CreateMap";
-import { NavbarItem, NavbarEnd, NavbarStart } from "../bulma";
+import {
+	NavbarItem,
+	NavbarEnd,
+	NavbarStart,
+	NavbarMenu,
+	NavbarBurger,
+	NavbarBrand,
+	Navbar,
+} from "../bulma";
 
 const AvatarMenu = React.lazy(() => import("./AvatarMenu"));
 
@@ -15,37 +23,19 @@ export const MainNavbar = () => {
 	const { isAuthenticated, user } = useAuthState();
 
 	return (
-		<nav
-			className="navbar is-dark"
-			role="navigation"
-			aria-label="main navigation"
-		>
-			<div className="navbar-brand">
-				<div className="navbar-item is-size-2 has-text-weight-bold is-family-code">
+		<Navbar isColor="dark" role="navigation" aria-label="main navigation">
+			<NavbarBrand>
+				<NavbarItem className="is-size-2 has-text-weight-bold is-family-code">
 					TW!+
-				</div>
-				<a
-					role="button"
-					className={classnames("navbar-burger burger", {
-						"is-active": isActive,
-					})}
-					onClick={() => togggleMenu(!isActive)}
-					aria-label="menu"
-					aria-expanded="false"
-					data-target="navbarBasicExample"
-				>
-					<span aria-hidden="true"></span>
-					<span aria-hidden="true"></span>
-					<span aria-hidden="true"></span>
-				</a>
-			</div>
+				</NavbarItem>
 
-			<div
-				id="navbarBasicExample"
-				className={classnames("navbar-menu", {
-					"is-active": isActive,
-				})}
-			>
+				<NavbarBurger
+					isActive={isActive}
+					onClick={() => togggleMenu(!isActive)}
+				/>
+			</NavbarBrand>
+
+			<NavbarMenu id="navbarBasicExample" isActive={isActive}>
 				<NavbarStart>
 					<Link to="/" className="navbar-item">
 						Dashbord
@@ -76,7 +66,7 @@ export const MainNavbar = () => {
 						/>
 					</NavbarItem>
 				</NavbarEnd>
-			</div>
-		</nav>
+			</NavbarMenu>
+		</Navbar>
 	);
 };
