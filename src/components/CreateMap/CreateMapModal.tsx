@@ -12,6 +12,7 @@ import {
 	Modal,
 	ModalContent,
 	ModalClose,
+	TextArea,
 } from "./../../bulma";
 
 import { createMap } from "./../../store/mapsStore";
@@ -111,11 +112,10 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 						<div className="field">
 							<Label>Description</Label>
 							<Control>
-								<textarea
-									className="textarea"
+								<TextArea
 									ref={descriptionRef}
 									placeholder="Enter some description about your map"
-								></textarea>
+								/>
 							</Control>
 						</div>
 						<div className="field is-grouped">

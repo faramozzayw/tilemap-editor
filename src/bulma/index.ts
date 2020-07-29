@@ -2,7 +2,7 @@
 export { Hero, HeroBody, HeroHeader, HeroFooter } from "./layout/Hero";
 
 // elements
-export { Button } from "./elements/button";
+export { Button, Buttons } from "./elements/Button";
 export { Box } from "./elements/box";
 export { Title } from "./elements/title";
 export { Content } from "./elements/content";
@@ -10,6 +10,8 @@ export { Content } from "./elements/content";
 // forms
 export { Control } from "./form/control";
 export { Label } from "./form/label";
+export { Select } from "./form/select";
+export { TextArea } from "./form/textarea";
 
 // components
 export { Panel, PanelHeading, PanelBlock, PanelIcon } from "./components/Panel";

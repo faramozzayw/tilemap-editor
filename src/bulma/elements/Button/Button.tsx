@@ -1,8 +1,13 @@
 import React from "react";
 import classnames from "classnames";
 
-import { Bulma } from "./../bulma";
-import { getColorModifiers, getSizeModifiers } from "./../utils";
+import { Bulma } from "./../../bulma";
+import {
+	getColorModifiers,
+	getSizeModifiers,
+	getStateModifiers,
+	getLoadingModifiers,
+} from "./../../utils";
 
 export interface ButtonProps<T>
 	extends Bulma.Color,
@@ -10,17 +15,21 @@ export interface ButtonProps<T>
 		Bulma.Size,
 		Bulma.Light,
 		Bulma.Rounded,
+		Bulma.State,
+		Bulma.FullWidth,
 		React.HTMLProps<T> {
 	isLink?: boolean;
 	isOutlined?: boolean;
 	isInverted?: boolean;
 	isStatic?: boolean;
-	type?: string;
+	type?: "button" | "submit" | "reset";
 }
 
-export const Button: React.FC<ButtonProps<
-	HTMLButtonElement | HTMLAnchorElement
->> = ({
+export type ButtonType = React.FC<
+	ButtonProps<HTMLButtonElement | HTMLAnchorElement>
+>;
+
+export const Button: ButtonType = ({
 	isLink,
 	isOutlined,
 	isInverted,
@@ -29,6 +38,9 @@ export const Button: React.FC<ButtonProps<
 	isSize,
 	isLight,
 	isRounded,
+	isLoading,
+	isState,
+	isFullWidth,
 	type,
 	...props
 }) => {
@@ -41,8 +53,11 @@ export const Button: React.FC<ButtonProps<
 			"is-static": isStatic,
 			"is-light": isLight,
 			"is-rounded": isRounded,
+			"is-fullwidth": isFullWidth,
 			...getColorModifiers({ isColor }),
 			...getSizeModifiers({ isSize }),
+			...getStateModifiers({ isState }),
+			...getLoadingModifiers({ isLoading }),
 		},
 		props.className,
 	);
@@ -60,7 +75,6 @@ export const Button: React.FC<ButtonProps<
 	const button = (
 		<button
 			{...(props as React.HTMLProps<HTMLButtonElement>)}
-			// @ts-ignore
 			type={type ?? "button"}
 			className={className}
 		/>

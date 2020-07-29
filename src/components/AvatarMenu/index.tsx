@@ -13,13 +13,7 @@ export interface AvatarMenuProps {
 
 const AvatarMenu: React.FC<AvatarMenuProps> = ({ username, image }) => {
 	return (
-		<NavbarItem
-			isHoverable
-			hasDropdown
-			dropdownUp
-			className="AvatarMenu"
-			tabIndex={0}
-		>
+		<NavbarItem isHoverable hasDropdown className="AvatarMenu" tabIndex={0}>
 			<NavbarItem>
 				{image && (
 					<figure className="image is-32x32">

@@ -13,16 +13,21 @@ export const getAlignmentModifiers = getModifiersCreator<Bulma.Align>(
 	"isAlign",
 );
 export const getSizeModifiers = getModifiersCreator<Bulma.Sizes>("isSize");
+export const getStateModifiers = getModifiersCreator<Bulma.States>("isState");
 
 export const getActiveModifiers = ({ isActive }: Bulma.Active) => {
 	return isActive ? { [`is-active`]: true } : {};
 };
 
+export const getLoadingModifiers = ({ isLoading }: Bulma.Loading) => {
+	return isLoading ? { [`is-loading`]: true } : {};
+};
+
 export const getHeadingModifiers = ({
-	isSize: size,
+	isSize: size = 1,
 	isSpaced,
 }: Bulma.Heading) => {
-	const isSize = size ? { [`is-${size}`]: true } : { [`is-1`]: true };
+	const isSize = { [`is-${size}`]: true };
 
 	return {
 		...isSize,

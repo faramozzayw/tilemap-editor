@@ -9,7 +9,12 @@ export const CreateMap = () => {
 
 	return (
 		<Suspense fallback={null}>
-			<Button isOutlined isColor="primary" onClick={() => toggleModal(true)}>
+			<Button
+				isOutlined
+				isColor="primary"
+				isRounded
+				onClick={() => toggleModal(true)}
+			>
 				Create map!
 			</Button>
 			<CreateMapModal

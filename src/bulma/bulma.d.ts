@@ -21,7 +21,7 @@ export declare namespace Bulma {
 	}
 
 	export interface Tag {
-		tag?: string;
+		tag?: keyof React.ReactHTML;
 	}
 
 	export interface Loading {
@@ -51,5 +51,14 @@ export declare namespace Bulma {
 	export interface Heading {
 		isSize?: HeadingSizes;
 		isSpaced?: boolean;
+	}
+
+	export type States = "hovered" | "focused" | "active";
+	export interface State {
+		isState?: States;
+	}
+
+	export interface FullWidth {
+		isFullWidth?: boolean;
 	}
 }
