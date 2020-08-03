@@ -14,13 +14,16 @@ import { deleteMap } from "./../../store/mapsStore";
 
 import "./index.css";
 import { PreviewCardInfo } from "./PreviewCardInfo";
+import { IAuth } from "../../types/auth";
+import { PreviewCardFooter } from "./PreviewCardFooter";
 
-export interface MapPreviewCardProps extends MapConfig {}
+export interface MapPreviewCardProps extends MapConfig, IAuth {}
 
 export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	author,
 	name,
 	id,
+	isAuth,
 	...props
 }) => {
 	const history = useHistory();
@@ -57,29 +60,14 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 
 				<PreviewCardInfo {...props} />
 			</CardContent>
-			<CardFooter>
-				<Button
-					className="card-footer-item"
-					isColor="success"
-					onClick={editHandler}
-				>
-					<Link to={`/editor/${id}`}>Edit</Link>
-				</Button>
-				<Button
-					className="card-footer-item"
-					isColor="info"
-					onClick={forkHandler}
-				>
-					Fork
-				</Button>
-				<Button
-					className="card-footer-item"
-					isColor="danger"
-					onClick={deleteHandler}
-				>
-					Delete
-				</Button>
-			</CardFooter>
+			{isAuth && (
+				<PreviewCardFooter
+					id={id}
+					deleteHandler={deleteHandler}
+					editHandler={editHandler}
+					forkHandler={forkHandler}
+				/>
+			)}
 		</Card>
 	);
 };
