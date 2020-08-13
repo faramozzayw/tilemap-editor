@@ -11,7 +11,9 @@ export const GoogleAuth = () => {
 	const { login } = useAuthState();
 
 	const onFailure = (response: any) => {
-		alert(JSON.stringify(response, null, 2));
+		const error = JSON.stringify(response, null, 2);
+		console.log(JSON.stringify(response, null, 2));
+		alert("Google login error");
 	};
 
 	const onSuccess = (response: GoogleLoginResponse) => {
