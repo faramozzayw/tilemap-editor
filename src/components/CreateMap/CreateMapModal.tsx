@@ -1,7 +1,7 @@
-import React, { useRef } from "react";
-import classnames from "classnames";
+import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { uuid } from "uuidv4";
+
+import { gql, useMutation } from "@apollo/client";
 
 import {
 	Button,
@@ -15,8 +15,8 @@ import {
 	TextArea,
 } from "./../../bulma";
 
-import { createMap } from "./../../store/mapsStore";
 import { useAuthState } from "../../hooks/auth";
+import { CREATE_MAP } from "../../query";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
@@ -27,6 +27,8 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 	isActive,
 	closeModal,
 }) => {
+	const [redirectedStatus, setRedirectedStatus] = useState(false);
+
 	const nameRef = useRef<HTMLInputElement>(null);
 	const descriptionRef = useRef<HTMLTextAreaElement>(null);
 
@@ -36,33 +38,32 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 	const history = useHistory();
 	const { user } = useAuthState();
 
+	const [createMap, { loading }] = useMutation(CREATE_MAP);
+
+	const checkboxRedirectHandler = () => setRedirectedStatus(!redirectedStatus);
+
 	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
-		const name = nameRef.current?.value ?? "";
-
-		if (name.trim() === "") {
-			return alert("You must enter map name");
-		}
-
-		const id = uuid();
-
-		try {
-			createMap({
-				name,
-				author: user!.username,
-				id,
-				description: descriptionRef.current?.value,
-				createData: new Date(),
-				size: {
-					row: rowRef.current!.valueAsNumber,
-					column: columnRef.current!.valueAsNumber,
+		createMap({
+			variables: {
+				newMap: {
+					name: nameRef.current?.value,
+					author: user!.username,
+					description: descriptionRef.current?.value,
+					createData: new Date().toLocaleString(),
+					size: {
+						row: rowRef.current!.valueAsNumber,
+						column: columnRef.current!.valueAsNumber,
+					},
 				},
-				tiles: [],
-			});
-
-			history.push(`/editor/${id}`);
-		} catch (e) {}
+			},
+		}).then((res) => {
+			if (redirectedStatus) {
+				const id = res.data.createMap.id;
+				history.push(`/editor/${id}`);
+			}
+		});
 	};
 
 	return (
@@ -79,6 +80,7 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 									type="text"
 									placeholder="Input map name"
 									ref={nameRef}
+									required
 								/>
 							</Control>
 						</div>
@@ -118,9 +120,19 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 								/>
 							</Control>
 						</div>
+						<div className="field">
+							<label className="checkbox" onChange={checkboxRedirectHandler}>
+								<input type="checkbox" /> Redirect to editor after map creation
+							</label>
+						</div>
 						<div className="field is-grouped">
 							<Control>
-								<Button isColor="success" type="submit">
+								<Button
+									isColor="success"
+									type="submit"
+									disabled={loading}
+									isLoading={loading}
+								>
 									Create map
 								</Button>
 							</Control>
