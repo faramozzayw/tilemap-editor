@@ -59,7 +59,7 @@ export const mapStore = createStore<IMapStore>(initState)
 					...metadata,
 				};
 
-				map.last_edit = new Date();
+				map.lastEdit = new Date();
 
 				break;
 			}
@@ -77,18 +77,20 @@ export const mapStore = createStore<IMapStore>(initState)
 	}))
 	.reset(reset);
 
+/*
 createMap({
 	name: "test example",
 	author: "Anonim",
 	id: "id0",
 	description: `The icon element is a container for any type of icon font. Because the icons can take a few seconds to load, and because you want control over the space the icons will take, you can use the icon class as a reliable square container that will prevent the page to "jump" on page load.`,
-	create_data: new Date(),
+	createData: new Date(),
 	size: {
 		row: 5,
 		column: 5,
 	},
 	tiles: [],
 });
+*/
 
 createMap.watch((payload) => console.log("туц туц туц", payload));
 deleteMap.watch((payload) => console.info(`удалена карта с id: ${payload}`));

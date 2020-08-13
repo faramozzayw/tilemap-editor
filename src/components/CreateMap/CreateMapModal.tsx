@@ -53,7 +53,7 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 				author: user!.username,
 				id,
 				description: descriptionRef.current?.value,
-				create_data: new Date(),
+				createData: new Date(),
 				size: {
 					row: rowRef.current!.valueAsNumber,
 					column: columnRef.current!.valueAsNumber,
