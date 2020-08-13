@@ -43,7 +43,7 @@ export const Main = () => {
 	if (data) {
 		content = (
 			<div className="columns is-multiline is-left" style={{ flex: "1" }}>
-				{data?.maps?.map((mapData) => (
+				{data.maps?.map((mapData) => (
 					<div className="column is-4" key={mapData.id}>
 						<MapPreviewCard {...mapData} isAuth={isAuth} />
 					</div>

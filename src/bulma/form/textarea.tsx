@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import classnames from "classnames";
 
 import { Bulma } from "./../bulma";
@@ -14,12 +14,10 @@ export interface TextArea<T>
 		Bulma.State,
 		React.HTMLProps<T> {}
 
-export const TextArea: React.FC<TextArea<HTMLElement>> = ({
-	isSize,
-	isState,
-	isColor,
-	...props
-}) => {
+export const TextArea = forwardRef<
+	HTMLTextAreaElement,
+	TextArea<HTMLTextAreaElement>
+>(({ isSize, isState, isColor, ...props }, ref) => {
 	const className = classnames(
 		"textarea",
 		{
@@ -32,8 +30,9 @@ export const TextArea: React.FC<TextArea<HTMLElement>> = ({
 
 	return (
 		<textarea
+			ref={ref}
 			{...(props as React.HTMLProps<HTMLTextAreaElement>)}
 			className={className}
 		/>
 	);
-};
+});
