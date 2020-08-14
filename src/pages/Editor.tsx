@@ -1,15 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useStore } from "effector-react";
 import { useQuery, gql } from "@apollo/client";
 
 import { EditorNavbar, EditorTabs, EditorCanvas } from "../components";
 import { Hero, HeroBody, HeroHeader, HeroFooter } from "./../bulma";
 
-import { MAP_DATE_TO_EDIT } from "./../query";
+import { GET_MAP_DATA } from "./../graphql";
 import { MapConfig } from "./../types";
 
-import { mapStore } from "./../store/mapsStore";
 import { generateGridMatrix } from "../utils";
 
 interface MapConfigData {
@@ -18,7 +16,7 @@ interface MapConfigData {
 
 export const Editor = () => {
 	const { mapID } = useParams();
-	const { data, loading, error } = useQuery<MapConfigData>(MAP_DATE_TO_EDIT, {
+	const { data, loading, error } = useQuery<MapConfigData>(GET_MAP_DATA, {
 		variables: { mapID },
 	});
 

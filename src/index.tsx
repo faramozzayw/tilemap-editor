@@ -10,12 +10,8 @@ import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./hooks/auth";
 
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-
-const client = new ApolloClient({
-	uri: "https://api-tilemap-editor.herokuapp.com/graphql",
-	cache: new InMemoryCache(),
-});
+import { ApolloProvider } from "@apollo/client";
+import { client } from "./graphql";
 
 ReactDOM.render(
 	<ApolloProvider client={client}>

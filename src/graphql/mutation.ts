@@ -24,26 +24,10 @@ export const CREATE_MAP = gql`
 	}
 `;
 
-export const MAP_DATE_TO_EDIT = gql`
-	query EditMap($mapID: ID!) {
-		map(id: $mapID) {
+export const DELETE_MAP_BY_ID = gql`
+	mutation DeleteMap($mapID: ID!) {
+		deleteMap(id: $mapID) {
 			id
-			name
-			author
-			description
-			lastEdit
-			createData
-			size {
-				row
-				column
-			}
-			tiles {
-				id
-				baseTerrain
-				terrainFeatures
-				resource
-				units
-			}
 		}
 	}
 `;

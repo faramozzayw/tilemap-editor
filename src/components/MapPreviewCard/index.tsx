@@ -10,12 +10,14 @@ import {
 	CardFooter,
 } from "./../../bulma";
 import { MapConfig } from "./../../types";
-import { deleteMap } from "./../../store/mapsStore";
+// import { deleteMap } from "./../../store/mapsStore";
 
 import "./index.css";
 import { PreviewCardInfo } from "./PreviewCardInfo";
 import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
+import { useMutation } from "@apollo/client";
+import { DELETE_MAP_BY_ID } from "../../graphql";
 
 export interface MapPreviewCardProps extends MapConfig, IAuth {}
 
@@ -26,13 +28,18 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	isAuth,
 	...props
 }) => {
+	const [deleteMap, { loading }] = useMutation(DELETE_MAP_BY_ID);
 	const history = useHistory();
 
 	const editHandler = () => history.push(`/editor/${id}`);
 	const forkHandler = () => alert("forked!");
 	const deleteHandler = () => {
 		if (window.confirm("Are you sure about that, honey?")) {
-			deleteMap(id);
+			deleteMap({
+				variables: {
+					mapID: id,
+				},
+			}).then(() => alert("I JUST DELETE THIS MAP!"));
 		}
 	};
 

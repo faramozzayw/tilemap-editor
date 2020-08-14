@@ -16,7 +16,7 @@ import {
 } from "./../../bulma";
 
 import { useAuthState } from "../../hooks/auth";
-import { CREATE_MAP } from "../../query";
+import { CREATE_MAP } from "../../graphql";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
