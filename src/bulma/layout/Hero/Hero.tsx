@@ -18,14 +18,17 @@ export const Hero: React.FC<Hero<HTMLElement>> = ({
 	tag = "section",
 	isColor,
 	isSize,
+	isBold,
+	isFullHeight,
+	isHalfHeight,
 	...props
 }) => {
 	const className = classnames(
 		"hero",
 		{
-			"is-bold": props.isBold,
-			"is-fullheight": props.isFullHeight,
-			"is-halfheight": props.isHalfHeight,
+			"is-bold": isBold,
+			"is-fullheight": isFullHeight,
+			"is-halfheight": isHalfHeight,
 			...getColorModifiers({ isColor }),
 			...getSizeModifiers({ isSize }),
 		},

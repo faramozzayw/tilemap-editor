@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 export const client = new ApolloClient({
 	uri: "https://api-tilemap-editor.herokuapp.com/graphql",
@@ -7,4 +7,4 @@ export const client = new ApolloClient({
 
 export { DELETE_MAP_BY_ID, CREATE_MAP } from "./mutation";
 
-export { GET_MAP_DATA } from "./query";
+export { GET_MAP_DATA, GET_MAPS } from "./query";

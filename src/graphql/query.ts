@@ -23,3 +23,19 @@ export const GET_MAP_DATA = gql`
 		}
 	}
 `;
+
+export const GET_MAPS = gql`
+	query {
+		maps {
+			id
+			name
+			author
+			description
+			createData
+			size {
+				row
+				column
+			}
+		}
+	}
+`;

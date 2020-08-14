@@ -9,8 +9,7 @@ import { PreviewCardInfo } from "./PreviewCardInfo";
 import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
 import { useMutation } from "@apollo/client";
-import { DELETE_MAP_BY_ID } from "../../graphql";
-import { GET_MAPS } from "../../pages/Main";
+import { DELETE_MAP_BY_ID, GET_MAPS } from "../../graphql";
 
 export interface MapPreviewCardProps extends MapConfig, IAuth {}
 

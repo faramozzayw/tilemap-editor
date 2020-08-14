@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import {
 	Button,
@@ -16,8 +16,7 @@ import {
 } from "./../../bulma";
 
 import { useAuthState } from "../../hooks/auth";
-import { CREATE_MAP } from "../../graphql";
-import { GET_MAPS } from "../../pages/Main";
+import { CREATE_MAP, GET_MAPS } from "../../graphql";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
