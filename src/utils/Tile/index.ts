@@ -10,10 +10,9 @@ export interface ITileGeometryConfig {
 	readonly radialSegments: number;
 }
 
-export type TileContructProps = Pick<TileConfig, "position"> &
-	Partial<Omit<TileConfig, "position">>;
+export type TileContructProps = TileConfig;
 
-export type TileMetadata = Partial<Omit<TileConfig, "position">>;
+export type TileMetadata = TileConfig;
 
 export const TileGeometryConfig: ITileGeometryConfig = {
 	radiusTop: 5.5,

@@ -34,12 +34,11 @@ export type Unit = any;
 export type TilePosition = number[];
 
 export interface TileConfig {
-	id: number;
+	id: string;
 	baseTerrain: BaseTerrain;
 	terrainFeatures: TerrainFeatures;
 	resource: Resource[];
 	units: Unit[];
-	position: TilePosition;
 }
 
 export type MapID = string;
@@ -53,8 +52,8 @@ export interface MapConfig {
 	name: string;
 	author: string;
 	description?: string;
-	last_edit?: Date;
-	create_data: Date;
+	lastEdit?: Date;
+	createData: Date;
 	size: MapSize;
 	tiles: TileConfig[];
 }

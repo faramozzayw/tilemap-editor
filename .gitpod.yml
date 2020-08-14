@@ -1,3 +1,10 @@
 vscode:
   extensions:
-    - esbenp.prettier-vscode@5.1.1:nna4ZHFlEVYKMYKpyKhu1A==
+    - PKief.material-icon-theme@4.2.0:smoE258fj+WO32WcjZLU1A==
+    - 2ndshift.fresh-material@2.3.8:UHYHVy92tRxfS5iwKBZFOg==
+    - 2gua.rainbow-brackets@0.0.6:Tbu8dTz0i+/bgcKQTQ5b8g==
+    - bungcip.better-toml@0.3.2:3QfgGxxYtGHfJKQU7H0nEw==
+    - serayuzgur.crates@0.5.2:NxuwKdHTi5Cg4AQkM/qIyg==
+    - ms-azuretools.vscode-docker@1.4.1:cVjHC2Dsw1tu+Ol/XXz/Pw==
+    - Equinusocio.vsc-material-theme@32.8.0:USk6zI85s3FXQT+pR/r2lA==
+    - Prisma.vscode-graphql@0.2.35:57lo8i06VgXT8drY3ozz1g==

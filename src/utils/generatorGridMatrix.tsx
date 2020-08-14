@@ -1,31 +1,28 @@
 import { range } from "./index";
-import { TileConfig, Resource, Unit } from "./../types";
+import { TileConfig } from "./../types";
 
 export interface TileEntity {
 	position: number[];
 }
 
-type RawTile = Omit<Omit<TileConfig, "id">, "position">;
+export interface Position {
+	position: number[];
+}
 
-export const baseTile: RawTile = {
-	baseTerrain: "Coast",
-	terrainFeatures: "none",
-	resource: [] as Resource,
-	units: [] as Unit,
-};
+export type Tile = TileConfig & Position;
 
 export const generateGridMatrix = (
+	tiles: TileConfig[],
 	rows: number = 0,
 	columns: number = 0,
-): TileConfig[] => {
-	let id = 0;
-	let tiles: TileConfig[] = [];
+): Tile[] => {
+	let result: Tile[] = [];
 
 	const dx = 10;
 	const dy = 8.5 / 2;
 
 	for (const i of range(0, rows)) {
-		const row: TileConfig[] = [];
+		const row: Tile[] = [];
 
 		for (const j of range(0, columns)) {
 			const zOffset = j * dy * 2;
@@ -37,14 +34,13 @@ export const generateGridMatrix = (
 					: [basicXOffset + dx / 2, 0, zOffset];
 
 			row.push({
-				...baseTile,
+				...tiles[i + j],
 				position,
-				id: id++,
 			});
 		}
 
-		tiles.push(...row);
+		result.push(...row);
 	}
 
-	return tiles;
+	return result;
 };

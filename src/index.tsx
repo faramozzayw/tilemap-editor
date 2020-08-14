@@ -10,14 +10,19 @@ import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./hooks/auth";
 
+import { ApolloProvider } from "@apollo/client";
+import { client } from "./graphql";
+
 ReactDOM.render(
-	<AuthProvider>
-		<BrowserRouter>
-			<React.StrictMode>
-				<App />
-			</React.StrictMode>
-		</BrowserRouter>
-	</AuthProvider>,
+	<ApolloProvider client={client}>
+		<AuthProvider>
+			<BrowserRouter>
+				<React.StrictMode>
+					<App />
+				</React.StrictMode>
+			</BrowserRouter>
+		</AuthProvider>
+	</ApolloProvider>,
 	document.getElementById("root"),
 );
 
