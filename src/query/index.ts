@@ -25,7 +25,7 @@ export const CREATE_MAP = gql`
 `;
 
 export const MAP_DATE_TO_EDIT = gql`
-	query EditMap($mapID: String!) {
+	query EditMap($mapID: ID!) {
 		map(id: $mapID) {
 			id
 			name
