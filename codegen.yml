@@ -1,0 +1,12 @@
+overwrite: true
+schema: "https://api-tilemap-editor.herokuapp.com/graphql"
+documents: ["src/graphql/mutation.ts", "src/graphql/query.ts"]
+generates:
+  src/types/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
