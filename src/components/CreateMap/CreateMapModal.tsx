@@ -17,6 +17,7 @@ import {
 
 import { useAuthState } from "../../hooks/auth";
 import { CREATE_MAP } from "../../graphql";
+import { GET_MAPS } from "../../pages/Main";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
@@ -58,6 +59,7 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 					},
 				},
 			},
+			refetchQueries: [{ query: GET_MAPS }],
 		}).then((res) => {
 			if (redirectedStatus) {
 				const id = res.data.createMap.id;

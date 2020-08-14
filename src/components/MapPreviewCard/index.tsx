@@ -1,16 +1,8 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
-import {
-	Button,
-	Title,
-	Content,
-	Card,
-	CardContent,
-	CardFooter,
-} from "./../../bulma";
+import { Title, Card, CardContent } from "./../../bulma";
 import { MapConfig } from "./../../types";
-// import { deleteMap } from "./../../store/mapsStore";
 
 import "./index.css";
 import { PreviewCardInfo } from "./PreviewCardInfo";
@@ -18,6 +10,7 @@ import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
 import { useMutation } from "@apollo/client";
 import { DELETE_MAP_BY_ID } from "../../graphql";
+import { GET_MAPS } from "../../pages/Main";
 
 export interface MapPreviewCardProps extends MapConfig, IAuth {}
 
@@ -28,7 +21,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	isAuth,
 	...props
 }) => {
-	const [deleteMap, { loading }] = useMutation(DELETE_MAP_BY_ID);
+	const [deleteMap] = useMutation(DELETE_MAP_BY_ID);
 	const history = useHistory();
 
 	const editHandler = () => history.push(`/editor/${id}`);
@@ -39,7 +32,8 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 				variables: {
 					mapID: id,
 				},
-			}).then(() => alert("I JUST DELETE THIS MAP!"));
+				refetchQueries: [{ query: GET_MAPS }],
+			});
 		}
 	};
 
