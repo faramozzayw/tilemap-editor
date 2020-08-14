@@ -5,8 +5,38 @@
 	display: flex;
 	justify-content: flex-end;
 	padding: 1rem;
+	z-index: 9999;
+	height: max-content;
 }
 
-.zIndex {
+.notifyList {
+	--scrollbar-color: #efefee;
+	--bg-color: hsl(0deg 6% 80% / 13%);
+
+	max-height: 100vh;
 	z-index: 9999;
+
+	padding-right: 0.5rem;
+	border-radius: 1rem;
+
+	/*
+    overflow: auto;
+    box-shadow: -8px 8px 1px var(--bg-color);
+    background-color: var(--bg-color);
+    */
 }
+
+/*
+.notifyList::-webkit-scrollbar {
+    width: .75rem
+}
+
+.notifyList::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.notifyList::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: var(--scrollbar-color);
+}
+*/
