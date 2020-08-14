@@ -1,0 +1,12 @@
+.wrapper {
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	display: flex;
+	justify-content: flex-end;
+	padding: 1rem;
+}
+
+.zIndex {
+	z-index: 9999;
+}
