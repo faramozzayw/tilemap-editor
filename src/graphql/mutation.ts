@@ -31,3 +31,13 @@ export const DELETE_MAP_BY_ID = gql`
 		}
 	}
 `;
+
+export const UPDATE_TILE = gql`
+	mutation UpdateTile(
+		$mapID: ID!
+		$tileID: ID!
+		$updateValue: UpdateTileConfig!
+	) {
+		updateTile(mapId: $mapID, tileId: $tileID, updateValue: $updateValue)
+	}
+`;

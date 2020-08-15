@@ -17,9 +17,12 @@ export const generateGridMatrix = (
 	columns: number = 0,
 ): Tile[] => {
 	let result: Tile[] = [];
+	console.log(tiles.length);
 
 	const dx = 10;
 	const dy = 8.5 / 2;
+
+	let tileNumber = 0;
 
 	for (const i of range(0, rows)) {
 		const row: Tile[] = [];
@@ -34,9 +37,11 @@ export const generateGridMatrix = (
 					: [basicXOffset + dx / 2, 0, zOffset];
 
 			row.push({
-				...tiles[i + j],
+				...tiles[tileNumber],
 				position,
 			});
+
+			tileNumber++;
 		}
 
 		result.push(...row);

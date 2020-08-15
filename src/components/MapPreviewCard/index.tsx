@@ -1,5 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { useMutation, ServerError } from "@apollo/client";
 
 import { Title, Card, CardContent } from "./../../bulma";
 import { MapConfig } from "./../../types";
@@ -8,7 +9,6 @@ import "./index.css";
 import { PreviewCardInfo } from "./PreviewCardInfo";
 import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
-import { useMutation, ServerError } from "@apollo/client";
 import { DELETE_MAP_BY_ID, GET_MAPS } from "../../graphql";
 import { addNotification } from "../../store/notificationStore";
 

@@ -6,6 +6,7 @@ import {
 	StandardMaterial,
 	Tools,
 	MeshBuilder,
+	Color3,
 } from "babylonjs";
 
 import { setCurrentObject } from "../../store/editorStore";
@@ -39,8 +40,7 @@ export const Tile = ({
 	});
 	const material = new StandardMaterial("tile material", scene);
 
-	// @ts-ignore
-	material.diffuseColor = textures[metadata.baseTerrain];
+	material.diffuseColor = textures[metadata.baseTerrain] ?? new Color3(1, 1, 1);
 
 	mesh.material = material;
 

@@ -18,6 +18,7 @@ export const Editor = () => {
 	const { mapID } = useParams();
 	const { data, loading, error } = useQuery<MapConfigData>(GET_MAP_DATA, {
 		variables: { mapID },
+		partialRefetch: true,
 	});
 
 	let content = null;

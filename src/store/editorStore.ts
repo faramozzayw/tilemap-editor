@@ -3,7 +3,8 @@ import { createStore, createEvent } from "effector";
 import { InstrumentsEnum, BaseTerrain } from "./../types";
 import { Mesh, Color3 } from "babylonjs";
 import { textures } from "../utils/Tile";
-import { saveMap } from "./mapsStore";
+import { useMutation } from "@apollo/client";
+import { UPDATE_TILE } from "../graphql/mutation";
 
 export type Instrument = keyof typeof InstrumentsEnum;
 
@@ -54,7 +55,27 @@ export const editorStore = createStore<IEditorStore>(initState)
 			state.currentObject!.material!.diffuseColor =
 				textures[newBaseTerrain] ?? new Color3(1, 1, 1);
 
-			saveMap(state.currentObject.metadata);
+			fetch("https://api-tilemap-editor.herokuapp.com/graphql", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({
+					query: `
+                            mutation {
+                                updateTile(
+                                    mapId: "9250c5c3-8487-4e4c-af7c-38a13738389e"
+                                    tileId: "${
+																			state.currentObject.metadata!.id
+																		}"
+                                    updateValue: {
+                                        baseTerrain: ${newBaseTerrain}
+                                    }
+                                )
+                            }
+                            `,
+				}),
+			})
+				.then((res) => res.json())
+				.then((res) => console.log(res));
 
 			return {
 				...state,

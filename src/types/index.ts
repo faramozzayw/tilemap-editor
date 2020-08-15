@@ -2,20 +2,10 @@ export enum BaseTerrainEnum {
 	Coast = "Coast",
 	Desert = "Desert",
 	Grassland = "Grassland",
-	//	Hill = "Hill",
-	//	Mountain = "Mountain",
 	Ocean = "Ocean",
-	//	Plains = "Plains",
 	Snow = "Snow",
-	//	Tundra = "Tundra",
 	Forest = "Forest",
 	Jungle = "Jungle",
-	//	Marsh = "Marsh",
-	//	Atoll = "Atoll",
-	//	FloodPlains = "FloodPlains",
-	// Ice = "Ice",
-	//	Lakes = "Lakes",
-	//	Oasis = "Oasis",
 }
 
 export enum InstrumentsEnum {
