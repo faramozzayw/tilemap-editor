@@ -6,6 +6,7 @@ export { Button, Buttons } from "./elements/Button";
 export { Box } from "./elements/box";
 export { Title } from "./elements/title";
 export { Content } from "./elements/content";
+export { Notification } from "./elements/notification";
 
 // forms
 export { Control } from "./form/control";

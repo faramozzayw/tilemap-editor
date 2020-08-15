@@ -1,9 +1,10 @@
 .wrapper {
 	position: fixed;
+	/* top: 0; */
 	bottom: 0;
 	right: 0;
-	display: flex;
-	justify-content: flex-end;
+
+	/* margin-top: auto; */
 	padding: 1rem;
 	z-index: 9999;
 	height: max-content;
@@ -11,32 +12,27 @@
 
 .notifyList {
 	--scrollbar-color: #efefee;
-	--bg-color: hsl(0deg 6% 80% / 13%);
+
+	display: flex;
+	flex-flow: column;
+	align-items: flex-end;
 
 	max-height: 100vh;
 	z-index: 9999;
 
 	padding-right: 0.5rem;
-	border-radius: 1rem;
-
-	/*
-    overflow: auto;
-    box-shadow: -8px 8px 1px var(--bg-color);
-    background-color: var(--bg-color);
-    */
+	overflow: auto;
 }
 
-/*
 .notifyList::-webkit-scrollbar {
-    width: .75rem
+	width: 0.75rem;
 }
 
 .notifyList::-webkit-scrollbar-track {
-    background-color: transparent;
+	background-color: transparent;
 }
 
 .notifyList::-webkit-scrollbar-thumb {
-    border-radius: 1rem;
-    background-color: var(--scrollbar-color);
+	border-radius: 1rem;
+	background-color: var(--scrollbar-color);
 }
-*/
