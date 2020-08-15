@@ -8,8 +8,9 @@ import "./index.css";
 import { PreviewCardInfo } from "./PreviewCardInfo";
 import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
-import { useMutation } from "@apollo/client";
+import { useMutation, ServerError } from "@apollo/client";
 import { DELETE_MAP_BY_ID, GET_MAPS } from "../../graphql";
+import { addNotification } from "../../store/notificationStore";
 
 export interface MapPreviewCardProps extends MapConfig, IAuth {}
 
@@ -32,7 +33,19 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 					mapID: id,
 				},
 				refetchQueries: [{ query: GET_MAPS }],
-			});
+			})
+				.then(() =>
+					addNotification({
+						type: "success",
+						message: "Map successfully deleted!",
+					}),
+				)
+				.catch((err: ServerError) => {
+					addNotification({
+						type: "danger",
+						message: err.message,
+					});
+				});
 		}
 	};
 

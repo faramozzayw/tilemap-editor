@@ -1,4 +1,4 @@
-import { createStore, createEvent, createEffect } from "effector";
+import { createStore, createEvent } from "effector";
 
 import { MapConfig, MapID } from "./../types";
 import { TileMetadata } from "../utils/Tile";

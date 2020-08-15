@@ -1,0 +1,38 @@
+.wrapper {
+	position: fixed;
+	/* top: 0; */
+	bottom: 0;
+	right: 0;
+
+	/* margin-top: auto; */
+	padding: 1rem;
+	z-index: 9999;
+	height: max-content;
+}
+
+.notifyList {
+	--scrollbar-color: #efefee;
+
+	display: flex;
+	flex-flow: column;
+	align-items: flex-end;
+
+	max-height: 100vh;
+	z-index: 9999;
+
+	padding-right: 0.5rem;
+	overflow: auto;
+}
+
+.notifyList::-webkit-scrollbar {
+	width: 0.75rem;
+}
+
+.notifyList::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+
+.notifyList::-webkit-scrollbar-thumb {
+	border-radius: 1rem;
+	background-color: var(--scrollbar-color);
+}

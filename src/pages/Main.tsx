@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MainNavbar, MapPreviewCard } from "./../components";
+import { MainNavbar, MapPreviewCard, NotifyLayout } from "./../components";
 import { Hero, HeroHeader, HeroBody } from "./../bulma";
 
 import { useAuthState } from "../hooks/auth";
@@ -34,11 +34,14 @@ export const Main = () => {
 	}
 
 	return (
-		<Hero isColor="dark" isFullHeight>
-			<HeroHeader>
-				<MainNavbar />
-			</HeroHeader>
-			<HeroBody style={{ alignItems: "initial" }}>{content}</HeroBody>
-		</Hero>
+		<>
+			<Hero isColor="dark" isFullHeight>
+				<HeroHeader>
+					<MainNavbar />
+				</HeroHeader>
+				<HeroBody style={{ alignItems: "initial" }}>{content}</HeroBody>
+			</Hero>
+			<NotifyLayout />
+		</>
 	);
 };
