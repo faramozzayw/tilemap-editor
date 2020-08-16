@@ -42,8 +42,8 @@ export interface MapConfig {
 	name: string;
 	author: string;
 	description?: string;
-	lastEdit?: Date;
-	createData: Date;
+	updatedAt?: Date;
+	createdAt: Date;
 	size: MapSize;
 	tiles: TileConfig[];
 }

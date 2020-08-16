@@ -5,8 +5,8 @@ import { MapSize } from "../../types";
 export interface PreviewCardInfoProps {
 	description?: string;
 	size: MapSize;
-	createData: Date;
-	lastEdit?: Date;
+	createdAt: Date;
+	updatedAt?: Date;
 }
 
 export interface KeyProps {
@@ -20,8 +20,8 @@ export const Key: React.FC<KeyProps> = ({ children }) => (
 export const PreviewCardInfo: React.FC<PreviewCardInfoProps> = ({
 	description,
 	size,
-	createData,
-	lastEdit,
+	createdAt,
+	updatedAt,
 }) => {
 	return (
 		<Content>
@@ -35,11 +35,13 @@ export const PreviewCardInfo: React.FC<PreviewCardInfoProps> = ({
 				<Key>Map size:</Key> {size.row} x {size.column}
 				<br />
 				<Key>Create:</Key>{" "}
-				<time dateTime="2016-1-1">{createData /* toLocaleDateString() */}</time>
+				<time dateTime="2016-1-1">
+					{new Date(createdAt).toLocaleDateString()}
+				</time>
 				<br />
 				<Key>Last edit:</Key>{" "}
 				<time dateTime="2016-1-1">
-					{lastEdit?.toLocaleString() ?? "not edited yet"}
+					{updatedAt ? new Date(updatedAt).toLocaleString() : "not edited yet"}
 				</time>
 			</div>
 		</Content>

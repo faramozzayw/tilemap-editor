@@ -7,8 +7,8 @@ export const CREATE_MAP = gql`
 			name
 			author
 			description
-			lastEdit
-			createData
+			updatedAt
+			createdAt
 			size {
 				row
 				column

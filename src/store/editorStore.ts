@@ -3,8 +3,6 @@ import { createStore, createEvent } from "effector";
 import { InstrumentsEnum, BaseTerrain } from "./../types";
 import { Mesh, Color3 } from "babylonjs";
 import { textures } from "../utils/Tile";
-import { useMutation } from "@apollo/client";
-import { UPDATE_TILE } from "../graphql/mutation";
 
 export type Instrument = keyof typeof InstrumentsEnum;
 

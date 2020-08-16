@@ -7,8 +7,8 @@ export const GET_MAP_DATA = gql`
 			name
 			author
 			description
-			lastEdit
-			createData
+			updatedAt
+			createdAt
 			size {
 				row
 				column
@@ -25,13 +25,13 @@ export const GET_MAP_DATA = gql`
 `;
 
 export const GET_MAPS = gql`
-	query {
+	query GEtMaps {
 		maps {
 			id
 			name
 			author
 			description
-			createData
+			createdAt
 			size {
 				row
 				column
