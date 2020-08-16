@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { useMutation } from "@apollo/client";
+import { useMutation, ApolloError } from "@apollo/client";
 
 import {
 	Button,
@@ -17,6 +17,7 @@ import {
 
 import { useAuthState } from "../../hooks/auth";
 import { CREATE_MAP, GET_MAPS } from "../../graphql";
+import { addNotification } from "../../store/notificationStore";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
@@ -51,7 +52,6 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 					name: nameRef.current?.value,
 					author: user!.username,
 					description: descriptionRef.current?.value,
-					createData: new Date().toLocaleString(),
 					size: {
 						row: rowRef.current!.valueAsNumber,
 						column: columnRef.current!.valueAsNumber,
@@ -59,12 +59,24 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 				},
 			},
 			refetchQueries: [{ query: GET_MAPS }],
-		}).then((res) => {
-			if (redirectedStatus) {
-				const id = res.data.createMap.id;
-				history.push(`/editor/${id}`);
-			}
-		});
+		})
+			.then((res) => {
+				addNotification({
+					type: "success",
+					message: "Map creation was successful 🎉",
+				});
+
+				if (redirectedStatus) {
+					const id = res.data.createMap.id;
+					history.push(`/editor/${id}`);
+				}
+			})
+			.catch((err: ApolloError) =>
+				addNotification({
+					type: "danger",
+					message: err.message,
+				}),
+			);
 	};
 
 	return (
