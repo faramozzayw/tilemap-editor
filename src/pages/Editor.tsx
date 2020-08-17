@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 import { EditorNavbar, EditorTabs, EditorCanvas } from "../components";
 import { Hero, HeroBody, HeroHeader, HeroFooter } from "./../bulma";

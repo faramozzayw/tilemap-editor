@@ -32,7 +32,7 @@ export const EditorCanvas: React.FC<MapConfig> = ({ id, tiles }) => {
 		return () => {
 			window.removeEventListener("resize", resizeHandler);
 		};
-	}, [tiles]);
+	}, [tiles, id]);
 
 	return (
 		<>
