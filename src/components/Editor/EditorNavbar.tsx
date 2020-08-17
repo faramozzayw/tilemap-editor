@@ -8,8 +8,13 @@ import {
 	NavbarBrand,
 	Navbar,
 } from "../../bulma";
+import { MapConfig } from "../../types";
 
-export const EditorNavbar: React.FC = () => {
+import EditorNavbarStyle from "./EditorNavbar.module.css";
+
+export interface EditorNavbar extends Pick<MapConfig, "name"> {}
+
+export const EditorNavbar: React.FC<EditorNavbar> = ({ name }) => {
 	return (
 		<Navbar>
 			<div className="container">
@@ -24,7 +29,9 @@ export const EditorNavbar: React.FC = () => {
 				</NavbarBrand>
 				<div id="navbarMenuHeroA" className="navbar-menu">
 					<NavbarEnd>
-						<NavbarItem>Map name</NavbarItem>
+						<NavbarItem>
+							<span className={EditorNavbarStyle.MapName}>{name}</span>
+						</NavbarItem>
 						<NavbarItem>
 							<Button isColor="light">Download as JSON</Button>
 						</NavbarItem>

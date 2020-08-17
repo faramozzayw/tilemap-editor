@@ -52,10 +52,12 @@ export const Editor = () => {
 		content = <EditorCanvas {...map} />;
 	}
 
+	const name = data?.map.name ?? "Error!";
+
 	return (
 		<Hero isFullHeight isColor="black">
 			<HeroHeader>
-				<EditorNavbar />
+				<EditorNavbar name={loading ? "Please wait..." : name} />
 			</HeroHeader>
 
 			<HeroBody className="is-paddingless is-relative" id="EditorCanvas-wrap">

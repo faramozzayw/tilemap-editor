@@ -1,0 +1,36 @@
+@keyframes text-color {
+	from {
+		color: violet;
+	}
+
+	25% {
+		color: darkorange;
+	}
+
+	50% {
+		color: teal;
+	}
+
+	75% {
+		color: palegreen;
+	}
+
+	to {
+		color: crimson;
+	}
+}
+
+.MapName {
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: calc(1rem + 0.5vh);
+	font-family: "Roboto Slab", sans-serif;
+	letter-spacing: 0.1rem;
+
+	border-bottom: 2px rgb(148 22 212) dashed;
+	border-bottom-style: dashed;
+}
+
+.MapName:hover {
+	animation: text-color 1s ease-in infinite;
+}
