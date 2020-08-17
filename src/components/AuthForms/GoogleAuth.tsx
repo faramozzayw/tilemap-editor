@@ -5,7 +5,6 @@ import { Title } from "../../bulma";
 import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
 import { Tokens, User } from "../../types";
-import { isDevEnv } from "../../utils";
 
 export const GoogleAuth = () => {
 	const { login, isAuthenticated } = useAuthState();

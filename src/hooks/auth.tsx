@@ -19,7 +19,7 @@ export interface AuthContextState {
 	user: User | null;
 	logout?: () => any;
 	signup?: () => any;
-	login?: (user: User, tokens: Tokens) => any;
+	login?: (user: User, tokens: Tokens) => void;
 }
 
 export const initialState: AuthContextState = {
@@ -36,7 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	useEffect(() => {
 		const isAuth = isAuthenticatedByToken();
 
-		const status: AuthStatus = isAuth ? "success" : "pending";
+		const status: AuthStatus = isAuth ? "success" : "error";
 		const rawUser = localStorage?.getItem("user");
 
 		let user: User | null = null;

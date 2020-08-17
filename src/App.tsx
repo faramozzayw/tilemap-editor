@@ -9,13 +9,13 @@ import { useAuthState } from "./hooks/auth";
 import { NotifyLayout } from "./components";
 
 const App = () => {
-	const { isAuthenticated } = useAuthState();
+	const { isAuthenticated, isPending } = useAuthState();
 
 	return (
 		<>
 			<Switch>
 				<ProtectedRouter
-					isAuth={isAuthenticated}
+					isAuth={isAuthenticated || isPending}
 					path="/editor/:mapID"
 					component={Editor}
 				/>
