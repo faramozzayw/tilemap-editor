@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, gql } from "@apollo/client";
 
@@ -10,6 +10,8 @@ import { MapConfig } from "./../types";
 
 import { generateGridMatrix } from "../utils";
 
+import "./Editor.module.css";
+
 interface MapConfigData {
 	map: MapConfig;
 }
@@ -19,6 +21,13 @@ export const Editor = () => {
 	const { data, loading, error } = useQuery<MapConfigData>(GET_MAP_DATA, {
 		variables: { mapID },
 		partialRefetch: true,
+	});
+
+	useEffect(() => {
+		const html = document.querySelector("html");
+		html?.classList.add("editor-page");
+
+		return () => html?.classList.remove("editor-page");
 	});
 
 	let content = null;
