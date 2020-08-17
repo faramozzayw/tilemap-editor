@@ -25,7 +25,9 @@ export type Textures = {
 	[key in BaseTerrainEnum]: Color3;
 };
 
-export const textures: Textures = {
+export const textures: Textures & {
+	fallback: Color3;
+} = {
 	Coast: new Color3(0.1, 0.1, 0.1),
 	Desert: new Color3(1, 1, 0),
 	Grassland: new Color3(0, 0.9, 0.1),
@@ -33,4 +35,5 @@ export const textures: Textures = {
 	Jungle: new Color3(0.1, 0.95, 0.1),
 	Ocean: new Color3(0.25, 0.1, 0.85),
 	Snow: new Color3(1, 1, 1),
+	fallback: new Color3(1, 1, 1),
 };

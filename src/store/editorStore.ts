@@ -1,14 +1,19 @@
 import { createStore, createEvent } from "effector";
 
 import { InstrumentsEnum, BaseTerrain } from "./../types";
-import { Mesh, Color3 } from "babylonjs";
+import { Mesh } from "babylonjs";
 import { textures } from "../utils/Tile";
+
+import { UpdateTileConfig } from "./../types/graphql";
+import { updateTile } from "./utils";
+import { addNotification } from "./notificationStore";
 
 export type Instrument = keyof typeof InstrumentsEnum;
 
 export const changeInstrument = createEvent<Instrument>();
 export const setCurrentObject = createEvent<Mesh>();
 export const setCurrentTerrain = createEvent<BaseTerrain>();
+export const setCurrentMapID = createEvent<string>();
 export const reset = createEvent();
 
 export interface IEditorStore {
@@ -16,6 +21,11 @@ export interface IEditorStore {
 	currentObject: Mesh | null;
 
 	currentBaseTerrain?: BaseTerrain;
+
+	updateTile?: (
+		tileID: string,
+		updateValue: UpdateTileConfig,
+	) => Promise<Response>;
 }
 
 export const initState = {
@@ -24,6 +34,10 @@ export const initState = {
 };
 
 export const editorStore = createStore<IEditorStore>(initState)
+	.on(setCurrentMapID, (state, mapID) => ({
+		...state,
+		updateTile: updateTile(mapID),
+	}))
 	.on(changeInstrument, (state, newInstrument) => {
 		return {
 			...state,
@@ -37,8 +51,6 @@ export const editorStore = createStore<IEditorStore>(initState)
 
 		newObject!.material!.alpha = 0.9;
 
-		console.log(newObject.metadata);
-
 		return {
 			...state,
 			currentObject: newObject,
@@ -46,34 +58,35 @@ export const editorStore = createStore<IEditorStore>(initState)
 		};
 	})
 	.on(setCurrentTerrain, (state, newBaseTerrain) => {
-		if (state.currentObject) {
+		if (state.currentObject && state.updateTile) {
+			const { id: tileID } = state.currentObject.metadata;
+			const prevBaseTerrain: BaseTerrain =
+				state.currentObject.metadata.baseTerrain;
+
 			state.currentObject.metadata.baseTerrain = newBaseTerrain;
-
 			// @ts-ignore
-			state.currentObject!.material!.diffuseColor =
-				textures[newBaseTerrain] ?? new Color3(1, 1, 1);
+			state.currentObject.material!.diffuseColor =
+				textures[newBaseTerrain] ?? textures.fallback;
 
-			fetch("https://api-tilemap-editor.herokuapp.com/graphql", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({
-					query: `
-                            mutation {
-                                updateTile(
-                                    mapId: "9250c5c3-8487-4e4c-af7c-38a13738389e"
-                                    tileId: "${
-																			state.currentObject.metadata!.id
-																		}"
-                                    updateValue: {
-                                        baseTerrain: ${newBaseTerrain}
-                                    }
-                                )
-                            }
-                            `,
-				}),
-			})
+			state
+				.updateTile(tileID, {
+					baseTerrain: newBaseTerrain as any,
+				})
 				.then((res) => res.json())
-				.then((res) => console.log(res));
+				.then((res) => {
+					if (res.errors) {
+						addNotification({
+							type: "danger",
+							message: "Failed to update tile ;(",
+						});
+
+						state.currentObject!.metadata.baseTerrain = prevBaseTerrain;
+						// @ts-ignore
+						state.currentObject.material!.diffuseColor =
+							textures[prevBaseTerrain] ?? textures.fallback;
+					}
+				})
+				.catch(console.error);
 
 			return {
 				...state,

@@ -4,18 +4,21 @@ import { CanvasBuild } from "./../../utils";
 import { MapConfig } from "./../../types";
 
 import { Panel } from "../Panels";
+import { setCurrentMapID } from "../../store/editorStore";
 
 export type ISizes = null | {
 	width: number;
 	height: number;
 };
 
-export const EditorCanvas: React.FC<MapConfig> = ({ tiles }) => {
+export const EditorCanvas: React.FC<MapConfig> = ({ id, tiles }) => {
 	useEffect(() => {
 		const { /* canvas, camera, */ scene, engine } = CanvasBuild(
 			"#main-canvas",
 			tiles as any[],
 		);
+
+		setCurrentMapID(id);
 
 		engine.runRenderLoop(() => {
 			scene.render();

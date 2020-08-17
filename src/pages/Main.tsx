@@ -34,14 +34,11 @@ export const Main = () => {
 	}
 
 	return (
-		<>
-			<Hero isColor="dark" isFullHeight>
-				<HeroHeader>
-					<MainNavbar />
-				</HeroHeader>
-				<HeroBody style={{ alignItems: "initial" }}>{content}</HeroBody>
-			</Hero>
-			<NotifyLayout />
-		</>
+		<Hero isColor="dark" isFullHeight>
+			<HeroHeader>
+				<MainNavbar />
+			</HeroHeader>
+			<HeroBody style={{ alignItems: "initial" }}>{content}</HeroBody>
+		</Hero>
 	);
 };
