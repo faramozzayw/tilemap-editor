@@ -23,7 +23,7 @@ export const EditorNavbar: React.FC<EditorNavbar> = ({ name }) => {
 						to="/"
 						className="navbar-item has-text-weight-bold is-family-code"
 					>
-						HexMap Editor
+						To Dashboard
 					</Link>
 					<NavbarBurger className="burger"></NavbarBurger>
 				</NavbarBrand>
@@ -33,7 +33,13 @@ export const EditorNavbar: React.FC<EditorNavbar> = ({ name }) => {
 							<span className={EditorNavbarStyle.MapName}>{name}</span>
 						</NavbarItem>
 						<NavbarItem>
-							<Button isColor="light">Download as JSON</Button>
+							<Button isColor="light">
+								<i
+									className="fas fa-file-download"
+									style={{ paddingRight: ".5rem" }}
+								/>
+								Download as JSON
+							</Button>
 						</NavbarItem>
 					</NavbarEnd>
 				</div>
