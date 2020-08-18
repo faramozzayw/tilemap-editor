@@ -14,3 +14,24 @@ canvas {
 canvas:focus {
 	outline: none;
 }
+
+html {
+	--scrollbar-color: #1f1d1d;
+}
+
+body {
+	overflow: auto;
+}
+
+body::-webkit-scrollbar {
+	width: 0.75rem;
+}
+
+body::-webkit-scrollbar-track {
+	background-color: #363636;
+}
+
+body::-webkit-scrollbar-thumb {
+	border-radius: 1rem;
+	background-color: var(--scrollbar-color);
+}

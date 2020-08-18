@@ -5,14 +5,13 @@ import { Title } from "../../bulma";
 import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
 import { Tokens, User } from "../../types";
-import { isDevEnv } from "../../utils";
 
 export const GoogleAuth = () => {
-	const { login } = useAuthState();
+	const { login, isAuthenticated } = useAuthState();
 
 	const onFailure = (response: any) => {
 		const error = JSON.stringify(response, null, 2);
-		console.log(JSON.stringify(response, null, 2));
+		console.error(error);
 		alert("Google login error");
 	};
 
@@ -48,6 +47,7 @@ export const GoogleAuth = () => {
 					onSuccess={onSuccess}
 					onFailure={onFailure}
 					theme="dark"
+					isSignedIn={isAuthenticated}
 				/>
 			</div>
 		</>

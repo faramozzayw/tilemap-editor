@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useStore } from "effector-react";
 import classnames from "classnames";
 
-import "./index.css";
+import "./Panel.css";
 
 import { Panel as BulmaPanel, PanelHeading, Button } from "./../../bulma";
 import { editorStore } from "./../../store/editorStore";
