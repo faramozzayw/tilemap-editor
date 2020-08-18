@@ -1,0 +1,14 @@
+.MapName {
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: calc(1rem + 0.5vh);
+	font-family: "Roboto Slab", sans-serif;
+	letter-spacing: 0.1rem;
+	color: hsl(204, 71%, 53%);
+
+	border: 2px rgb(148 22 212) dashed;
+	border-top: 2px rgb(148 22 212) solid;
+	width: max-content;
+	padding: 0.2rem 0.5rem;
+	border-bottom-left-radius: 1rem;
+}
