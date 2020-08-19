@@ -7,17 +7,25 @@ import { Editor, Main } from "./pages";
 import { ProtectedRouter } from "./common";
 import { useAuthState } from "./hooks/auth";
 import { NotifyLayout } from "./components";
+import { ProfilePage } from "./pages/Profile";
 
 const App = () => {
 	const { isAuthenticated, isPending } = useAuthState();
+
+	const hasAccess = isAuthenticated || isPending;
 
 	return (
 		<>
 			<Switch>
 				<ProtectedRouter
-					isAuth={isAuthenticated || isPending}
+					isAuth={hasAccess}
 					path="/editor/:mapID"
 					component={Editor}
+				/>
+				<ProtectedRouter
+					isAuth={hasAccess}
+					path="/@me"
+					component={ProfilePage}
 				/>
 				<Route path="/" component={Main} />
 			</Switch>

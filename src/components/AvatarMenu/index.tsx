@@ -24,7 +24,7 @@ const AvatarMenu: React.FC<AvatarMenuProps> = ({ username, image }) => {
 			</NavbarItem>
 			<NavbarDropdown className="is-right has-background-dark">
 				<NavbarItem>
-					<Link to="/profile">Profile</Link>
+					<Link to="/@me">Profile</Link>
 				</NavbarItem>
 				<NavbarDivider />
 				<NavbarItem>

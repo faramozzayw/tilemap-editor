@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MainNavbar, MapPreviewCard, NotifyLayout } from "./../components";
+import { MainNavbar, MapPreviewCard } from "./../components";
 import { Hero, HeroHeader, HeroBody } from "./../bulma";
 
 import { useAuthState } from "../hooks/auth";
