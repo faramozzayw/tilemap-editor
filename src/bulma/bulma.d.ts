@@ -46,7 +46,19 @@ export declare namespace Bulma {
 		isActive?: boolean;
 	}
 
-	export type HeadingSizes = 1 | 2 | 3 | 4 | 5 | 6;
+	export type HeadingSizes =
+		| 1
+		| "1"
+		| 2
+		| "2"
+		| 3
+		| "3"
+		| 4
+		| "4"
+		| 5
+		| "5"
+		| 6
+		| "6";
 
 	export interface Heading {
 		isSize?: HeadingSizes;

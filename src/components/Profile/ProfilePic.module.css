@@ -1,3 +1,14 @@
+.Wrapper {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
+}
+
+.Figure {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+}
+
 .Image {
 	clip-path: polygon(0% 0%, 50% 10%, 100% 30%, 100% 80%, 80% 100%, 0% 90%);
 	border-radius: 100%;
