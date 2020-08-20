@@ -1,7 +1,7 @@
 import React from "react";
 
-import { MainNavbar, MapPreviewCard, NotifyLayout } from "./../components";
-import { Hero, HeroHeader, HeroBody } from "./../bulma";
+import { MainNavbar, MapPreviewCard } from "./../components";
+import { Hero, HeroHeader, HeroBody, ProgressBar } from "./../bulma";
 
 import { useAuthState } from "../hooks/auth";
 import { useQuery } from "@apollo/client";
@@ -19,7 +19,8 @@ export const Main = () => {
 
 	let content: React.ReactElement | null = null;
 
-	if (loading) content = <p>Loading...</p>;
+	if (loading)
+		content = <ProgressBar isColor="primary" isSize="small" max="100" />;
 	if (error) content = <p>Error :(</p>;
 	if (data) {
 		content = (

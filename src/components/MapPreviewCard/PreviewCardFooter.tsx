@@ -1,12 +1,5 @@
 import React from "react";
-import {
-	Button,
-	Title,
-	Content,
-	Card,
-	CardContent,
-	CardFooter,
-} from "./../../bulma";
+import { Button, CardFooter } from "./../../bulma";
 import { Link } from "react-router-dom";
 import { MapConfig } from "../../types";
 

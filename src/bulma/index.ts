@@ -7,6 +7,7 @@ export { Box } from "./elements/box";
 export { Title } from "./elements/title";
 export { Content } from "./elements/content";
 export { Notification } from "./elements/notification";
+export { ProgressBar } from "./elements/ProgressBar";
 
 // forms
 export { Control } from "./form/control";

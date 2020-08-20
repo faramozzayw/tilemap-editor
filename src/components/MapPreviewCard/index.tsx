@@ -9,8 +9,10 @@ import "./index.css";
 import { PreviewCardInfo } from "./PreviewCardInfo";
 import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
-import { DELETE_MAP_BY_ID, GET_MAPS } from "../../graphql";
+import { DELETE_MAP_BY_ID, GET_MAPS, GET_MAPS_BY_USER } from "../../graphql";
 import { addNotification } from "../../store/notificationStore";
+import { userInfo } from "os";
+import { useAuthState } from "../../hooks/auth";
 
 export interface MapPreviewCardProps extends MapConfig, IAuth {}
 
@@ -23,6 +25,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 }) => {
 	const [deleteMap] = useMutation(DELETE_MAP_BY_ID);
 	const history = useHistory();
+	const { user } = useAuthState();
 
 	const editHandler = () => history.push(`/editor/${id}`);
 	const forkHandler = () => alert("forked!");
@@ -32,7 +35,15 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 				variables: {
 					mapID: id,
 				},
-				refetchQueries: [{ query: GET_MAPS }],
+				refetchQueries: [
+					{ query: GET_MAPS },
+					{
+						query: GET_MAPS_BY_USER,
+						variables: {
+							username: user?.username,
+						},
+					},
+				],
 			})
 				.then(() =>
 					addNotification({

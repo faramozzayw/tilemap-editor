@@ -1,27 +1,15 @@
 import { gql } from "@apollo/client";
+import { MapInfoFrag, MapTilesFrag } from "./fragments";
 
 export const CREATE_MAP = gql`
 	mutation CreateMap($newMap: NewMap!) {
 		createMap(newMap: $newMap) {
-			id
-			name
-			author
-			description
-			updatedAt
-			createdAt
-			size {
-				row
-				column
-			}
-			tiles {
-				id
-				baseTerrain
-				terrainFeatures
-				resource
-				units
-			}
+			...MapInfo
+			...MapTiles
 		}
 	}
+	${MapInfoFrag}
+	${MapTilesFrag}
 `;
 
 export const DELETE_MAP_BY_ID = gql`

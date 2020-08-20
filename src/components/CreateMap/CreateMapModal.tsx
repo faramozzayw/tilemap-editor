@@ -16,7 +16,7 @@ import {
 } from "./../../bulma";
 
 import { useAuthState } from "../../hooks/auth";
-import { CREATE_MAP, GET_MAPS } from "../../graphql";
+import { CREATE_MAP, GET_MAPS, GET_MAPS_BY_USER } from "../../graphql";
 import { addNotification } from "../../store/notificationStore";
 
 export interface CreateMapModalProps {
@@ -58,7 +58,15 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 					},
 				},
 			},
-			refetchQueries: [{ query: GET_MAPS }],
+			refetchQueries: [
+				{ query: GET_MAPS },
+				{
+					query: GET_MAPS_BY_USER,
+					variables: {
+						username: user?.username,
+					},
+				},
+			],
 		})
 			.then((res) => {
 				addNotification({
