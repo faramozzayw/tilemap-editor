@@ -13,3 +13,15 @@ export const MapInfoFrag = gql`
 		}
 	}
 `;
+
+export const MapTilesFrag = gql`
+	fragment MapTiles on Map {
+		tiles {
+			id
+			baseTerrain
+			terrainFeatures
+			resource
+			units
+		}
+	}
+`;

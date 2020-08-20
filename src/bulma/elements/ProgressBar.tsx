@@ -1,4 +1,4 @@
-import React, { ProgressHTMLAttributes } from "react";
+import React from "react";
 import classnames from "classnames";
 
 import { Bulma } from "./../bulma";
