@@ -13,6 +13,15 @@ export const GET_MAP_DATA = gql`
 	${MapTilesFrag}
 `;
 
+export const GET_MAPS_PAGINATION = gql`
+	query GEtMaps($limit: Int, $offset: Int) {
+		maps(limit: $limit, skip: $offset) {
+			...MapInfo
+		}
+	}
+	${MapInfoFrag}
+`;
+
 export const GET_MAPS = gql`
 	query GEtMaps {
 		maps {
@@ -22,11 +31,9 @@ export const GET_MAPS = gql`
 	${MapInfoFrag}
 `;
 
-console.log(MapInfoFrag);
-
 export const GET_MAPS_BY_USER = gql`
-	query GetMapsByUser($username: String!) {
-		maps(filter: { author: $username }) {
+	query GetMapsByUser($username: String!, $limit: Int, $offset: Int) {
+		maps(filter: { author: $username }, limit: $limit, skip: $offset) {
 			...MapInfo
 		}
 	}

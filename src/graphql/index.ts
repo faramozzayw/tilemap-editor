@@ -7,6 +7,11 @@ export const client = new ApolloClient({
 
 export { DELETE_MAP_BY_ID, CREATE_MAP } from "./mutation";
 
-export { GET_MAP_DATA, GET_MAPS, GET_MAPS_BY_USER } from "./query";
+export {
+	GET_MAP_DATA,
+	GET_MAPS,
+	GET_MAPS_BY_USER,
+	GET_MAPS_PAGINATION,
+} from "./query";
 
 export { MapInfoFrag } from "./fragments";

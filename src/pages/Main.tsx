@@ -1,45 +1,60 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
 
-import { MainNavbar, MapPreviewCard } from "./../components";
-import { Hero, HeroHeader, HeroBody, ProgressBar } from "./../bulma";
+import { MainNavbar } from "./../components";
+import { Hero, HeroHeader, HeroBody } from "./../bulma";
 
 import { useAuthState } from "../hooks/auth";
-import { useQuery } from "@apollo/client";
 import { MapConfig } from "../types";
-import { GET_MAPS } from "./../graphql";
+import { MapFeed } from "../components/MapPreviewCard";
+import { GET_MAPS_PAGINATION } from "../graphql";
 
 interface MapConfigData {
 	maps: MapConfig[];
 }
 
+const limit = 10;
+
 export const Main = () => {
 	const { isAuthenticated: isAuth } = useAuthState();
 
-	const { loading, error, data } = useQuery<MapConfigData>(GET_MAPS);
-
-	let content: React.ReactElement | null = null;
-
-	if (loading)
-		content = <ProgressBar isColor="primary" isSize="small" max="100" />;
-	if (error) content = <p>Error :(</p>;
-	if (data) {
-		content = (
-			<div className="columns is-multiline is-left" style={{ flex: "1" }}>
-				{data.maps?.map((mapData) => (
-					<div className="column is-4" key={mapData.id}>
-						<MapPreviewCard {...mapData} isAuth={isAuth} />
-					</div>
-				))}
-			</div>
-		);
-	}
+	const { loading, error, data, fetchMore } = useQuery<MapConfigData>(
+		GET_MAPS_PAGINATION,
+		{
+			variables: {
+				offset: 0,
+				limit,
+			},
+			fetchPolicy: "cache-and-network",
+		},
+	);
 
 	return (
 		<Hero isColor="dark" isFullHeight>
 			<HeroHeader>
 				<MainNavbar />
 			</HeroHeader>
-			<HeroBody style={{ alignItems: "initial" }}>{content}</HeroBody>
+			<HeroBody style={{ flexFlow: "column" }}>
+				<MapFeed
+					loading={loading}
+					error={error}
+					isAuth={isAuth}
+					maps={data?.maps}
+					onLoadMore={() => {
+						fetchMore({
+							variables: {
+								offset: data?.maps.length,
+							},
+							updateQuery: (prev, { fetchMoreResult }) => {
+								if (!fetchMoreResult) return prev;
+								return Object.assign({}, prev, {
+									maps: [...prev.maps, ...fetchMoreResult.maps],
+								});
+							},
+						});
+					}}
+				/>
+			</HeroBody>
 		</Hero>
 	);
 };

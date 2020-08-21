@@ -3,13 +3,14 @@ import { useQuery } from "@apollo/client";
 
 import { useAuthState } from "../hooks/auth";
 
-import { Hero, HeroHeader, HeroBody, ProgressBar } from "../bulma";
-import { MainNavbar, MapPreviewCard } from "../components";
+import { Hero, HeroHeader, HeroBody } from "../bulma";
+import { MainNavbar } from "../components";
 import { ProfilePic, ProfileTitle, InputField } from "../components/Profile";
 
 import ProfilePicStyle from "./../components/Profile/ProfilePic.module.css";
 import { GET_MAPS_BY_USER } from "../graphql";
 import { MapConfig } from "../types";
+import { MapFeed } from "../components/MapPreviewCard";
 
 interface MapConfigData {
 	maps: MapConfig[];
@@ -18,28 +19,16 @@ interface MapConfigData {
 export const ProfilePage = () => {
 	const { user, isAuthenticated: isAuth } = useAuthState();
 
-	const { loading, error, data } = useQuery<MapConfigData>(GET_MAPS_BY_USER, {
-		variables: {
-			username: user?.username,
+	const { loading, error, data, fetchMore } = useQuery<MapConfigData>(
+		GET_MAPS_BY_USER,
+		{
+			variables: {
+				username: user?.username,
+				offset: 0,
+				limit: 5,
+			},
 		},
-	});
-
-	let user_maps: React.ReactElement | null = null;
-
-	if (loading)
-		user_maps = <ProgressBar isColor="primary" isSize="small" max="100" />;
-	if (error) user_maps = <p>Error :(</p>;
-	if (data) {
-		user_maps = (
-			<div className="columns is-multiline is-left" style={{ flex: "1" }}>
-				{data.maps?.map((mapData) => (
-					<div className="column is-4" key={mapData.id}>
-						<MapPreviewCard {...mapData} isAuth={isAuth} />
-					</div>
-				))}
-			</div>
-		);
-	}
+	);
 
 	return (
 		<Hero isColor="dark" isFullHeight>
@@ -82,7 +71,25 @@ export const ProfilePage = () => {
 				</section>
 				<section className={ProfilePicStyle.Box}>
 					<ProfileTitle>_Your maps~</ProfileTitle>
-					{user_maps}
+					<MapFeed
+						loading={loading}
+						error={error}
+						isAuth={isAuth}
+						maps={data?.maps}
+						onLoadMore={() => {
+							fetchMore({
+								variables: {
+									offset: data?.maps.length,
+								},
+								updateQuery: (prev, { fetchMoreResult }) => {
+									if (!fetchMoreResult) return prev;
+									return Object.assign({}, prev, {
+										maps: [...prev.maps, ...fetchMoreResult.maps],
+									});
+								},
+							});
+						}}
+					/>
 				</section>
 			</HeroBody>
 		</Hero>
