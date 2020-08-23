@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useMutation, ServerError } from "@apollo/client";
+import { useMutation, ApolloError } from "@apollo/client";
 
 import { Title, Card, CardContent } from "./../../bulma";
 import { MapConfig } from "./../../types";
@@ -11,7 +11,6 @@ import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
 import { DELETE_MAP_BY_ID, GET_MAPS, GET_MAPS_BY_USER } from "../../graphql";
 import { addNotification } from "../../store/notificationStore";
-import { userInfo } from "os";
 import { useAuthState } from "../../hooks/auth";
 
 export interface MapPreviewCardProps extends MapConfig, IAuth {}
@@ -51,7 +50,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 						message: "Map successfully deleted!",
 					}),
 				)
-				.catch((err: ServerError) => {
+				.catch((err: ApolloError) => {
 					addNotification({
 						type: "danger",
 						message: err.message,

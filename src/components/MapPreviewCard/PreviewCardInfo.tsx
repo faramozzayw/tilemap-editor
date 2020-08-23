@@ -22,28 +22,26 @@ export const PreviewCardInfo: React.FC<PreviewCardInfoProps> = ({
 	size,
 	createdAt,
 	updatedAt,
-}) => {
-	return (
-		<Content>
-			{description && (
-				<>
-					<div className="description is-family-code">{description}</div>
-					<br />
-				</>
-			)}
-			<div className="config">
-				<Key>Map size:</Key> {size.row} x {size.column}
+}) => (
+	<Content>
+		{description && (
+			<>
+				<div className="description is-family-code">{description}</div>
 				<br />
-				<Key>Create:</Key>{" "}
-				<time dateTime="2016-1-1">
-					{new Date(createdAt).toLocaleDateString()}
-				</time>
-				<br />
-				<Key>Last edit:</Key>{" "}
-				<time dateTime="2016-1-1">
-					{updatedAt ? new Date(updatedAt).toLocaleString() : "not edited yet"}
-				</time>
-			</div>
-		</Content>
-	);
-};
+			</>
+		)}
+		<div className="config">
+			<Key>Map size:</Key> {size.row} x {size.column}
+			<br />
+			<Key>Create:</Key>{" "}
+			<time dateTime="2016-1-1">
+				{new Date(createdAt).toLocaleDateString()}
+			</time>
+			<br />
+			<Key>Last edit:</Key>{" "}
+			<time dateTime="2016-1-1">
+				{updatedAt ? new Date(updatedAt).toLocaleString() : "not edited yet"}
+			</time>
+		</div>
+	</Content>
+);

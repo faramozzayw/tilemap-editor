@@ -15,7 +15,7 @@ export interface MapFeed extends Pick<QueryResult, "loading" | "error">, IAuth {
 }
 
 const MapFeedError = () => (
-	<Notification>
+	<Notification isColor="dark">
 		<Title tag="h3" isSize="3">
 			Oh no, we have a mistake! :(
 		</Title>

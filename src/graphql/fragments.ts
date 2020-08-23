@@ -7,6 +7,7 @@ export const MapInfoFrag = gql`
 		author
 		description
 		createdAt
+		updatedAt
 		size {
 			row
 			column
