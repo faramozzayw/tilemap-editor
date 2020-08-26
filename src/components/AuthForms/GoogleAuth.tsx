@@ -47,7 +47,7 @@ export const GoogleAuth = () => {
 					onSuccess={onSuccess}
 					onFailure={onFailure}
 					theme="dark"
-					isSignedIn={isAuthenticated}
+					isSignedIn={true}
 				/>
 			</div>
 		</>

@@ -64,7 +64,7 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 					metadata: {
 						...tile,
 					},
-					rootMesh: new Mesh(tile.id, scene, null, root),
+					rootMesh: root.clone(),
 				});
 			});
 		},

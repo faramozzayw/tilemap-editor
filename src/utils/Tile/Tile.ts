@@ -32,17 +32,17 @@ export const Tile = ({
 
 	rootMesh.metadata = metadata;
 
-	const geometry = new Geometry("geom", scene);
-	geometry.applyToMesh(rootMesh as Mesh);
-
 	const actMesh = rootMesh.getChildMeshes()[1];
 	actMesh.metadata = metadata;
 
-	// const material = new StandardMaterial("tile material", scene);
-	// material.diffuseColor = textures[metadata.baseTerrain] ?? new Color3(1, 1, 1);
-	// @ts-ignore
-	actMesh.material.albedoColor =
-		textures[metadata.baseTerrain] ?? new Color3(0.2, 1, 1);
+	actMesh.metadata.setBaseTerrain = () => {
+		material.diffuseColor = textures[metadata.baseTerrain] ?? textures.fallback;
+	};
+
+	const material = new StandardMaterial("tile material", scene);
+	actMesh.metadata.setBaseTerrain();
+
+	actMesh.material = material;
 
 	actMesh.actionManager = new ActionManager(scene);
 	actMesh.actionManager.registerAction(
