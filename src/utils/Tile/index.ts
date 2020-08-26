@@ -1,7 +1,7 @@
 import { TileConfig, BaseTerrainEnum } from "./../../types";
 import { Color3 } from "babylonjs";
 
-export { Tile } from "./Tile";
+export { DTile, Tile } from "./Tile";
 
 export interface ITileGeometryConfig {
 	readonly radiusTop: number;
@@ -35,5 +35,5 @@ export const textures: Textures & {
 	Jungle: new Color3(0.1, 0.95, 0.1),
 	Ocean: new Color3(0.25, 0.1, 0.85),
 	Snow: new Color3(1, 1, 1),
-	fallback: new Color3(1, 1, 1),
+	fallback: new Color3(1, 0.2, 1),
 };

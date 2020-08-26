@@ -4,16 +4,11 @@ import {
 	Vector3,
 	HemisphericLight,
 	ArcRotateCamera,
-	Mesh,
-	StandardMaterial,
-	Color3,
 	SceneLoader,
-	InstancedMesh,
 } from "babylonjs";
 
 import "babylonjs-loaders";
 import { $, Tile } from "./index";
-import { TileMetadata } from "./Tile";
 
 export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 	const canvas = $(selector)[0] as HTMLCanvasElement;
@@ -38,12 +33,16 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 		scene,
 	);
 
-	camera.upperBetaLimit = 2;
+	camera.upperBetaLimit = 1;
 	camera.wheelPrecision = 5;
 	camera.panningSensibility = 5;
-	camera.panningInertia = 0.5;
-	camera.setTarget(new Vector3(0, 0, 30));
-	camera.attachControl(canvas, false);
+	camera.panningInertia = 0;
+	camera.allowUpsideDown = false;
+
+	camera.upperRadiusLimit = 50;
+
+	camera.setTarget(Vector3.Zero());
+	camera.attachControl(canvas, true);
 
 	const light = new HemisphericLight("light1", new Vector3(1, 1, 1), scene);
 
@@ -53,17 +52,14 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 		scene,
 		(tileModel) => {
 			let root = tileModel.createRootMesh();
-			root.scaling = new Vector3(5.5, 3, 5.5);
 
 			tiles.map((tile) => {
 				const position = new Vector3(...tile.position);
 
-				return Tile({
+				return new Tile({
 					position,
 					scene,
-					metadata: {
-						...tile,
-					},
+					metadata: tile,
 					rootMesh: root.clone(),
 				});
 			});
