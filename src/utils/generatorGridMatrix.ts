@@ -14,8 +14,8 @@ export const generateGridMatrix = (
 ): Tile[] => {
 	let result: Tile[] = [];
 
-	const dx = 10;
-	const dy = 8.5 / 2;
+	const dx = 10.25;
+	const dy = 8.75 / 2;
 
 	let tileNumber = 0;
 

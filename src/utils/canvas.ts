@@ -7,9 +7,13 @@ import {
 	Mesh,
 	StandardMaterial,
 	Color3,
+	SceneLoader,
+	InstancedMesh,
 } from "babylonjs";
 
+import "babylonjs-loaders";
 import { $, Tile } from "./index";
+import { TileMetadata } from "./Tile";
 
 export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 	const canvas = $(selector)[0] as HTMLCanvasElement;
@@ -42,24 +46,29 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 	camera.attachControl(canvas, false);
 
 	const light = new HemisphericLight("light1", new Vector3(1, 1, 1), scene);
-	const ground = Mesh.CreateGround("ground1", 100, 100, 2, scene);
-	ground.position = new Vector3(15, -0.25, 15);
 
-	const material = new StandardMaterial("tile material", scene);
-	material.diffuseColor = new Color3(0.4, 0.25, 1);
-	ground.material = material;
+	SceneLoader.LoadAssetContainer(
+		"/assets/",
+		"tile.gltf",
+		scene,
+		(tileModel) => {
+			let root = tileModel.createRootMesh();
+			root.scaling = new Vector3(5.5, 3, 5.5);
 
-	tiles.map((tile) => {
-		const position = new Vector3(...tile.position);
+			tiles.map((tile) => {
+				const position = new Vector3(...tile.position);
 
-		return Tile({
-			position,
-			scene,
-			metadata: {
-				...tile,
-			},
-		});
-	});
+				return Tile({
+					position,
+					scene,
+					metadata: {
+						...tile,
+					},
+					rootMesh: new Mesh(tile.id, scene, null, root),
+				});
+			});
+		},
+	);
 
 	return {
 		canvas,

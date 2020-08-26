@@ -51,6 +51,8 @@ export const editorStore = createStore<IEditorStore>(initState)
 
 		newObject!.material!.alpha = 0.9;
 
+		console.log(newObject.material);
+
 		return {
 			...state,
 			currentObject: newObject,
