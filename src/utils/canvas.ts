@@ -54,7 +54,7 @@ export const CanvasBuild = (selector: string, tiles: any[] = []) => {
 			let root = tileModel.createRootMesh();
 
 			tiles.map((tile) => {
-				const position = new Vector3(...tile.position);
+				const position = new Vector3(0, 0, 0);
 
 				return new Tile({
 					position,

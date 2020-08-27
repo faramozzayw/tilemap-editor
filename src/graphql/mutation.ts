@@ -29,3 +29,14 @@ export const UPDATE_TILE = gql`
 		updateTile(mapId: $mapID, tileId: $tileID, updateValue: $updateValue)
 	}
 `;
+
+export const UPDATE_USER_INFO = gql`
+	mutation UpdateUser($id: Uuid!, $updateValue: UpdateUser!) {
+		updateUserInfo(userId: $id, updateValue: $updateValue) {
+			id
+			username
+			description
+			email
+		}
+	}
+`;

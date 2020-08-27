@@ -5,7 +5,7 @@ import { useAuthState } from "../hooks/auth";
 
 import { Hero, HeroHeader, HeroBody } from "../bulma";
 import { MainNavbar } from "../components";
-import { ProfilePic, ProfileTitle, InputField } from "../components/Profile";
+import { ProfilePic, ProfileTitle, ProfileInfo } from "../components/Profile";
 
 import ProfilePicStyle from "./../components/Profile/ProfilePic.module.css";
 import { GET_MAPS_BY_USER } from "../graphql";
@@ -29,6 +29,10 @@ export const ProfilePage = () => {
 			},
 		},
 	);
+
+	if (!user) {
+		return null;
+	}
 
 	return (
 		<Hero isColor="dark" isFullHeight>
@@ -58,14 +62,7 @@ export const ProfilePage = () => {
 					<div className="tile is-parent">
 						<div className={`tile is-child content ${ProfilePicStyle.Box}`}>
 							<ProfileTitle>Bio</ProfileTitle>
-
-							<InputField value={user?.username} description="+|__username__|+">
-								<span className={`is-family-code ${ProfilePicStyle.Symbol}`}>
-									@
-								</span>
-							</InputField>
-
-							<InputField value={user?.email} description="~~email~~" />
+							<ProfileInfo user={user} isAuth={isAuth} />
 						</div>
 					</div>
 				</section>

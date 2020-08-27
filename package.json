@@ -11,6 +11,7 @@
 		"classnames": "^2.2.6",
 		"effector": "^21.0.1",
 		"effector-react": "^21.0.2",
+		"formik": "^2.1.5",
 		"graphql": "^15.3.0",
 		"js-cookie": "^2.2.1",
 		"react": "^16.13.1",
