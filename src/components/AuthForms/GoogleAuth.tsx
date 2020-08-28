@@ -9,6 +9,7 @@ import { setTokensToCookies } from "../../hooks/utils";
 
 const refreshTokenSetup = (res: GoogleLoginResponse) => {
 	let refreshTiming = (res.tokenObj.expires_in || 3600 - 5 * 60) * 1000;
+	console.info("refresh token setup");
 
 	const refreshToken = async () => {
 		const newAuthRes = await res.reloadAuthResponse();
@@ -19,7 +20,7 @@ const refreshTokenSetup = (res: GoogleLoginResponse) => {
 			expires_in: refreshTiming,
 		});
 
-		console.log("token updated!");
+		console.info("token updated!");
 		setTimeout(refreshToken, refreshTiming);
 	};
 
