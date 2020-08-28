@@ -12,6 +12,7 @@ export {
 	GET_MAPS,
 	GET_MAPS_BY_USER,
 	GET_MAPS_PAGINATION,
+	LOGIN,
 } from "./query";
 
 export { MapInfoFrag } from "./fragments";

@@ -20,12 +20,7 @@ export const InputField = forwardRef<
 					{description}
 				</small>
 			)}
-			<input
-				{...props}
-				ref={ref}
-				type="text"
-				className={InputFieldStyle.Input}
-			/>
+			<input {...props} ref={ref} className={InputFieldStyle.Input} />
 		</label>
 	);
 });

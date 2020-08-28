@@ -1,27 +1,24 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+
 import { Button, NavbarItem } from "../../bulma";
-// import { useGoogleLogout } from "react-google-login";
-// import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
 
 export const LogOut = () => {
 	const { logout } = useAuthState();
+	const history = useHistory();
 
-	/*
-	const { signOut, loaded } = useGoogleLogout({
-		clientId: googleClientID,
-		onFailure: () => console.error("onFailure"),
-		onLogoutSuccess: () => console.info("onLogoutSuccess"),
-		cookiePolicy: "single_host_origin",
-	});
-    */
+	const logoutHandler = () => {
+		history.push("/");
+		logout();
+	};
 
 	return (
 		<NavbarItem>
 			<Button
 				isOutlined
 				isColor="danger"
-				onClick={logout}
+				onClick={logoutHandler}
 				className="is-marginless is-fullwidth"
 			>
 				Log out

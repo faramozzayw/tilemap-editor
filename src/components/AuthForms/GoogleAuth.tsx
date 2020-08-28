@@ -28,12 +28,12 @@ const refreshTokenSetup = (res: GoogleLoginResponse) => {
 };
 
 export const GoogleAuth = () => {
-	const { login, isAuthenticated } = useAuthState();
+	const { login } = useAuthState();
 
 	const onFailure = (response: any) => {
 		const error = JSON.stringify(response, null, 2);
 		console.error(error);
-		alert("Google login error");
+		console.error("Google login error");
 	};
 
 	const onSuccess = (response: GoogleLoginResponse) => {

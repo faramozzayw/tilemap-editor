@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { useMutation } from "@apollo/client";
 
 import { Buttons, Button } from "../../bulma";
@@ -14,7 +14,7 @@ export interface ProfileInfo extends IAuth {
 	user: User;
 }
 
-export const ProfileInfo: React.FC<ProfileInfo> = ({ user, isAuth }) => {
+export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 	const [editStatus, setEditStatus] = useState(false);
 
 	const usernameRef = useRef<HTMLInputElement>(null);
@@ -54,52 +54,45 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user, isAuth }) => {
 
 	return (
 		<form onSubmit={updateUserInfoHandler}>
-			<InputField
-				name="username"
-				ref={usernameRef}
-				description="+|__username__|+"
-				defaultValue={user?.username}
-				disabled={!editStatus}
-			>
-				<span className={`is-family-code ${ProfilePicStyle.Symbol}`}>@</span>
-			</InputField>
-
-			<InputField
-				ref={emailRef}
-				type="email"
-				name="email"
-				description="~~email~~"
-				defaultValue={user?.email}
-				disabled={!editStatus}
-			/>
-			{!editStatus && (
-				<Button
-					type="button"
-					onClick={() => setEditStatus(true)}
-					isColor="info"
+			<fieldset disabled={loading}>
+				<InputField
+					name="username"
+					ref={usernameRef}
+					description="+|__username__|+"
+					defaultValue={user?.username}
+					disabled={!editStatus}
 				>
-					wanna edit your info?
-				</Button>
-			)}
-			{editStatus && (
-				<Buttons>
+					<span className={`is-family-code ${ProfilePicStyle.Symbol}`}>@</span>
+				</InputField>
+
+				<InputField
+					ref={emailRef}
+					type="email"
+					name="email"
+					description="~~email~~"
+					defaultValue={user?.email}
+					disabled={!editStatus}
+				/>
+				{!editStatus && (
 					<Button
-						disabled={loading}
-						isColor="light"
-						onClick={() => setEditStatus(false)}
+						type="button"
+						isColor="info"
+						onClick={() => setEditStatus(true)}
 					>
-						cancel
+						wanna edit your info?
 					</Button>
-					<Button
-						disabled={loading}
-						isLoading={loading}
-						isColor="success"
-						type="submit"
-					>
-						save
-					</Button>
-				</Buttons>
-			)}
+				)}
+				{editStatus && (
+					<Buttons>
+						<Button isColor="light" onClick={() => setEditStatus(false)}>
+							cancel
+						</Button>
+						<Button type="submit" isColor="success">
+							save
+						</Button>
+					</Buttons>
+				)}
+			</fieldset>
 		</form>
 	);
 };

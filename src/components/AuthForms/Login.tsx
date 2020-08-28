@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import classnames from "classnames";
+import { useFormik } from "formik";
+import { useLazyQuery } from "@apollo/client";
 
 import {
 	Button,
@@ -11,61 +12,107 @@ import {
 	Modal,
 	ModalContent,
 	ModalClose,
+	Buttons,
 } from "./../../bulma";
 import { GoogleAuth } from "./GoogleAuth";
+import { LOGIN } from "../../graphql/";
+import { addNotification } from "../../store/notificationStore";
 
 export const LogIn = () => {
 	const [modalActive, toggleModal] = useState(false);
+	const [loginQuery, { loading }] = useLazyQuery(LOGIN, {
+		onCompleted: (data) => {
+			console.table(data);
+		},
+		onError: (e) => {
+			console.error(e);
+			addNotification({
+				type: "danger",
+				message: "Access denied.",
+			});
+		},
+	});
+
+	const formik = useFormik({
+		initialValues: {
+			username: "",
+			password: "",
+		},
+		onSubmit: (values) => {
+			loginQuery({
+				variables: { data: { ...values } },
+			});
+		},
+	});
 
 	const openModal = () => toggleModal(true);
-	const closeModal = () => toggleModal(false);
+	const closeModal = () => {
+		toggleModal(false);
+		formik.resetForm();
+	};
 
 	return (
 		<>
 			<Button isOutlined isColor="info" onClick={openModal}>
 				Log in
 			</Button>
-			<Modal className="has-text" isActive={modalActive}>
+			<Modal className="has-text-center" isActive={modalActive}>
 				<ModalBackground onClick={closeModal} />
 				<ModalContent>
 					<Box>
-						<form>
+						<form
+							onSubmit={formik.handleSubmit}
+							// @ts-ignore
+							onReset={formik.resetForm}
+						>
 							<Title className="has-text-dark">Login</Title>
 							<hr />
-							<div className="field">
-								<Label>Email</Label>
-								<Control>
-									<input
-										className="input"
-										type="email"
-										name="email"
-										placeholder="Input email"
-										autoFocus
-										required
-									/>
-								</Control>
-							</div>
-							<div className="field">
-								<Label>Password</Label>
-								<Control>
-									<input
-										className="input"
-										type="password"
-										name="current-password"
-										autoComplete="current-password"
-										placeholder="Input password"
-										required
-									/>
-								</Control>
-							</div>
-							<div className="field is-grouped">
-								<Control>
-									<Button isColor="success" type="submit">
-										Login
-									</Button>
-								</Control>
-							</div>
-							<GoogleAuth />
+							<fieldset disabled={loading}>
+								<div className="field">
+									<Label>username</Label>
+									<Control>
+										<input
+											onChange={formik.handleChange}
+											value={formik.values.username}
+											className="input"
+											type="username"
+											name="username"
+											placeholder="Input username"
+											autoFocus
+											required
+										/>
+									</Control>
+								</div>
+								<div className="field">
+									<Label>Password</Label>
+									<Control>
+										<input
+											onChange={formik.handleChange}
+											value={formik.values.password}
+											className="input"
+											id="password"
+											type="password"
+											name="password"
+											autoComplete="current-password"
+											placeholder="Input password"
+											required
+										/>
+									</Control>
+								</div>
+								<div className="field is-grouped">
+									<Control>
+										<Buttons>
+											<Button isColor="success" type="submit">
+												Login
+											</Button>
+											<Button isColor="light" type="reset">
+												Reset
+											</Button>
+										</Buttons>
+									</Control>
+								</div>
+								<GoogleAuth />
+							</fieldset>
 						</form>
 					</Box>
 				</ModalContent>
