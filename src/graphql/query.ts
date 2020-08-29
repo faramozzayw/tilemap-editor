@@ -39,12 +39,3 @@ export const GET_MAPS_BY_USER = gql`
 	}
 	${MapInfoFrag}
 `;
-
-export const LOGIN = gql`
-	query Login($data: LoginUser!) {
-		loginUser(loginUser: $data) {
-			accessToken
-			refreshToken
-		}
-	}
-`;

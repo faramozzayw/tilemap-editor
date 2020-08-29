@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { useLazyQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import {
 	Button,
@@ -20,7 +20,7 @@ import { addNotification } from "../../store/notificationStore";
 
 export const LogIn = () => {
 	const [modalActive, toggleModal] = useState(false);
-	const [loginQuery, { loading }] = useLazyQuery(LOGIN, {
+	const [loginQuery, { loading }] = useMutation(LOGIN, {
 		onCompleted: (data) => {
 			console.table(data);
 		},
