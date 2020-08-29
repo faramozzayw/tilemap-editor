@@ -40,3 +40,14 @@ export const UPDATE_USER_INFO = gql`
 		}
 	}
 `;
+
+export const SIGN_UP = gql`
+	mutation CreateNewUser($data: CreateUser!) {
+		createNewUser(newUser: $data) {
+			id
+			username
+			email
+			description
+		}
+	}
+`;

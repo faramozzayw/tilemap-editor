@@ -5,7 +5,7 @@ export const client = new ApolloClient({
 	cache: new InMemoryCache(),
 });
 
-export { DELETE_MAP_BY_ID, CREATE_MAP } from "./mutation";
+export { DELETE_MAP_BY_ID, CREATE_MAP, SIGN_UP } from "./mutation";
 
 export {
 	GET_MAP_DATA,

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { useLazyQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
-import { LOGIN } from "../../graphql/";
+import { SIGN_UP } from "../../graphql";
 import {
 	Button,
 	Control,
@@ -20,7 +20,7 @@ import { addNotification } from "../../store/notificationStore";
 
 export const SignUp = () => {
 	const [modalActive, toggleModal] = useState(false);
-	const [singUpQuery, { loading }] = useLazyQuery(LOGIN, {
+	const [singUpQuery, { loading }] = useMutation(SIGN_UP, {
 		onCompleted: (data) => {
 			console.table(data);
 		},
@@ -115,7 +115,7 @@ export const SignUp = () => {
 									<Control>
 										<Buttons>
 											<Button isColor="success" type="submit">
-												Login
+												Sign Up
 											</Button>
 											<Button isColor="light" type="reset">
 												Reset
