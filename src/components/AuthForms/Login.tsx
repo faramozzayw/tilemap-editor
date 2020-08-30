@@ -40,6 +40,10 @@ export const LogIn = () => {
 				refresh_token: loginUser.refreshToken,
 				expires_in: user.exp,
 			} as Tokens);
+			addNotification({
+				type: "success",
+				message: "Login was successful 🌈",
+			});
 		},
 		onError: (e) => {
 			console.error(e);

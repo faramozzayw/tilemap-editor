@@ -39,3 +39,14 @@ export const GET_MAPS_BY_USER = gql`
 	}
 	${MapInfoFrag}
 `;
+
+export const GET_ME = gql`
+	query Me {
+		me {
+			id
+			username
+			email
+			description
+		}
+	}
+`;

@@ -1,8 +1,20 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
+import { getAccessToken } from "../hooks/utils";
+
+const authLink = setContext((_, { headers }) => {
+	const token = getAccessToken();
+	return {
+		headers: {
+			...headers,
+			authorization: token ? `Bearer ${token}` : "",
+		},
+	};
+});
 
 const httpLink = createHttpLink({
 	uri: "https://api-tilemap-editor.herokuapp.com/graphql",
-	credentials: "same-origin",
+	credentials: "include",
 	fetchOptions: {
 		mode: "cors",
 	},
@@ -12,7 +24,7 @@ const httpLink = createHttpLink({
 });
 
 export const client = new ApolloClient({
-	link: httpLink,
+	link: authLink.concat(httpLink),
 	cache: new InMemoryCache(),
 });
 
@@ -23,6 +35,7 @@ export {
 	GET_MAPS,
 	GET_MAPS_BY_USER,
 	GET_MAPS_PAGINATION,
+	GET_ME,
 } from "./query";
 
 export { MapInfoFrag, MapTilesFrag } from "./fragments";
