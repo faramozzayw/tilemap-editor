@@ -25,4 +25,4 @@ export {
 	GET_MAPS_PAGINATION,
 } from "./query";
 
-export { MapInfoFrag } from "./fragments";
+export { MapInfoFrag, MapTilesFrag } from "./fragments";

@@ -11,8 +11,88 @@ export type Scalars = {
 	Boolean: boolean;
 	Int: number;
 	Float: number;
-	/** DateTime */
-	DateTimeUtc: any;
+	/** UtcDateTime */
+	UtcDateTime: any;
+	/** Uuid */
+	Uuid: any;
+};
+
+export type ReturnUser = {
+	__typename?: "ReturnUser";
+	id: Scalars["Uuid"];
+	username?: Maybe<Scalars["String"]>;
+	email?: Maybe<Scalars["String"]>;
+	description?: Maybe<Scalars["String"]>;
+};
+
+export type Map = {
+	__typename?: "Map";
+	id: Scalars["ID"];
+	name: Scalars["String"];
+	author: Scalars["String"];
+	description?: Maybe<Scalars["String"]>;
+	updatedAt?: Maybe<Scalars["UtcDateTime"]>;
+	createdAt: Scalars["UtcDateTime"];
+	size: MapSize;
+	tiles?: Maybe<Array<TileConfig>>;
+};
+
+export type MutationRoot = {
+	__typename?: "MutationRoot";
+	/** Creating a new map */
+	createMap: Map;
+	/** Deleting a map by ID */
+	deleteMap: Map;
+	updateTile: Scalars["String"];
+	/** Updating part of map information by ID */
+	updateMapInfo: Scalars["String"];
+	createNewUser: User;
+	updateUserInfo: ReturnUser;
+	loginUser: Jwt;
+};
+
+export type MutationRootCreateMapArgs = {
+	newMap: NewMap;
+};
+
+export type MutationRootDeleteMapArgs = {
+	id: Scalars["ID"];
+};
+
+export type MutationRootUpdateTileArgs = {
+	mapId: Scalars["ID"];
+	tileId: Scalars["ID"];
+	updateValue: UpdateTileConfig;
+};
+
+export type MutationRootUpdateMapInfoArgs = {
+	mapId: Scalars["ID"];
+	updateValue: UpdateMap;
+};
+
+export type MutationRootCreateNewUserArgs = {
+	newUser: CreateUser;
+};
+
+export type MutationRootUpdateUserInfoArgs = {
+	userId: Scalars["Uuid"];
+	updateValue: UpdateUser;
+};
+
+export type MutationRootLoginUserArgs = {
+	loginUser: LoginUser;
+};
+
+/** JSON Web Token */
+export type Jwt = {
+	__typename?: "JWT";
+	accessToken: Scalars["String"];
+	refreshToken: Scalars["Uuid"];
+};
+
+export type UpdateMap = {
+	name?: Maybe<Scalars["String"]>;
+	description?: Maybe<Scalars["String"]>;
 };
 
 export type QueryRoot = {
@@ -22,6 +102,7 @@ export type QueryRoot = {
 	maps: Array<Map>;
 	/** Ok zoomer! */
 	boomer: Scalars["String"];
+	me: User;
 };
 
 export type QueryRootMapArgs = {
@@ -49,19 +130,8 @@ export type UpdateTileConfig = {
 
 /** not active now */
 export type MapSort = {
-	date?: Maybe<SortOrder>;
-};
-
-export type Map = {
-	__typename?: "Map";
-	id: Scalars["ID"];
-	name: Scalars["String"];
-	author: Scalars["String"];
-	description?: Maybe<Scalars["String"]>;
-	updatedAt?: Maybe<Scalars["DateTimeUtc"]>;
-	createdAt: Scalars["DateTimeUtc"];
-	size: MapSize;
-	tiles?: Maybe<Array<TileConfig>>;
+	createdAt?: Maybe<SortOrder>;
+	updatedAt?: Maybe<SortOrder>;
 };
 
 /** Formal game tile definition */
@@ -81,34 +151,11 @@ export type MapSize = {
 	column: Scalars["Int"];
 };
 
-export type MutationRoot = {
-	__typename?: "MutationRoot";
-	/** Creating a new map */
-	createMap: Map;
-	/** Deleting a map by ID */
-	deleteMap: Map;
-	updateTile: Scalars["String"];
-	/** Updating part of map information by ID */
-	updateMapInfo: Scalars["String"];
-};
-
-export type MutationRootCreateMapArgs = {
-	newMap: NewMap;
-};
-
-export type MutationRootDeleteMapArgs = {
-	id: Scalars["ID"];
-};
-
-export type MutationRootUpdateTileArgs = {
-	mapId: Scalars["ID"];
-	tileId: Scalars["ID"];
-	updateValue: UpdateTileConfig;
-};
-
-export type MutationRootUpdateMapInfoArgs = {
-	mapId: Scalars["ID"];
-	updateValue: UpdateMap;
+/** Describes what data is needed to create a new user */
+export type CreateUser = {
+	username: Scalars["String"];
+	email: Scalars["String"];
+	password: Scalars["String"];
 };
 
 /** Base terrain variants for a hex */
@@ -134,6 +181,14 @@ export enum SortOrder {
 	Asc = "ASC",
 }
 
+export type User = {
+	__typename?: "User";
+	id: Scalars["Uuid"];
+	username: Scalars["String"];
+	email: Scalars["String"];
+	description?: Maybe<Scalars["String"]>;
+};
+
 export type NewMap = {
 	name: Scalars["String"];
 	author: Scalars["String"];
@@ -141,9 +196,32 @@ export type NewMap = {
 	size: NewMapSize;
 };
 
-export type UpdateMap = {
-	name?: Maybe<Scalars["String"]>;
+export type UpdateUser = {
+	username?: Maybe<Scalars["String"]>;
+	email?: Maybe<Scalars["String"]>;
 	description?: Maybe<Scalars["String"]>;
+};
+
+/** Describes the required login information */
+export type LoginUser = {
+	username: Scalars["String"];
+	password: Scalars["String"];
+};
+
+export type MapInfoFragment = { __typename?: "Map" } & Pick<
+	Map,
+	"id" | "name" | "author" | "description" | "createdAt" | "updatedAt"
+> & { size: { __typename?: "MapSize" } & Pick<MapSize, "row" | "column"> };
+
+export type MapTilesFragment = { __typename?: "Map" } & {
+	tiles?: Maybe<
+		Array<
+			{ __typename?: "TileConfig" } & Pick<
+				TileConfig,
+				"id" | "baseTerrain" | "terrainFeatures" | "resource" | "units"
+			>
+		>
+	>;
 };
 
 export type CreateMapMutationVariables = Exact<{
@@ -151,20 +229,7 @@ export type CreateMapMutationVariables = Exact<{
 }>;
 
 export type CreateMapMutation = { __typename?: "MutationRoot" } & {
-	createMap: { __typename?: "Map" } & Pick<
-		Map,
-		"id" | "name" | "author" | "description" | "updatedAt" | "createdAt"
-	> & {
-			size: { __typename?: "MapSize" } & Pick<MapSize, "row" | "column">;
-			tiles?: Maybe<
-				Array<
-					{ __typename?: "TileConfig" } & Pick<
-						TileConfig,
-						"id" | "baseTerrain" | "terrainFeatures" | "resource" | "units"
-					>
-				>
-			>;
-		};
+	createMap: { __typename?: "Map" } & MapInfoFragment & MapTilesFragment;
 };
 
 export type DeleteMapMutationVariables = Exact<{
@@ -186,60 +251,104 @@ export type UpdateTileMutation = { __typename?: "MutationRoot" } & Pick<
 	"updateTile"
 >;
 
+export type UpdateUserMutationVariables = Exact<{
+	id: Scalars["Uuid"];
+	updateValue: UpdateUser;
+}>;
+
+export type UpdateUserMutation = { __typename?: "MutationRoot" } & {
+	updateUserInfo: { __typename?: "ReturnUser" } & Pick<
+		ReturnUser,
+		"id" | "username" | "description" | "email"
+	>;
+};
+
+export type CreateNewUserMutationVariables = Exact<{
+	data: CreateUser;
+}>;
+
+export type CreateNewUserMutation = { __typename?: "MutationRoot" } & {
+	createNewUser: { __typename?: "User" } & Pick<
+		User,
+		"id" | "username" | "email" | "description"
+	>;
+};
+
+export type LoginMutationVariables = Exact<{
+	data: LoginUser;
+}>;
+
+export type LoginMutation = { __typename?: "MutationRoot" } & {
+	loginUser: { __typename?: "JWT" } & Pick<Jwt, "accessToken" | "refreshToken">;
+};
+
 export type EditMapQueryVariables = Exact<{
 	mapID: Scalars["ID"];
 }>;
 
 export type EditMapQuery = { __typename?: "QueryRoot" } & {
-	map: { __typename?: "Map" } & Pick<
-		Map,
-		"id" | "name" | "author" | "description" | "updatedAt" | "createdAt"
-	> & {
-			size: { __typename?: "MapSize" } & Pick<MapSize, "row" | "column">;
-			tiles?: Maybe<
-				Array<
-					{ __typename?: "TileConfig" } & Pick<
-						TileConfig,
-						"id" | "baseTerrain" | "terrainFeatures" | "resource" | "units"
-					>
-				>
-			>;
-		};
+	map: { __typename?: "Map" } & MapInfoFragment & MapTilesFragment;
 };
 
-export type GEtMapsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetMapsPaginationQueryVariables = Exact<{
+	limit?: Maybe<Scalars["Int"]>;
+	offset?: Maybe<Scalars["Int"]>;
+}>;
 
-export type GEtMapsQuery = { __typename?: "QueryRoot" } & {
-	maps: Array<
-		{ __typename?: "Map" } & Pick<
-			Map,
-			"id" | "name" | "author" | "description" | "createdAt"
-		> & { size: { __typename?: "MapSize" } & Pick<MapSize, "row" | "column"> }
-	>;
+export type GetMapsPaginationQuery = { __typename?: "QueryRoot" } & {
+	maps: Array<{ __typename?: "Map" } & MapInfoFragment>;
 };
 
+export type GetMapsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetMapsQuery = { __typename?: "QueryRoot" } & {
+	maps: Array<{ __typename?: "Map" } & MapInfoFragment>;
+};
+
+export type GetMapsByUserQueryVariables = Exact<{
+	username: Scalars["String"];
+	limit?: Maybe<Scalars["Int"]>;
+	offset?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetMapsByUserQuery = { __typename?: "QueryRoot" } & {
+	maps: Array<{ __typename?: "Map" } & MapInfoFragment>;
+};
+
+export const MapInfoFragmentDoc = gql`
+	fragment MapInfo on Map {
+		id
+		name
+		author
+		description
+		createdAt
+		updatedAt
+		size {
+			row
+			column
+		}
+	}
+`;
+export const MapTilesFragmentDoc = gql`
+	fragment MapTiles on Map {
+		tiles {
+			id
+			baseTerrain
+			terrainFeatures
+			resource
+			units
+		}
+	}
+`;
 export const CreateMapDocument = gql`
 	mutation CreateMap($newMap: NewMap!) {
 		createMap(newMap: $newMap) {
-			id
-			name
-			author
-			description
-			updatedAt
-			createdAt
-			size {
-				row
-				column
-			}
-			tiles {
-				id
-				baseTerrain
-				terrainFeatures
-				resource
-				units
-			}
+			...MapInfo
+			...MapTiles
 		}
 	}
+	${MapInfoFragmentDoc}
+	${MapTilesFragmentDoc}
 `;
 export type CreateMapMutationFn = Apollo.MutationFunction<
 	CreateMapMutation,
@@ -384,28 +493,169 @@ export type UpdateTileMutationOptions = Apollo.BaseMutationOptions<
 	UpdateTileMutation,
 	UpdateTileMutationVariables
 >;
+export const UpdateUserDocument = gql`
+	mutation UpdateUser($id: Uuid!, $updateValue: UpdateUser!) {
+		updateUserInfo(userId: $id, updateValue: $updateValue) {
+			id
+			username
+			description
+			email
+		}
+	}
+`;
+export type UpdateUserMutationFn = Apollo.MutationFunction<
+	UpdateUserMutation,
+	UpdateUserMutationVariables
+>;
+
+/**
+ * __useUpdateUserMutation__
+ *
+ * To run a mutation, you first call `useUpdateUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      updateValue: // value for 'updateValue'
+ *   },
+ * });
+ */
+export function useUpdateUserMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		UpdateUserMutation,
+		UpdateUserMutationVariables
+	>,
+) {
+	return Apollo.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
+		UpdateUserDocument,
+		baseOptions,
+	);
+}
+export type UpdateUserMutationHookResult = ReturnType<
+	typeof useUpdateUserMutation
+>;
+export type UpdateUserMutationResult = Apollo.MutationResult<
+	UpdateUserMutation
+>;
+export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
+	UpdateUserMutation,
+	UpdateUserMutationVariables
+>;
+export const CreateNewUserDocument = gql`
+	mutation CreateNewUser($data: CreateUser!) {
+		createNewUser(newUser: $data) {
+			id
+			username
+			email
+			description
+		}
+	}
+`;
+export type CreateNewUserMutationFn = Apollo.MutationFunction<
+	CreateNewUserMutation,
+	CreateNewUserMutationVariables
+>;
+
+/**
+ * __useCreateNewUserMutation__
+ *
+ * To run a mutation, you first call `useCreateNewUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateNewUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createNewUserMutation, { data, loading, error }] = useCreateNewUserMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCreateNewUserMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		CreateNewUserMutation,
+		CreateNewUserMutationVariables
+	>,
+) {
+	return Apollo.useMutation<
+		CreateNewUserMutation,
+		CreateNewUserMutationVariables
+	>(CreateNewUserDocument, baseOptions);
+}
+export type CreateNewUserMutationHookResult = ReturnType<
+	typeof useCreateNewUserMutation
+>;
+export type CreateNewUserMutationResult = Apollo.MutationResult<
+	CreateNewUserMutation
+>;
+export type CreateNewUserMutationOptions = Apollo.BaseMutationOptions<
+	CreateNewUserMutation,
+	CreateNewUserMutationVariables
+>;
+export const LoginDocument = gql`
+	mutation Login($data: LoginUser!) {
+		loginUser(loginUser: $data) {
+			accessToken
+			refreshToken
+		}
+	}
+`;
+export type LoginMutationFn = Apollo.MutationFunction<
+	LoginMutation,
+	LoginMutationVariables
+>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useLoginMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		LoginMutation,
+		LoginMutationVariables
+	>,
+) {
+	return Apollo.useMutation<LoginMutation, LoginMutationVariables>(
+		LoginDocument,
+		baseOptions,
+	);
+}
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<
+	LoginMutation,
+	LoginMutationVariables
+>;
 export const EditMapDocument = gql`
 	query EditMap($mapID: ID!) {
 		map(id: $mapID) {
-			id
-			name
-			author
-			description
-			updatedAt
-			createdAt
-			size {
-				row
-				column
-			}
-			tiles {
-				id
-				baseTerrain
-				terrainFeatures
-				resource
-				units
-			}
+			...MapInfo
+			...MapTiles
 		}
 	}
+	${MapInfoFragmentDoc}
+	${MapTilesFragmentDoc}
 `;
 
 /**
@@ -449,59 +699,181 @@ export type EditMapQueryResult = Apollo.QueryResult<
 	EditMapQuery,
 	EditMapQueryVariables
 >;
-export const GEtMapsDocument = gql`
-	query GEtMaps {
-		maps {
-			id
-			name
-			author
-			description
-			createdAt
-			size {
-				row
-				column
-			}
+export const GetMapsPaginationDocument = gql`
+	query GetMapsPagination($limit: Int, $offset: Int) {
+		maps(limit: $limit, skip: $offset) {
+			...MapInfo
 		}
 	}
+	${MapInfoFragmentDoc}
 `;
 
 /**
- * __useGEtMapsQuery__
+ * __useGetMapsPaginationQuery__
  *
- * To run a query within a React component, call `useGEtMapsQuery` and pass it any options that fit your needs.
- * When your component renders, `useGEtMapsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMapsPaginationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMapsPaginationQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGEtMapsQuery({
+ * const { data, loading, error } = useGetMapsPaginationQuery({
+ *   variables: {
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useGetMapsPaginationQuery(
+	baseOptions?: Apollo.QueryHookOptions<
+		GetMapsPaginationQuery,
+		GetMapsPaginationQueryVariables
+	>,
+) {
+	return Apollo.useQuery<
+		GetMapsPaginationQuery,
+		GetMapsPaginationQueryVariables
+	>(GetMapsPaginationDocument, baseOptions);
+}
+export function useGetMapsPaginationLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<
+		GetMapsPaginationQuery,
+		GetMapsPaginationQueryVariables
+	>,
+) {
+	return Apollo.useLazyQuery<
+		GetMapsPaginationQuery,
+		GetMapsPaginationQueryVariables
+	>(GetMapsPaginationDocument, baseOptions);
+}
+export type GetMapsPaginationQueryHookResult = ReturnType<
+	typeof useGetMapsPaginationQuery
+>;
+export type GetMapsPaginationLazyQueryHookResult = ReturnType<
+	typeof useGetMapsPaginationLazyQuery
+>;
+export type GetMapsPaginationQueryResult = Apollo.QueryResult<
+	GetMapsPaginationQuery,
+	GetMapsPaginationQueryVariables
+>;
+export const GetMapsDocument = gql`
+	query GetMaps {
+		maps {
+			...MapInfo
+		}
+	}
+	${MapInfoFragmentDoc}
+`;
+
+/**
+ * __useGetMapsQuery__
+ *
+ * To run a query within a React component, call `useGetMapsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMapsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMapsQuery({
  *   variables: {
  *   },
  * });
  */
-export function useGEtMapsQuery(
-	baseOptions?: Apollo.QueryHookOptions<GEtMapsQuery, GEtMapsQueryVariables>,
+export function useGetMapsQuery(
+	baseOptions?: Apollo.QueryHookOptions<GetMapsQuery, GetMapsQueryVariables>,
 ) {
-	return Apollo.useQuery<GEtMapsQuery, GEtMapsQueryVariables>(
-		GEtMapsDocument,
+	return Apollo.useQuery<GetMapsQuery, GetMapsQueryVariables>(
+		GetMapsDocument,
 		baseOptions,
 	);
 }
-export function useGEtMapsLazyQuery(
+export function useGetMapsLazyQuery(
 	baseOptions?: Apollo.LazyQueryHookOptions<
-		GEtMapsQuery,
-		GEtMapsQueryVariables
+		GetMapsQuery,
+		GetMapsQueryVariables
 	>,
 ) {
-	return Apollo.useLazyQuery<GEtMapsQuery, GEtMapsQueryVariables>(
-		GEtMapsDocument,
+	return Apollo.useLazyQuery<GetMapsQuery, GetMapsQueryVariables>(
+		GetMapsDocument,
 		baseOptions,
 	);
 }
-export type GEtMapsQueryHookResult = ReturnType<typeof useGEtMapsQuery>;
-export type GEtMapsLazyQueryHookResult = ReturnType<typeof useGEtMapsLazyQuery>;
-export type GEtMapsQueryResult = Apollo.QueryResult<
-	GEtMapsQuery,
-	GEtMapsQueryVariables
+export type GetMapsQueryHookResult = ReturnType<typeof useGetMapsQuery>;
+export type GetMapsLazyQueryHookResult = ReturnType<typeof useGetMapsLazyQuery>;
+export type GetMapsQueryResult = Apollo.QueryResult<
+	GetMapsQuery,
+	GetMapsQueryVariables
 >;
+export const GetMapsByUserDocument = gql`
+	query GetMapsByUser($username: String!, $limit: Int, $offset: Int) {
+		maps(filter: { author: $username }, limit: $limit, skip: $offset) {
+			...MapInfo
+		}
+	}
+	${MapInfoFragmentDoc}
+`;
+
+/**
+ * __useGetMapsByUserQuery__
+ *
+ * To run a query within a React component, call `useGetMapsByUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMapsByUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMapsByUserQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *      limit: // value for 'limit'
+ *      offset: // value for 'offset'
+ *   },
+ * });
+ */
+export function useGetMapsByUserQuery(
+	baseOptions?: Apollo.QueryHookOptions<
+		GetMapsByUserQuery,
+		GetMapsByUserQueryVariables
+	>,
+) {
+	return Apollo.useQuery<GetMapsByUserQuery, GetMapsByUserQueryVariables>(
+		GetMapsByUserDocument,
+		baseOptions,
+	);
+}
+export function useGetMapsByUserLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<
+		GetMapsByUserQuery,
+		GetMapsByUserQueryVariables
+	>,
+) {
+	return Apollo.useLazyQuery<GetMapsByUserQuery, GetMapsByUserQueryVariables>(
+		GetMapsByUserDocument,
+		baseOptions,
+	);
+}
+export type GetMapsByUserQueryHookResult = ReturnType<
+	typeof useGetMapsByUserQuery
+>;
+export type GetMapsByUserLazyQueryHookResult = ReturnType<
+	typeof useGetMapsByUserLazyQuery
+>;
+export type GetMapsByUserQueryResult = Apollo.QueryResult<
+	GetMapsByUserQuery,
+	GetMapsByUserQueryVariables
+>;
+
+export type IntrospectionResultData = {
+	__schema: {
+		types: [];
+	};
+};
+const result: IntrospectionResultData = {
+	__schema: {
+		types: [],
+	},
+};
+export default result;

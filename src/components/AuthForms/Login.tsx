@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import { useMutation } from "@apollo/client";
+import jwt_decode from "jwt-decode";
 
 import {
 	Button,
@@ -17,12 +18,28 @@ import {
 import { GoogleAuth } from "./GoogleAuth";
 import { LOGIN } from "../../graphql/";
 import { addNotification } from "../../store/notificationStore";
+import { useAuthState } from "../../hooks/auth";
+import { LoginMutation } from "./../../types/graphql";
+import { Tokens } from "../../types";
+
+export interface Claims {
+	readonly exp: number;
+	readonly id: string;
+	username: string;
+}
 
 export const LogIn = () => {
 	const [modalActive, toggleModal] = useState(false);
-	const [loginQuery, { loading }] = useMutation(LOGIN, {
-		onCompleted: (data) => {
-			console.table(data);
+	const { login } = useAuthState();
+	const [loginQuery, { loading }] = useMutation<LoginMutation>(LOGIN, {
+		onCompleted: ({ loginUser }) => {
+			const user: Claims = jwt_decode(loginUser.accessToken);
+
+			login(user, {
+				access_token: loginUser.accessToken,
+				refresh_token: loginUser.refreshToken,
+				expires_in: user.exp,
+			} as Tokens);
 		},
 		onError: (e) => {
 			console.error(e);

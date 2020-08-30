@@ -41,3 +41,12 @@
 .AvatarMenu hr {
 	background-color: var(--divider-color);
 }
+
+.DefaultAvatar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: -webkit-linear-gradient(35deg, #b5cae4, #1e487b, #f94c94);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
