@@ -1,12 +1,20 @@
 overwrite: true
 schema: "https://api-tilemap-editor.herokuapp.com/graphql"
-documents: ["src/graphql/mutation.ts", "src/graphql/query.ts"]
+documents:
+  [
+    "src/graphql/mutation.ts",
+    "src/graphql/query.ts",
+    "src/graphql/fragments.ts",
+  ]
 generates:
   src/types/graphql.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
+      - "fragment-matcher"
+    config:
+      useExplicitTyping: true
   ./graphql.schema.json:
     plugins:
       - "introspection"

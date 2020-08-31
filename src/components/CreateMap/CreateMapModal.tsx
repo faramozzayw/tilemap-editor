@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { useMutation, ApolloError } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 
 import {
 	Button,
@@ -18,6 +18,7 @@ import {
 import { useAuthState } from "../../hooks/auth";
 import { CREATE_MAP, GET_MAPS, GET_MAPS_BY_USER } from "../../graphql";
 import { addNotification } from "../../store/notificationStore";
+import { useFormik } from "formik";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
@@ -29,78 +30,78 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 	closeModal,
 }) => {
 	const [redirectedStatus, setRedirectedStatus] = useState(false);
-
-	const nameRef = useRef<HTMLInputElement>(null);
-	const descriptionRef = useRef<HTMLTextAreaElement>(null);
-
-	const rowRef = useRef<HTMLInputElement>(null);
-	const columnRef = useRef<HTMLInputElement>(null);
-
 	const history = useHistory();
 	const { user } = useAuthState();
 
-	const [createMap, { loading }] = useMutation(CREATE_MAP);
-
-	const checkboxRedirectHandler = () => setRedirectedStatus(!redirectedStatus);
-
-	const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
-
-		createMap({
-			variables: {
-				newMap: {
-					name: nameRef.current?.value,
-					author: user!.username,
-					description: descriptionRef.current?.value,
-					size: {
-						row: rowRef.current!.valueAsNumber,
-						column: columnRef.current!.valueAsNumber,
+	const formik = useFormik({
+		initialValues: {
+			name: "",
+			description: "null",
+			row: 20,
+			column: 20,
+		},
+		onSubmit: (values) =>
+			createMap({
+				variables: {
+					newMap: {
+						name: values.name,
+						author: user!.username,
+						description: values.description,
+						size: {
+							row: Math.floor(values.row),
+							column: Math.floor(values.column),
+						},
 					},
+				},
+			}),
+	});
+
+	const [createMap, { loading }] = useMutation(CREATE_MAP, {
+		onCompleted: ({ data }) => {
+			addNotification({
+				type: "success",
+				message: "Map creation was successful 🎉",
+			});
+
+			if (redirectedStatus) {
+				const id = data.createMap.id;
+				history.push(`/editor/${id}`);
+			}
+		},
+		onError: (err) =>
+			addNotification({
+				type: "danger",
+				message: err.message,
+			}),
+		refetchQueries: [
+			{ query: GET_MAPS },
+			{
+				query: GET_MAPS_BY_USER,
+				variables: {
+					username: user?.username,
 				},
 			},
-			refetchQueries: [
-				{ query: GET_MAPS },
-				{
-					query: GET_MAPS_BY_USER,
-					variables: {
-						username: user?.username,
-					},
-				},
-			],
-		})
-			.then((res) => {
-				addNotification({
-					type: "success",
-					message: "Map creation was successful 🎉",
-				});
+		],
+	});
 
-				if (redirectedStatus) {
-					const id = res.data.createMap.id;
-					history.push(`/editor/${id}`);
-				}
-			})
-			.catch((err: ApolloError) =>
-				addNotification({
-					type: "danger",
-					message: err.message,
-				}),
-			);
-	};
+	const checkboxRedirectHandler = () => setRedirectedStatus(!redirectedStatus);
 
 	return (
 		<Modal className="has-text" isActive={isActive}>
 			<ModalBackground />
 			<ModalContent>
 				<Box>
-					<form onSubmit={submitHandler}>
+					<form onSubmit={formik.handleSubmit}>
 						<div className="field">
 							<Label>Map name</Label>
 							<Control>
 								<input
+									value={formik.values.name}
+									onChange={formik.handleChange}
+									name="name"
 									className="input"
 									type="text"
 									placeholder="Input map name"
-									ref={nameRef}
 									required
 								/>
 							</Control>
@@ -110,22 +111,24 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 							<div className="field has-addons">
 								<Control isExpanded>
 									<input
+										value={formik.values.column}
+										onChange={formik.handleChange}
+										name="column"
 										className="input"
 										type="number"
 										placeholder="Column"
-										ref={columnRef}
-										defaultValue="20"
 										min="0"
 										max="500"
 									/>
 								</Control>
 								<Control isExpanded>
 									<input
+										value={formik.values.description}
+										onChange={formik.handleChange}
+										name="row"
 										className="input"
 										type="number"
 										placeholder="Row"
-										ref={rowRef}
-										defaultValue="20"
 										min="0"
 										max="500"
 									/>
@@ -136,7 +139,9 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 							<Label>Description</Label>
 							<Control>
 								<TextArea
-									ref={descriptionRef}
+									value={formik.values.description}
+									onChange={formik.handleChange}
+									name="description"
 									placeholder="Enter some description about your map"
 								/>
 							</Control>

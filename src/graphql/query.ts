@@ -14,7 +14,7 @@ export const GET_MAP_DATA = gql`
 `;
 
 export const GET_MAPS_PAGINATION = gql`
-	query GEtMaps($limit: Int, $offset: Int) {
+	query GetMapsPagination($limit: Int, $offset: Int) {
 		maps(limit: $limit, skip: $offset) {
 			...MapInfo
 		}
@@ -23,7 +23,7 @@ export const GET_MAPS_PAGINATION = gql`
 `;
 
 export const GET_MAPS = gql`
-	query GEtMaps {
+	query GetMaps {
 		maps {
 			...MapInfo
 		}
@@ -38,4 +38,15 @@ export const GET_MAPS_BY_USER = gql`
 		}
 	}
 	${MapInfoFrag}
+`;
+
+export const GET_ME = gql`
+	query Me {
+		me {
+			id
+			username
+			email
+			description
+		}
+	}
 `;

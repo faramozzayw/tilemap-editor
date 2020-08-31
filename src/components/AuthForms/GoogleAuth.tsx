@@ -5,17 +5,39 @@ import { Title } from "../../bulma";
 import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
 import { Tokens, User } from "../../types";
+import { setTokensToCookies } from "../../hooks/utils";
+
+const refreshTokenSetup = (res: GoogleLoginResponse) => {
+	let refreshTiming = (res.tokenObj.expires_in || 3600 - 5 * 60) * 1000;
+	console.info("refresh token setup");
+
+	const refreshToken = async () => {
+		const newAuthRes = await res.reloadAuthResponse();
+		refreshTiming = (newAuthRes.expires_in || 3600 - 5 * 60) * 1000;
+
+		setTokensToCookies({
+			access_token: newAuthRes.access_token,
+			expires_in: refreshTiming,
+		});
+
+		console.info("token updated!");
+		setTimeout(refreshToken, refreshTiming);
+	};
+
+	setTimeout(refreshToken, refreshTiming);
+};
 
 export const GoogleAuth = () => {
-	const { login, isAuthenticated } = useAuthState();
+	const { login } = useAuthState();
 
 	const onFailure = (response: any) => {
 		const error = JSON.stringify(response, null, 2);
 		console.error(error);
-		alert("Google login error");
+		console.error("Google login error");
 	};
 
 	const onSuccess = (response: GoogleLoginResponse) => {
+		response.reloadAuthResponse();
 		const { access_token, expires_in } = response.getAuthResponse();
 
 		const basicProfile = response.getBasicProfile();
@@ -32,6 +54,7 @@ export const GoogleAuth = () => {
 		};
 
 		login(user, tokens);
+		refreshTokenSetup(response);
 	};
 
 	return (
@@ -47,7 +70,7 @@ export const GoogleAuth = () => {
 					onSuccess={onSuccess}
 					onFailure={onFailure}
 					theme="dark"
-					isSignedIn={true}
+					accessType="offline"
 				/>
 			</div>
 		</>

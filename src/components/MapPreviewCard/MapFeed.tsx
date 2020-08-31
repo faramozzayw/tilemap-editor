@@ -45,15 +45,17 @@ export const MapFeed: React.FC<MapFeed> = ({
 
 			{loading && <ProgressBar isColor="primary" isSize="small" max="100" />}
 		</div>
-		<div className="container has-text-centered">
-			<Button
-				onClick={onLoadMore}
-				isColor="light"
-				disabled={loading}
-				isLoading={loading}
-			>
-				Load more!
-			</Button>
-		</div>
+		{!error && (
+			<div className="container has-text-centered">
+				<Button
+					onClick={onLoadMore}
+					isColor="light"
+					disabled={loading}
+					isLoading={loading}
+				>
+					Load more!
+				</Button>
+			</div>
+		)}
 	</div>
 );

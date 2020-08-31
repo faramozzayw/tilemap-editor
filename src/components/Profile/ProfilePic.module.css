@@ -37,3 +37,13 @@
 .Symbol {
 	text-shadow: 2px 2px 1px #3e2e72;
 }
+
+.DefaultAvatar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: -webkit-linear-gradient(35deg, #b5cae4, #1e487b, #f94c94);
+	font-size: xxx-large;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}

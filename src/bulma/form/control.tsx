@@ -10,11 +10,15 @@ export interface Control<T>
 	isExpanded?: boolean;
 }
 
-export const Control = ({ tag = "div", ...props }: Control<HTMLElement>) => {
+export const Control = ({
+	tag = "div",
+	isExpanded,
+	...props
+}: Control<HTMLElement>) => {
 	const className = classnames(
 		"control",
 		{
-			"is-expanded": props.isExpanded,
+			"is-expanded": isExpanded,
 		},
 		props.className,
 	);
