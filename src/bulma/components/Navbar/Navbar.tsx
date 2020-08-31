@@ -22,8 +22,8 @@ export const Navbar: React.FC<Navbar<HTMLElement>> = ({
 		"navbar",
 		{
 			"is-transparent": isTransparent,
-			"is-fixed-top": isFixedBottom && !isFixedTop,
-			"is-fixed-bottom": isFixedTop && !isFixedBottom,
+			"is-fixed-top": isFixedTop && !isFixedBottom,
+			"is-fixed-bottom": isFixedBottom && !isFixedTop,
 			...getColorModifiers({ isColor }),
 		},
 		props.className,
