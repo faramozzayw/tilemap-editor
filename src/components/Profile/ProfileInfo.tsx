@@ -9,6 +9,7 @@ import { InputField } from "./InputField";
 import ProfilePicStyle from "./ProfilePic.module.css";
 import { User } from "../../types";
 import { IAuth } from "../../types/auth";
+import { UpdateUserMutation } from "../../types/graphql";
 
 export interface ProfileInfo extends IAuth {
 	user: User;
@@ -20,24 +21,27 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 	const usernameRef = useRef<HTMLInputElement>(null);
 	const emailRef = useRef<HTMLInputElement>(null);
 
-	const [updateUserInfo, { loading }] = useMutation<any>(UPDATE_USER_INFO, {
-		optimisticResponse: true,
-		onCompleted: (data) => {
-			const { username, email } = data.updateUserInfo;
-			if (usernameRef.current) {
-				usernameRef.current.value = username;
-			}
-			if (emailRef.current) {
-				emailRef.current.value = email;
-			}
-			setEditStatus(false);
+	const [updateUserInfo, { loading }] = useMutation<UpdateUserMutation>(
+		UPDATE_USER_INFO,
+		{
+			// optimisticResponse: true,
+			onCompleted: ({ updateUserInfo }) => {
+				const { username, email } = updateUserInfo;
+				if (usernameRef.current && username) {
+					usernameRef.current.value = username;
+				}
+				if (emailRef.current && email) {
+					emailRef.current.value = email;
+				}
+				setEditStatus(false);
+			},
+			onError: () =>
+				addNotification({
+					type: "danger",
+					message: "Failed update user info",
+				}),
 		},
-		onError: () =>
-			addNotification({
-				type: "danger",
-				message: "Failed update user info",
-			}),
-	});
+	);
 
 	const updateUserInfoHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -46,7 +50,6 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 
 		updateUserInfo({
 			variables: {
-				id: "e6c47a5b-eede-4ffd-8d33-d746a6b94ea0",
 				updateValue: { username, email },
 			},
 		});

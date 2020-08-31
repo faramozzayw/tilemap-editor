@@ -31,6 +31,7 @@ export interface Claims {
 export const LogIn = () => {
 	const [modalActive, toggleModal] = useState(false);
 	const { login } = useAuthState();
+
 	const [loginQuery, { loading }] = useMutation<LoginMutation>(LOGIN, {
 		onCompleted: ({ loginUser }) => {
 			const user: Claims = jwt_decode(loginUser.accessToken);

@@ -31,8 +31,8 @@ export const UPDATE_TILE = gql`
 `;
 
 export const UPDATE_USER_INFO = gql`
-	mutation UpdateUser($id: Uuid!, $updateValue: UpdateUser!) {
-		updateUserInfo(userId: $id, updateValue: $updateValue) {
+	mutation UpdateUser($updateValue: UpdateUser!) {
+		updateUserInfo(updateValue: $updateValue) {
 			id
 			username
 			description

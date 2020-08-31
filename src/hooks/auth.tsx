@@ -20,6 +20,7 @@ export interface AuthContextState {
 	logout?: () => any;
 	signup?: () => any;
 	login?: (user: User, tokens: Tokens) => void;
+	updateUser?: (user: User & unknown) => void;
 }
 
 export const initialState: AuthContextState = {
@@ -74,12 +75,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		setTokensToCookies(tokens);
 	};
 
+	const updateUser = (user: User & unknown) => {
+		setState((prev) => ({
+			...state,
+			user: {
+				...prev.user,
+				...user,
+			},
+		}));
+	};
+
 	return (
 		<AuthContext.Provider
 			value={{
 				...state,
 				login,
 				logout,
+				updateUser,
 			}}
 		>
 			{children}
@@ -99,6 +111,7 @@ export const useAuthState = () => {
 	const logout = state?.logout ?? (() => {});
 	const login = state?.login ?? (() => {});
 	const signup = state?.signup ?? (() => {});
+	const updateUser = state?.updateUser ?? (() => {});
 
 	return {
 		...state,
@@ -109,5 +122,6 @@ export const useAuthState = () => {
 		logout,
 		login,
 		signup,
+		updateUser,
 	};
 };

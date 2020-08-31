@@ -75,7 +75,6 @@ export type MutationRootCreateNewUserArgs = {
 };
 
 export type MutationRootUpdateUserInfoArgs = {
-	userId: Scalars["Uuid"];
 	updateValue: UpdateUser;
 };
 
@@ -103,6 +102,7 @@ export type QueryRoot = {
 	/** Ok zoomer! */
 	boomer: Scalars["String"];
 	me: User;
+	getUserById: User;
 };
 
 export type QueryRootMapArgs = {
@@ -114,6 +114,10 @@ export type QueryRootMapsArgs = {
 	skip?: Maybe<Scalars["Int"]>;
 	limit?: Maybe<Scalars["Int"]>;
 	sort?: Maybe<MapSort>;
+};
+
+export type QueryRootGetUserByIdArgs = {
+	id: Scalars["Uuid"];
 };
 
 export type NewMapSize = {
@@ -252,7 +256,6 @@ export type UpdateTileMutation = { __typename?: "MutationRoot" } & Pick<
 >;
 
 export type UpdateUserMutationVariables = Exact<{
-	id: Scalars["Uuid"];
 	updateValue: UpdateUser;
 }>;
 
@@ -313,6 +316,15 @@ export type GetMapsByUserQueryVariables = Exact<{
 
 export type GetMapsByUserQuery = { __typename?: "QueryRoot" } & {
 	maps: Array<{ __typename?: "Map" } & MapInfoFragment>;
+};
+
+export type MeQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MeQuery = { __typename?: "QueryRoot" } & {
+	me: { __typename?: "User" } & Pick<
+		User,
+		"id" | "username" | "email" | "description"
+	>;
 };
 
 export const MapInfoFragmentDoc = gql`
@@ -494,8 +506,8 @@ export type UpdateTileMutationOptions = Apollo.BaseMutationOptions<
 	UpdateTileMutationVariables
 >;
 export const UpdateUserDocument = gql`
-	mutation UpdateUser($id: Uuid!, $updateValue: UpdateUser!) {
-		updateUserInfo(userId: $id, updateValue: $updateValue) {
+	mutation UpdateUser($updateValue: UpdateUser!) {
+		updateUserInfo(updateValue: $updateValue) {
 			id
 			username
 			description
@@ -521,7 +533,6 @@ export type UpdateUserMutationFn = Apollo.MutationFunction<
  * @example
  * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
  *   variables: {
- *      id: // value for 'id'
  *      updateValue: // value for 'updateValue'
  *   },
  * });
@@ -865,6 +876,48 @@ export type GetMapsByUserQueryResult = Apollo.QueryResult<
 	GetMapsByUserQuery,
 	GetMapsByUserQueryVariables
 >;
+export const MeDocument = gql`
+	query Me {
+		me {
+			id
+			username
+			email
+			description
+		}
+	}
+`;
+
+/**
+ * __useMeQuery__
+ *
+ * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeQuery(
+	baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>,
+) {
+	return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, baseOptions);
+}
+export function useMeLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>,
+) {
+	return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(
+		MeDocument,
+		baseOptions,
+	);
+}
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
+export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
+export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 
 export type IntrospectionResultData = {
 	__schema: {
