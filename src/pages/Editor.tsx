@@ -42,6 +42,10 @@ export const Editor = () => {
 
 	if (data) {
 		let { tiles, size } = data.map;
+		if (!tiles) {
+			return null;
+		}
+
 		let mapTiles = generateGridMatrix(tiles, size.row, size.column);
 
 		const map = {

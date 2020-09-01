@@ -1,38 +1,49 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 
 import { useAuthState } from "../hooks/auth";
 
 import { Hero, HeroHeader, HeroBody } from "../bulma";
 import { MainNavbar } from "../components";
-import { ProfilePic, ProfileTitle, ProfileInfo } from "../components/Profile";
+import {
+	ProfilePic,
+	ProfileTitle,
+	ProfileInfo,
+	ProfileDescription,
+} from "../components/Profile";
 
-import ProfilePicStyle from "./../components/Profile/ProfilePic.module.css";
-import { GET_MAPS_BY_USER } from "../graphql";
-import { MapConfig } from "../types";
+import ProfilePicStyle from "../components/Profile/ProfilePic.module.css";
 import { MapFeed } from "../components/MapPreviewCard";
-
-interface MapConfigData {
-	maps: MapConfig[];
-}
+import {
+	useGetMapsByUserQuery,
+	useGetUserByUsernameQuery,
+} from "../types/graphql";
 
 export const ProfilePage = () => {
-	const { user, isAuthenticated: isAuth } = useAuthState();
+	const { username } = useParams();
+	const { isAuthenticated: isAuth } = useAuthState();
 
-	const { loading, error, data, fetchMore } = useQuery<MapConfigData>(
-		GET_MAPS_BY_USER,
-		{
-			variables: {
-				username: user?.username,
-				offset: 0,
-				limit: 5,
-			},
+	const { data: userData } = useGetUserByUsernameQuery({
+		variables: { username },
+		onCompleted: ({ getUserByUsername }) => console.log(getUserByUsername),
+		onError: (e) => console.error(e),
+	});
+
+	const { loading, error, data: mapsData, fetchMore } = useGetMapsByUserQuery({
+		variables: {
+			username: username,
+			offset: 0,
+			limit: 5,
 		},
-	);
+		onCompleted: ({ maps }) => console.table(maps),
+		onError: (e) => console.error(e),
+	});
 
-	if (!user) {
+	if (!userData) {
 		return null;
 	}
+
+	const user = userData.getUserByUsername;
 
 	return (
 		<Hero isColor="dark" isFullHeight>
@@ -43,12 +54,9 @@ export const ProfilePage = () => {
 				<section className="tile is-ancestor">
 					<div className="tile is-3 is-vertical is-parent">
 						<div className={`tile is-child content ${ProfilePicStyle.Box}`}>
-							<ProfilePic image={user?.image} />
+							<ProfilePic />
 							<ProfileTitle>Status</ProfileTitle>
-							<p>
-								Lorem ipsum dolor <em>sit amet</em>, consectetur adipiscing
-								elit. Proin{" "}
-							</p>
+							<ProfileDescription>{user.description}</ProfileDescription>
 						</div>
 						<div className={`tile is-child content ${ProfilePicStyle.Box}`}>
 							<ProfileTitle>Roles</ProfileTitle>
@@ -72,11 +80,11 @@ export const ProfilePage = () => {
 						loading={loading}
 						error={error}
 						isAuth={isAuth}
-						maps={data?.maps}
+						maps={mapsData?.maps}
 						onLoadMore={() => {
 							fetchMore({
 								variables: {
-									offset: data?.maps.length,
+									offset: mapsData?.maps.length,
 								},
 								updateQuery: (prev, { fetchMoreResult }) => {
 									if (!fetchMoreResult) return prev;

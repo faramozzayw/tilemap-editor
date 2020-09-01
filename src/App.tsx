@@ -24,7 +24,7 @@ const App = () => {
 				/>
 				<ProtectedRouter
 					isAuth={hasAccess}
-					path="/@me"
+					path="/@:username"
 					component={ProfilePage}
 				/>
 				<Route path="/" component={Main} />

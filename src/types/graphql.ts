@@ -103,6 +103,7 @@ export type QueryRoot = {
 	boomer: Scalars["String"];
 	me: User;
 	getUserById: User;
+	getUserByUsername: User;
 };
 
 export type QueryRootMapArgs = {
@@ -118,6 +119,10 @@ export type QueryRootMapsArgs = {
 
 export type QueryRootGetUserByIdArgs = {
 	id: Scalars["Uuid"];
+};
+
+export type QueryRootGetUserByUsernameArgs = {
+	username: Scalars["String"];
 };
 
 export type NewMapSize = {
@@ -228,6 +233,11 @@ export type MapTilesFragment = { __typename?: "Map" } & {
 	>;
 };
 
+export type UserInfoFragment = { __typename?: "User" } & Pick<
+	User,
+	"id" | "username" | "email" | "description"
+>;
+
 export type CreateMapMutationVariables = Exact<{
 	newMap: NewMap;
 }>;
@@ -321,10 +331,23 @@ export type GetMapsByUserQuery = { __typename?: "QueryRoot" } & {
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = { __typename?: "QueryRoot" } & {
-	me: { __typename?: "User" } & Pick<
-		User,
-		"id" | "username" | "email" | "description"
-	>;
+	me: { __typename?: "User" } & UserInfoFragment;
+};
+
+export type GetUserByIdQueryVariables = Exact<{
+	id: Scalars["Uuid"];
+}>;
+
+export type GetUserByIdQuery = { __typename?: "QueryRoot" } & {
+	getUserById: { __typename?: "User" } & UserInfoFragment;
+};
+
+export type GetUserByUsernameQueryVariables = Exact<{
+	username: Scalars["String"];
+}>;
+
+export type GetUserByUsernameQuery = { __typename?: "QueryRoot" } & {
+	getUserByUsername: { __typename?: "User" } & UserInfoFragment;
 };
 
 export const MapInfoFragmentDoc = gql`
@@ -350,6 +373,14 @@ export const MapTilesFragmentDoc = gql`
 			resource
 			units
 		}
+	}
+`;
+export const UserInfoFragmentDoc = gql`
+	fragment UserInfo on User {
+		id
+		username
+		email
+		description
 	}
 `;
 export const CreateMapDocument = gql`
@@ -879,12 +910,10 @@ export type GetMapsByUserQueryResult = Apollo.QueryResult<
 export const MeDocument = gql`
 	query Me {
 		me {
-			id
-			username
-			email
-			description
+			...UserInfo
 		}
 	}
+	${UserInfoFragmentDoc}
 `;
 
 /**
@@ -918,6 +947,118 @@ export function useMeLazyQuery(
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
+export const GetUserByIdDocument = gql`
+	query GetUserByID($id: Uuid!) {
+		getUserById(id: $id) {
+			...UserInfo
+		}
+	}
+	${UserInfoFragmentDoc}
+`;
+
+/**
+ * __useGetUserByIdQuery__
+ *
+ * To run a query within a React component, call `useGetUserByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetUserByIdQuery(
+	baseOptions?: Apollo.QueryHookOptions<
+		GetUserByIdQuery,
+		GetUserByIdQueryVariables
+	>,
+) {
+	return Apollo.useQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(
+		GetUserByIdDocument,
+		baseOptions,
+	);
+}
+export function useGetUserByIdLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<
+		GetUserByIdQuery,
+		GetUserByIdQueryVariables
+	>,
+) {
+	return Apollo.useLazyQuery<GetUserByIdQuery, GetUserByIdQueryVariables>(
+		GetUserByIdDocument,
+		baseOptions,
+	);
+}
+export type GetUserByIdQueryHookResult = ReturnType<typeof useGetUserByIdQuery>;
+export type GetUserByIdLazyQueryHookResult = ReturnType<
+	typeof useGetUserByIdLazyQuery
+>;
+export type GetUserByIdQueryResult = Apollo.QueryResult<
+	GetUserByIdQuery,
+	GetUserByIdQueryVariables
+>;
+export const GetUserByUsernameDocument = gql`
+	query GetUserByUsername($username: String!) {
+		getUserByUsername(username: $username) {
+			...UserInfo
+		}
+	}
+	${UserInfoFragmentDoc}
+`;
+
+/**
+ * __useGetUserByUsernameQuery__
+ *
+ * To run a query within a React component, call `useGetUserByUsernameQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetUserByUsernameQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetUserByUsernameQuery({
+ *   variables: {
+ *      username: // value for 'username'
+ *   },
+ * });
+ */
+export function useGetUserByUsernameQuery(
+	baseOptions?: Apollo.QueryHookOptions<
+		GetUserByUsernameQuery,
+		GetUserByUsernameQueryVariables
+	>,
+) {
+	return Apollo.useQuery<
+		GetUserByUsernameQuery,
+		GetUserByUsernameQueryVariables
+	>(GetUserByUsernameDocument, baseOptions);
+}
+export function useGetUserByUsernameLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<
+		GetUserByUsernameQuery,
+		GetUserByUsernameQueryVariables
+	>,
+) {
+	return Apollo.useLazyQuery<
+		GetUserByUsernameQuery,
+		GetUserByUsernameQueryVariables
+	>(GetUserByUsernameDocument, baseOptions);
+}
+export type GetUserByUsernameQueryHookResult = ReturnType<
+	typeof useGetUserByUsernameQuery
+>;
+export type GetUserByUsernameLazyQueryHookResult = ReturnType<
+	typeof useGetUserByUsernameLazyQuery
+>;
+export type GetUserByUsernameQueryResult = Apollo.QueryResult<
+	GetUserByUsernameQuery,
+	GetUserByUsernameQueryVariables
+>;
 
 export type IntrospectionResultData = {
 	__schema: {

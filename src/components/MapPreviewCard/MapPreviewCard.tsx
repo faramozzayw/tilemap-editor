@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { useMutation, ApolloError } from "@apollo/client";
 
 import { Title, Card, CardContent } from "./../../bulma";
@@ -12,6 +12,7 @@ import { PreviewCardFooter } from "./PreviewCardFooter";
 import { DELETE_MAP_BY_ID, GET_MAPS, GET_MAPS_BY_USER } from "../../graphql";
 import { addNotification } from "../../store/notificationStore";
 import { useAuthState } from "../../hooks/auth";
+import { useDeleteMapMutation } from "../../types/graphql";
 
 export interface MapPreviewCardProps extends MapConfig, IAuth {}
 
@@ -22,42 +23,41 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	isAuth,
 	...props
 }) => {
-	const [deleteMap] = useMutation(DELETE_MAP_BY_ID);
 	const history = useHistory();
 	const { user } = useAuthState();
+
+	const [deleteMap] = useDeleteMapMutation({
+		variables: { mapID: id },
+		refetchQueries: [
+			{ query: GET_MAPS },
+			{
+				query: GET_MAPS_BY_USER,
+				variables: {
+					username: user?.username,
+				},
+			},
+		],
+		onCompleted: () =>
+			addNotification({
+				type: "success",
+				message: "Map successfully deleted!",
+			}),
+		onError: (e) =>
+			addNotification({
+				type: "danger",
+				message: e.message,
+			}),
+	});
 
 	const editHandler = () => history.push(`/editor/${id}`);
 	const forkHandler = () => alert("forked!");
 	const deleteHandler = () => {
 		if (window.confirm("Are you sure about that, honey?")) {
-			deleteMap({
-				variables: {
-					mapID: id,
-				},
-				refetchQueries: [
-					{ query: GET_MAPS },
-					{
-						query: GET_MAPS_BY_USER,
-						variables: {
-							username: user?.username,
-						},
-					},
-				],
-			})
-				.then(() =>
-					addNotification({
-						type: "success",
-						message: "Map successfully deleted!",
-					}),
-				)
-				.catch((err: ApolloError) => {
-					addNotification({
-						type: "danger",
-						message: err.message,
-					});
-				});
+			deleteMap();
 		}
 	};
+
+	const authorURL = `@${author}`;
 
 	return (
 		<Card className="MapPreviewCard has-background-grey-dark has-text-primary-light is-clipped">
@@ -75,8 +75,10 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 						<Title isSize={4} className="mapname">
 							{name}
 						</Title>
-						<Title tag="p" isSubtitle isSize={6} className="username">
-							@{author}
+						<Title tag="p" isSubtitle isSize={6}>
+							<Link className="username" to={authorURL}>
+								{authorURL}
+							</Link>
 						</Title>
 					</div>
 				</div>

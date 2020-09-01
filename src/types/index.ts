@@ -41,17 +41,18 @@ export interface MapConfig {
 	id: MapID;
 	name: string;
 	author: string;
-	description?: string;
+	description?: string | null;
 	updatedAt?: Date;
 	createdAt: Date;
 	size: MapSize;
-	tiles: TileConfig[];
+	tiles?: TileConfig[];
 }
 
 export interface User {
 	username: string;
 	email?: string;
 	image?: string;
+	description?: string | null;
 	[key: string]: any;
 }
 

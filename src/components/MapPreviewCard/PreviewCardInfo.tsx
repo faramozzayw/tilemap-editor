@@ -1,19 +1,11 @@
 import React from "react";
 import { Content } from "../../bulma";
-import { MapSize } from "../../types";
+import { MapConfig } from "../../types";
 
-export interface PreviewCardInfoProps {
-	description?: string;
-	size: MapSize;
-	createdAt: Date;
-	updatedAt?: Date;
-}
+export interface PreviewCardInfoProps
+	extends Pick<MapConfig, "description" | "size" | "createdAt" | "updatedAt"> {}
 
-export interface KeyProps {
-	children: React.ReactChild;
-}
-
-export const Key: React.FC<KeyProps> = ({ children }) => (
+export const Key: React.FC = ({ children }) => (
 	<span className="key has-text-primary has-text-weight-bold">{children}</span>
 );
 

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-import { MapInfoFrag, MapTilesFrag } from "./fragments";
+import { MapInfoFrag, MapTilesFrag, UserInfo } from "./fragments";
 
 export const GET_MAP_DATA = gql`
 	query EditMap($mapID: ID!) {
@@ -43,10 +43,26 @@ export const GET_MAPS_BY_USER = gql`
 export const GET_ME = gql`
 	query Me {
 		me {
-			id
-			username
-			email
-			description
+			...UserInfo
 		}
 	}
+	${UserInfo}
+`;
+
+export const GET_USER_BY_ID = gql`
+	query GetUserByID($id: Uuid!) {
+		getUserById(id: $id) {
+			...UserInfo
+		}
+	}
+	${MapInfoFrag}
+`;
+
+export const GET_USER_BY_USERNAME = gql`
+	query GetUserByUsername($username: String!) {
+		getUserByUsername(username: $username) {
+			...UserInfo
+		}
+	}
+	${MapInfoFrag}
 `;

@@ -26,3 +26,12 @@ export const MapTilesFrag = gql`
 		}
 	}
 `;
+
+export const UserInfo = gql`
+	fragment UserInfo on User {
+		id
+		username
+		email
+		description
+	}
+`;

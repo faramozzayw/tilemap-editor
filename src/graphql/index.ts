@@ -38,4 +38,4 @@ export {
 	GET_ME,
 } from "./query";
 
-export { MapInfoFrag, MapTilesFrag } from "./fragments";
+export { MapInfoFrag, MapTilesFrag, UserInfo } from "./fragments";
