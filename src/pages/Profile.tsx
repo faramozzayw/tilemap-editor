@@ -38,7 +38,11 @@ export const ProfilePage = () => {
 	});
 
 	if (!userData) {
-		return null;
+		return (
+			<progress className="progress is-large is-info" max="100">
+				Loading user data `{username}`
+			</progress>
+		);
 	}
 
 	const user = userData.getUserByUsername;
