@@ -25,7 +25,6 @@ export const ProfilePage = () => {
 
 	const { data: userData } = useGetUserByUsernameQuery({
 		variables: { username },
-		onCompleted: ({ getUserByUsername }) => console.log(getUserByUsername),
 		onError: (e) => console.error(e),
 	});
 
@@ -35,7 +34,6 @@ export const ProfilePage = () => {
 			offset: 0,
 			limit: 5,
 		},
-		onCompleted: ({ maps }) => console.table(maps),
 		onError: (e) => console.error(e),
 	});
 
@@ -56,7 +54,11 @@ export const ProfilePage = () => {
 						<div className={`tile is-child content ${ProfilePicStyle.Box}`}>
 							<ProfilePic />
 							<ProfileTitle>Status</ProfileTitle>
-							<ProfileDescription>{user.description}</ProfileDescription>
+							<ProfileDescription
+								description={
+									"`code` *italic* **bold** [link](https://localhost:300/)"
+								}
+							/>
 						</div>
 						<div className={`tile is-child content ${ProfilePicStyle.Box}`}>
 							<ProfileTitle>Roles</ProfileTitle>

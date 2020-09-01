@@ -1,8 +1,17 @@
 import React from "react";
+import { MarkdownRemark } from "../../common";
+import { User } from "../../types";
 
-export const ProfileDescription: React.FC = ({ children }) => {
-	if (!children) return null;
+interface ProfileDescription extends Pick<User, "description"> {}
 
-	// to markdown
-	return <p>{children}</p>;
+export const ProfileDescription: React.FC<ProfileDescription> = ({
+	description,
+}) => {
+	if (!description) return null;
+
+	return (
+		<>
+			<MarkdownRemark markdown={description} />
+		</>
+	);
 };
