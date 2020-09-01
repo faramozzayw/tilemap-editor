@@ -19,6 +19,7 @@ import { useAuthState } from "../../hooks/auth";
 import { CREATE_MAP, GET_MAPS, GET_MAPS_BY_USER } from "../../graphql";
 import { addNotification } from "../../store/notificationStore";
 import { useFormik } from "formik";
+import { useCreateMapMutation } from "../../types/graphql";
 
 export interface CreateMapModalProps {
 	isActive?: boolean;
@@ -36,7 +37,7 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 	const formik = useFormik({
 		initialValues: {
 			name: "",
-			description: "null",
+			description: "",
 			row: 20,
 			column: 20,
 		},
@@ -56,15 +57,15 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 			}),
 	});
 
-	const [createMap, { loading }] = useMutation(CREATE_MAP, {
-		onCompleted: ({ data }) => {
+	const [createMap, { loading }] = useCreateMapMutation({
+		onCompleted: ({ createMap }) => {
 			addNotification({
 				type: "success",
 				message: "Map creation was successful 🎉",
 			});
 
 			if (redirectedStatus) {
-				const id = data.createMap.id;
+				const id = createMap.id;
 				history.push(`/editor/${id}`);
 			}
 		},
@@ -118,19 +119,19 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 										type="number"
 										placeholder="Column"
 										min="0"
-										max="500"
+										max="200"
 									/>
 								</Control>
 								<Control isExpanded>
 									<input
-										value={formik.values.description}
+										value={formik.values.row}
 										onChange={formik.handleChange}
 										name="row"
 										className="input"
 										type="number"
 										placeholder="Row"
 										min="0"
-										max="500"
+										max="200"
 									/>
 								</Control>
 							</div>
