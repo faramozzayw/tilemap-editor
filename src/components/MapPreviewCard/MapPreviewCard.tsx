@@ -26,7 +26,9 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	const history = useHistory();
 	const { user } = useAuthState();
 
-	const [deleteMap] = useDeleteMapMutation({
+	/*
+    
+    const [deleteMap] = useDeleteMapMutation({
 		variables: { mapID: id },
 		refetchQueries: [
 			{ query: GET_MAPS },
@@ -49,13 +51,11 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 			}),
 	});
 
+    */
+
 	const editHandler = () => history.push(`/editor/${id}`);
 	const forkHandler = () => alert("forked!");
-	const deleteHandler = () => {
-		if (window.confirm("Are you sure about that, honey?")) {
-			deleteMap();
-		}
-	};
+	const viewHandler = () => history.push(`/maps/${id}`);
 
 	const authorURL = `@${author}`;
 
@@ -88,7 +88,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 			{isAuth && (
 				<PreviewCardFooter
 					id={id}
-					deleteHandler={deleteHandler}
+					viewHandler={viewHandler}
 					editHandler={editHandler}
 					forkHandler={forkHandler}
 				/>
