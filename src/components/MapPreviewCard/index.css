@@ -9,19 +9,13 @@
 
 .MapPreviewCard a,
 .MapPreviewCard button {
-	color: #fff !important;
+	color: #fff;
 }
 
 .MapPreviewCard .mapname {
 	font-weight: bold;
 	color: #66e499 !important;
 	text-shadow: 2px 2px 1px #3e2e72;
-}
-
-.MapPreviewCard .username {
-	font-weight: bold;
-	color: #3298dc !important;
-	text-shadow: 2px 2px 1px #242525;
 }
 
 .MapPreviewCard .config {

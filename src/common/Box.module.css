@@ -1,0 +1,13 @@
+.Box {
+	background: rgb(10 10 10 / 50%);
+	border-radius: 4px;
+	position: relative;
+	padding: 1.25rem 2.5rem 1.25rem 1.5rem;
+}
+
+.Title {
+	background: rgb(10 10 10 / 50%);
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	text-align: center;
+}

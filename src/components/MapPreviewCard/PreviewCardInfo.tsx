@@ -1,6 +1,7 @@
 import React from "react";
 import { Content } from "../../bulma";
 import { MapConfig } from "../../types";
+import { MarkdownRemark } from "../../common";
 
 export interface PreviewCardInfoProps
 	extends Pick<MapConfig, "description" | "size" | "createdAt" | "updatedAt"> {}
@@ -16,12 +17,7 @@ export const PreviewCardInfo: React.FC<PreviewCardInfoProps> = ({
 	updatedAt,
 }) => (
 	<Content>
-		{description && (
-			<>
-				<div className="description is-family-code">{description}</div>
-				<br />
-			</>
-		)}
+		{description && <MarkdownRemark markdown={description} />}
 		<div className="config">
 			<Key>Map size:</Key> {size.row} x {size.column}
 			<br />
