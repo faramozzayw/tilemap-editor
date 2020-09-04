@@ -10,12 +10,15 @@ import ProfilePicStyle from "./ProfilePic.module.css";
 import { User } from "../../types";
 import { IAuth } from "../../types/auth";
 import { UpdateUserMutation } from "../../types/graphql";
+import { Can } from "../../common";
+import { useAuthState } from "../../hooks/auth";
 
 export interface ProfileInfo extends IAuth {
 	user: User;
 }
 
 export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
+	const { user: authUser } = useAuthState();
 	const [editStatus, setEditStatus] = useState(false);
 
 	const usernameRef = useRef<HTMLInputElement>(null);
@@ -76,25 +79,31 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 					defaultValue={user?.email}
 					disabled={!editStatus}
 				/>
-				{!editStatus && (
-					<Button
-						type="button"
-						isColor="info"
-						onClick={() => setEditStatus(true)}
-					>
-						wanna edit your info?
-					</Button>
-				)}
-				{editStatus && (
-					<Buttons>
-						<Button isColor="light" onClick={() => setEditStatus(false)}>
-							cancel
+				<Can
+					role="user"
+					perform="user:edit"
+					data={{ userId: authUser?.id, ownerId: user.id }}
+				>
+					{!editStatus && (
+						<Button
+							type="button"
+							isColor="info"
+							onClick={() => setEditStatus(true)}
+						>
+							wanna edit your info?
 						</Button>
-						<Button type="submit" isColor="success">
-							save
-						</Button>
-					</Buttons>
-				)}
+					)}
+					{editStatus && (
+						<Buttons>
+							<Button isColor="light" onClick={() => setEditStatus(false)}>
+								cancel
+							</Button>
+							<Button type="submit" isColor="success">
+								save
+							</Button>
+						</Buttons>
+					)}
+				</Can>
 			</fieldset>
 		</form>
 	);
