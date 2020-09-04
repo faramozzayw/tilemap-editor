@@ -50,6 +50,7 @@ export interface MapConfig {
 
 export interface User {
 	username: string;
+	id?: string;
 	email?: string;
 	image?: string;
 	description?: string | null;

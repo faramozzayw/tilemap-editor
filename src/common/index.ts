@@ -6,3 +6,4 @@ export { Layout } from "./Layout";
 export { UserLink } from "./UserLink";
 export { Box } from "./Box";
 export { Title } from "./Title";
+export { Can } from "./rbac";

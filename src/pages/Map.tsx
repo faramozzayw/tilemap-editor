@@ -33,7 +33,13 @@ export const Map = () => {
 									<Title>About</Title>
 									<BulmaTitle isSize={3}>{name}</BulmaTitle>
 									author: <UserLink username={author} />
-									{/* co-author: <UserLink username={author} /> */}
+									<br />
+									co-author:{" "}
+									<div>
+										<UserLink username={author} />,{" "}
+										<UserLink username={author} />,{" "}
+										<UserLink username={author} />
+									</div>
 									<br />
 									<Box>
 										<Key>Map size:</Key> {size.row} x {size.column}
@@ -53,11 +59,37 @@ export const Map = () => {
 								</Box>
 							</Tile>
 						</Tile>
-						<Tile isParent>
+						<Tile isParent isVertical>
 							<Tile isChild className="content">
 								<Box>
 									<Title>Description</Title>
 									<MarkdownRemark markdown={description} />
+								</Box>
+							</Tile>
+							<Tile isChild>
+								<Box>
+									<Title>Screenshot</Title>
+									<div
+										style={{
+											display: "flex",
+											flexWrap: "wrap",
+											alignItems: "center",
+											justifyContent: "space-around",
+										}}
+									>
+										<figure className="image is-128x128">
+											<img src="https://bulma.io/images/placeholders/480x480.png" />
+										</figure>
+										<figure className="image is-128x128">
+											<img src="https://bulma.io/images/placeholders/480x480.png" />
+										</figure>
+										<figure className="image is-128x128">
+											<img src="https://bulma.io/images/placeholders/480x480.png" />
+										</figure>
+										<figure className="image is-128x128">
+											<img src="https://bulma.io/images/placeholders/480x480.png" />
+										</figure>
+									</div>
 								</Box>
 							</Tile>
 						</Tile>

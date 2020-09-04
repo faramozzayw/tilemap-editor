@@ -21,13 +21,9 @@ const App = () => {
 					path="/editor/:mapID"
 					component={Editor}
 				/>
-				<ProtectedRouter
-					isAuth={hasAccess}
-					path="/@:username"
-					component={ProfilePage}
-				/>
+				<Route exact path="/@:username" component={ProfilePage} />
 				<Route path="/maps/:mapID" component={Map} />
-				<Route path="/" component={Main} />
+				<Route exact path="/" component={Main} />
 			</Switch>
 			<NotifyLayout />
 		</>

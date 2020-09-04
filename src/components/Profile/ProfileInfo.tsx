@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 
 import { Buttons, Button } from "../../bulma";
@@ -10,16 +10,29 @@ import ProfilePicStyle from "./ProfilePic.module.css";
 import { User } from "../../types";
 import { IAuth } from "../../types/auth";
 import { UpdateUserMutation } from "../../types/graphql";
+import { Can } from "../../common";
+import { useAuthState } from "../../hooks/auth";
 
 export interface ProfileInfo extends IAuth {
 	user: User;
 }
 
 export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
+	const { user: authUser } = useAuthState();
 	const [editStatus, setEditStatus] = useState(false);
 
 	const usernameRef = useRef<HTMLInputElement>(null);
 	const emailRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		const { username, email } = user;
+		if (usernameRef.current && username) {
+			usernameRef.current.value = username;
+		}
+		if (emailRef.current && email) {
+			emailRef.current.value = email;
+		}
+	}, [user, emailRef, usernameRef]);
 
 	const [updateUserInfo, { loading }] = useMutation<UpdateUserMutation>(
 		UPDATE_USER_INFO,
@@ -62,7 +75,6 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 					name="username"
 					ref={usernameRef}
 					description="+|__username__|+"
-					defaultValue={user?.username}
 					disabled={!editStatus}
 				>
 					<span className={`is-family-code ${ProfilePicStyle.Symbol}`}>@</span>
@@ -73,28 +85,33 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 					type="email"
 					name="email"
 					description="~~email~~"
-					defaultValue={user?.email}
 					disabled={!editStatus}
 				/>
-				{!editStatus && (
-					<Button
-						type="button"
-						isColor="info"
-						onClick={() => setEditStatus(true)}
-					>
-						wanna edit your info?
-					</Button>
-				)}
-				{editStatus && (
-					<Buttons>
-						<Button isColor="light" onClick={() => setEditStatus(false)}>
-							cancel
+				<Can
+					role="user"
+					perform="user:edit"
+					data={{ userId: authUser?.id, ownerId: user.id }}
+				>
+					{!editStatus && (
+						<Button
+							type="button"
+							isColor="info"
+							onClick={() => setEditStatus(true)}
+						>
+							wanna edit your info?
 						</Button>
-						<Button type="submit" isColor="success">
-							save
-						</Button>
-					</Buttons>
-				)}
+					)}
+					{editStatus && (
+						<Buttons>
+							<Button isColor="light" onClick={() => setEditStatus(false)}>
+								cancel
+							</Button>
+							<Button type="submit" isColor="success">
+								save
+							</Button>
+						</Buttons>
+					)}
+				</Can>
 			</fieldset>
 		</form>
 	);

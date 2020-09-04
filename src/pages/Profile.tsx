@@ -26,15 +26,17 @@ export const ProfilePage = () => {
 	const { data: userData } = useGetUserByUsernameQuery({
 		variables: { username },
 		onError: (e) => console.error(e),
+		fetchPolicy: "cache-and-network",
 	});
 
 	const { loading, error, data: mapsData, fetchMore } = useGetMapsByUserQuery({
 		variables: {
-			username: username,
+			username,
 			offset: 0,
 			limit: 5,
 		},
 		onError: (e) => console.error(e),
+		fetchPolicy: "cache-and-network",
 	});
 
 	if (!userData) {

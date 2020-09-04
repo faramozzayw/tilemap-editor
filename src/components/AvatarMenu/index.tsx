@@ -6,6 +6,7 @@ import "./AvatarMenu.css";
 import { NavbarItem, NavbarDropdown, NavbarDivider } from "./../../bulma";
 import { LogOut } from "./../AuthForms";
 import { User } from "../../types";
+import { UserLink } from "../../common";
 
 export interface AvatarMenuProps extends Pick<User, "image" | "username"> {}
 
@@ -26,7 +27,7 @@ const AvatarMenu: React.FC<AvatarMenuProps> = ({ username, image }) => {
 			</NavbarItem>
 			<NavbarDropdown className="is-right has-background-dark">
 				<NavbarItem>
-					<Link to={`/@${username}`}>Profile</Link>
+					<UserLink username={username} />
 				</NavbarItem>
 				<NavbarDivider />
 				<NavbarItem>
