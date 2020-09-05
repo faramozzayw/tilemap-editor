@@ -5,10 +5,10 @@ import { ProgressBar, Title as BulmaTitle, Tile } from "../bulma";
 import { useEditMapQuery } from "../types/graphql";
 import { Layout, UserLink, MarkdownRemark, Box, Title } from "../common";
 import { MapConfig } from "../types";
-import { PreviewCardInfo } from "../components/MapPreviewCard/PreviewCardInfo";
+import { PreviewCardInfo } from "../components/MapPreviewCard";
 
 export const Key: React.FC = ({ children }) => (
-	<span className="key has-text-primary has-text-weight-bold">{children}</span>
+	<span className="has-text-primary has-text-weight-bold">{children}</span>
 );
 
 export const Map = () => {
@@ -17,7 +17,7 @@ export const Map = () => {
 		variables: { mapID },
 	});
 
-	const { author, name, description, updatedAt, createdAt, size } = {
+	const { author, name, description, ...props } = {
 		...mapData?.map,
 	} as MapConfig;
 
@@ -25,76 +25,61 @@ export const Map = () => {
 		<Layout style={{ alignItems: "flex-start" }}>
 			{loading && <ProgressBar isColor="info" isSize="small" max="100" />}
 			{mapData && (
-				<>
-					<Tile tag="section" isAncestor>
-						<Tile isVertical isParent className="is-3">
-							<Tile isChild className="content">
-								<Box>
-									<Title>About</Title>
-									<BulmaTitle isSize={3}>{name}</BulmaTitle>
+				<Tile tag="section" isAncestor>
+					<Tile isVertical isParent className="is-3">
+						<Tile isChild className="content">
+							<Box>
+								<Title>About</Title>
+								<BulmaTitle isSize={3}>{name}</BulmaTitle>
+								<p>
 									author: <UserLink username={author} />
-									<br />
-									co-author:{" "}
-									<div>
-										<UserLink username={author} />,{" "}
-										<UserLink username={author} />,{" "}
-										<UserLink username={author} />
-									</div>
-									<br />
-									<Box>
-										<Key>Map size:</Key> {size.row} x {size.column}
-										<br />
-										<Key>Create:</Key>{" "}
-										<time dateTime="2016-1-1">
-											{new Date(createdAt).toLocaleDateString()}
-										</time>
-										<br />
-										<Key>Last edit:</Key>{" "}
-										<time dateTime="2016-1-1">
-											{updatedAt
-												? new Date(updatedAt).toLocaleDateString()
-												: "not edited yet"}
-										</time>
-									</Box>
-								</Box>
-							</Tile>
-						</Tile>
-						<Tile isParent isVertical>
-							<Tile isChild className="content">
+								</p>
+								<p>
+									co-author: <UserLink username={author} />,{" "}
+									<UserLink username={author} />, <UserLink username={author} />
+								</p>
+								<br />
 								<Box>
-									<Title>Description</Title>
-									<MarkdownRemark markdown={description} />
+									<PreviewCardInfo {...props} />
 								</Box>
-							</Tile>
-							<Tile isChild>
-								<Box>
-									<Title>Screenshot</Title>
-									<div
-										style={{
-											display: "flex",
-											flexWrap: "wrap",
-											alignItems: "center",
-											justifyContent: "space-around",
-										}}
-									>
-										<figure className="image is-128x128">
-											<img src="https://bulma.io/images/placeholders/480x480.png" />
-										</figure>
-										<figure className="image is-128x128">
-											<img src="https://bulma.io/images/placeholders/480x480.png" />
-										</figure>
-										<figure className="image is-128x128">
-											<img src="https://bulma.io/images/placeholders/480x480.png" />
-										</figure>
-										<figure className="image is-128x128">
-											<img src="https://bulma.io/images/placeholders/480x480.png" />
-										</figure>
-									</div>
-								</Box>
-							</Tile>
+							</Box>
 						</Tile>
 					</Tile>
-				</>
+					<Tile isParent isVertical>
+						<Tile isChild className="content">
+							<Box>
+								<Title>Description</Title>
+								<MarkdownRemark markdown={description} />
+							</Box>
+						</Tile>
+						<Tile isChild>
+							<Box>
+								<Title>Screenshot</Title>
+								<div
+									style={{
+										display: "flex",
+										flexWrap: "wrap",
+										alignItems: "center",
+										justifyContent: "space-around",
+									}}
+								>
+									<figure className="image is-128x128">
+										<img src="https://bulma.io/images/placeholders/480x480.png" />
+									</figure>
+									<figure className="image is-128x128">
+										<img src="https://bulma.io/images/placeholders/480x480.png" />
+									</figure>
+									<figure className="image is-128x128">
+										<img src="https://bulma.io/images/placeholders/480x480.png" />
+									</figure>
+									<figure className="image is-128x128">
+										<img src="https://bulma.io/images/placeholders/480x480.png" />
+									</figure>
+								</div>
+							</Box>
+						</Tile>
+					</Tile>
+				</Tile>
 			)}
 		</Layout>
 	);

@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "../types";
+import { User } from "../../types";
 import { Link } from "react-router-dom";
 
 import Styles from "./UserLink.module.css";

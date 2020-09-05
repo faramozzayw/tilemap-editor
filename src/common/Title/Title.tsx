@@ -1,8 +1,8 @@
 import React from "react";
 import classnames from "classnames";
 
-import Styles from "./Box.module.css";
-import { Title as BulmaTitle } from "../bulma";
+import Styles from "./Title.module.css";
+import { Title as BulmaTitle } from "../../bulma";
 
 /**
  * Displays a title
