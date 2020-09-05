@@ -2,11 +2,7 @@ import React from "react";
 import classnames from "classnames";
 
 import { Bulma } from "./../../bulma";
-import {
-	getColorModifiers,
-	getSizeModifiers,
-	getAlignmentModifiers,
-} from "./../../utils";
+import { getSizeModifiers, getAlignmentModifiers } from "./../../utils";
 
 export type ButtonsSizes = "small" | "medium" | "large";
 

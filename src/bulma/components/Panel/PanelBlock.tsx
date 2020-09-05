@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 
 import { Bulma } from "./../../bulma";
-import { getColorModifiers, getActiveModifiers } from "./../../utils";
+import { getActiveModifiers } from "./../../utils";
 
 export interface PanelBlock<T>
 	extends Bulma.Tag,

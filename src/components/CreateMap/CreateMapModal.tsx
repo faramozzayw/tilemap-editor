@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { useMutation } from "@apollo/client";
-
 import {
 	Button,
 	Control,
@@ -16,7 +14,7 @@ import {
 } from "./../../bulma";
 
 import { useAuthState } from "../../hooks/auth";
-import { CREATE_MAP, GET_MAPS, GET_MAPS_BY_USER } from "../../graphql";
+import { GET_MAPS, GET_MAPS_BY_USER } from "../../graphql";
 import { addNotification } from "../../store/notificationStore";
 import { useFormik } from "formik";
 import { useCreateMapMutation } from "../../types/graphql";
