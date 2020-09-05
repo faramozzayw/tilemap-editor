@@ -1,5 +1,5 @@
-import React, { useState, Suspense, CSSProperties } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, Suspense } from "react";
+import { NavLink } from "react-router-dom";
 
 import { LogIn, SignUp } from "./AuthForms";
 import { Protected } from "./../common";
@@ -32,9 +32,9 @@ export const MainNavbar = () => {
 		>
 			<NavbarBrand>
 				<NavbarItem className="is-size-2 has-text-weight-bold is-family-code">
-					<Link to="/" className="has-text-light">
+					<NavLink to="/" className="has-text-light">
 						TW!+
-					</Link>
+					</NavLink>
 				</NavbarItem>
 
 				<NavbarBurger
@@ -49,17 +49,27 @@ export const MainNavbar = () => {
 				className="MainNavbar"
 			>
 				<NavbarStart>
-					<Link to="/" className="navbar-item link">
+					<NavLink
+						to="/"
+						className="navbar-item link"
+						exact
+						activeClassName="ActiveLink"
+					>
 						<span>
 							<i className="fas fa-tachometer-alt"></i> Dashbord
 						</span>
-					</Link>
+					</NavLink>
 
-					<Link to="/docs" className="navbar-item link">
+					<NavLink
+						to="/docs"
+						className="navbar-item link"
+						exact
+						activeClassName="ActiveLink"
+					>
 						<span>
 							<i className="fas fa-book"></i> Documentation
 						</span>
-					</Link>
+					</NavLink>
 					<NavbarItem>
 						<Protected isAuth={isAuthenticated} render={() => <CreateMap />} />
 					</NavbarItem>

@@ -4,6 +4,12 @@
 	border-bottom-right-radius: 1rem;
 }
 
+.MainNavbar .ActiveLink {
+	background: linear-gradient(0deg, #48ca5e, #2f2e2e, #444040, #2f2e2e);
+	color: springgreen !important; /*springgreen, aquamarine*/
+	border-radius: 1rem;
+}
+
 .MainNavbar .link {
 	color: #fff;
 }
@@ -11,7 +17,7 @@
 .MainNavbar .link:hover,
 .MainNavbar .link:focus {
 	background: #444444;
-	color: springgreen; /*springgreen, aquamarine*/
+	color: #ffe740; /*springgreen, aquamarine*/
 	border-radius: 1rem;
 }
 
