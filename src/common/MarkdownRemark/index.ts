@@ -1,0 +1,1 @@
+export { MarkdownRemark } from "./MarkdownRemark";

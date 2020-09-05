@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 
 import { Buttons, Button } from "../../bulma";
@@ -23,6 +23,16 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 
 	const usernameRef = useRef<HTMLInputElement>(null);
 	const emailRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		const { username, email } = user;
+		if (usernameRef.current && username) {
+			usernameRef.current.value = username;
+		}
+		if (emailRef.current && email) {
+			emailRef.current.value = email;
+		}
+	}, [user, emailRef, usernameRef]);
 
 	const [updateUserInfo, { loading }] = useMutation<UpdateUserMutation>(
 		UPDATE_USER_INFO,
@@ -65,7 +75,6 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 					name="username"
 					ref={usernameRef}
 					description="+|__username__|+"
-					defaultValue={user?.username}
 					disabled={!editStatus}
 				>
 					<span className={`is-family-code ${ProfilePicStyle.Symbol}`}>@</span>
@@ -76,7 +85,6 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 					type="email"
 					name="email"
 					description="~~email~~"
-					defaultValue={user?.email}
 					disabled={!editStatus}
 				/>
 				<Can

@@ -1,5 +1,6 @@
 // layout
 export { Hero, HeroBody, HeroHeader, HeroFooter } from "./layout/Hero";
+export { Tile } from "./layout/Tile";
 
 // elements
 export { Button, Buttons } from "./elements/Button";

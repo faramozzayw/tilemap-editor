@@ -15,13 +15,13 @@ import { client } from "./graphql";
 
 ReactDOM.render(
 	<ApolloProvider client={client}>
-		<AuthProvider>
-			<BrowserRouter>
+		<BrowserRouter>
+			<AuthProvider>
 				<React.StrictMode>
 					<App />
 				</React.StrictMode>
-			</BrowserRouter>
-		</AuthProvider>
+			</AuthProvider>
+		</BrowserRouter>
 	</ApolloProvider>,
 	document.getElementById("root"),
 );
