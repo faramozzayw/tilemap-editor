@@ -3,7 +3,14 @@ import { useParams } from "react-router-dom";
 
 import { ProgressBar, Title as BulmaTitle, Tile } from "../bulma";
 import { useEditMapQuery } from "../types/graphql";
-import { Layout, UserLink, MarkdownRemark, Box, Title } from "../common";
+import {
+	Layout,
+	UserLink,
+	MarkdownRemark,
+	Box,
+	Title,
+	MapName,
+} from "../common";
 import { MapConfig } from "../types";
 import { PreviewCardInfo } from "../components/MapPreviewCard";
 
@@ -30,7 +37,9 @@ export const Map = () => {
 						<Tile isChild className="content">
 							<Box>
 								<Title>About</Title>
-								<BulmaTitle isSize={3}>{name}</BulmaTitle>
+								<BulmaTitle isSize={3}>
+									<MapName name={name} />
+								</BulmaTitle>
 								<p>
 									author: <UserLink username={author} />
 								</p>

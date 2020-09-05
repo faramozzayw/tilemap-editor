@@ -25,7 +25,9 @@ export const MainNavbar = () => {
 		<Navbar isColor="dark" role="navigation" aria-label="main navigation">
 			<NavbarBrand>
 				<NavbarItem className="is-size-2 has-text-weight-bold is-family-code">
-					TW!+
+					<Link to="/" className="has-text-light">
+						TW!+
+					</Link>
 				</NavbarItem>
 
 				<NavbarBurger

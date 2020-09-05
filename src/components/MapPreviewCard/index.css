@@ -12,12 +12,6 @@
 	color: #fff;
 }
 
-.MapPreviewCard .mapname {
-	font-weight: bold;
-	color: #66e499 !important;
-	text-shadow: 2px 2px 1px #3e2e72;
-}
-
 .MapPreviewCard .config {
 	padding: 1rem;
 	border-radius: 0.25rem;

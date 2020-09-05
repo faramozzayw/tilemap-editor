@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import { Title, Card, CardContent } from "./../../bulma";
 import { MapConfig } from "./../../types";
@@ -8,7 +8,7 @@ import "./index.css";
 import { PreviewCardInfo } from "./PreviewCardInfo";
 import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
-import { UserLink } from "../../common";
+import { UserLink, MapName } from "../../common";
 
 export interface MapPreviewCardProps extends MapConfig, IAuth {}
 
@@ -37,8 +37,10 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 						</figure>
 					</div>
 					<div className="media-content">
-						<Title isSize={4} className="mapname">
-							{name}
+						<Title isSize={4}>
+							<Link to={`/maps/${id}`}>
+								<MapName name={name} />
+							</Link>
 						</Title>
 						<Title tag="p" isSubtitle isSize={6}>
 							<UserLink username={author} />
