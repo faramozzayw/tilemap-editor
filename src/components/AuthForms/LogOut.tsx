@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-import { Button, NavbarItem } from "../../bulma";
+import { Button } from "../../bulma";
 import { useAuthState } from "../../hooks/auth";
 
 export const LogOut = () => {
@@ -14,15 +14,13 @@ export const LogOut = () => {
 	};
 
 	return (
-		<NavbarItem>
-			<Button
-				isOutlined
-				isColor="danger"
-				onClick={logoutHandler}
-				className="is-marginless is-fullwidth"
-			>
-				Log out
-			</Button>
-		</NavbarItem>
+		<Button
+			isOutlined
+			isColor="danger"
+			onClick={logoutHandler}
+			className="is-marginless is-fullwidth"
+		>
+			Log out
+		</Button>
 	);
 };

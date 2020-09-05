@@ -15,7 +15,9 @@ export const CreateMap = () => {
 				isRounded
 				onClick={() => toggleModal(true)}
 			>
-				Create map!
+				<span>
+					<i className="fas fa-map"></i> Create map!
+				</span>
 			</Button>
 			<CreateMapModal
 				isActive={modalActive}

@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense, CSSProperties } from "react";
 import { Link } from "react-router-dom";
 
 import { LogIn, SignUp } from "./AuthForms";
@@ -15,6 +15,8 @@ import {
 	Navbar,
 } from "../bulma";
 
+import "./MainNavbar.css";
+
 const AvatarMenu = React.lazy(() => import("./AvatarMenu"));
 
 export const MainNavbar = () => {
@@ -22,7 +24,12 @@ export const MainNavbar = () => {
 	const { isAuthenticated, user } = useAuthState();
 
 	return (
-		<Navbar isColor="dark" role="navigation" aria-label="main navigation">
+		<Navbar
+			role="navigation"
+			aria-label="main navigation"
+			isFixedTop
+			className="MainNavbar"
+		>
 			<NavbarBrand>
 				<NavbarItem className="is-size-2 has-text-weight-bold is-family-code">
 					<Link to="/" className="has-text-light">
@@ -36,14 +43,22 @@ export const MainNavbar = () => {
 				/>
 			</NavbarBrand>
 
-			<NavbarMenu id="navbarBasicExample" isActive={isActive}>
+			<NavbarMenu
+				id="navbarBasicExample"
+				isActive={isActive}
+				className="MainNavbar"
+			>
 				<NavbarStart>
-					<Link to="/" className="navbar-item">
-						Dashbord
+					<Link to="/" className="navbar-item link">
+						<span>
+							<i className="fas fa-tachometer-alt"></i> Dashbord
+						</span>
 					</Link>
 
-					<Link to="/docs" className="navbar-item">
-						Documentation
+					<Link to="/docs" className="navbar-item link">
+						<span>
+							<i className="fas fa-book"></i> Documentation
+						</span>
 					</Link>
 					<NavbarItem>
 						<Protected isAuth={isAuthenticated} render={() => <CreateMap />} />

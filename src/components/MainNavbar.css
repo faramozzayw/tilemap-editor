@@ -1,0 +1,20 @@
+.MainNavbar {
+	background-color: #2f2f2f !important;
+	border-bottom-left-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+}
+
+.MainNavbar .link {
+	color: #fff;
+}
+
+.MainNavbar .link:hover,
+.MainNavbar .link:focus {
+	background: #444444;
+	color: springgreen; /*springgreen, aquamarine*/
+	border-radius: 1rem;
+}
+
+.MainNavbar .navbar-burger {
+	color: #e4e4e4;
+}

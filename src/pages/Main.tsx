@@ -8,6 +8,7 @@ import { useAuthState } from "../hooks/auth";
 import { MapConfig } from "../types";
 import { MapFeed } from "../components/MapPreviewCard";
 import { GET_MAPS_PAGINATION } from "../graphql";
+import { Layout } from "../common";
 
 interface MapConfigData {
 	maps: MapConfig[];
@@ -30,31 +31,26 @@ export const Main = () => {
 	);
 
 	return (
-		<Hero isColor="dark" isFullHeight>
-			<HeroHeader>
-				<MainNavbar />
-			</HeroHeader>
-			<HeroBody style={{ flexFlow: "column" }}>
-				<MapFeed
-					loading={loading}
-					error={error}
-					isAuth={isAuth}
-					maps={data?.maps}
-					onLoadMore={() => {
-						fetchMore({
-							variables: {
-								offset: data?.maps.length,
-							},
-							updateQuery: (prev, { fetchMoreResult }) => {
-								if (!fetchMoreResult) return prev;
-								return Object.assign({}, prev, {
-									maps: [...prev.maps, ...fetchMoreResult.maps],
-								});
-							},
-						});
-					}}
-				/>
-			</HeroBody>
-		</Hero>
+		<Layout style={{ flexFlow: "column" }}>
+			<MapFeed
+				loading={loading}
+				error={error}
+				isAuth={isAuth}
+				maps={data?.maps}
+				onLoadMore={() => {
+					fetchMore({
+						variables: {
+							offset: data?.maps.length,
+						},
+						updateQuery: (prev, { fetchMoreResult }) => {
+							if (!fetchMoreResult) return prev;
+							return Object.assign({}, prev, {
+								maps: [...prev.maps, ...fetchMoreResult.maps],
+							});
+						},
+					});
+				}}
+			/>
+		</Layout>
 	);
 };
