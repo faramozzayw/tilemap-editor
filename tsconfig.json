@@ -15,7 +15,7 @@
 		"noEmit": true,
 		"jsx": "react",
 		"downlevelIteration": true,
-		"types": ["babylonjs-loaders", "babylonjs"]
+		"types": []
 	},
 	"include": ["src"]
 }
