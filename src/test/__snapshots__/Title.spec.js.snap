@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<body>
+  <div>
+    <h4
+      class="title is-4 Title has-text-link-dark"
+    >
+      <span>
+        Some span
+      </span>
+    </h4>
+  </div>
+</body>
+`;
