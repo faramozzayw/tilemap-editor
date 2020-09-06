@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<body>
+  <div>
+    <div
+      class="content"
+    >
+      <div
+        class="MarkdownRemark"
+      >
+        <p>
+          <strong>
+            bold
+          </strong>
+          , 
+          <em>
+            italic
+          </em>
+          , 
+          <del>
+            strike
+          </del>
+           
+          <strong>
+            some_text
+          </strong>
+           
+          <code>
+            code block
+          </code>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+`;

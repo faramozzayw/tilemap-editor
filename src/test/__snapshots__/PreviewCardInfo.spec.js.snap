@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<body>
+  <div>
+    <div
+      class="card MapPreviewCard has-background-grey-dark has-text-primary-light is-clipped"
+    >
+      <div
+        class="card-content"
+      >
+        <div
+          class="media"
+        >
+          <div
+            class="media-left"
+          >
+            <figure
+              class="image is-48x48"
+            >
+              <img
+                alt="Test image"
+                src="https://bulma.io/images/placeholders/96x96.png"
+              />
+            </figure>
+          </div>
+          <div
+            class="media-content"
+          >
+            <h1
+              class="title is-4"
+            >
+              <a
+                href="/maps/undefined"
+              >
+                <span
+                  class="MapName"
+                />
+              </a>
+            </h1>
+            <p
+              class="subtitle is-6"
+            />
+          </div>
+        </div>
+        <div
+          class="content"
+        >
+          <div
+            class="content"
+          >
+            <div
+              class="MarkdownRemark"
+            >
+              <p>
+                <strong>
+                  bold
+                </strong>
+                , 
+                <em>
+                  italic
+                </em>
+                , 
+                <del>
+                  strike
+                </del>
+                 
+                <strong>
+                  some_text
+                </strong>
+                 
+                <code>
+                  code block
+                </code>
+              </p>
+            </div>
+          </div>
+          <div
+            class="config"
+          >
+            <span
+              class="key has-text-primary has-text-weight-bold"
+            >
+              Map size:
+            </span>
+             
+            25
+             x 
+            25
+            <br />
+            <span
+              class="key has-text-primary has-text-weight-bold"
+            >
+              Create:
+            </span>
+             
+            <time
+              datetime="2016-1-1"
+            >
+              9/6/2020
+            </time>
+            <br />
+            <span
+              class="key has-text-primary has-text-weight-bold"
+            >
+              Last edit:
+            </span>
+             
+            <time
+              datetime="2016-1-1"
+            >
+              not edited yet
+            </time>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;
