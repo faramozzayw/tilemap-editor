@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { MapConfig } from "../../types";
 
 export interface PreviewCardFooterProps extends Pick<MapConfig, "id"> {
-	editHandler: any;
-	forkHandler: any;
-	viewHandler: any;
+	editHandler: () => void;
+	forkHandler: () => void;
+	viewHandler: () => void;
 }
 
 export const PreviewCardFooter: React.FC<PreviewCardFooterProps> = ({

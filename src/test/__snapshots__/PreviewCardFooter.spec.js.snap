@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<body>
+  <div>
+    <footer
+      class="card-footer"
+    >
+      <button
+        class="button is-success card-footer-item"
+        type="button"
+      >
+        <a
+          href="/editor/iu2h3u284u2s9-234242s2342"
+        >
+          Edit
+        </a>
+      </button>
+      <button
+        class="button is-info card-footer-item"
+        type="button"
+      >
+        Fork
+      </button>
+      <button
+        class="button is-danger card-footer-item"
+        type="button"
+      >
+        View
+      </button>
+    </footer>
+  </div>
+</body>
+`;
