@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import classnames from "classnames";
 
 import { useAuthState } from "../hooks/auth";
 import { Layout } from "../common";
@@ -17,6 +18,9 @@ import {
 	useGetMapsByUserQuery,
 	useGetUserByUsernameQuery,
 } from "../types/graphql";
+import { ProgressBar, Tile } from "../bulma";
+
+const style: React.CSSProperties = { display: "grid" };
 
 export const ProfilePage = () => {
 	const { username } = useParams();
@@ -38,21 +42,21 @@ export const ProfilePage = () => {
 		fetchPolicy: "cache-and-network",
 	});
 
-	if (!userData) {
+	const user = userData?.getUserByUsername;
+
+	if (loading) {
 		return (
-			<progress className="progress is-large is-info" max="100">
-				Loading user data `{username}`
-			</progress>
+			<Layout style={style}>
+				<ProgressBar isColor="info" isSize="small" max="100" />
+			</Layout>
 		);
 	}
 
-	const user = userData.getUserByUsername;
-
 	return (
-		<Layout style={{ display: "grid" }}>
-			<section className="tile is-ancestor">
-				<div className="tile is-3 is-vertical is-parent">
-					<div className={`tile is-child content ${ProfilePicStyle.Box}`}>
+		<Layout style={style}>
+			<Tile isAncestor tag="section">
+				<Tile isVertical isParent className="is-3">
+					<Tile isChild className={classnames("content", ProfilePicStyle.Box)}>
 						<ProfilePic />
 						<ProfileTitle>Status</ProfileTitle>
 						<ProfileDescription
@@ -60,25 +64,25 @@ export const ProfilePage = () => {
 								"`code` *italic* **bold** [link](https://localhost:300/)"
 							}
 						/>
-					</div>
-					<div className={`tile is-child content ${ProfilePicStyle.Box}`}>
+					</Tile>
+					<Tile isChild className={classnames("content", ProfilePicStyle.Box)}>
 						<ProfileTitle>Roles</ProfileTitle>
 						<div className="tags">
 							<span className="tag is-danger">Admin</span>
 							<span className="tag is-link">Moderator</span>
 							<span className="tag is-light">User</span>
 						</div>
-					</div>
-				</div>
-				<div className="tile is-parent">
-					<div className={`tile is-child content ${ProfilePicStyle.Box}`}>
+					</Tile>
+				</Tile>
+				<Tile isParent>
+					<Tile isChild className={classnames("content", ProfilePicStyle.Box)}>
 						<ProfileTitle>Bio</ProfileTitle>
-						<ProfileInfo user={user} isAuth={isAuth} />
-					</div>
-				</div>
-			</section>
+						{user && <ProfileInfo user={user} isAuth={isAuth} />}
+					</Tile>
+				</Tile>
+			</Tile>
 			<section className={ProfilePicStyle.Box}>
-				<ProfileTitle>_Your maps~</ProfileTitle>
+				<ProfileTitle>{`__${user?.username}'s maps~`}</ProfileTitle>
 				<MapFeed
 					loading={loading}
 					error={error}
