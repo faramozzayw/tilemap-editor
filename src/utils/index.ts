@@ -1,7 +1,4 @@
 export { $ } from "./domUtils";
-export { Tile, TileGeometryConfig } from "./Tile";
-export { generateGridMatrix } from "./generatorGridMatrix";
-export { CanvasBuild } from "./canvas";
 
 export const isDevEnv = () => process.env.NODE_ENV === "development";
 
