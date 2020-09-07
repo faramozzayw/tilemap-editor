@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React from "react";
+import { useFormik } from "formik";
 
 import {
 	Button,
@@ -14,9 +14,8 @@ import {
 } from "./../../bulma";
 
 import { useAuthState } from "../../hooks/auth";
-import { GET_MAPS, GET_MAPS_BY_USER } from "../../graphql";
+import { GET_MAPS_BY_USER } from "../../graphql";
 import { addNotification } from "../../store/notificationStore";
-import { useFormik } from "formik";
 import { useCreateMapMutation } from "../../types/graphql";
 
 export interface CreateMapModalProps {
@@ -28,8 +27,6 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 	isActive,
 	closeModal,
 }) => {
-	const [redirectedStatus, setRedirectedStatus] = useState(false);
-	const history = useHistory();
 	const { user } = useAuthState();
 
 	const formik = useFormik({
@@ -39,33 +36,39 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 			row: 20,
 			column: 20,
 		},
-		onSubmit: (values) =>
-			createMap({
-				variables: {
-					newMap: {
-						name: values.name,
-						author: user!.username,
-						description: values.description,
-						size: {
-							row: Math.floor(values.row),
-							column: Math.floor(values.column),
+		onSubmit: (values) => {
+			const { name } = values;
+			const nameValid = Boolean(name.trim());
+
+			if (nameValid) {
+				createMap({
+					variables: {
+						newMap: {
+							name: values.name,
+							author: user!.username,
+							description: values.description,
+							size: {
+								row: Math.floor(values.row),
+								column: Math.floor(values.column),
+							},
 						},
 					},
-				},
-			}),
+				});
+			} else {
+				addNotification({
+					type: "warning",
+					message: "Incorrect! Check your data and try again",
+				});
+			}
+		},
 	});
 
 	const [createMap, { loading }] = useCreateMapMutation({
-		onCompleted: ({ createMap }) => {
+		onCompleted: () => {
 			addNotification({
 				type: "success",
 				message: "Map creation was successful 🎉",
 			});
-
-			if (redirectedStatus) {
-				const id = createMap.id;
-				history.push(`/editor/${id}`);
-			}
 		},
 		onError: (err) =>
 			addNotification({
@@ -73,7 +76,6 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 				message: err.message,
 			}),
 		refetchQueries: [
-			{ query: GET_MAPS },
 			{
 				query: GET_MAPS_BY_USER,
 				variables: {
@@ -83,11 +85,9 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 		],
 	});
 
-	const checkboxRedirectHandler = () => setRedirectedStatus(!redirectedStatus);
-
 	return (
 		<Modal className="has-text" isActive={isActive}>
-			<ModalBackground />
+			<ModalBackground onClick={closeModal} />
 			<ModalContent>
 				<Box>
 					<form onSubmit={formik.handleSubmit}>
@@ -95,6 +95,8 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 							<Label>Map name</Label>
 							<Control>
 								<input
+									min="3"
+									max="45"
 									value={formik.values.name}
 									onChange={formik.handleChange}
 									name="name"
@@ -138,17 +140,13 @@ const CreateMapModal: React.FC<CreateMapModalProps> = ({
 							<Label>Description</Label>
 							<Control>
 								<TextArea
+									max="400"
 									value={formik.values.description}
 									onChange={formik.handleChange}
 									name="description"
 									placeholder="Enter some description about your map"
 								/>
 							</Control>
-						</div>
-						<div className="field">
-							<label className="checkbox" onChange={checkboxRedirectHandler}>
-								<input type="checkbox" /> Redirect to editor after map creation
-							</label>
 						</div>
 						<div className="field is-grouped">
 							<Control>
