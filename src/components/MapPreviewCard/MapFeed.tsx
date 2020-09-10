@@ -3,14 +3,14 @@ import { QueryResult } from "@apollo/client";
 import classnames from "classnames";
 
 import { IAuth } from "../../types/auth";
-import { MapConfig } from "../../types";
 import { MapPreviewCard } from ".";
 import { ProgressBar, Button, Notification, Title } from "../../bulma";
 
 import MapFeedStyle from "./MapFeed.module.css";
+import { Map } from "../../types/graphql";
 
 export interface MapFeed extends Pick<QueryResult, "loading" | "error">, IAuth {
-	maps?: MapConfig[];
+	maps?: Map[];
 	onLoadMore?: () => void;
 }
 

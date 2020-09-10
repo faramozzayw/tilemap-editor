@@ -4,7 +4,10 @@ export const MapInfoFrag = gql`
 	fragment MapInfo on Map {
 		id
 		name
-		author
+		author {
+			id
+			username
+		}
 		description
 		createdAt
 		updatedAt

@@ -58,9 +58,9 @@ export const GoogleAuth = () => {
 	};
 
 	return (
-		<>
-			<Title className="has-text-dark" isSize={5}>
-				Or your can login by
+		<div className="google-auth">
+			<Title className="has-text-light" isSize={5}>
+				Or you can login by
 			</Title>
 			<div className="field is-grouped">
 				<GoogleLogin
@@ -73,6 +73,6 @@ export const GoogleAuth = () => {
 					accessType="offline"
 				/>
 			</div>
-		</>
+		</div>
 	);
 };

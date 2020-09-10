@@ -1,0 +1,46 @@
+.sign-up {
+	margin: 2vmax;
+	padding: 2rem;
+	box-shadow: 0px 0px 5px #252323;
+	border-radius: 1rem;
+}
+
+.sign-up .label,
+.sign-up .title {
+	color: #ffffff;
+}
+
+.sign-up hr {
+	background: linear-gradient(50deg, #9a479c, #e05e20, #2040e0);
+}
+
+.sign-up .sign-up-title {
+	background: -webkit-linear-gradient(#71aedc, #5bb17e);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	padding: 6px;
+}
+
+.sign-up input {
+	background: hsl(0 0% 0% / 0.15);
+	color: whitesmoke;
+	border: 0;
+	border-bottom: 1px dashed hsl(335deg 44% 54%);
+	border-radius: 0.25rem;
+}
+
+.sign-up input:hover {
+	border-bottom-color: hsl(247deg 34% 34%);
+}
+
+.sign-up input:invalid {
+	border: 1px solid orangered;
+}
+
+.sign-up input::placeholder {
+	color: hsl(0, 14%, 88%);
+}
+
+.sign-up input:-webkit-autofill {
+	transition-delay: 3600s;
+}

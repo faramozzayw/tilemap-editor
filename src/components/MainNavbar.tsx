@@ -1,7 +1,7 @@
 import React, { useState, Suspense } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
-import { LogIn, SignUp } from "./AuthForms";
+import { LogIn } from "./AuthForms";
 import { Protected } from "./../common";
 import { useAuthState } from "../hooks/auth";
 import { CreateMap } from "./CreateMap";
@@ -13,6 +13,7 @@ import {
 	NavbarBurger,
 	NavbarBrand,
 	Navbar,
+	Button,
 } from "../bulma";
 
 import "./MainNavbar.css";
@@ -22,6 +23,7 @@ const AvatarMenu = React.lazy(() => import("./AvatarMenu"));
 export const MainNavbar = () => {
 	const [isActive, togggleMenu] = useState(false);
 	const { isAuthenticated, user } = useAuthState();
+	const history = useHistory();
 
 	return (
 		<Navbar
@@ -80,7 +82,13 @@ export const MainNavbar = () => {
 							isAuth={isAuthenticated}
 							fail={() => (
 								<div className="buttons">
-									<SignUp />
+									<Button
+										isOutlined
+										isColor="success"
+										onClick={() => history.push("/signup")}
+									>
+										<strong>Sign up</strong>
+									</Button>
 									<LogIn />
 								</div>
 							)}

@@ -2,15 +2,15 @@ import React from "react";
 import { useHistory, Link } from "react-router-dom";
 
 import { Title, Card, CardContent } from "./../../bulma";
-import { MapConfig } from "./../../types";
 
 import "./index.css";
 import { PreviewCardInfo } from "./PreviewCardInfo";
 import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
 import { UserLink, MapName } from "../../common";
+import { Map } from "../../types/graphql";
 
-export interface MapPreviewCardProps extends MapConfig, IAuth {}
+export interface MapPreviewCardProps extends Map, IAuth {}
 
 export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	author,
@@ -20,6 +20,11 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	...props
 }) => {
 	const history = useHistory();
+
+	if (!author) {
+		return null;
+	}
+
 	const editHandler = () => history.push(`/editor/${id}`);
 	const forkHandler = () => alert("forked!");
 	const viewHandler = () => history.push(`/maps/${id}`);
@@ -43,7 +48,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 							</Link>
 						</Title>
 						<Title tag="p" isSubtitle isSize={6}>
-							<UserLink username={author} />
+							<UserLink username={author.username} />
 						</Title>
 					</div>
 				</div>

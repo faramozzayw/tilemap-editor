@@ -27,14 +27,21 @@ export type ReturnUser = {
 
 export type Map = {
 	__typename?: "Map";
-	id: Scalars["ID"];
+	id: Scalars["Uuid"];
 	name: Scalars["String"];
-	author: Scalars["String"];
+	author: Author;
+	coAuthor?: Maybe<Array<Author>>;
 	description?: Maybe<Scalars["String"]>;
 	updatedAt?: Maybe<Scalars["UtcDateTime"]>;
 	createdAt: Scalars["UtcDateTime"];
 	size: MapSize;
 	tiles?: Maybe<Array<TileConfig>>;
+};
+
+export type Author = {
+	__typename?: "Author";
+	id: Scalars["Uuid"];
+	username: Scalars["String"];
 };
 
 export type MutationRoot = {
@@ -200,7 +207,8 @@ export type User = {
 
 export type NewMap = {
 	name: Scalars["String"];
-	author: Scalars["String"];
+	/** `author` is no longer needed to create a map */
+	author?: Maybe<Scalars["String"]>;
 	description?: Maybe<Scalars["String"]>;
 	size: NewMapSize;
 };
@@ -219,8 +227,11 @@ export type LoginUser = {
 
 export type MapInfoFragment = { __typename?: "Map" } & Pick<
 	Map,
-	"id" | "name" | "author" | "description" | "createdAt" | "updatedAt"
-> & { size: { __typename?: "MapSize" } & Pick<MapSize, "row" | "column"> };
+	"id" | "name" | "description" | "createdAt" | "updatedAt"
+> & {
+		author: { __typename?: "Author" } & Pick<Author, "id" | "username">;
+		size: { __typename?: "MapSize" } & Pick<MapSize, "row" | "column">;
+	};
 
 export type MapTilesFragment = { __typename?: "Map" } & {
 	tiles?: Maybe<
@@ -276,11 +287,11 @@ export type UpdateUserMutation = { __typename?: "MutationRoot" } & {
 	>;
 };
 
-export type CreateNewUserMutationVariables = Exact<{
+export type SignUpMutationVariables = Exact<{
 	data: CreateUser;
 }>;
 
-export type CreateNewUserMutation = { __typename?: "MutationRoot" } & {
+export type SignUpMutation = { __typename?: "MutationRoot" } & {
 	createNewUser: { __typename?: "User" } & Pick<
 		User,
 		"id" | "username" | "email" | "description"
@@ -354,7 +365,10 @@ export const MapInfoFragmentDoc = gql`
 	fragment MapInfo on Map {
 		id
 		name
-		author
+		author {
+			id
+			username
+		}
 		description
 		createdAt
 		updatedAt
@@ -589,8 +603,8 @@ export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
 	UpdateUserMutation,
 	UpdateUserMutationVariables
 >;
-export const CreateNewUserDocument = gql`
-	mutation CreateNewUser($data: CreateUser!) {
+export const SignUpDocument = gql`
+	mutation SignUp($data: CreateUser!) {
 		createNewUser(newUser: $data) {
 			id
 			username
@@ -599,48 +613,44 @@ export const CreateNewUserDocument = gql`
 		}
 	}
 `;
-export type CreateNewUserMutationFn = Apollo.MutationFunction<
-	CreateNewUserMutation,
-	CreateNewUserMutationVariables
+export type SignUpMutationFn = Apollo.MutationFunction<
+	SignUpMutation,
+	SignUpMutationVariables
 >;
 
 /**
- * __useCreateNewUserMutation__
+ * __useSignUpMutation__
  *
- * To run a mutation, you first call `useCreateNewUserMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateNewUserMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useSignUpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignUpMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createNewUserMutation, { data, loading, error }] = useCreateNewUserMutation({
+ * const [signUpMutation, { data, loading, error }] = useSignUpMutation({
  *   variables: {
  *      data: // value for 'data'
  *   },
  * });
  */
-export function useCreateNewUserMutation(
+export function useSignUpMutation(
 	baseOptions?: Apollo.MutationHookOptions<
-		CreateNewUserMutation,
-		CreateNewUserMutationVariables
+		SignUpMutation,
+		SignUpMutationVariables
 	>,
 ) {
-	return Apollo.useMutation<
-		CreateNewUserMutation,
-		CreateNewUserMutationVariables
-	>(CreateNewUserDocument, baseOptions);
+	return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(
+		SignUpDocument,
+		baseOptions,
+	);
 }
-export type CreateNewUserMutationHookResult = ReturnType<
-	typeof useCreateNewUserMutation
->;
-export type CreateNewUserMutationResult = Apollo.MutationResult<
-	CreateNewUserMutation
->;
-export type CreateNewUserMutationOptions = Apollo.BaseMutationOptions<
-	CreateNewUserMutation,
-	CreateNewUserMutationVariables
+export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
+export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
+export type SignUpMutationOptions = Apollo.BaseMutationOptions<
+	SignUpMutation,
+	SignUpMutationVariables
 >;
 export const LoginDocument = gql`
 	mutation Login($data: LoginUser!) {

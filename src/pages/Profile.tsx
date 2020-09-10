@@ -28,7 +28,7 @@ export const ProfilePage = () => {
 
 	const { data: userData } = useGetUserByUsernameQuery({
 		variables: { username },
-		onError: (e) => console.error(e),
+		onError: console.error,
 		fetchPolicy: "cache-and-network",
 	});
 
@@ -38,7 +38,7 @@ export const ProfilePage = () => {
 			offset: 0,
 			limit: 5,
 		},
-		onError: (e) => console.error(e),
+		onError: console.error,
 		fetchPolicy: "cache-and-network",
 	});
 
