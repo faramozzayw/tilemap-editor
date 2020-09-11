@@ -1,27 +1,27 @@
-.sign-up {
+.auth-form {
 	margin: 2vmax;
 	padding: 2rem;
 	box-shadow: 0px 0px 5px #252323;
 	border-radius: 1rem;
 }
 
-.sign-up .label,
-.sign-up .title {
+.auth-form .label,
+.auth-form .title {
 	color: #ffffff;
 }
 
-.sign-up hr {
+.auth-form hr {
 	background: linear-gradient(50deg, #9a479c, #e05e20, #2040e0);
 }
 
-.sign-up .sign-up-title {
+.auth-form .auth-form-title {
 	background: -webkit-linear-gradient(#71aedc, #5bb17e);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	padding: 6px;
 }
 
-.sign-up input {
+.auth-form input {
 	background: hsl(0 0% 0% / 0.15);
 	color: whitesmoke;
 	border: 0;
@@ -29,18 +29,18 @@
 	border-radius: 0.25rem;
 }
 
-.sign-up input:hover {
+.auth-form input:hover {
 	border-bottom-color: hsl(247deg 34% 34%);
 }
 
-.sign-up input:invalid {
+.auth-form input:invalid {
 	border: 1px solid orangered;
 }
 
-.sign-up input::placeholder {
+.auth-form input::placeholder {
 	color: hsl(0, 14%, 88%);
 }
 
-.sign-up input:-webkit-autofill {
+.auth-form input:-webkit-autofill {
 	transition-delay: 3600s;
 }

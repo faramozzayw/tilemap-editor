@@ -89,7 +89,13 @@ export const MainNavbar = () => {
 									>
 										<strong>Sign up</strong>
 									</Button>
-									<LogIn />
+									<Button
+										isOutlined
+										isColor="info"
+										onClick={() => history.push("/login")}
+									>
+										<strong>Login</strong>
+									</Button>
 								</div>
 							)}
 							render={() => (

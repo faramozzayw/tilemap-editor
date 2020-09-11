@@ -3,7 +3,7 @@ import "./styles.css";
 
 import { Switch, Route } from "react-router-dom";
 
-import { Main, Map, ProfilePage, NotFound, SignUp } from "./pages";
+import { Main, Map, ProfilePage, NotFound, SignUp, Login } from "./pages";
 import { NotifyLayout } from "./components";
 
 const App = () => {
@@ -15,6 +15,7 @@ const App = () => {
 				<Route exact path="/@:username" component={ProfilePage} />
 				<Route exact path="/maps/:mapID" component={Map} />
 				<Route path="/signup" component={SignUp} />
+				<Route path="/login" component={Login} />
 
 				<Route path="*" component={NotFound} />
 			</Switch>

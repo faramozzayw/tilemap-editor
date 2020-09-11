@@ -1,28 +1,51 @@
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
+import jwt_decode from "jwt-decode";
 
 import "./AuthForm.css";
 
-import { useSignUpMutation } from "../types/graphql";
 import { Button, Control, Label, Title, Buttons, Hero } from "./../bulma";
 import { GoogleAuth } from "./../components/AuthForms/GoogleAuth";
 import { addNotification } from "../store/notificationStore";
+import { useAuthState } from "../hooks/auth";
+import { useLoginMutation } from "./../types/graphql";
+import { Tokens } from "../types";
 import { $ } from "./../utils";
 
-export const SignUp = () => {
+export interface Claims {
+	readonly exp: number;
+	readonly id: string;
+	readonly username: string;
+}
+
+export const Login = () => {
 	useEffect(() => {
 		let html = $("html")[0] as HTMLElement;
 		html.classList.remove("has-navbar-fixed-top");
 		return () => html.classList.add("has-navbar-fixed-top");
 	}, []);
 
-	const [singUpQuery, { loading }] = useSignUpMutation({
-		onCompleted: console.table,
+	const { login } = useAuthState();
+
+	const [loginQuery, { loading }] = useLoginMutation({
+		onCompleted: ({ loginUser }) => {
+			const user: Claims = jwt_decode(loginUser.accessToken);
+
+			login(user, {
+				access_token: loginUser.accessToken,
+				refresh_token: loginUser.refreshToken,
+				expires_in: user.exp,
+			} as Tokens);
+			addNotification({
+				type: "success",
+				message: "Login was successful 🌈",
+			});
+		},
 		onError: (e) => {
 			console.error(e);
 			addNotification({
 				type: "danger",
-				message: "Something bad wrong.",
+				message: "Access denied.",
 			});
 		},
 	});
@@ -30,11 +53,10 @@ export const SignUp = () => {
 	const formik = useFormik({
 		initialValues: {
 			username: "",
-			email: "",
 			password: "",
 		},
 		onSubmit: (values) => {
-			singUpQuery({
+			loginQuery({
 				variables: { data: { ...values } },
 			});
 		},
@@ -48,17 +70,17 @@ export const SignUp = () => {
 				onReset={formik.resetForm}
 				className="auth-form"
 			>
-				<Title className="auth-form-title">Sign Up</Title>
+				<Title className="auth-form-title">Login</Title>
 				<hr />
 				<fieldset disabled={loading}>
 					<div className="field">
-						<Label>Username</Label>
+						<Label>username</Label>
 						<Control>
 							<input
-								value={formik.values.username}
 								onChange={formik.handleChange}
+								value={formik.values.username}
 								className="input"
-								type="text"
+								type="username"
 								name="username"
 								placeholder="Input username"
 								autoFocus
@@ -67,29 +89,16 @@ export const SignUp = () => {
 						</Control>
 					</div>
 					<div className="field">
-						<Label>Email</Label>
-						<Control>
-							<input
-								value={formik.values.email}
-								onChange={formik.handleChange}
-								className="input"
-								type="email"
-								name="email"
-								placeholder="Input email"
-								required
-							/>
-						</Control>
-					</div>
-					<div className="field">
 						<Label>Password</Label>
 						<Control>
 							<input
-								value={formik.values.password}
 								onChange={formik.handleChange}
+								value={formik.values.password}
 								className="input"
+								id="password"
 								type="password"
 								name="password"
-								autoComplete="new-password"
+								autoComplete="current-password"
 								placeholder="Input password"
 								required
 							/>
@@ -98,10 +107,10 @@ export const SignUp = () => {
 					<div className="field is-grouped">
 						<Control>
 							<Buttons>
-								<Button isColor="success" type="submit" isOutlined>
-									Sign Up
+								<Button isColor="success" type="submit">
+									Login
 								</Button>
-								<Button isColor="warning" type="reset" isOutlined>
+								<Button isColor="light" type="reset">
 									Reset
 								</Button>
 							</Buttons>
