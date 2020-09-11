@@ -1,27 +1,27 @@
-.auth-form {
+.AuthForm {
 	margin: 2vmax;
 	padding: 2rem;
 	box-shadow: 0px 0px 5px #252323;
 	border-radius: 1rem;
 }
 
-.auth-form .label,
-.auth-form .title {
+.AuthForm .Label,
+.AuthForm .Title {
 	color: #ffffff;
 }
 
-.auth-form hr {
+.AuthForm .Divider {
 	background: linear-gradient(50deg, #9a479c, #e05e20, #2040e0);
 }
 
-.auth-form .auth-form-title {
+.AuthForm .AuthFormTitle {
 	background: -webkit-linear-gradient(#71aedc, #5bb17e);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	padding: 6px;
 }
 
-.auth-form input {
+.AuthForm .Input {
 	background: hsl(0 0% 0% / 0.15);
 	color: whitesmoke;
 	border: 0;
@@ -29,18 +29,18 @@
 	border-radius: 0.25rem;
 }
 
-.auth-form input:hover {
+.AuthForm .Input:hover {
 	border-bottom-color: hsl(247deg 34% 34%);
 }
 
-.auth-form input:invalid {
+.AuthForm .Input:invalid {
 	border: 1px solid orangered;
 }
 
-.auth-form input::placeholder {
+.AuthForm .Input::placeholder {
 	color: hsl(0, 14%, 88%);
 }
 
-.auth-form input:-webkit-autofill {
+.AuthForm .Input:-webkit-autofill {
 	transition-delay: 3600s;
 }

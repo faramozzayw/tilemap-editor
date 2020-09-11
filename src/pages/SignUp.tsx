@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
+import classnames from "classnames";
 
-import "./AuthForm.css";
+import Styles from "./AuthForm.module.css";
 
 import { useSignUpMutation } from "../types/graphql";
 import { Button, Control, Label, Title, Buttons, Hero } from "./../bulma";
 import { GoogleAuth } from "./../components/AuthForms/GoogleAuth";
 import { addNotification } from "../store/notificationStore";
 import { $ } from "./../utils";
+import { Link } from "react-router-dom";
 
 export const SignUp = () => {
 	useEffect(() => {
@@ -46,10 +48,10 @@ export const SignUp = () => {
 				onSubmit={formik.handleSubmit}
 				// @ts-ignore
 				onReset={formik.resetForm}
-				className="auth-form"
+				className={Styles.AuthForm}
 			>
-				<Title className="auth-form-title">Sign Up</Title>
-				<hr />
+				<Title className={Styles.AuthFormTitle}>Sign Up</Title>
+				<hr className={Styles.Divider} />
 				<fieldset disabled={loading}>
 					<div className="field">
 						<Label>Username</Label>
@@ -57,7 +59,7 @@ export const SignUp = () => {
 							<input
 								value={formik.values.username}
 								onChange={formik.handleChange}
-								className="input"
+								className={classnames("input", Styles.Input)}
 								type="text"
 								name="username"
 								placeholder="Input username"
@@ -72,7 +74,7 @@ export const SignUp = () => {
 							<input
 								value={formik.values.email}
 								onChange={formik.handleChange}
-								className="input"
+								className={classnames("input", Styles.Input)}
 								type="email"
 								name="email"
 								placeholder="Input email"
@@ -86,7 +88,7 @@ export const SignUp = () => {
 							<input
 								value={formik.values.password}
 								onChange={formik.handleChange}
-								className="input"
+								className={classnames("input", Styles.Input)}
 								type="password"
 								name="password"
 								autoComplete="new-password"
@@ -109,6 +111,10 @@ export const SignUp = () => {
 					</div>
 					<GoogleAuth />
 				</fieldset>
+				<br />
+				<Link to="/login" className="has-text-info">
+					already have a account?
+				</Link>
 			</form>
 		</Hero>
 	);

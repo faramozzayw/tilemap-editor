@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import jwt_decode from "jwt-decode";
+import classnames from "classnames";
 
-import "./AuthForm.css";
+import Styles from "./AuthForm.module.css";
 
 import { Button, Control, Label, Title, Buttons, Hero } from "./../bulma";
 import { GoogleAuth } from "./../components/AuthForms/GoogleAuth";
@@ -68,10 +69,10 @@ export const Login = () => {
 				onSubmit={formik.handleSubmit}
 				// @ts-ignore
 				onReset={formik.resetForm}
-				className="auth-form"
+				className={Styles.AuthForm}
 			>
-				<Title className="auth-form-title">Login</Title>
-				<hr />
+				<Title className={Styles.AuthFormTitle}>Login</Title>
+				<hr className={Styles.Divider} />
 				<fieldset disabled={loading}>
 					<div className="field">
 						<Label>username</Label>
@@ -79,7 +80,7 @@ export const Login = () => {
 							<input
 								onChange={formik.handleChange}
 								value={formik.values.username}
-								className="input"
+								className={classnames("input", Styles.Input)}
 								type="username"
 								name="username"
 								placeholder="Input username"
@@ -94,7 +95,7 @@ export const Login = () => {
 							<input
 								onChange={formik.handleChange}
 								value={formik.values.password}
-								className="input"
+								className={classnames("input", Styles.Input)}
 								id="password"
 								type="password"
 								name="password"
@@ -107,10 +108,10 @@ export const Login = () => {
 					<div className="field is-grouped">
 						<Control>
 							<Buttons>
-								<Button isColor="success" type="submit">
+								<Button isColor="success" type="submit" isOutlined>
 									Login
 								</Button>
-								<Button isColor="light" type="reset">
+								<Button isColor="warning" type="reset" isOutlined>
 									Reset
 								</Button>
 							</Buttons>
