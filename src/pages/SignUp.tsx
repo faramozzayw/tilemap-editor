@@ -100,7 +100,12 @@ export const SignUp = () => {
 					<div className="field is-grouped">
 						<Control>
 							<Buttons>
-								<Button isColor="success" type="submit" isOutlined>
+								<Button
+									isColor="success"
+									type="submit"
+									isOutlined
+									isLoading={loading}
+								>
 									Sign Up
 								</Button>
 								<Button isColor="warning" type="reset" isOutlined>

@@ -12,7 +12,7 @@ import { useAuthState } from "../hooks/auth";
 import { useLoginMutation } from "./../types/graphql";
 import { Tokens } from "../types";
 import { $ } from "./../utils";
-import { Link } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 
 export interface Claims {
 	readonly exp: number;
@@ -21,13 +21,14 @@ export interface Claims {
 }
 
 export const Login = () => {
+	const history = useHistory();
 	useEffect(() => {
 		let html = $("html")[0] as HTMLElement;
 		html.classList.remove("has-navbar-fixed-top");
 		return () => html.classList.add("has-navbar-fixed-top");
 	}, []);
 
-	const { login } = useAuthState();
+	const { login, isAuthenticated } = useAuthState();
 
 	const [loginQuery, { loading }] = useLoginMutation({
 		onCompleted: ({ loginUser }) => {
@@ -40,8 +41,9 @@ export const Login = () => {
 			} as Tokens);
 			addNotification({
 				type: "success",
-				message: "Login was successful 🌈",
+				message: "Login was successful 🌈 \n ~ ~ Redirect to home page ~ ~",
 			});
+			history.push("/");
 		},
 		onError: (e) => {
 			console.error(e);
@@ -63,6 +65,10 @@ export const Login = () => {
 			});
 		},
 	});
+
+	if (isAuthenticated) {
+		return <Redirect to="/" />;
+	}
 
 	return (
 		<Hero isColor="dark" isFullHeight>
@@ -109,7 +115,12 @@ export const Login = () => {
 					<div className="field is-grouped">
 						<Control>
 							<Buttons>
-								<Button isColor="success" type="submit" isOutlined>
+								<Button
+									isColor="success"
+									type="submit"
+									isOutlined
+									isLoading={loading}
+								>
 									Login
 								</Button>
 								<Button isColor="warning" type="reset" isOutlined>
