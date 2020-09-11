@@ -12,6 +12,7 @@ import { useAuthState } from "../hooks/auth";
 import { useLoginMutation } from "./../types/graphql";
 import { Tokens } from "../types";
 import { $ } from "./../utils";
+import { Link } from "react-router-dom";
 
 export interface Claims {
 	readonly exp: number;
@@ -75,7 +76,7 @@ export const Login = () => {
 				<hr className={Styles.Divider} />
 				<fieldset disabled={loading}>
 					<div className="field">
-						<Label>username</Label>
+						<Label className={Styles.Label}>Username</Label>
 						<Control>
 							<input
 								onChange={formik.handleChange}
@@ -90,7 +91,7 @@ export const Login = () => {
 						</Control>
 					</div>
 					<div className="field">
-						<Label>Password</Label>
+						<Label className={Styles.Label}>Password</Label>
 						<Control>
 							<input
 								onChange={formik.handleChange}
@@ -119,6 +120,10 @@ export const Login = () => {
 					</div>
 					<GoogleAuth />
 				</fieldset>
+				<br />
+				<Link to="/signup" className="has-text-info">
+					have not account yet?
+				</Link>
 			</form>
 		</Hero>
 	);

@@ -5,23 +5,23 @@
 	border-radius: 1rem;
 }
 
-.AuthForm .Label,
-.AuthForm .Title {
+.Label,
+.Title {
 	color: #ffffff;
 }
 
-.AuthForm .Divider {
+.Divider {
 	background: linear-gradient(50deg, #9a479c, #e05e20, #2040e0);
 }
 
-.AuthForm .AuthFormTitle {
+.AuthFormTitle {
 	background: -webkit-linear-gradient(#71aedc, #5bb17e);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	padding: 6px;
 }
 
-.AuthForm .Input {
+.Input {
 	background: hsl(0 0% 0% / 0.15);
 	color: whitesmoke;
 	border: 0;
@@ -29,18 +29,18 @@
 	border-radius: 0.25rem;
 }
 
-.AuthForm .Input:hover {
+.Input:hover {
 	border-bottom-color: hsl(247deg 34% 34%);
 }
 
-.AuthForm .Input:invalid {
+.Input:invalid {
 	border: 1px solid orangered;
 }
 
-.AuthForm .Input::placeholder {
+.Input::placeholder {
 	color: hsl(0, 14%, 88%);
 }
 
-.AuthForm .Input:-webkit-autofill {
+.Input:-webkit-autofill {
 	transition-delay: 3600s;
 }

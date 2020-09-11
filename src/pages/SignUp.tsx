@@ -54,7 +54,7 @@ export const SignUp = () => {
 				<hr className={Styles.Divider} />
 				<fieldset disabled={loading}>
 					<div className="field">
-						<Label>Username</Label>
+						<Label className={Styles.Label}>Username</Label>
 						<Control>
 							<input
 								value={formik.values.username}
@@ -69,7 +69,7 @@ export const SignUp = () => {
 						</Control>
 					</div>
 					<div className="field">
-						<Label>Email</Label>
+						<Label className={Styles.Label}>Email</Label>
 						<Control>
 							<input
 								value={formik.values.email}
@@ -83,7 +83,7 @@ export const SignUp = () => {
 						</Control>
 					</div>
 					<div className="field">
-						<Label>Password</Label>
+						<Label className={Styles.Label}>Password</Label>
 						<Control>
 							<input
 								value={formik.values.password}

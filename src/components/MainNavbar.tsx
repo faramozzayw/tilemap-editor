@@ -1,7 +1,6 @@
 import React, { useState, Suspense } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 
-import { LogIn } from "./AuthForms";
 import { Protected } from "./../common";
 import { useAuthState } from "../hooks/auth";
 import { CreateMap } from "./CreateMap";
