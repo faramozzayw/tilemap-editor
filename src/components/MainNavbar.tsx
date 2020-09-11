@@ -1,7 +1,6 @@
 import React, { useState, Suspense } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 
-import { LogIn } from "./AuthForms";
 import { Protected } from "./../common";
 import { useAuthState } from "../hooks/auth";
 import { CreateMap } from "./CreateMap";
@@ -89,7 +88,13 @@ export const MainNavbar = () => {
 									>
 										<strong>Sign up</strong>
 									</Button>
-									<LogIn />
+									<Button
+										isOutlined
+										isColor="info"
+										onClick={() => history.push("/login")}
+									>
+										<strong>Login</strong>
+									</Button>
 								</div>
 							)}
 							render={() => (
