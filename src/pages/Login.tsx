@@ -31,12 +31,12 @@ export const Login = () => {
 	const { login, isAuthenticated } = useAuthState();
 
 	const [loginQuery, { loading }] = useLoginMutation({
-		onCompleted: ({ loginUser }) => {
-			const user: Claims = jwt_decode(loginUser.accessToken);
+		onCompleted: ({ login: jwt }) => {
+			const user: Claims = jwt_decode(jwt.accessToken);
 
 			login(user, {
-				access_token: loginUser.accessToken,
-				refresh_token: loginUser.refreshToken,
+				access_token: jwt.accessToken,
+				refresh_token: jwt.refreshToken,
 				expires_in: user.exp,
 			} as Tokens);
 			addNotification({

@@ -452,37 +452,6 @@
 						"deprecationReason": null
 					},
 					{
-						"name": "createNewUser",
-						"description": null,
-						"args": [
-							{
-								"name": "newUser",
-								"description": null,
-								"type": {
-									"kind": "NON_NULL",
-									"name": null,
-									"ofType": {
-										"kind": "INPUT_OBJECT",
-										"name": "CreateUser",
-										"ofType": null
-									}
-								},
-								"defaultValue": null
-							}
-						],
-						"type": {
-							"kind": "NON_NULL",
-							"name": null,
-							"ofType": {
-								"kind": "OBJECT",
-								"name": "User",
-								"ofType": null
-							}
-						},
-						"isDeprecated": false,
-						"deprecationReason": null
-					},
-					{
 						"name": "updateUserInfo",
 						"description": null,
 						"args": [
@@ -514,7 +483,38 @@
 						"deprecationReason": null
 					},
 					{
-						"name": "loginUser",
+						"name": "signUp",
+						"description": null,
+						"args": [
+							{
+								"name": "newUser",
+								"description": null,
+								"type": {
+									"kind": "NON_NULL",
+									"name": null,
+									"ofType": {
+										"kind": "INPUT_OBJECT",
+										"name": "CreateUser",
+										"ofType": null
+									}
+								},
+								"defaultValue": null
+							}
+						],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "JWT",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					},
+					{
+						"name": "login",
 						"description": null,
 						"args": [
 							{
@@ -526,6 +526,37 @@
 									"ofType": {
 										"kind": "INPUT_OBJECT",
 										"name": "LoginUser",
+										"ofType": null
+									}
+								},
+								"defaultValue": null
+							}
+						],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "JWT",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					},
+					{
+						"name": "refreshAccessToken",
+						"description": null,
+						"args": [
+							{
+								"name": "refreshToken",
+								"description": null,
+								"type": {
+									"kind": "NON_NULL",
+									"name": null,
+									"ofType": {
+										"kind": "SCALAR",
+										"name": "Uuid",
 										"ofType": null
 									}
 								},

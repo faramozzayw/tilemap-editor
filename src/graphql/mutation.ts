@@ -43,18 +43,16 @@ export const UPDATE_USER_INFO = gql`
 
 export const SIGN_UP = gql`
 	mutation SignUp($data: CreateUser!) {
-		createNewUser(newUser: $data) {
-			id
-			username
-			email
-			description
+		signUp(newUser: $data) {
+			accessToken
+			refreshToken
 		}
 	}
 `;
 
 export const LOGIN = gql`
 	mutation Login($data: LoginUser!) {
-		loginUser(loginUser: $data) {
+		login(loginUser: $data) {
 			accessToken
 			refreshToken
 		}

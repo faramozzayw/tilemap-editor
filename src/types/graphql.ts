@@ -53,9 +53,10 @@ export type MutationRoot = {
 	updateTile: Scalars["String"];
 	/** Updating part of map information by ID */
 	updateMapInfo: Scalars["String"];
-	createNewUser: User;
 	updateUserInfo: ReturnUser;
-	loginUser: Jwt;
+	signUp: Jwt;
+	login: Jwt;
+	refreshAccessToken: Jwt;
 };
 
 export type MutationRootCreateMapArgs = {
@@ -77,16 +78,20 @@ export type MutationRootUpdateMapInfoArgs = {
 	updateValue: UpdateMap;
 };
 
-export type MutationRootCreateNewUserArgs = {
-	newUser: CreateUser;
-};
-
 export type MutationRootUpdateUserInfoArgs = {
 	updateValue: UpdateUser;
 };
 
-export type MutationRootLoginUserArgs = {
+export type MutationRootSignUpArgs = {
+	newUser: CreateUser;
+};
+
+export type MutationRootLoginArgs = {
 	loginUser: LoginUser;
+};
+
+export type MutationRootRefreshAccessTokenArgs = {
+	refreshToken: Scalars["Uuid"];
 };
 
 /** JSON Web Token */
@@ -292,10 +297,7 @@ export type SignUpMutationVariables = Exact<{
 }>;
 
 export type SignUpMutation = { __typename?: "MutationRoot" } & {
-	createNewUser: { __typename?: "User" } & Pick<
-		User,
-		"id" | "username" | "email" | "description"
-	>;
+	signUp: { __typename?: "JWT" } & Pick<Jwt, "accessToken" | "refreshToken">;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -303,7 +305,7 @@ export type LoginMutationVariables = Exact<{
 }>;
 
 export type LoginMutation = { __typename?: "MutationRoot" } & {
-	loginUser: { __typename?: "JWT" } & Pick<Jwt, "accessToken" | "refreshToken">;
+	login: { __typename?: "JWT" } & Pick<Jwt, "accessToken" | "refreshToken">;
 };
 
 export type EditMapQueryVariables = Exact<{
@@ -605,11 +607,9 @@ export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
 >;
 export const SignUpDocument = gql`
 	mutation SignUp($data: CreateUser!) {
-		createNewUser(newUser: $data) {
-			id
-			username
-			email
-			description
+		signUp(newUser: $data) {
+			accessToken
+			refreshToken
 		}
 	}
 `;
@@ -654,7 +654,7 @@ export type SignUpMutationOptions = Apollo.BaseMutationOptions<
 >;
 export const LoginDocument = gql`
 	mutation Login($data: LoginUser!) {
-		loginUser(loginUser: $data) {
+		login(loginUser: $data) {
 			accessToken
 			refreshToken
 		}
