@@ -753,7 +753,7 @@ export type EditMapQueryResult = Apollo.QueryResult<
 >;
 export const GetMapsPaginationDocument = gql`
 	query GetMapsPagination($limit: Int, $offset: Int) {
-		maps(limit: $limit, skip: $offset) {
+		maps(limit: $limit, skip: $offset, sort: { createdAt: DESC }) {
 			...MapInfo
 		}
 	}
