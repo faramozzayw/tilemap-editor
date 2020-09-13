@@ -1,23 +1,78 @@
 import Cookies from "js-cookie";
-import { Tokens } from "../types";
+import jwt_decode from "jwt-decode";
+
+import { Tokens, Claims } from "../types";
+import { RefreshAccessTokenMutationResult } from "../types/graphql";
 
 export const getAccessToken = () => Cookies.get("access_token");
-export const getRefreshToken = () => Cookies.get("refresh_token");
+export const getRefreshToken = () => localStorage.getItem("refresh_token");
 export const isAuthenticatedByToken = () => !!getAccessToken();
 
-export const setTokensToCookies = ({
-	access_token,
-	refresh_token,
-	expires_in,
-}: Tokens) => {
-	const expires = (expires_in ?? 60 * 60) * 1000;
+export const inOneHour = () => {
+	const expires = 60 * 60 * 1000;
 	const inOneHour = new Date(new Date().getTime() + expires);
+	return inOneHour;
+};
 
-	Cookies.set("access_token", access_token, { expires: inOneHour });
-	refresh_token && Cookies.set("refresh_token", refresh_token);
+export const setTokens = ({
+	access_token,
+	expires_in,
+	refresh_token,
+}: Tokens) => {
+	const expires = inOneHour();
+
+	Cookies.set("access_token", access_token, { expires });
+	if (refresh_token) {
+		localStorage.setItem("refresh_token", refresh_token);
+	}
 };
 
 export const removeTokens = () => {
 	Cookies.remove("access_token");
-	Cookies.remove("refresh_token");
+	localStorage.removeItem("refresh_token");
+};
+
+export const refreshToken = async () => {
+	const refreshToken = getRefreshToken();
+
+	if (!refreshToken) {
+		console.error("Refresh token not found.");
+		return;
+	}
+
+	const query = {
+		query: `
+            mutation {
+                refreshAccessToken(refreshToken: "${refreshToken}") {
+                	accessToken
+                    refreshToken
+                }
+            }
+        `,
+	};
+
+	return await fetch("https://api-tilemap-editor.herokuapp.com/graphql", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(query),
+	})
+		.then((res) => res.json())
+		.then((res: RefreshAccessTokenMutationResult) => {
+			const jwt = res.data?.refreshAccessToken;
+
+			if (!jwt) {
+				console.error("Something bad wrong!");
+				return;
+			}
+
+			const claims: Claims = jwt_decode(jwt.accessToken);
+			setTokens({
+				access_token: jwt.accessToken,
+				expires_in: claims.exp,
+				refresh_token: jwt.refreshToken,
+			});
+		})
+		.catch(console.error);
 };

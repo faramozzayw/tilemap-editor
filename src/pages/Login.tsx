@@ -10,15 +10,9 @@ import { GoogleAuth } from "./../components/AuthForms/GoogleAuth";
 import { addNotification } from "../store/notificationStore";
 import { useAuthState } from "../hooks/auth";
 import { useLoginMutation } from "./../types/graphql";
-import { Tokens } from "../types";
+import { Tokens, Claims } from "../types";
 import { $ } from "./../utils";
 import { Link, useHistory, Redirect } from "react-router-dom";
-
-export interface Claims {
-	readonly exp: number;
-	readonly id: string;
-	readonly username: string;
-}
 
 export const Login = () => {
 	const history = useHistory();

@@ -5,7 +5,7 @@ import { Title } from "../../bulma";
 import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
 import { Tokens, User } from "../../types";
-import { setTokensToCookies } from "../../hooks/utils";
+import { setTokens } from "../../hooks/utils";
 
 const refreshTokenSetup = (res: GoogleLoginResponse) => {
 	let refreshTiming = (res.tokenObj.expires_in || 3600 - 5 * 60) * 1000;
@@ -15,7 +15,7 @@ const refreshTokenSetup = (res: GoogleLoginResponse) => {
 		const newAuthRes = await res.reloadAuthResponse();
 		refreshTiming = (newAuthRes.expires_in || 3600 - 5 * 60) * 1000;
 
-		setTokensToCookies({
+		setTokens({
 			access_token: newAuthRes.access_token,
 			expires_in: refreshTiming,
 		});

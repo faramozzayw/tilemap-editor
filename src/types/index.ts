@@ -28,3 +28,9 @@ export interface Tokens {
 	refresh_token?: string;
 	expires_in: number;
 }
+
+export interface Claims {
+	readonly exp: number;
+	readonly id: string;
+	readonly username: string;
+}

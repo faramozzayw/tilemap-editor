@@ -2,10 +2,13 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 
 import { User, Tokens } from "./../types";
 import {
-	setTokensToCookies,
+	setTokens,
 	isAuthenticatedByToken,
 	removeTokens,
+	getRefreshToken,
+	refreshToken,
 } from "./utils";
+import { client } from "../graphql";
 
 export interface AuthProviderProps {
 	children: React.ReactChild;
@@ -31,25 +34,40 @@ export const initialState: AuthContextState = {
 
 export const AuthContext = createContext<AuthContextState>(initialState);
 
+const initState = () => {
+	const isAuth = isAuthenticatedByToken();
+
+	const status: AuthStatus = isAuth ? "success" : "error";
+	const rawUser = localStorage?.getItem("user");
+
+	let user: User | null = null;
+
+	if (isAuth && rawUser) {
+		user = JSON.parse(rawUser);
+	}
+
+	return {
+		...initialState,
+		status,
+		user,
+	};
+};
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 	const [state, setState] = useState<AuthContextState>({ ...initialState });
 
 	useEffect(() => {
-		const isAuth = isAuthenticatedByToken();
-
-		const status: AuthStatus = isAuth ? "success" : "error";
-		const rawUser = localStorage?.getItem("user");
-
-		let user: User | null = null;
-
-		if (isAuth && rawUser) {
-			user = JSON.parse(rawUser);
+		if (getRefreshToken()) {
+			refreshToken().then(() => {
+				setState({
+					...initState(),
+				});
+			});
+			return;
 		}
 
 		setState({
-			...initialState,
-			status,
-			user,
+			...initState(),
 		});
 	}, [setState]);
 
@@ -60,6 +78,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 			status: "pending",
 		});
 
+		client.resetStore();
 		localStorage.removeItem("user");
 		removeTokens();
 	};
@@ -72,7 +91,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		});
 
 		localStorage.setItem("user", JSON.stringify(user));
-		setTokensToCookies(tokens);
+		setTokens(tokens);
 	};
 
 	const updateUser = (user: User & unknown) => {

@@ -15,7 +15,7 @@ export const GET_MAP_DATA = gql`
 
 export const GET_MAPS_PAGINATION = gql`
 	query GetMapsPagination($limit: Int, $offset: Int) {
-		maps(limit: $limit, skip: $offset, sort: { createdAt: DESC }) {
+		maps(limit: $limit, skip: $offset, sort: { createdAt: ASC }) {
 			...MapInfo
 		}
 	}

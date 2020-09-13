@@ -58,3 +58,12 @@ export const LOGIN = gql`
 		}
 	}
 `;
+
+export const REFRESH_TOKEN = gql`
+	mutation RefreshAccessToken($refreshToken: Uuid!) {
+		refreshAccessToken(refreshToken: $refreshToken) {
+			accessToken
+			refreshToken
+		}
+	}
+`;
