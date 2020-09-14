@@ -3,7 +3,7 @@ import { gql } from "@apollo/client";
 import { MapInfoFrag, MapTilesFrag, UserInfo } from "./fragments";
 
 export const GET_MAP_DATA = gql`
-	query EditMap($mapID: ID!) {
+	query GetMapById($mapID: ID!) {
 		map(id: $mapID) {
 			...MapInfo
 			...MapTiles

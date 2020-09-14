@@ -1,10 +1,10 @@
 import React from "react";
 import { Content } from "../../bulma";
-import { MapConfig } from "../../types";
 import { MarkdownRemark } from "../../common";
+import { Map } from "../../types/graphql";
 
 export interface PreviewCardInfoProps
-	extends Pick<MapConfig, "description" | "size" | "createdAt" | "updatedAt"> {}
+	extends Pick<Map, "description" | "size" | "createdAt" | "updatedAt"> {}
 
 export const Key: React.FC = ({ children }) => (
 	<span className="key has-text-primary has-text-weight-bold">{children}</span>

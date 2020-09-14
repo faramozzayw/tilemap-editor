@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { ProgressBar, Title as BulmaTitle, Tile } from "../bulma";
-import { useEditMapQuery } from "../types/graphql";
+import { useGetMapByIdQuery, Map as MapType } from "../types/graphql";
 import {
 	Layout,
 	UserLink,
@@ -11,7 +11,6 @@ import {
 	Title,
 	MapName,
 } from "../common";
-import { MapConfig } from "../types";
 import { PreviewCardInfo } from "../components/MapPreviewCard";
 
 export const Key: React.FC = ({ children }) => (
@@ -20,13 +19,13 @@ export const Key: React.FC = ({ children }) => (
 
 export const Map = () => {
 	const { mapID } = useParams();
-	const { loading, data: mapData } = useEditMapQuery({
+	const { loading, data: mapData } = useGetMapByIdQuery({
 		variables: { mapID },
 	});
 
 	const { author, name, description, ...props } = {
 		...mapData?.map,
-	} as MapConfig;
+	} as MapType;
 
 	return (
 		<Layout style={{ alignItems: "flex-start" }}>
@@ -41,11 +40,11 @@ export const Map = () => {
 									<MapName name={name} />
 								</BulmaTitle>
 								<p>
-									author: <UserLink username={author} />
+									author: <UserLink {...author} />
 								</p>
 								<p>
-									co-author: <UserLink username={author} />,{" "}
-									<UserLink username={author} />, <UserLink username={author} />
+									co-author: <UserLink {...author} />, <UserLink {...author} />,{" "}
+									<UserLink {...author} />
 								</p>
 								<br />
 								<Box>

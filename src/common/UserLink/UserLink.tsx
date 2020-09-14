@@ -1,14 +1,10 @@
 import React from "react";
-import { User } from "../../types";
 import { Link } from "react-router-dom";
 
 import Styles from "./UserLink.module.css";
+import { Author } from "../../types/graphql";
 
-export interface UserLink {
-	username?: User["username"];
-}
-
-export const UserLink: React.FC<UserLink> = ({ username }) => {
+export const UserLink: React.FC<Partial<Author>> = ({ username }) => {
 	if (!username) return null;
 
 	const title = `@${username}`;

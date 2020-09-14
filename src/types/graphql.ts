@@ -319,11 +319,11 @@ export type RefreshAccessTokenMutation = { __typename?: "MutationRoot" } & {
 	>;
 };
 
-export type EditMapQueryVariables = Exact<{
+export type GetMapByIdQueryVariables = Exact<{
 	mapID: Scalars["ID"];
 }>;
 
-export type EditMapQuery = { __typename?: "QueryRoot" } & {
+export type GetMapByIdQuery = { __typename?: "QueryRoot" } & {
 	map: { __typename?: "Map" } & MapInfoFragment & MapTilesFragment;
 };
 
@@ -761,8 +761,8 @@ export type RefreshAccessTokenMutationOptions = Apollo.BaseMutationOptions<
 	RefreshAccessTokenMutation,
 	RefreshAccessTokenMutationVariables
 >;
-export const EditMapDocument = gql`
-	query EditMap($mapID: ID!) {
+export const GetMapByIdDocument = gql`
+	query GetMapById($mapID: ID!) {
 		map(id: $mapID) {
 			...MapInfo
 			...MapTiles
@@ -773,45 +773,50 @@ export const EditMapDocument = gql`
 `;
 
 /**
- * __useEditMapQuery__
+ * __useGetMapByIdQuery__
  *
- * To run a query within a React component, call `useEditMapQuery` and pass it any options that fit your needs.
- * When your component renders, `useEditMapQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useGetMapByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMapByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useEditMapQuery({
+ * const { data, loading, error } = useGetMapByIdQuery({
  *   variables: {
  *      mapID: // value for 'mapID'
  *   },
  * });
  */
-export function useEditMapQuery(
-	baseOptions?: Apollo.QueryHookOptions<EditMapQuery, EditMapQueryVariables>,
-) {
-	return Apollo.useQuery<EditMapQuery, EditMapQueryVariables>(
-		EditMapDocument,
-		baseOptions,
-	);
-}
-export function useEditMapLazyQuery(
-	baseOptions?: Apollo.LazyQueryHookOptions<
-		EditMapQuery,
-		EditMapQueryVariables
+export function useGetMapByIdQuery(
+	baseOptions?: Apollo.QueryHookOptions<
+		GetMapByIdQuery,
+		GetMapByIdQueryVariables
 	>,
 ) {
-	return Apollo.useLazyQuery<EditMapQuery, EditMapQueryVariables>(
-		EditMapDocument,
+	return Apollo.useQuery<GetMapByIdQuery, GetMapByIdQueryVariables>(
+		GetMapByIdDocument,
 		baseOptions,
 	);
 }
-export type EditMapQueryHookResult = ReturnType<typeof useEditMapQuery>;
-export type EditMapLazyQueryHookResult = ReturnType<typeof useEditMapLazyQuery>;
-export type EditMapQueryResult = Apollo.QueryResult<
-	EditMapQuery,
-	EditMapQueryVariables
+export function useGetMapByIdLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<
+		GetMapByIdQuery,
+		GetMapByIdQueryVariables
+	>,
+) {
+	return Apollo.useLazyQuery<GetMapByIdQuery, GetMapByIdQueryVariables>(
+		GetMapByIdDocument,
+		baseOptions,
+	);
+}
+export type GetMapByIdQueryHookResult = ReturnType<typeof useGetMapByIdQuery>;
+export type GetMapByIdLazyQueryHookResult = ReturnType<
+	typeof useGetMapByIdLazyQuery
+>;
+export type GetMapByIdQueryResult = Apollo.QueryResult<
+	GetMapByIdQuery,
+	GetMapByIdQueryVariables
 >;
 export const GetMapsPaginationDocument = gql`
 	query GetMapsPagination($limit: Int, $offset: Int) {

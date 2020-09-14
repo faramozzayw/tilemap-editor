@@ -1,9 +1,9 @@
 import React from "react";
 import { Button, CardFooter } from "./../../bulma";
 import { Link } from "react-router-dom";
-import { MapConfig } from "../../types";
+import { Map } from "../../types/graphql";
 
-export interface PreviewCardFooterProps extends Pick<MapConfig, "id"> {
+export interface PreviewCardFooterProps extends Pick<Map, "id"> {
 	editHandler: () => void;
 	forkHandler: () => void;
 	viewHandler: () => void;

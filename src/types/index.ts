@@ -4,16 +4,6 @@ export interface MapSize {
 	column: number;
 }
 
-export interface MapConfig {
-	id: MapID;
-	name: string;
-	author: string;
-	description?: string | null;
-	updatedAt?: Date;
-	createdAt: Date;
-	size: MapSize;
-}
-
 export interface User {
 	username: string;
 	id?: string;
