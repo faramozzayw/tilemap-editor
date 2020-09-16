@@ -10,23 +10,23 @@ exports[`renders correctly 1`] = `
         class="button is-success card-footer-item"
         type="button"
       >
-        <a
-          href="/editor/iu2h3u284u2s9-234242s2342"
-        >
-          Edit
-        </a>
+        <span>
+          <i
+            class="far fa-eye"
+          />
+           View
+        </span>
       </button>
       <button
-        class="button is-info card-footer-item"
+        class="button is-warning card-footer-item"
         type="button"
       >
-        Fork
-      </button>
-      <button
-        class="button is-danger card-footer-item"
-        type="button"
-      >
-        View
+        <span>
+          <i
+            class="fas fa-code-branch"
+          />
+           Fork
+        </span>
       </button>
     </footer>
   </div>

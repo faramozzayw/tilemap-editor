@@ -1,6 +1,6 @@
 .MapPreviewCard {
-	border-radius: 1rem;
-	border: 3px outset #00947e;
+	border-radius: 0.75rem;
+	/* border: 3px outset #00947e; */
 }
 
 .MapPreviewCard:hover {
@@ -22,6 +22,27 @@
 	border: none;
 }
 
+.MapPreviewCard .card-footer-item {
+	border: none;
+}
+
 .MapPreviewCard .card-footer .button {
 	border-radius: 0;
+}
+
+.MapPreviewCard .like-button {
+	background: transparent;
+	border: none;
+	font-size: 2rem;
+}
+
+.MapPreviewCard .like-button:hover {
+	cursor: pointer;
+}
+
+.MapPreviewCard .like-button:focus,
+.MapPreviewCard .like-button:focus-within {
+	outline: 2px dashed indianred;
+	/* border-radius: .25rem; */
+	/* outline: none; */
 }
