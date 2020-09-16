@@ -11,6 +11,7 @@ const rules = {
 			"users:getSelf",
 			"home-page:visit",
 			"dashboard-page:visit",
+			"like:map",
 		],
 		dynamic: {
 			"user:edit": userIsOwned,

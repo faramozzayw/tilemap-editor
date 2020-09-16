@@ -8,7 +8,7 @@ import "./index.css";
 import { PreviewCardInfo } from "./PreviewCardInfo";
 import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
-import { UserLink, MapName } from "../../common";
+import { UserLink, MapName, Can } from "../../common";
 import { Map } from "../../types/graphql";
 
 export interface MapPreviewCardProps extends Map, IAuth {}
@@ -81,18 +81,20 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 									<UserLink username={author.username} />
 								</Title>
 							</div>
-							<div className="media-right">
-								<button
-									className="like-button"
-									onClick={() => setLiked((prev) => !prev)}
-								>
-									{liked ? (
-										<i className="fas fa-heart has-text-danger"></i>
-									) : (
-										<i className="fas fa-heart-broken has-text-grey-light"></i>
-									)}
-								</button>
-							</div>
+							<Can role={isAuth ? "user" : ""} perform="like:map">
+								<div className="media-right">
+									<button
+										className="like-button"
+										onClick={() => setLiked((prev) => !prev)}
+									>
+										{liked ? (
+											<i className="fas fa-heart has-text-danger"></i>
+										) : (
+											<i className="fas fa-heart-broken has-text-grey-light"></i>
+										)}
+									</button>
+								</div>
+							</Can>
 						</div>
 
 						<PreviewCardInfo {...props} />

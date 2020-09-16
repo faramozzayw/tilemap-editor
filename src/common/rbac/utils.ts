@@ -19,7 +19,7 @@ export const canFork = ({ isAuth, userId, ownerId }: CanFork): boolean => {
 	if (isAuth) {
 		if (!userId || !ownerId) return false;
 
-		return userId === ownerId;
+		return userId !== ownerId;
 	}
 
 	return false;

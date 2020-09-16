@@ -39,7 +39,7 @@ export const PreviewCardFooter: React.FC<PreviewCardFooterProps> = ({
 				className="card-footer-item"
 				isColor="warning"
 				onClick={forkHandler}
-				disabled={canFork({ userId: authUser?.id, ownerId: authorID, isAuth })}
+				disabled={!canFork({ userId: authUser?.id, ownerId: authorID, isAuth })}
 			>
 				<span>
 					<i className="fas fa-code-branch"></i> Fork
