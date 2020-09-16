@@ -54,22 +54,7 @@ const initState = () => {
 };
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-	const [state, setState] = useState<AuthContextState>({ ...initialState });
-
-	useEffect(() => {
-		if (getRefreshToken()) {
-			refreshToken().then(() => {
-				setState({
-					...initState(),
-				});
-			});
-			return;
-		}
-
-		setState({
-			...initState(),
-		});
-	}, [setState]);
+	const [state, setState] = useState<AuthContextState>(() => initState());
 
 	const logout = () => {
 		setState({

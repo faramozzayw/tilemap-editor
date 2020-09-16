@@ -19,9 +19,7 @@ export const setTokens = ({
 	expires_in,
 	refresh_token,
 }: Tokens) => {
-	const expires = inOneHour();
-
-	Cookies.set("access_token", access_token, { expires });
+	Cookies.set("access_token", access_token, { expires: expires_in });
 	if (refresh_token) {
 		localStorage.setItem("refresh_token", refresh_token);
 	}
@@ -62,17 +60,16 @@ export const refreshToken = async () => {
 		.then((res: RefreshAccessTokenMutationResult) => {
 			const jwt = res.data?.refreshAccessToken;
 
-			if (!jwt) {
-				console.error("Something bad wrong!");
-				return;
+			if (jwt) {
+				const { exp } = jwt_decode<Claims>(jwt.accessToken);
+				setTokens({
+					access_token: jwt.accessToken,
+					expires_in: exp,
+					refresh_token: jwt.refreshToken,
+				});
+			} else {
+				console.error("Bad refresh response");
 			}
-
-			const claims: Claims = jwt_decode(jwt.accessToken);
-			setTokens({
-				access_token: jwt.accessToken,
-				expires_in: claims.exp,
-				refresh_token: jwt.refreshToken,
-			});
 		})
 		.catch(console.error);
 };
