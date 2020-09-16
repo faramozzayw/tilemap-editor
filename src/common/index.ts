@@ -8,3 +8,4 @@ export { Box } from "./Box";
 export { Title } from "./Title";
 export { Can } from "./rbac";
 export { MapName } from "./MapName";
+export { default as ScrollToTop } from "./ScrollToTop";

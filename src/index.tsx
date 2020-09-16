@@ -12,12 +12,14 @@ import { AuthProvider } from "./hooks/auth";
 
 import { ApolloProvider } from "@apollo/client";
 import { client } from "./graphql";
+import { ScrollToTop } from "./common";
 
 ReactDOM.render(
 	<ApolloProvider client={client}>
 		<BrowserRouter>
 			<AuthProvider>
 				<React.StrictMode>
+					<ScrollToTop />
 					<App />
 				</React.StrictMode>
 			</AuthProvider>
