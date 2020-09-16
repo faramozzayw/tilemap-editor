@@ -1,0 +1,32 @@
+fragment MapInfo on Map {
+	id
+	name
+	author {
+		id
+		username
+	}
+	description
+	createdAt
+	updatedAt
+	size {
+		row
+		column
+	}
+}
+
+fragment MapTiles on Map {
+	tiles {
+		id
+		baseTerrain
+		terrainFeatures
+		resource
+		units
+	}
+}
+
+fragment UserInfo on User {
+	id
+	username
+	email
+	description
+}

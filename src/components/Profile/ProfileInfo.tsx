@@ -1,15 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useMutation } from "@apollo/client";
 
 import { Buttons, Button } from "../../bulma";
-import { UPDATE_USER_INFO } from "../../graphql/mutation";
 import { addNotification } from "../../store/notificationStore";
 import { InputField } from "./InputField";
 
 import ProfilePicStyle from "./ProfilePic.module.css";
 import { User } from "../../types";
 import { IAuth } from "../../types/auth";
-import { UpdateUserMutation } from "../../types/graphql";
+import { useUpdateUserMutation } from "../../types/graphql";
 import { Can } from "../../common";
 import { useAuthState } from "../../hooks/auth";
 
@@ -34,27 +32,24 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 		}
 	}, [user, emailRef, usernameRef]);
 
-	const [updateUserInfo, { loading }] = useMutation<UpdateUserMutation>(
-		UPDATE_USER_INFO,
-		{
-			// optimisticResponse: true,
-			onCompleted: ({ updateUserInfo }) => {
-				const { username, email } = updateUserInfo;
-				if (usernameRef.current && username) {
-					usernameRef.current.value = username;
-				}
-				if (emailRef.current && email) {
-					emailRef.current.value = email;
-				}
-				setEditStatus(false);
-			},
-			onError: () =>
-				addNotification({
-					type: "danger",
-					message: "Failed update user info",
-				}),
+	const [updateUserInfo, { loading }] = useUpdateUserMutation({
+		// optimisticResponse: true,
+		onCompleted: ({ updateUserInfo }) => {
+			const { username, email } = updateUserInfo;
+			if (usernameRef.current && username) {
+				usernameRef.current.value = username;
+			}
+			if (emailRef.current && email) {
+				emailRef.current.value = email;
+			}
+			setEditStatus(false);
 		},
-	);
+		onError: () =>
+			addNotification({
+				type: "danger",
+				message: "Failed update user info",
+			}),
+	});
 
 	const updateUserInfoHandler = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
