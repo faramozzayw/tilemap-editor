@@ -29,3 +29,20 @@
 .MapPreviewCard .card-footer .button {
 	border-radius: 0;
 }
+
+.MapPreviewCard .like-button {
+	background: transparent;
+	border: none;
+	font-size: 2rem;
+}
+
+.MapPreviewCard .like-button:hover {
+	cursor: pointer;
+}
+
+.MapPreviewCard .like-button:focus,
+.MapPreviewCard .like-button:focus-within {
+	outline: 2px dashed indianred;
+	/* border-radius: .25rem; */
+	/* outline: none; */
+}
