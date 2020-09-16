@@ -55,14 +55,14 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 
 				<PreviewCardInfo {...props} />
 			</CardContent>
-			{isAuth && (
-				<PreviewCardFooter
-					id={id}
-					viewHandler={viewHandler}
-					editHandler={editHandler}
-					forkHandler={forkHandler}
-				/>
-			)}
+			<PreviewCardFooter
+				id={id}
+				author={author}
+				isAuth={isAuth}
+				viewHandler={viewHandler}
+				editHandler={editHandler}
+				forkHandler={forkHandler}
+			/>
 		</Card>
 	);
 };

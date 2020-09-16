@@ -1,3 +1,5 @@
+import { userIsOwned } from "./utils";
+
 const rules = {
 	visitor: {
 		static: ["posts:list", "home-page:visit"],
@@ -11,11 +13,7 @@ const rules = {
 			"dashboard-page:visit",
 		],
 		dynamic: {
-			"user:edit": ({ userId, ownerId }) => {
-				if (!userId || !ownerId) return false;
-
-				return userId === ownerId;
-			},
+			"user:edit": userIsOwned,
 		},
 	},
 	admin: {
