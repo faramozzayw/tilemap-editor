@@ -13,8 +13,6 @@ import { Claims } from "../types";
 const authLink = setContext(async (_, { headers }) => {
 	let token = getAccessToken();
 
-	console.log(`before: ${token}`);
-
 	if (token) {
 		const { exp } = jwt_decode<Claims>(token);
 		const currentTime = Math.floor(Date.now() / 1000);
@@ -24,12 +22,9 @@ const authLink = setContext(async (_, { headers }) => {
 			token = getAccessToken();
 		}
 	} else if (getRefreshToken()) {
-		console.log("getRefreshToken()");
 		await refreshToken();
 		token = getAccessToken();
 	}
-
-	console.log(`after: ${token}`);
 
 	return {
 		headers: {
@@ -54,15 +49,3 @@ export const client = new ApolloClient({
 	link: ApolloLink.from([authLink, httpLink]),
 	cache: new InMemoryCache(),
 });
-
-export { DELETE_MAP_BY_ID, CREATE_MAP, LOGIN, SIGN_UP } from "./mutation";
-
-export {
-	GET_MAP_DATA,
-	GET_MAPS,
-	GET_MAPS_BY_USER,
-	GET_MAPS_PAGINATION,
-	GET_ME,
-} from "./query";
-
-export { MapInfoFrag, MapTilesFrag, UserInfo } from "./fragments";

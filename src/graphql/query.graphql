@@ -1,0 +1,42 @@
+query GetMapById($mapID: ID!) {
+	map(id: $mapID) {
+		...MapInfo
+		...MapTiles
+	}
+}
+
+query GetMapsPagination($limit: Int, $offset: Int) {
+	maps(limit: $limit, skip: $offset, sort: { createdAt: ASC }) {
+		...MapInfo
+	}
+}
+
+query GetMaps {
+	maps {
+		...MapInfo
+	}
+}
+
+query GetMapsByUser($username: String!, $limit: Int, $offset: Int) {
+	maps(filter: { author: $username }, limit: $limit, skip: $offset) {
+		...MapInfo
+	}
+}
+
+query Me {
+	me {
+		...UserInfo
+	}
+}
+
+query GetUserByID($id: Uuid!) {
+	getUserById(id: $id) {
+		...UserInfo
+	}
+}
+
+query GetUserByUsername($username: String!) {
+	getUserByUsername(username: $username) {
+		...UserInfo
+	}
+}
