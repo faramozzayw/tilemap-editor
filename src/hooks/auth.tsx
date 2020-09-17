@@ -1,13 +1,7 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext } from "react";
 
 import { User, Tokens } from "./../types";
-import {
-	setTokens,
-	isAuthenticatedByToken,
-	removeTokens,
-	getRefreshToken,
-	refreshToken,
-} from "./utils";
+import { setTokens, isAuthenticatedByToken, removeTokens } from "./utils";
 import { client } from "../graphql";
 
 export interface AuthProviderProps {

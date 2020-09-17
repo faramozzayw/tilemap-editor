@@ -59,6 +59,7 @@ export const refreshToken = async () => {
 		.then((res) => res.json())
 		.then((res: RefreshAccessTokenMutationResult) => {
 			const jwt = res.data?.refreshAccessToken;
+			const { error } = res;
 
 			if (jwt) {
 				const { exp } = jwt_decode<Claims>(jwt.accessToken);
@@ -68,7 +69,7 @@ export const refreshToken = async () => {
 					refresh_token: jwt.refreshToken,
 				});
 			} else {
-				console.error("Bad refresh response");
+				console.error("Bad refresh response: ", error?.message);
 			}
 		})
 		.catch(console.error);
