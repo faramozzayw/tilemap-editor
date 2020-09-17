@@ -19,6 +19,7 @@ exports[`renders correctly 1`] = `
       </button>
       <button
         class="button is-warning card-footer-item"
+        disabled=""
         type="button"
       >
         <span>
