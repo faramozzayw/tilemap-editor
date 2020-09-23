@@ -5,7 +5,7 @@
 }
 
 .MainNavbar .ActiveLink {
-	background: linear-gradient(0deg, #48ca5e, #2f2e2e, #444040, #2f2e2e);
+	background: #444444;
 	color: springgreen !important; /*springgreen, aquamarine*/
 	border-radius: 1rem;
 }
