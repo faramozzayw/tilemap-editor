@@ -17,6 +17,11 @@ export const Key: React.FC = ({ children }) => (
 	<span className="has-text-primary has-text-weight-bold">{children}</span>
 );
 
+/*
+background: linear-gradient(0deg, #1f0f1d, #3a6380);
+color: aliceblue;
+*/
+
 export const Map = () => {
 	const { mapID } = useParams();
 	const { loading, data: mapData } = useGetMapByIdQuery({
@@ -34,21 +39,29 @@ export const Map = () => {
 				<Tile tag="section" isAncestor>
 					<Tile isVertical isParent className="is-3">
 						<Tile isChild className="content">
-							<Box>
-								<Title>About</Title>
-								<BulmaTitle isSize={3}>
-									<MapName name={name} />
-								</BulmaTitle>
-								<p>
-									author: <UserLink {...author} />
-								</p>
-								<p>
-									co-author: <UserLink {...author} />, <UserLink {...author} />,{" "}
-									<UserLink {...author} />
-								</p>
-								<br />
-								<MapConfig {...props} />
-							</Box>
+							<article className="message">
+								<div
+									className="message-body"
+									style={{
+										background: "linear-gradient(0deg, #1f0f1d, #3a6380)",
+										color: "aliceblue",
+									}}
+								>
+									<BulmaTitle isSize={3}>
+										<MapName name={name} />
+									</BulmaTitle>
+									<p>
+										<span>author: </span>
+										<UserLink {...author} />
+									</p>
+									<p>
+										<span>co-author: </span>
+										<UserLink {...author} />, <UserLink {...author} />,{" "}
+										<UserLink {...author} />
+									</p>
+								</div>
+							</article>
+							<MapConfig {...props} />
 						</Tile>
 					</Tile>
 					<Tile isParent isVertical>
