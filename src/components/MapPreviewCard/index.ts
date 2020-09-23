@@ -1,4 +1,4 @@
 export { MapFeed } from "./MapFeed";
 export { MapPreviewCard } from "./MapPreviewCard";
-export { PreviewCardInfo } from "./PreviewCardInfo";
+export { MapConfig } from "./MapConfig";
 export { PreviewCardFooter } from "./PreviewCardFooter";

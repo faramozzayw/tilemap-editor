@@ -1,5 +1,5 @@
 .Box {
-	--bg-color: rgb(10 10 10 / 50%);
+	--bg-color: rgb(20 20 20 / 70%);
 
 	background: var(--bg-color);
 	border-radius: 4px;

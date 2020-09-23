@@ -28,7 +28,7 @@ const refreshTokenSetup = (res: GoogleLoginResponse) => {
 };
 
 export const GoogleAuth = () => {
-	const { login } = useAuthState();
+	const { oldLogin: login } = useAuthState();
 
 	const onFailure = (response: any) => {
 		const error = JSON.stringify(response, null, 2);

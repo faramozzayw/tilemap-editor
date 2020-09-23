@@ -5,7 +5,7 @@ import { Transition } from "react-transition-group";
 import { Title, Card, CardContent } from "./../../bulma";
 
 import "./index.css";
-import { PreviewCardInfo } from "./PreviewCardInfo";
+import { MapConfig } from "./MapConfig";
 import { IAuth } from "../../types/auth";
 import { PreviewCardFooter } from "./PreviewCardFooter";
 import { UserLink, MapName, Can } from "../../common";
@@ -97,7 +97,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 							</Can>
 						</div>
 
-						<PreviewCardInfo {...props} />
+						<MapConfig {...props} />
 					</CardContent>
 					<PreviewCardFooter
 						id={id}

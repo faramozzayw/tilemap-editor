@@ -11,7 +11,7 @@ import {
 	Title,
 	MapName,
 } from "../common";
-import { PreviewCardInfo } from "../components/MapPreviewCard";
+import { MapConfig } from "../components/MapPreviewCard";
 
 export const Key: React.FC = ({ children }) => (
 	<span className="has-text-primary has-text-weight-bold">{children}</span>
@@ -47,19 +47,19 @@ export const Map = () => {
 									<UserLink {...author} />
 								</p>
 								<br />
-								<Box>
-									<PreviewCardInfo {...props} />
-								</Box>
+								<MapConfig {...props} />
 							</Box>
 						</Tile>
 					</Tile>
 					<Tile isParent isVertical>
-						<Tile isChild className="content">
-							<Box>
-								<Title>Description</Title>
-								<MarkdownRemark markdown={description} />
-							</Box>
-						</Tile>
+						{!!description?.trim() && (
+							<Tile isChild className="content">
+								<Box>
+									<Title>Description</Title>
+									<MarkdownRemark markdown={description} />
+								</Box>
+							</Tile>
+						)}
 						<Tile isChild>
 							<Box>
 								<Title>Screenshot</Title>

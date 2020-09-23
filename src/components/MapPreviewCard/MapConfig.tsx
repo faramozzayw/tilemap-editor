@@ -3,14 +3,16 @@ import { Content } from "../../bulma";
 import { MarkdownRemark } from "../../common";
 import { Map } from "../../types/graphql";
 
-export interface PreviewCardInfoProps
+import Styles from "./MapFeed.module.css";
+
+export interface MapConfig
 	extends Pick<Map, "description" | "size" | "createdAt" | "updatedAt"> {}
 
 export const Key: React.FC = ({ children }) => (
 	<span className="key has-text-primary has-text-weight-bold">{children}</span>
 );
 
-export const PreviewCardInfo: React.FC<PreviewCardInfoProps> = ({
+export const MapConfig: React.FC<MapConfig> = ({
 	description,
 	size,
 	createdAt,
@@ -18,7 +20,7 @@ export const PreviewCardInfo: React.FC<PreviewCardInfoProps> = ({
 }) => (
 	<Content>
 		{description && <MarkdownRemark markdown={description} />}
-		<div className="config">
+		<div className={Styles.Config}>
 			<Key>Map size:</Key> {size.row} x {size.column}
 			<br />
 			<Key>Create:</Key>{" "}
@@ -28,7 +30,9 @@ export const PreviewCardInfo: React.FC<PreviewCardInfoProps> = ({
 			<br />
 			<Key>Last edit:</Key>{" "}
 			<time dateTime="2016-1-1">
-				{updatedAt ? new Date(updatedAt).toLocaleString() : "not edited yet"}
+				{updatedAt
+					? new Date(updatedAt).toLocaleDateString()
+					: "not edited yet"}
 			</time>
 		</div>
 	</Content>

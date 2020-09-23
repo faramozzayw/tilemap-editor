@@ -1,13 +1,31 @@
+.AuthFormWrapper {
+	display: flex;
+	justify-content: center !important;
+	align-items: center;
+}
+
 .AuthForm {
-	margin: 2vmax;
+	margin: 2rem;
 	padding: 2rem;
 	box-shadow: 0px 0px 5px #252323;
 	border-radius: 1rem;
+	width: 50%;
+}
+
+@media (max-width: 650px) {
+	.AuthForm {
+		min-width: 90%;
+	}
 }
 
 .Label,
 .Title {
 	color: #ffffff;
+}
+
+.LabelWithHelp {
+	display: flex;
+	justify-content: space-between;
 }
 
 .Divider {

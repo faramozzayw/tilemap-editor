@@ -1,8 +1,10 @@
 import React, { createContext, useState, useContext } from "react";
+import jwt_decode from "jwt-decode";
 
-import { User, Tokens } from "./../types";
+import { User, Tokens, Claims } from "./../types";
 import { setTokens, isAuthenticatedByToken, removeTokens } from "./utils";
 import { client } from "../graphql";
+import { Jwt } from "../types/graphql";
 
 export interface AuthProviderProps {
 	children: React.ReactChild;
@@ -16,7 +18,9 @@ export interface AuthContextState {
 	user: User | null;
 	logout?: () => any;
 	signup?: () => any;
-	login?: (user: User, tokens: Tokens) => void;
+	/** @deprecated */
+	oldLogin?: (user: User, tokens: Tokens) => void;
+	login?: (jwt: Jwt) => void;
 	updateUser?: (user: User & unknown) => void;
 }
 
@@ -62,7 +66,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 		removeTokens();
 	};
 
-	const login = (user: User, tokens: Tokens) => {
+	/** @deprecated */
+	const oldLogin = (user: User, tokens: Tokens) => {
+		setState({
+			...state,
+			user,
+			status: "success",
+		});
+
+		localStorage.setItem("user", JSON.stringify(user));
+		setTokens(tokens);
+	};
+
+	const login = (jwt: Jwt) => {
+		const user: Claims = jwt_decode(jwt.accessToken);
+		const tokens: Tokens = {
+			access_token: jwt.accessToken,
+			refresh_token: jwt.refreshToken,
+			expires_in: user.exp,
+		};
+
 		setState({
 			...state,
 			user,
@@ -111,6 +134,9 @@ export const useAuthState = () => {
 	const signup = state?.signup ?? (() => {});
 	const updateUser = state?.updateUser ?? (() => {});
 
+	/** @deprecated */
+	const oldLogin = state?.oldLogin ?? (() => {});
+
 	return {
 		...state,
 		isPending,
@@ -121,5 +147,6 @@ export const useAuthState = () => {
 		login,
 		signup,
 		updateUser,
+		oldLogin,
 	};
 };

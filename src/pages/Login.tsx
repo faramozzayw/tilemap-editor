@@ -1,18 +1,28 @@
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import jwt_decode from "jwt-decode";
 import classnames from "classnames";
+import { Link, useHistory, Redirect } from "react-router-dom";
+import * as Yup from "yup";
 
 import Styles from "./AuthForm.module.css";
 
-import { Button, Control, Label, Title, Buttons, Hero } from "./../bulma";
+import { Button, Control, Label, Title, Buttons, Hero, Help } from "./../bulma";
 import { GoogleAuth } from "./../components/AuthForms/GoogleAuth";
 import { addNotification } from "../store/notificationStore";
 import { useAuthState } from "../hooks/auth";
 import { useLoginMutation } from "./../types/graphql";
-import { Tokens, Claims } from "../types";
 import { $ } from "./../utils";
-import { Link, useHistory, Redirect } from "react-router-dom";
+
+const LoginSchema = Yup.object().shape({
+	username: Yup.string()
+		.min(2, "Too Short!")
+		.max(25, "Too Long!")
+		.required("Required"),
+	password: Yup.string()
+		.min(10, "Too Short!")
+		.max(50, "Too Long!")
+		.required("Required"),
+});
 
 export const Login = () => {
 	const history = useHistory();
@@ -26,13 +36,7 @@ export const Login = () => {
 
 	const [loginQuery, { loading }] = useLoginMutation({
 		onCompleted: ({ login: jwt }) => {
-			const user: Claims = jwt_decode(jwt.accessToken);
-
-			login(user, {
-				access_token: jwt.accessToken,
-				refresh_token: jwt.refreshToken,
-				expires_in: user.exp,
-			} as Tokens);
+			login(jwt);
 			addNotification({
 				type: "success",
 				message: "Login was successful 🌈 \n ~ ~ Redirect to home page ~ ~",
@@ -53,6 +57,8 @@ export const Login = () => {
 			username: "",
 			password: "",
 		},
+		validateOnChange: true,
+		validationSchema: LoginSchema,
 		onSubmit: (values) => {
 			loginQuery({
 				variables: { data: { ...values } },
@@ -65,23 +71,27 @@ export const Login = () => {
 	}
 
 	return (
-		<Hero isColor="dark" isFullHeight>
+		<Hero isColor="dark" isFullHeight className={Styles.AuthFormWrapper}>
 			<form
 				onSubmit={formik.handleSubmit}
-				// @ts-ignore
-				onReset={formik.resetForm}
+				onReset={() => formik.resetForm()}
 				className={Styles.AuthForm}
 			>
 				<Title className={Styles.AuthFormTitle}>Login</Title>
 				<hr className={Styles.Divider} />
 				<fieldset disabled={loading}>
 					<div className="field">
-						<Label className={Styles.Label}>Username</Label>
+						<Label className={classnames(Styles.Label, Styles.LabelWithHelp)}>
+							Username
+							<Help isColor="warning">{formik.errors.username}</Help>
+						</Label>
 						<Control>
 							<input
 								onChange={formik.handleChange}
 								value={formik.values.username}
 								className={classnames("input", Styles.Input)}
+								min="2"
+								max="25"
 								type="username"
 								name="username"
 								placeholder="Input username"
@@ -91,12 +101,17 @@ export const Login = () => {
 						</Control>
 					</div>
 					<div className="field">
-						<Label className={Styles.Label}>Password</Label>
+						<Label className={classnames(Styles.Label, Styles.LabelWithHelp)}>
+							Password
+							<Help isColor="warning">{formik.errors.password}</Help>
+						</Label>
 						<Control>
 							<input
 								onChange={formik.handleChange}
 								value={formik.values.password}
 								className={classnames("input", Styles.Input)}
+								min="10"
+								max="50"
 								id="password"
 								type="password"
 								name="password"
@@ -104,6 +119,7 @@ export const Login = () => {
 								placeholder="Input password"
 								required
 							/>
+							{/* <Help isColor="primary">Show password</Help> */}
 						</Control>
 					</div>
 					<div className="field is-grouped">

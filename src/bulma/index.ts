@@ -15,6 +15,7 @@ export { Control } from "./form/control";
 export { Label } from "./form/label";
 export { Select } from "./form/select";
 export { TextArea } from "./form/textarea";
+export { Help } from "./form/help";
 
 // components
 export { Panel, PanelHeading, PanelBlock, PanelIcon } from "./components/Panel";

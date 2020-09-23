@@ -4,3 +4,9 @@
 	display: flex;
 	flex-flow: column;
 }
+
+.Config {
+	padding: 1rem;
+	border-radius: 0.25rem;
+	background-color: #3e3e3e !important;
+}
