@@ -1,4 +1,5 @@
 import React from "react";
+import classnames from "classnames";
 import { useParams } from "react-router-dom";
 
 import { ProgressBar, Title as BulmaTitle, Tile } from "../bulma";
@@ -7,11 +8,13 @@ import {
 	Layout,
 	UserLink,
 	MarkdownRemark,
-	Box,
+	CoolBox,
 	Title,
 	MapName,
 } from "../common";
 import { MapConfig } from "../components/MapPreviewCard";
+
+import styles from "./Map.module.css";
 
 export const Key: React.FC = ({ children }) => (
 	<span className="has-text-primary has-text-weight-bold">{children}</span>
@@ -39,43 +42,35 @@ export const Map = () => {
 				<Tile tag="section" isAncestor>
 					<Tile isVertical isParent className="is-3">
 						<Tile isChild className="content">
-							<article className="message">
-								<div
-									className="message-body"
-									style={{
-										background: "linear-gradient(0deg, #1f0f1d, #3a6380)",
-										color: "aliceblue",
-									}}
-								>
-									<BulmaTitle isSize={3}>
-										<MapName name={name} />
-									</BulmaTitle>
-									<p>
-										<span>author: </span>
-										<UserLink {...author} />
-									</p>
-									<p>
-										<span>co-author: </span>
-										<UserLink {...author} />, <UserLink {...author} />,{" "}
-										<UserLink {...author} />
-									</p>
-								</div>
+							<article className={classnames(styles.basic)}>
+								<BulmaTitle isSize={3}>
+									<MapName name={name} />
+								</BulmaTitle>
+								<p>
+									<span>author: </span>
+									<UserLink {...author} />
+								</p>
+								<p>
+									<span>co-author: </span>
+									<UserLink {...author} />, <UserLink {...author} />,{" "}
+									<UserLink {...author} />
+								</p>
 							</article>
-							<MapConfig {...props} />
+							<aside className={styles.config}>
+								<MapConfig {...props} />
+							</aside>
 						</Tile>
 					</Tile>
 					<Tile isParent isVertical>
 						{!!description?.trim() && (
 							<Tile isChild className="content">
-								<Box>
-									<Title>Description</Title>
+								<CoolBox title={"description"} className={styles.description}>
 									<MarkdownRemark markdown={description} />
-								</Box>
+								</CoolBox>
 							</Tile>
 						)}
 						<Tile isChild>
-							<Box>
-								<Title>Screenshot</Title>
+							<CoolBox title={"screenshot"} className={styles.screenshots}>
 								<div
 									style={{
 										display: "flex",
@@ -97,7 +92,7 @@ export const Map = () => {
 										<img src="https://bulma.io/images/placeholders/480x480.png" />
 									</figure>
 								</div>
-							</Box>
+							</CoolBox>
 						</Tile>
 					</Tile>
 				</Tile>
