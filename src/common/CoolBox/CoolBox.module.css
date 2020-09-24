@@ -20,4 +20,11 @@
 	text-align: var(--text-align, center);
 	font-family: cursive;
 	font-weight: var(--font-weight, bold);
+
+	transition: transform 250ms;
+}
+
+.coolbox legend:hover {
+	cursor: pointer;
+	transform: scale(1.15);
 }
