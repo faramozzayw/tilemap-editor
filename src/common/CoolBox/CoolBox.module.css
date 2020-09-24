@@ -1,0 +1,30 @@
+.coolbox {
+	--color: #151414;
+	border: 3px solid var(--color);
+	padding: 1rem;
+	border-radius: 5px;
+	background: rgb(40 40 40 / 0.5);
+	box-shadow: 13px 13px 0px 0px var(--color);
+
+	--font-family: "Segoi UI", monospace;
+}
+
+.coolbox legend {
+	padding: 0 0.5rem;
+	font-size: 1.75rem;
+	border: 3px solid var(--color);
+	border-radius: var(--border-radius, 15px);
+	background: var(--bg-color, hsl(0deg 0% 30%));
+	color: var(--text-color, inherit);
+
+	text-align: var(--text-align, center);
+	font-family: cursive;
+	font-weight: var(--font-weight, bold);
+
+	transition: transform 250ms;
+}
+
+.coolbox legend:hover {
+	cursor: pointer;
+	transform: scale(1.15);
+}

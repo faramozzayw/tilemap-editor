@@ -1,23 +1,28 @@
 import React from "react";
+import classnames from "classnames";
 import { useParams } from "react-router-dom";
 
-import { ProgressBar, Title as BulmaTitle, Tile } from "../bulma";
+import { ProgressBar, Title, Tile, Button } from "../bulma";
 import { useGetMapByIdQuery, Map as MapType } from "../types/graphql";
 import {
 	Layout,
 	UserLink,
 	MarkdownRemark,
-	Box,
-	Title,
+	CoolBox,
 	MapName,
+	ForkButton,
 } from "../common";
 import { MapConfig } from "../components/MapPreviewCard";
+
+import styles from "./Map.module.css";
+import { useAuthState } from "../hooks/auth";
 
 export const Key: React.FC = ({ children }) => (
 	<span className="has-text-primary has-text-weight-bold">{children}</span>
 );
 
 export const Map = () => {
+	const { isAuthenticated: isAuth, user } = useAuthState();
 	const { mapID } = useParams();
 	const { loading, data: mapData } = useGetMapByIdQuery({
 		variables: { mapID },
@@ -34,35 +39,52 @@ export const Map = () => {
 				<Tile tag="section" isAncestor>
 					<Tile isVertical isParent className="is-3">
 						<Tile isChild className="content">
-							<Box>
-								<Title>About</Title>
-								<BulmaTitle isSize={3}>
+							<article className={classnames(styles.basic)}>
+								<Title isSize={3}>
 									<MapName name={name} />
-								</BulmaTitle>
+								</Title>
 								<p>
-									author: <UserLink {...author} />
-								</p>
-								<p>
-									co-author: <UserLink {...author} />, <UserLink {...author} />,{" "}
+									<span>author: </span>
 									<UserLink {...author} />
 								</p>
-								<br />
-								<MapConfig {...props} />
-							</Box>
+								<p>
+									<span>co-author: </span>
+									<UserLink {...author} />, <UserLink {...author} />,{" "}
+									<UserLink {...author} />
+								</p>
+							</article>
+							<div className="block">
+								<aside className={styles.config}>
+									<MapConfig {...props} />
+								</aside>
+							</div>
+							<div className="block">
+								<ForkButton
+									isFullWidth
+									isAuth={isAuth}
+									userId={user?.id}
+									ownerId={author.id}
+								/>
+							</div>
+							{/*
+                            <Button isColor="danger" isFullWidth>
+                                <span>
+                                    <i className="far fa-trash-alt"></i> Delete map!
+                                </span>
+                            </Button>
+                            */}
 						</Tile>
 					</Tile>
 					<Tile isParent isVertical>
 						{!!description?.trim() && (
 							<Tile isChild className="content">
-								<Box>
-									<Title>Description</Title>
+								<CoolBox title={"description"} className={styles.description}>
 									<MarkdownRemark markdown={description} />
-								</Box>
+								</CoolBox>
 							</Tile>
 						)}
 						<Tile isChild>
-							<Box>
-								<Title>Screenshot</Title>
+							<CoolBox title={"screenshot"} className={styles.screenshots}>
 								<div
 									style={{
 										display: "flex",
@@ -84,7 +106,7 @@ export const Map = () => {
 										<img src="https://bulma.io/images/placeholders/480x480.png" />
 									</figure>
 								</div>
-							</Box>
+							</CoolBox>
 						</Tile>
 					</Tile>
 				</Tile>
