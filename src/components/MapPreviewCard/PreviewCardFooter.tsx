@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, CardFooter } from "./../../bulma";
 import { Map } from "../../types/graphql";
-import { Can } from "../../common";
+import { Can, ForkButton } from "../../common";
 import { IAuth } from "../../types/auth";
 import { useAuthState } from "../../hooks/auth";
 import { canFork } from "../../common/rbac/utils";
@@ -35,16 +35,12 @@ export const PreviewCardFooter: React.FC<PreviewCardFooterProps> = ({
 					<i className="far fa-eye"></i> View
 				</span>
 			</Button>
-			<Button
+			<ForkButton
+				userId={authUser?.id}
+				ownerId={authorID}
+				isAuth={isAuth}
 				className="card-footer-item"
-				isColor="warning"
-				onClick={forkHandler}
-				disabled={!canFork({ userId: authUser?.id, ownerId: authorID, isAuth })}
-			>
-				<span>
-					<i className="fas fa-code-branch"></i> Fork
-				</span>
-			</Button>
+			/>
 		</CardFooter>
 	);
 };
