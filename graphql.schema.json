@@ -545,6 +545,37 @@
 						"deprecationReason": null
 					},
 					{
+						"name": "loginByGoolge",
+						"description": null,
+						"args": [
+							{
+								"name": "googleLogin",
+								"description": null,
+								"type": {
+									"kind": "NON_NULL",
+									"name": null,
+									"ofType": {
+										"kind": "INPUT_OBJECT",
+										"name": "GoogleInput",
+										"ofType": null
+									}
+								},
+								"defaultValue": null
+							}
+						],
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "OBJECT",
+								"name": "JWT",
+								"ofType": null
+							}
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					},
+					{
 						"name": "refreshAccessToken",
 						"description": null,
 						"args": [
@@ -636,22 +667,54 @@
 			},
 			{
 				"kind": "INPUT_OBJECT",
-				"name": "UpdateMap",
+				"name": "GoogleInput",
 				"description": null,
 				"fields": null,
 				"inputFields": [
 					{
-						"name": "name",
+						"name": "gooogleId",
 						"description": null,
 						"type": {
-							"kind": "SCALAR",
-							"name": "String",
-							"ofType": null
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
+							}
 						},
 						"defaultValue": null
 					},
 					{
-						"name": "description",
+						"name": "email",
+						"description": null,
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "username",
+						"description": null,
+						"type": {
+							"kind": "NON_NULL",
+							"name": null,
+							"ofType": {
+								"kind": "SCALAR",
+								"name": "String",
+								"ofType": null
+							}
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "imageUrl",
 						"description": null,
 						"type": {
 							"kind": "SCALAR",
@@ -907,6 +970,37 @@
 								"name": "Int",
 								"ofType": null
 							}
+						},
+						"defaultValue": null
+					}
+				],
+				"interfaces": null,
+				"enumValues": null,
+				"possibleTypes": null
+			},
+			{
+				"kind": "INPUT_OBJECT",
+				"name": "UpdateMap",
+				"description": null,
+				"fields": null,
+				"inputFields": [
+					{
+						"name": "name",
+						"description": null,
+						"type": {
+							"kind": "SCALAR",
+							"name": "String",
+							"ofType": null
+						},
+						"defaultValue": null
+					},
+					{
+						"name": "description",
+						"description": null,
+						"type": {
+							"kind": "SCALAR",
+							"name": "String",
+							"ofType": null
 						},
 						"defaultValue": null
 					}
@@ -1376,6 +1470,30 @@
 					},
 					{
 						"name": "description",
+						"description": null,
+						"args": [],
+						"type": {
+							"kind": "SCALAR",
+							"name": "String",
+							"ofType": null
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					},
+					{
+						"name": "imageUrl",
+						"description": null,
+						"args": [],
+						"type": {
+							"kind": "SCALAR",
+							"name": "String",
+							"ofType": null
+						},
+						"isDeprecated": false,
+						"deprecationReason": null
+					},
+					{
+						"name": "googleId",
 						"description": null,
 						"args": [],
 						"type": {

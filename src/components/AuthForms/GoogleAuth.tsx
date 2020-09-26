@@ -4,57 +4,37 @@ import GoogleLogin, { GoogleLoginResponse } from "react-google-login";
 import { Title } from "../../bulma";
 import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
-import { Tokens, User } from "../../types";
-import { setTokens } from "../../hooks/utils";
+import { useLoginByGoolgeMutation } from "../../types/graphql";
 
-const refreshTokenSetup = (res: GoogleLoginResponse) => {
-	let refreshTiming = (res.tokenObj.expires_in || 3600 - 5 * 60) * 1000;
-	console.info("refresh token setup");
-
-	const refreshToken = async () => {
-		const newAuthRes = await res.reloadAuthResponse();
-		refreshTiming = (newAuthRes.expires_in || 3600 - 5 * 60) * 1000;
-
-		setTokens({
-			access_token: newAuthRes.access_token,
-			expires_in: refreshTiming,
-		});
-
-		console.info("token updated!");
-		setTimeout(refreshToken, refreshTiming);
-	};
-
-	setTimeout(refreshToken, refreshTiming);
+const handleErr = (response: any) => {
+	const error = JSON.stringify(response, null, 2);
+	console.error(error);
+	console.error("Google login error");
 };
 
 export const GoogleAuth = () => {
-	const { oldLogin: login } = useAuthState();
-
-	const onFailure = (response: any) => {
-		const error = JSON.stringify(response, null, 2);
-		console.error(error);
-		console.error("Google login error");
-	};
+	const { login } = useAuthState();
+	const [loginByGoogle] = useLoginByGoolgeMutation({
+		onCompleted: ({ loginByGoolge: jwt }) => {
+			login(jwt);
+		},
+		onError: handleErr,
+	});
+	const onFailure = handleErr;
 
 	const onSuccess = (response: GoogleLoginResponse) => {
-		response.reloadAuthResponse();
-		const { access_token, expires_in } = response.getAuthResponse();
-
 		const basicProfile = response.getBasicProfile();
 
-		const user: User = {
-			email: basicProfile.getEmail(),
-			username: basicProfile.getName(),
-			image: basicProfile.getImageUrl(),
-		};
-
-		const tokens: Tokens = {
-			access_token,
-			expires_in,
-		};
-
-		login(user, tokens);
-		refreshTokenSetup(response);
+		loginByGoogle({
+			variables: {
+				loginData: {
+					email: basicProfile.getEmail(),
+					username: basicProfile.getName(),
+					imageUrl: basicProfile.getImageUrl(),
+					gooogleId: basicProfile.getId(),
+				},
+			},
+		});
 	};
 
 	return (

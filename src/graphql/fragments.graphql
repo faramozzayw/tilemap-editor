@@ -29,4 +29,5 @@ fragment UserInfo on User {
 	username
 	email
 	description
+	imageUrl
 }

@@ -48,3 +48,10 @@ mutation RefreshAccessToken($refreshToken: Uuid!) {
 		refreshToken
 	}
 }
+
+mutation LoginByGoolge($loginData: GoogleInput!) {
+	loginByGoolge(googleLogin: $loginData) {
+		accessToken
+		refreshToken
+	}
+}

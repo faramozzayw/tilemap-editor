@@ -4,17 +4,17 @@ import "./AvatarMenu.css";
 
 import { NavbarItem, NavbarDropdown, NavbarDivider } from "./../../bulma";
 import { LogOut } from "./../AuthForms";
-import { User } from "../../types";
 import { UserLink } from "../../common";
+import { User } from "../../types/graphql";
 
-export interface AvatarMenuProps extends Pick<User, "image" | "username"> {}
+export interface AvatarMenuProps extends Pick<User, "imageUrl" | "username"> {}
 
-const AvatarMenu: React.FC<AvatarMenuProps> = ({ username, image }) => (
+const AvatarMenu: React.FC<AvatarMenuProps> = ({ username, imageUrl }) => (
 	<NavbarItem isHoverable hasDropdown className="AvatarMenu" tabIndex={0}>
 		<NavbarItem>
-			{image ? (
+			{imageUrl ? (
 				<figure className="image is-32x32">
-					<img src={image} className="is-rounded" alt="User picture" />
+					<img src={imageUrl} className="is-rounded" alt="User picture" />
 				</figure>
 			) : (
 				<figure className="DefaultAvatar image is-32x32">
