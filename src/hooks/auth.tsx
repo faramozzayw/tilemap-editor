@@ -10,11 +10,11 @@ import {
 	getUserFromStorage,
 } from "./utils";
 import { client } from "../graphql";
-import { Jwt, User as BasicUserRRR, useMeLazyQuery } from "../types/graphql";
+import { Jwt, User as BasicUser, useMeLazyQuery } from "../types/graphql";
 
 export type AuthStatus = "pending" | "error" | "success";
 
-export type User = PartialBy<BasicUserRRR, "email">;
+export type User = PartialBy<BasicUser, "email">;
 
 export interface AuthContextState {
 	/** Indicate the current authorization status  */
@@ -80,13 +80,14 @@ export const AuthProvider: React.FC = ({ children }) => {
 	const [state, setState] = useState<AuthContextState>(() => initState());
 	const [getMe] = useMeLazyQuery({
 		onCompleted: ({ me }) => updateUser(me),
+		onError: console.error,
 	});
 
 	useEffect(() => {
 		if (isAuthenticatedByToken()) {
-			sync();
+			getMe();
 		}
-	}, [getMe]);
+	}, []);
 
 	const logout = () => {
 		setState({
@@ -118,7 +119,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 		setTokens(tokens);
 
 		if (autoSync) {
-			sync();
+			getMe();
 		}
 	};
 
@@ -137,8 +138,6 @@ export const AuthProvider: React.FC = ({ children }) => {
 		});
 	};
 
-	const sync = getMe;
-
 	return (
 		<AuthContext.Provider
 			value={{
@@ -146,7 +145,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 				login,
 				logout,
 				updateUser,
-				sync,
+				sync: getMe,
 			}}
 		>
 			{children}

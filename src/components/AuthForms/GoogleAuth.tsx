@@ -5,22 +5,26 @@ import { Title } from "../../bulma";
 import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
 import { useLoginByGoolgeMutation } from "../../types/graphql";
-
-const handleErr = (response: any) => {
-	const error = JSON.stringify(response, null, 2);
-	console.error(error);
-	console.error("Google login error");
-};
+import { addNotification } from "../../store/notificationStore";
 
 export const GoogleAuth = () => {
 	const { login } = useAuthState();
 	const [loginByGoogle] = useLoginByGoolgeMutation({
 		onCompleted: ({ loginByGoolge: jwt }) => {
 			login(jwt);
+			addNotification({
+				type: "success",
+				message: "Login was successful 🌈 \n ~ ~ Redirect to home page ~ ~",
+			});
 		},
-		onError: handleErr,
+		onError: console.error,
 	});
-	const onFailure = handleErr;
+
+	const onFailure = (response: any) => {
+		const error = JSON.stringify(response, null, 2);
+		console.error(error);
+		console.error("Google login error");
+	};
 
 	const onSuccess = (response: GoogleLoginResponse) => {
 		const basicProfile = response.getBasicProfile();

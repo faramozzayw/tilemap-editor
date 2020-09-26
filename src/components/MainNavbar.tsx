@@ -39,6 +39,10 @@ export const MainNavbar = () => {
 				</NavbarItem>
 
 				<NavbarBurger
+					style={{
+						height: "auto",
+						width: "4.35rem",
+					}}
 					isActive={isActive}
 					onClick={() => togggleMenu(!isActive)}
 				/>
