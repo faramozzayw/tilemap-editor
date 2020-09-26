@@ -56,6 +56,7 @@ export type MutationRoot = {
 	updateUserInfo: ReturnUser;
 	signUp: Jwt;
 	login: Jwt;
+	loginByGoolge: Jwt;
 	refreshAccessToken: Jwt;
 };
 
@@ -90,6 +91,10 @@ export type MutationRootLoginArgs = {
 	loginUser: LoginUser;
 };
 
+export type MutationRootLoginByGoolgeArgs = {
+	googleLogin: GoogleInput;
+};
+
 export type MutationRootRefreshAccessTokenArgs = {
 	refreshToken: Scalars["Uuid"];
 };
@@ -101,9 +106,11 @@ export type Jwt = {
 	refreshToken: Scalars["Uuid"];
 };
 
-export type UpdateMap = {
-	name?: Maybe<Scalars["String"]>;
-	description?: Maybe<Scalars["String"]>;
+export type GoogleInput = {
+	gooogleId: Scalars["String"];
+	email: Scalars["String"];
+	username: Scalars["String"];
+	imageUrl?: Maybe<Scalars["String"]>;
 };
 
 export type QueryRoot = {
@@ -140,6 +147,11 @@ export type QueryRootGetUserByUsernameArgs = {
 export type NewMapSize = {
 	row: Scalars["Int"];
 	column: Scalars["Int"];
+};
+
+export type UpdateMap = {
+	name?: Maybe<Scalars["String"]>;
+	description?: Maybe<Scalars["String"]>;
 };
 
 export type UpdateTileConfig = {
@@ -208,6 +220,8 @@ export type User = {
 	username: Scalars["String"];
 	email: Scalars["String"];
 	description?: Maybe<Scalars["String"]>;
+	imageUrl?: Maybe<Scalars["String"]>;
+	googleId?: Maybe<Scalars["String"]>;
 };
 
 export type NewMap = {
@@ -251,7 +265,7 @@ export type MapTilesFragment = { __typename?: "Map" } & {
 
 export type UserInfoFragment = { __typename?: "User" } & Pick<
 	User,
-	"id" | "username" | "email" | "description"
+	"id" | "username" | "email" | "description" | "imageUrl"
 >;
 
 export type CreateMapMutationVariables = Exact<{
@@ -314,6 +328,17 @@ export type RefreshAccessTokenMutationVariables = Exact<{
 
 export type RefreshAccessTokenMutation = { __typename?: "MutationRoot" } & {
 	refreshAccessToken: { __typename?: "JWT" } & Pick<
+		Jwt,
+		"accessToken" | "refreshToken"
+	>;
+};
+
+export type LoginByGoolgeMutationVariables = Exact<{
+	loginData: GoogleInput;
+}>;
+
+export type LoginByGoolgeMutation = { __typename?: "MutationRoot" } & {
+	loginByGoolge: { __typename?: "JWT" } & Pick<
 		Jwt,
 		"accessToken" | "refreshToken"
 	>;
@@ -408,6 +433,7 @@ export const UserInfoFragmentDoc = gql`
 		username
 		email
 		description
+		imageUrl
 	}
 `;
 export const CreateMapDocument = gql`
@@ -760,6 +786,57 @@ export type RefreshAccessTokenMutationResult = Apollo.MutationResult<
 export type RefreshAccessTokenMutationOptions = Apollo.BaseMutationOptions<
 	RefreshAccessTokenMutation,
 	RefreshAccessTokenMutationVariables
+>;
+export const LoginByGoolgeDocument = gql`
+	mutation LoginByGoolge($loginData: GoogleInput!) {
+		loginByGoolge(googleLogin: $loginData) {
+			accessToken
+			refreshToken
+		}
+	}
+`;
+export type LoginByGoolgeMutationFn = Apollo.MutationFunction<
+	LoginByGoolgeMutation,
+	LoginByGoolgeMutationVariables
+>;
+
+/**
+ * __useLoginByGoolgeMutation__
+ *
+ * To run a mutation, you first call `useLoginByGoolgeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginByGoolgeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginByGoolgeMutation, { data, loading, error }] = useLoginByGoolgeMutation({
+ *   variables: {
+ *      loginData: // value for 'loginData'
+ *   },
+ * });
+ */
+export function useLoginByGoolgeMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		LoginByGoolgeMutation,
+		LoginByGoolgeMutationVariables
+	>,
+) {
+	return Apollo.useMutation<
+		LoginByGoolgeMutation,
+		LoginByGoolgeMutationVariables
+	>(LoginByGoolgeDocument, baseOptions);
+}
+export type LoginByGoolgeMutationHookResult = ReturnType<
+	typeof useLoginByGoolgeMutation
+>;
+export type LoginByGoolgeMutationResult = Apollo.MutationResult<
+	LoginByGoolgeMutation
+>;
+export type LoginByGoolgeMutationOptions = Apollo.BaseMutationOptions<
+	LoginByGoolgeMutation,
+	LoginByGoolgeMutationVariables
 >;
 export const GetMapByIdDocument = gql`
 	query GetMapById($mapID: ID!) {

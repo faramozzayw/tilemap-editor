@@ -4,6 +4,8 @@ import jwt_decode from "jwt-decode";
 import { Tokens, Claims } from "../types";
 import { RefreshAccessTokenMutationResult } from "../types/graphql";
 
+import { User } from "./auth";
+
 export const getAccessToken = () => Cookies.get("access_token");
 export const getRefreshToken = () => localStorage.getItem("refresh_token");
 export const isAuthenticatedByToken = () => !!getAccessToken();
@@ -14,6 +16,9 @@ export const inOneHour = () => {
 	return inOneHour;
 };
 
+/**
+ * Set access_token and refresh_token
+ */
 export const setTokens = ({
 	access_token,
 	expires_in,
@@ -25,6 +30,19 @@ export const setTokens = ({
 	}
 };
 
+export const getUserFromStorage = (): User | null => {
+	const rawUser = localStorage?.getItem("user");
+
+	return rawUser ? JSON.parse(rawUser) : null;
+};
+
+export const setUserToStorage = (user: User) => {
+	localStorage.setItem("user", JSON.stringify(user));
+};
+
+/**
+ * Remove access_token and refresh_token
+ */
 export const removeTokens = () => {
 	Cookies.remove("access_token");
 	localStorage.removeItem("refresh_token");
