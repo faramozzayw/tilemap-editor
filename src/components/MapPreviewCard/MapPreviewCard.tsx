@@ -2,7 +2,7 @@ import React, { CSSProperties, useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { Transition } from "react-transition-group";
 
-import { Title, Card, CardContent } from "./../../bulma";
+import { Title, Card, CardContent } from "@faramo.zayw/reabulma";
 
 import "./index.css";
 import { MapConfig } from "./MapConfig";

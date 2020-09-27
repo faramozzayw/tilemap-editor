@@ -1,5 +1,3 @@
-import { User } from "../../types/graphql";
-
 export interface UserIsOwned {
 	userId?: string;
 	ownerId?: string;

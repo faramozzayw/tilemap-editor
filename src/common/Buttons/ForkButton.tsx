@@ -2,8 +2,7 @@ import React from "react";
 
 import { canFork, UserIsOwned } from "../rbac/utils";
 
-import { Button } from "../../bulma";
-import { Bulma } from "../../bulma/bulma";
+import { Button, Bulma } from "@faramo.zayw/reabulma";
 
 export interface ForkButton
 	extends UserIsOwned,

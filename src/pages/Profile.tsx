@@ -1,5 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { ProgressBar, Tile } from "@faramo.zayw/reabulma";
 
 import { useAuthState } from "../hooks/auth";
 import { Layout, Box, Title } from "../common";
@@ -15,12 +16,15 @@ import {
 	useGetMapsByUserQuery,
 	useGetUserByUsernameQuery,
 } from "../types/graphql";
-import { ProgressBar, Tile } from "../bulma";
 
 const style: React.CSSProperties = { display: "grid" };
 
+export interface ProfilePageParams {
+	username: string;
+}
+
 export const ProfilePage = () => {
-	const { username } = useParams();
+	const { username } = useParams<ProfilePageParams>();
 	const { isAuthenticated: isAuth } = useAuthState();
 
 	const { data: userData } = useGetUserByUsernameQuery({

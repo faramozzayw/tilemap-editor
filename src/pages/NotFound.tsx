@@ -1,7 +1,8 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
+import { Title } from "@faramo.zayw/reabulma";
+
 import { Layout } from "../common";
-import { Title } from "../bulma";
 
 export const NotFound = () => {
 	let location = useLocation();

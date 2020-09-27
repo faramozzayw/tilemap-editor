@@ -4,7 +4,12 @@ import classnames from "classnames";
 
 import { IAuth } from "../../types/auth";
 import { MapPreviewCard } from ".";
-import { ProgressBar, Button, Notification, Title } from "../../bulma";
+import {
+	ProgressBar,
+	Button,
+	Notification,
+	Title,
+} from "@faramo.zayw/reabulma";
 
 import MapFeedStyle from "./MapFeed.module.css";
 import { Map } from "../../types/graphql";

@@ -87,7 +87,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 		if (isAuthenticatedByToken()) {
 			getMe();
 		}
-	}, []);
+	}, [getMe]);
 
 	const logout = () => {
 		setState({

@@ -1,6 +1,6 @@
 import React, { useState, Suspense } from "react";
 
-import { Button } from "../../bulma";
+import { Button } from "@faramo.zayw/reabulma";
 
 const CreateMapModal = React.lazy(() => import("./CreateMapModal"));
 

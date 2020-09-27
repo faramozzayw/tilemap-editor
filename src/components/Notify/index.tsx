@@ -1,9 +1,9 @@
 import React from "react";
 import classnames from "classnames";
+import { Notification } from "@faramo.zayw/reabulma";
 
 import { Portal } from "../../common";
 import NotifyStyle from "./Notify.module.css";
-import { Notification } from "../../bulma";
 import { useStore } from "effector-react";
 import {
 	notificationStore,

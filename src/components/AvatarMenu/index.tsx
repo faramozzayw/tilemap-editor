@@ -1,8 +1,12 @@
 import React from "react";
+import {
+	NavbarItem,
+	NavbarDropdown,
+	NavbarDivider,
+} from "@faramo.zayw/reabulma";
 
 import "./AvatarMenu.css";
 
-import { NavbarItem, NavbarDropdown, NavbarDivider } from "./../../bulma";
 import { LogOut } from "./../AuthForms";
 import { UserLink } from "../../common";
 import { User } from "../../types/graphql";

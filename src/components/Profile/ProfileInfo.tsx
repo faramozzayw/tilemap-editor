@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 
-import { Buttons, Button } from "../../bulma";
+import { Buttons, Button } from "@faramo.zayw/reabulma";
 import { addNotification } from "../../store/notificationStore";
 import { InputField } from "./InputField";
 

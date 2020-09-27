@@ -1,8 +1,8 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import { Content } from "@faramo.zayw/reabulma";
 
 import "./MarkdownRemark.css";
-import { Content } from "../../bulma";
 
 export interface MarkdownRemark {
 	markdown?: string | null;

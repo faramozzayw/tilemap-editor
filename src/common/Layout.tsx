@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Hero, HeroBody } from "../bulma";
+import { Hero, HeroBody } from "@faramo.zayw/reabulma";
 import { MainNavbar } from "../components";
 
 export const Layout: React.FC<HeroBody<HTMLElement>> = ({

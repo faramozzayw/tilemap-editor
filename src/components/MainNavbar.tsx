@@ -13,7 +13,7 @@ import {
 	NavbarBrand,
 	Navbar,
 	Button,
-} from "../bulma";
+} from "@faramo.zayw/reabulma";
 
 import "./MainNavbar.css";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
+import { Button } from "@faramo.zayw/reabulma";
 
-import { Button } from "../../bulma";
 import { useAuthState } from "../../hooks/auth";
 
 export const LogOut = () => {

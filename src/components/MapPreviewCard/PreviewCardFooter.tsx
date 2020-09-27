@@ -1,10 +1,9 @@
 import React from "react";
-import { Button, CardFooter } from "./../../bulma";
+import { Button, CardFooter } from "@faramo.zayw/reabulma";
 import { Map } from "../../types/graphql";
-import { Can, ForkButton } from "../../common";
+import { ForkButton } from "../../common";
 import { IAuth } from "../../types/auth";
 import { useAuthState } from "../../hooks/auth";
-import { canFork } from "../../common/rbac/utils";
 
 export interface PreviewCardFooterProps
 	extends Pick<Map, "id" | "author">,

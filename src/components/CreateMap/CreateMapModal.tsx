@@ -11,7 +11,7 @@ import {
 	ModalContent,
 	ModalClose,
 	TextArea,
-} from "./../../bulma";
+} from "@faramo.zayw/reabulma";
 
 import { useAuthState } from "../../hooks/auth";
 import { addNotification } from "../../store/notificationStore";

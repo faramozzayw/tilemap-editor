@@ -1,5 +1,5 @@
 import React from "react";
-import { Content } from "../../bulma";
+import { Content } from "@faramo.zayw/reabulma";
 import { MarkdownRemark } from "../../common";
 import { Map } from "../../types/graphql";
 

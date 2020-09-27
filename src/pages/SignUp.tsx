@@ -3,11 +3,19 @@ import { useFormik } from "formik";
 import classnames from "classnames";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import * as Yup from "yup";
+import {
+	Button,
+	Control,
+	Label,
+	Title,
+	Buttons,
+	Hero,
+	Help,
+} from "@faramo.zayw/reabulma";
 
 import Styles from "./AuthForm.module.css";
 
 import { useSignUpMutation } from "../types/graphql";
-import { Button, Control, Label, Title, Buttons, Hero, Help } from "./../bulma";
 import { GoogleAuth } from "./../components/AuthForms/GoogleAuth";
 import { addNotification } from "../store/notificationStore";
 import { $ } from "./../utils";

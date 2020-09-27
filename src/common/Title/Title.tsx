@@ -1,8 +1,8 @@
 import React from "react";
 import classnames from "classnames";
+import { Title as BulmaTitle } from "@faramo.zayw/reabulma";
 
 import Styles from "./Title.module.css";
-import { Title as BulmaTitle } from "../../bulma";
 
 /**
  * Displays a title

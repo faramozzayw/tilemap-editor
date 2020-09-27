@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 import { useParams } from "react-router-dom";
 
-import { ProgressBar, Title, Tile, Button } from "../bulma";
+import { ProgressBar, Title, Tile } from "@faramo.zayw/reabulma";
 import { useGetMapByIdQuery, Map as MapType } from "../types/graphql";
 import {
 	Layout,
@@ -17,13 +17,17 @@ import { MapConfig } from "../components/MapPreviewCard";
 import styles from "./Map.module.css";
 import { useAuthState } from "../hooks/auth";
 
+export interface MapParams {
+	mapID: string;
+}
+
 export const Key: React.FC = ({ children }) => (
 	<span className="has-text-primary has-text-weight-bold">{children}</span>
 );
 
 export const Map = () => {
 	const { isAuthenticated: isAuth, user } = useAuthState();
-	const { mapID } = useParams();
+	const { mapID } = useParams<MapParams>();
 	const { loading, data: mapData } = useGetMapByIdQuery({
 		variables: { mapID },
 	});

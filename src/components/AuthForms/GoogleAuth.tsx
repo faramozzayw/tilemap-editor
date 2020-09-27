@@ -1,7 +1,7 @@
 import React from "react";
 import GoogleLogin, { GoogleLoginResponse } from "react-google-login";
+import { Title } from "@faramo.zayw/reabulma";
 
-import { Title } from "../../bulma";
 import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
 import { useLoginByGoolgeMutation } from "../../types/graphql";
