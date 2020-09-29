@@ -1,6 +1,6 @@
 import React from "react";
 import GoogleLogin, { GoogleLoginResponse } from "react-google-login";
-import { Title } from "@faramo.zayw/reabulma";
+import { Title, ProgressBar } from "@faramo.zayw/reabulma";
 
 import { googleClientID } from "./consts";
 import { useAuthState } from "../../hooks/auth";
@@ -9,7 +9,7 @@ import { addNotification } from "../../store/notificationStore";
 
 export const GoogleAuth = () => {
 	const { login } = useAuthState();
-	const [loginByGoogle] = useLoginByGoolgeMutation({
+	const [loginByGoogle, { loading }] = useLoginByGoolgeMutation({
 		onCompleted: ({ loginByGoolge: jwt }) => {
 			login(jwt);
 			addNotification({
@@ -49,7 +49,11 @@ export const GoogleAuth = () => {
 			<div className="field is-grouped">
 				<GoogleLogin
 					clientId={googleClientID}
-					buttonText="Login"
+					render={
+						loading
+							? () => <ProgressBar isColor="primary" isSize="small" />
+							: undefined
+					}
 					// @ts-ignore
 					onSuccess={onSuccess}
 					onFailure={onFailure}
