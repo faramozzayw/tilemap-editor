@@ -2,6 +2,49 @@
 	overflow: initial;
 }
 
+/* ------ split into separate component -------- */
+
+.pageNav {
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	padding: 10px;
+	align-items: center;
+}
+
+.pageNav :global(.tabs) {
+	border-bottom: 1px solid #ffffff;
+}
+
+.pageNav :global(.breadcrumb) ul {
+	padding: 0.25rem 0.7rem;
+	border-radius: 10px;
+	background: rgb(23 29 28 / 50%);
+}
+
+@media (max-width: 800px) {
+	.pageNav {
+		flex-flow: column;
+		align-items: flex-start;
+	}
+
+	.pageNav :global(.tabs) {
+		width: 100%;
+	}
+}
+
+/* --------------------------------------------- */
+
+/*
+
+padding: .25rem .7rem;
+border: 3px outset #94a53b;
+border-radius: 10px;
+background: rgb(86 86 86 / 50%);
+
+
+*/
+
 .basic {
 	position: sticky;
 	top: 6rem;
@@ -31,13 +74,22 @@
 
 .description {
 	--bg-color: rgb(212, 56, 56);
-	--text-color: #b8e21f;
+	--text-color: rgb(183, 226, 29);
 	--text-align: left;
 	--font-weight: bolder;
 }
 
 .screenshots {
 	--text-align: center;
-	--bg-color: rgb(23 84 79);
-	--text-color: #8ee033;
+	--bg-color: rgb(23, 84, 79);
+	--text-color: rgb(143, 225, 51);
+}
+
+.common {
+	--bg-color: rgb(58, 42, 72);
+	--text-color: rgb(47, 204, 204);
+	--text-align: right;
+	--font-weight: bolder;
+	--x-direction: 1.25;
+	--y-direction: -1;
 }
