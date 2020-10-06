@@ -1,7 +1,15 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 
-import { ProgressBar, Tile, Block, Tabs, Tab } from "@faramo.zayw/reabulma";
+import {
+	ProgressBar,
+	Tile,
+	Block,
+	Tabs,
+	Tab,
+	Image,
+	Button,
+} from "@faramo.zayw/reabulma";
 import { useGetMapByIdQuery, Map as MapType } from "../types/graphql";
 import {
 	Layout,
@@ -24,6 +32,13 @@ export const Key: React.FC = ({ children }) => (
 	<span className="has-text-primary has-text-weight-bold">{children}</span>
 );
 
+// prettier-ignore
+const fakeImage = {
+    src: "https://bulma.io/images/placeholders/480x480.png",
+}
+// prettier-ignore
+const fakeScreenshots = [{...fakeImage}, {...fakeImage}, {...fakeImage}, {...fakeImage}, {...fakeImage}];
+
 export const Map = () => {
 	const { isAuthenticated: isAuth, user } = useAuthState();
 	const { mapID } = useParams<MapParams>();
@@ -34,6 +49,8 @@ export const Map = () => {
 	const { author, name, description, ...props } = {
 		...mapData?.map,
 	} as MapType;
+
+	const screenshots = fakeScreenshots;
 
 	return (
 		<Layout
@@ -101,10 +118,8 @@ export const Map = () => {
 							<Tile isChild>
 								<Tile isChild className="content">
 									<CoolBox title={"common"} className={styles.common}>
-										<Block>
-											<aside className={styles.config}>
-												<MapConfig {...props} />
-											</aside>
+										<Block className={styles.config}>
+											<MapConfig {...props} />
 										</Block>
 										<Block>
 											<span>co-author: </span>
@@ -133,27 +148,11 @@ export const Map = () => {
 							)}
 							<Tile isChild>
 								<CoolBox title={"screenshot"} className={styles.screenshots}>
-									<div
-										style={{
-											display: "flex",
-											flexWrap: "wrap",
-											alignItems: "center",
-											justifyContent: "space-around",
-										}}
-									>
-										<figure className="image is-128x128">
-											<img src="https://bulma.io/images/placeholders/480x480.png" />
-										</figure>
-										<figure className="image is-128x128">
-											<img src="https://bulma.io/images/placeholders/480x480.png" />
-										</figure>
-										<figure className="image is-128x128">
-											<img src="https://bulma.io/images/placeholders/480x480.png" />
-										</figure>
-										<figure className="image is-128x128">
-											<img src="https://bulma.io/images/placeholders/480x480.png" />
-										</figure>
-									</div>
+									<section>
+										{screenshots.map(({ src }) => (
+											<Image isSize="128x128" src={src} />
+										))}
+									</section>
 								</CoolBox>
 							</Tile>
 						</Tile>
