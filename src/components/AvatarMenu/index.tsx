@@ -3,6 +3,7 @@ import {
 	NavbarItem,
 	NavbarDropdown,
 	NavbarDivider,
+	Image,
 } from "@faramo.zayw/reabulma";
 
 import "./AvatarMenu.css";
@@ -17,9 +18,7 @@ const AvatarMenu: React.FC<AvatarMenuProps> = ({ username, imageUrl }) => (
 	<NavbarItem isHoverable hasDropdown className="AvatarMenu" tabIndex={0}>
 		<NavbarItem>
 			{imageUrl ? (
-				<figure className="image is-32x32">
-					<img src={imageUrl} className="is-rounded" alt="User picture" />
-				</figure>
+				<Image isSize="32x32" src={imageUrl} isRounded alt="User picture" />
 			) : (
 				<figure className="DefaultAvatar image is-32x32">
 					<i className="far fa-user fa-lg"></i>

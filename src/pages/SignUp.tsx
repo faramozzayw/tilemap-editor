@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { useFormik } from "formik";
 import classnames from "classnames";
 import { Link, useHistory, Redirect } from "react-router-dom";
@@ -20,22 +20,17 @@ import { GoogleAuth } from "./../components/AuthForms/GoogleAuth";
 import { addNotification } from "../store/notificationStore";
 import { $ } from "./../utils";
 import { useAuthState } from "../hooks/auth";
+import { email, password, username } from "../validation-subsets";
 
 const SignupSchema = Yup.object().shape({
-	username: Yup.string()
-		.min(2, "Too Short!")
-		.max(25, "Too Long!")
-		.required("Required"),
-	password: Yup.string()
-		.min(10, "Too Short!")
-		.max(50, "Too Long!")
-		.required("Required"),
-	email: Yup.string().email("Invalid email").required("Required"),
+	username,
+	password,
+	email,
 });
 
 export const SignUp = () => {
 	const history = useHistory();
-	useEffect(() => {
+	useLayoutEffect(() => {
 		let html = $("html")[0] as HTMLElement;
 		html.classList.remove("has-navbar-fixed-top");
 		return () => html.classList.add("has-navbar-fixed-top");

@@ -2,7 +2,7 @@ import React, { CSSProperties, useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { Transition } from "react-transition-group";
 
-import { Title, Card, CardContent } from "@faramo.zayw/reabulma";
+import { Title, Card, CardContent, Image } from "@faramo.zayw/reabulma";
 
 import "./index.css";
 import { MapConfig } from "./MapConfig";
@@ -64,12 +64,11 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 					<CardContent>
 						<div className="media">
 							<div className="media-left">
-								<figure className="image is-48x48">
-									<img
-										src="https://bulma.io/images/placeholders/96x96.png"
-										alt="Test image"
-									/>
-								</figure>
+								<Image
+									isSize="48x48"
+									src="https://bulma.io/images/placeholders/96x96.png"
+									alt="Preview"
+								/>
 							</div>
 							<div className="media-content">
 								<Title isSize={4}>

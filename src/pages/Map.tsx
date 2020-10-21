@@ -8,7 +8,6 @@ import {
 	Tabs,
 	Tab,
 	Image,
-	Button,
 } from "@faramo.zayw/reabulma";
 import { useGetMapByIdQuery, Map as MapType } from "../types/graphql";
 import {
@@ -35,6 +34,7 @@ export const Key: React.FC = ({ children }) => (
 // prettier-ignore
 const fakeImage = {
     src: "https://bulma.io/images/placeholders/480x480.png",
+    alt: "Map screenshot"
 }
 // prettier-ignore
 const fakeScreenshots = [{...fakeImage}, {...fakeImage}, {...fakeImage}, {...fakeImage}, {...fakeImage}];
@@ -149,8 +149,8 @@ export const Map = () => {
 							<Tile isChild>
 								<CoolBox title={"screenshot"} className={styles.screenshots}>
 									<section>
-										{screenshots.map(({ src }) => (
-											<Image isSize="128x128" src={src} />
+										{screenshots.map(({ src, alt }) => (
+											<Image isSize="128x128" src={src} alt={alt} />
 										))}
 									</section>
 								</CoolBox>

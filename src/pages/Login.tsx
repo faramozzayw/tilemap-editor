@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useLayoutEffect } from "react";
 import { useFormik } from "formik";
 import classnames from "classnames";
 import { Link, useHistory, Redirect } from "react-router-dom";
@@ -20,21 +20,16 @@ import { addNotification } from "../store/notificationStore";
 import { useAuthState } from "../hooks/auth";
 import { useLoginMutation } from "./../types/graphql";
 import { $ } from "./../utils";
+import { password, username } from "../validation-subsets";
 
 const LoginSchema = Yup.object().shape({
-	username: Yup.string()
-		.min(2, "Too Short!")
-		.max(25, "Too Long!")
-		.required("Required"),
-	password: Yup.string()
-		.min(10, "Too Short!")
-		.max(50, "Too Long!")
-		.required("Required"),
+	username,
+	password,
 });
 
 export const Login = () => {
 	const history = useHistory();
-	useEffect(() => {
+	useLayoutEffect(() => {
 		let html = $("html")[0] as HTMLElement;
 		html.classList.remove("has-navbar-fixed-top");
 		return () => html.classList.add("has-navbar-fixed-top");
