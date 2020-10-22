@@ -1,8 +1,14 @@
 import React from "react";
-import classnames from "classnames";
 import { useParams } from "react-router-dom";
 
-import { ProgressBar, Title, Tile } from "@faramo.zayw/reabulma";
+import {
+	ProgressBar,
+	Tile,
+	Block,
+	Tabs,
+	Tab,
+	Image,
+} from "@faramo.zayw/reabulma";
 import { useGetMapByIdQuery, Map as MapType } from "../types/graphql";
 import {
 	Layout,
@@ -25,6 +31,14 @@ export const Key: React.FC = ({ children }) => (
 	<span className="has-text-primary has-text-weight-bold">{children}</span>
 );
 
+// prettier-ignore
+const fakeImage = {
+    src: "https://bulma.io/images/placeholders/480x480.png",
+    alt: "Map screenshot"
+}
+// prettier-ignore
+const fakeScreenshots = [{...fakeImage}, {...fakeImage}, {...fakeImage}, {...fakeImage}, {...fakeImage}];
+
 export const Map = () => {
 	const { isAuthenticated: isAuth, user } = useAuthState();
 	const { mapID } = useParams<MapParams>();
@@ -36,84 +50,114 @@ export const Map = () => {
 		...mapData?.map,
 	} as MapType;
 
+	const screenshots = fakeScreenshots;
+
 	return (
-		<Layout style={{ alignItems: "flex-start" }}>
+		<Layout
+			style={{
+				flexFlow: "column",
+			}}
+		>
 			{loading && <ProgressBar isColor="info" isSize="small" max="100" />}
 			{mapData && (
-				<Tile tag="section" isAncestor>
-					<Tile isVertical isParent className="is-3">
-						<Tile isChild className="content">
-							<article className={classnames(styles.basic)}>
-								<Title isSize={3}>
-									<MapName name={name} />
-								</Title>
-								<p>
-									<span>author: </span>
+				<>
+					<div className={styles.pageNav}>
+						<nav
+							className="breadcrumb"
+							aria-label="breadcrumbs"
+							style={{ fontSize: "1.2rem" }}
+						>
+							<ul>
+								<li>
 									<UserLink {...author} />
-								</p>
-								<p>
-									<span>co-author: </span>
-									<UserLink {...author} />, <UserLink {...author} />,{" "}
-									<UserLink {...author} />
-								</p>
-							</article>
-							<div className="block">
-								<aside className={styles.config}>
-									<MapConfig {...props} />
-								</aside>
-							</div>
-							<div className="block">
-								<ForkButton
-									isFullWidth
-									isAuth={isAuth}
-									userId={user?.id}
-									ownerId={author.id}
-								/>
-							</div>
-							{/*
-                            <Button isColor="danger" isFullWidth>
-                                <span>
-                                    <i className="far fa-trash-alt"></i> Delete map!
-                                </span>
-                            </Button>
-                            */}
+								</li>
+								<li>
+									<MapName name={name} to={`/maps/${mapData.map.id}`} />
+								</li>
+							</ul>
+						</nav>
+						<Tabs isBoxed isAlign="left" isSize="normal">
+							<ul>
+								<Tab isActive>
+									<a>
+										<span className="icon is-small">
+											<i className="fas fa-info" aria-hidden="true"></i>
+										</span>
+										<span>Info</span>
+									</a>
+								</Tab>
+								<Tab>
+									<a>
+										<span className="icon is-small">
+											<i className="far fa-comments" aria-hidden="true"></i>
+										</span>
+										<span>Discussion</span>
+									</a>
+								</Tab>
+								<Tab>
+									<a>
+										<span className="icon is-small">
+											<i className="fas fa-exclamation" aria-hidden="true"></i>
+										</span>
+										<span>Issues</span>
+									</a>
+								</Tab>
+								<Tab>
+									<a>
+										<span className="icon is-small">
+											<i className="fas fa-cogs" aria-hidden="true"></i>
+										</span>
+										<span>Setting</span>
+									</a>
+								</Tab>
+							</ul>
+						</Tabs>
+					</div>
+					<Tile tag="section" isAncestor style={{ width: "100%" }}>
+						<Tile isParent isVertical className="is-3">
+							<Tile isChild>
+								<Tile isChild className="content">
+									<CoolBox title={"common"} className={styles.common}>
+										<Block className={styles.config}>
+											<MapConfig {...props} />
+										</Block>
+										<Block>
+											<span>co-author: </span>
+											<UserLink {...author} />, <UserLink {...author} />,{" "}
+											<UserLink {...author} />
+										</Block>
+										<Block>
+											<ForkButton
+												isFullWidth
+												isAuth={isAuth}
+												userId={user?.id}
+												ownerId={author.id}
+											/>
+										</Block>
+									</CoolBox>
+								</Tile>
+							</Tile>
 						</Tile>
-					</Tile>
-					<Tile isParent isVertical>
-						{!!description?.trim() && (
-							<Tile isChild className="content">
-								<CoolBox title={"description"} className={styles.description}>
-									<MarkdownRemark markdown={description} />
+						<Tile isParent isVertical>
+							{!!description?.trim() && (
+								<Tile isChild className="content">
+									<CoolBox title={"description"} className={styles.description}>
+										<MarkdownRemark markdown={description} />
+									</CoolBox>
+								</Tile>
+							)}
+							<Tile isChild>
+								<CoolBox title={"screenshot"} className={styles.screenshots}>
+									<section>
+										{screenshots.map(({ src, alt }) => (
+											<Image isSize="128x128" src={src} alt={alt} />
+										))}
+									</section>
 								</CoolBox>
 							</Tile>
-						)}
-						<Tile isChild>
-							<CoolBox title={"screenshot"} className={styles.screenshots}>
-								<div
-									style={{
-										display: "flex",
-										flexWrap: "wrap",
-										alignItems: "center",
-										justifyContent: "space-around",
-									}}
-								>
-									<figure className="image is-128x128">
-										<img src="https://bulma.io/images/placeholders/480x480.png" />
-									</figure>
-									<figure className="image is-128x128">
-										<img src="https://bulma.io/images/placeholders/480x480.png" />
-									</figure>
-									<figure className="image is-128x128">
-										<img src="https://bulma.io/images/placeholders/480x480.png" />
-									</figure>
-									<figure className="image is-128x128">
-										<img src="https://bulma.io/images/placeholders/480x480.png" />
-									</figure>
-								</div>
-							</CoolBox>
 						</Tile>
 					</Tile>
-				</Tile>
+				</>
 			)}
 		</Layout>
 	);

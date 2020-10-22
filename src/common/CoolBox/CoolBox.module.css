@@ -1,10 +1,12 @@
 .coolbox {
 	--color: #151414;
+
 	border: 3px solid var(--color);
 	padding: 1rem;
 	border-radius: 5px;
 	background: rgb(40 40 40 / 0.5);
-	box-shadow: 13px 13px 0px 0px var(--color);
+	box-shadow: calc(13px * var(--x-direction, 1))
+		calc(13px * var(--y-direction, 1)) 0px 0px var(--color);
 
 	--font-family: "Segoi UI", monospace;
 }
@@ -18,7 +20,8 @@
 	color: var(--text-color, inherit);
 
 	text-align: var(--text-align, center);
-	font-family: cursive;
+	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+		"Lucida Sans", Arial, sans-serif;
 	font-weight: var(--font-weight, bold);
 
 	transition: transform 250ms;
@@ -27,4 +30,15 @@
 .coolbox legend:hover {
 	cursor: pointer;
 	transform: scale(1.15);
+}
+
+.coolbox:global(.vertical-text) legend {
+	font-family: "Bungee Shade", cursive;
+	writing-mode: vertical-lr;
+	text-orientation: upright;
+	font-feature-settings: "vkrn", "vpal";
+
+	-webkit-writing-mode: vertical-lr;
+	-ms-writing-mode: tb-lr;
+	-webkit-font-feature-settings: "vkrn", "vpal";
 }
