@@ -49,6 +49,11 @@ export interface AuthContextState {
 	 * @returns void
 	 */
 	sync: () => void;
+
+	isPending: boolean;
+	isError: boolean;
+	isSuccess: boolean;
+	isAuthenticated: boolean;
 }
 
 export const initialState: AuthContextState = {
@@ -60,6 +65,10 @@ export const initialState: AuthContextState = {
 	logout: () => {},
 	updateUser: () => {},
 	sync: () => {},
+	isPending: false,
+	isError: false,
+	isSuccess: false,
+	isAuthenticated: false,
 };
 
 export const AuthContext = createContext<AuthContextState>(initialState);
@@ -138,6 +147,12 @@ export const AuthProvider: React.FC = ({ children }) => {
 		});
 	};
 
+	const isPending = state.status === "pending";
+	const isError = state.status === "error";
+	const isSuccess = state.status === "success";
+
+	const isAuthenticated = (state.user && isSuccess) ?? false;
+
 	return (
 		<AuthContext.Provider
 			value={{
@@ -146,6 +161,10 @@ export const AuthProvider: React.FC = ({ children }) => {
 				logout,
 				updateUser,
 				sync: getMe,
+				isPending,
+				isError,
+				isSuccess,
+				isAuthenticated,
 			}}
 		>
 			{children}
@@ -153,29 +172,4 @@ export const AuthProvider: React.FC = ({ children }) => {
 	);
 };
 
-export interface AuthHookHelpers {
-	isPending: boolean;
-	isError: boolean;
-	isSuccess: boolean;
-	isAuthenticated: boolean;
-}
-
-export type AuthHook = AuthContextState & AuthHookHelpers;
-
-export const useAuthState = (): AuthHook => {
-	const state = useContext(AuthContext);
-
-	const isPending = state.status === "pending";
-	const isError = state.status === "error";
-	const isSuccess = state.status === "success";
-
-	const isAuthenticated = (state.user && isSuccess) ?? false;
-
-	return {
-		...state,
-		isPending,
-		isError,
-		isSuccess,
-		isAuthenticated,
-	};
-};
+export const useAuthState = (): AuthContextState => useContext(AuthContext);
