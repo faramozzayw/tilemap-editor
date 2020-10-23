@@ -15,7 +15,7 @@
 		"noEmit": true,
 		"jsx": "react",
 		"downlevelIteration": true,
-		"types": []
+		"types": ["jest"]
 	},
 	"include": ["src"]
 }

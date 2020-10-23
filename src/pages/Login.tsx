@@ -11,6 +11,7 @@ import {
 	Buttons,
 	Hero,
 	Help,
+	Field,
 } from "@faramo.zayw/reabulma";
 
 import Styles from "./AuthForm.module.css";
@@ -61,6 +62,7 @@ export const Login = () => {
 			password: "",
 		},
 		validateOnChange: true,
+		validateOnMount: true,
 		validationSchema: LoginSchema,
 		onSubmit: (values) => {
 			loginQuery({
@@ -83,7 +85,7 @@ export const Login = () => {
 				<Title className={Styles.AuthFormTitle}>Login</Title>
 				<hr className={Styles.Divider} />
 				<fieldset disabled={loading}>
-					<div className="field">
+					<Field>
 						<Label className={classnames(Styles.Label, Styles.LabelWithHelp)}>
 							Username
 							<Help isColor="warning">{formik.errors.username}</Help>
@@ -95,15 +97,15 @@ export const Login = () => {
 								className={classnames("input", Styles.Input)}
 								min="2"
 								max="25"
-								type="username"
+								type="text"
 								name="username"
 								placeholder="Input username"
 								autoFocus
 								required
 							/>
 						</Control>
-					</div>
-					<div className="field">
+					</Field>
+					<Field>
 						<Label className={classnames(Styles.Label, Styles.LabelWithHelp)}>
 							Password
 							<Help isColor="warning">{formik.errors.password}</Help>
@@ -124,8 +126,8 @@ export const Login = () => {
 							/>
 							{/* <Help isColor="primary">Show password</Help> */}
 						</Control>
-					</div>
-					<div className="field is-grouped">
+					</Field>
+					<Field className="is-grouped">
 						<Control>
 							<Buttons>
 								<Button
@@ -134,14 +136,14 @@ export const Login = () => {
 									isOutlined
 									isLoading={loading}
 								>
-									Login
+									Submit
 								</Button>
 								<Button isColor="warning" type="reset" isOutlined>
 									Reset
 								</Button>
 							</Buttons>
 						</Control>
-					</div>
+					</Field>
 					<GoogleAuth />
 				</fieldset>
 				<br />
