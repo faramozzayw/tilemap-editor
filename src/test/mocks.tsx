@@ -1,22 +1,32 @@
 import { LoginDocument, MeDocument } from "../types/graphql";
 import { GraphQLError } from "graphql";
+import { sign } from "jsonwebtoken";
 
 export const data = {
 	username: "faramo_zayw",
 	password: "k91231293u129",
+	id: "9s3isd9p2ais3401i",
 };
 
-/**
- * @see https://jwt.io/#debugger-io?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlzM2lzZDlwMmFpczM0MDFpIiwidXNlcm5hbWUiOiJmYXJhbW9femF5dyIsImV4cCI6MTUxMjYyMzkwMjIyfQ.3krY_bxzFwlzNalL2GTT53Bjah2VPFptJnvW3sJJ7jA
- */
-export const jwt =
-	"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlzM2lzZDlwMmFpczM0MDFpIiwidXNlcm5hbWUiOiJmYXJhbW9femF5dyIsImV4cCI6MTUxMjYyMzkwMjIyfQ.3krY_bxzFwlzNalL2GTT53Bjah2VPFptJnvW3sJJ7jA";
+export const jwt = sign(
+	{
+		id: data.id,
+		username: data.username,
+	},
+	"secret",
+	{ expiresIn: "5h" },
+);
 
 export const loginMocks = [
 	{
 		request: {
 			query: LoginDocument,
-			variables: { data },
+			variables: {
+				data: {
+					username: data.username,
+					password: data.password,
+				},
+			},
 		},
 		result: {
 			data: {
