@@ -63,6 +63,7 @@ export const SignUp = () => {
 			password: "",
 		},
 		validateOnChange: true,
+		validateOnMount: true,
 		validationSchema: SignupSchema,
 		onSubmit: (values) => {
 			singUpQuery({
