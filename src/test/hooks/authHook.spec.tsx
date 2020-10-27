@@ -100,13 +100,16 @@ describe("Auth hook", () => {
 
 				result.updateUser({
 					...result.user,
-					description: "im amazing!",
+					description: "i'm amazing!",
 					email: "fake@c.h",
 				} as User);
 			}),
 		);
 
-		expect(result.user?.description).toEqual("im amazing!");
+		expect(result.user?.id).toEqual(data.id);
+		expect(result.user?.username).toEqual(data.username);
+
+		expect(result.user?.description).toEqual("i'm amazing!");
 		expect(result.user?.email).toEqual("fake@c.h");
 	});
 });
