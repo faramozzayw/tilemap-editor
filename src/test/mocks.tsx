@@ -6,6 +6,8 @@ export const data = {
 	username: "faramo_zayw",
 	password: "k91231293u129",
 	id: "9s3isd9p2ais3401i",
+	email: "fara@test.mail",
+	description: "some description",
 };
 
 export const jwt = sign(
@@ -54,14 +56,14 @@ export const loginMocks = [
 export const meMocks = {
 	request: {
 		query: MeDocument,
-		variables: {},
 	},
 	result: {
 		data: {
 			me: {
-				id: "90i12a93i129a12kj1a2j",
+				id: data.id,
 				username: "faramo_zayw",
 				email: "fara@test.mail",
+				description: "some description",
 			},
 		},
 	},

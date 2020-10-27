@@ -1,115 +1,99 @@
 import React from "react";
-import { render, act, cleanup, waitFor } from "@testing-library/react";
+import { cleanup } from "@testing-library/react";
+import { renderHook, act } from "@testing-library/react-hooks";
+import { MockedProvider } from "@apollo/client/testing";
 import Cookies from "js-cookie";
 
-import { AllTheProviders, wait as sleep } from "../../testUtils";
-import { loginMocks, meMocks, data, jwt } from "./../mocks";
-import { useAuthState, AuthHook } from "../../hooks/auth";
+import { meMocks, data, jwt } from "./../mocks";
+import { useAuthState, AuthProvider } from "../../hooks/auth";
 import { User } from "../../types/graphql";
 
-let result: AuthHook | null;
+const wrapper: React.FC = ({ children }) => (
+	<MockedProvider mocks={[meMocks]}>
+		<AuthProvider>{children}</AuthProvider>
+	</MockedProvider>
+);
 
-function TestComponent() {
-	result = useAuthState();
-	return null;
-}
+const loginPayload = {
+	accessToken: jwt,
+	refreshToken: "refreshToken",
+};
 
-beforeEach(() => {
-	window.scrollTo = () => {};
-});
+const testHook = () =>
+	renderHook(() => useAuthState(), {
+		wrapper,
+	});
 
 afterEach(() => {
 	cleanup();
-	result = null;
 	Cookies.remove("access_token");
 	localStorage.removeItem("refresh_token");
 });
 
 describe("Auth hook", () => {
 	it("renders correctly", () => {
-		act(() => {
-			render(
-				<AllTheProviders>
-					<TestComponent />
-				</AllTheProviders>,
-			);
-		});
+		const { result } = testHook();
+		expect(result.current.user).toBeNull();
 	});
 
 	it("login without autoSync works correctly", async () => {
-		act(() => {
-			render(
-				<AllTheProviders mocks={[meMocks]}>
-					<TestComponent />
-				</AllTheProviders>,
-			);
-		});
+		const { result } = testHook();
+		expect(result.current.user?.id).toBeUndefined();
 
-		if (!result) throw "Authentication provider failed to render";
-		expect(result.user?.id).toBeUndefined();
+		act(() => result.current.login(loginPayload, false));
 
-		await act(() =>
-			waitFor(() =>
-				result?.login(
-					{
-						accessToken: jwt,
-						refreshToken: "refreshToken",
-					},
-					false,
-				),
-			),
-		);
+		expect(result.current.user?.id).toEqual(data.id);
+		expect(result.current.user?.username).toEqual(data.username);
+	});
 
-		expect(result.user?.id).toEqual(data.id);
-		expect(result.user?.username).toEqual(data.username);
+	it("authorization status flags are working correctly", async () => {
+		const { result } = testHook();
+
+		expect(result.current.isError).toBeTruthy();
+		expect(result.current.isPending).toBeFalsy();
+		expect(result.current.isSuccess).toBeFalsy();
+		expect(result.current.isAuthenticated).toBeFalsy();
+
+		act(() => result.current.login(loginPayload, false));
+
+		expect(result.current.isAuthenticated).toBeTruthy();
+		expect(result.current.isSuccess).toBeTruthy();
+		expect(result.current.isError).toBeFalsy();
+		expect(result.current.isPending).toBeFalsy();
+
+		act(() => result.current.logout());
+
+		expect(result.current.isAuthenticated).toBeFalsy();
+		expect(result.current.isSuccess).toBeFalsy();
+		expect(result.current.isError).toBeFalsy();
+		expect(result.current.isPending).toBeTruthy();
 	});
 
 	it("updateUser works correctly", async () => {
-		act(() => {
-			render(
-				<AllTheProviders mocks={[meMocks]}>
-					<TestComponent />
-				</AllTheProviders>,
-			);
-		});
+		const { result } = testHook();
 
-		if (!result) throw "Authentication provider failed to render";
-		expect(result.user?.id).toBeUndefined();
+		expect(result.current.user?.id).toBeUndefined();
 
-		await act(() =>
-			waitFor(() =>
-				result?.login(
-					{
-						accessToken: jwt,
-						refreshToken: "refreshToken",
-					},
-					false,
-				),
-			),
+		act(() => result.current.login(loginPayload, false));
+
+		expect(result.current.user?.id).toEqual(data.id);
+		expect(result.current.user?.username).toEqual(data.username);
+
+		expect(result.current.user?.email).toBeUndefined();
+		expect(result.current.user?.description).toBeUndefined();
+
+		act(() =>
+			result.current.updateUser({
+				...result.current.user,
+				description: "i'm amazing!",
+				email: "fake@c.h",
+			} as User),
 		);
 
-		expect(result.user?.id).toEqual(data.id);
-		expect(result.user?.username).toEqual(data.username);
+		expect(result.current.user?.id).toEqual(data.id);
+		expect(result.current.user?.username).toEqual(data.username);
 
-		expect(result.user?.email).toBeUndefined();
-		expect(result.user?.description).toBeUndefined();
-
-		await act(() =>
-			waitFor(() => {
-				if (!result) throw "Authentication provider failed to render";
-
-				result.updateUser({
-					...result.user,
-					description: "i'm amazing!",
-					email: "fake@c.h",
-				} as User);
-			}),
-		);
-
-		expect(result.user?.id).toEqual(data.id);
-		expect(result.user?.username).toEqual(data.username);
-
-		expect(result.user?.description).toEqual("i'm amazing!");
-		expect(result.user?.email).toEqual("fake@c.h");
+		expect(result.current.user?.description).toEqual("i'm amazing!");
+		expect(result.current.user?.email).toEqual("fake@c.h");
 	});
 });

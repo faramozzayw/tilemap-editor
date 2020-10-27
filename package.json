@@ -27,7 +27,8 @@
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test --env=jsdom-fourteen",
-		"jest:clear": "jest --clearCache",
+		"test:clear": "jest --clearCache",
+		"test:coverage": "react-scripts test --coverage --watchAll",
 		"eject": "react-scripts eject",
 		"codegen": "graphql-codegen --config codegen.yml",
 		"codegen_watch": "yarn codegen -w"
@@ -56,6 +57,7 @@
 		"@graphql-codegen/typescript-react-apollo": "2.0.6",
 		"@testing-library/jest-dom": "5.11.5",
 		"@testing-library/react": "11.1.0",
+		"@testing-library/react-hooks": "^3.4.2",
 		"@testing-library/user-event": "12.1.10",
 		"@types/classnames": "^2.2.10",
 		"@types/jest": "24.9.0",
@@ -74,6 +76,7 @@
 		"mutation-observer": "^1.0.3",
 		"prettier": "^2.0.5",
 		"pretty-quick": "^2.0.1",
+		"react-test-renderer": "^16.9.0",
 		"ts-jest": "^26.4.1",
 		"typescript": "^3.9.2"
 	},
