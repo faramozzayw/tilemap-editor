@@ -24,29 +24,23 @@ export interface AuthContextState {
 	user: User | null;
 	/**
 	 * Call to log out user
-	 *
-	 * @returns void
 	 */
 	logout: () => void;
 	/**
 	 * Login
 	 *
-	 * @param {JWT} jwt
 	 * @param {boolean} autoSync - if `true` will trigger `sync` after login. Default set to `true`.
 	 */
 	login: (jwt: Jwt, autoSync?: boolean) => void;
 	/**
 	 * Will update the user directly from the argument
 	 *
-	 * @param {User} user - New user data
-	 * @returns void
+	 * @param user - New user data
 	 */
 	updateUser: (user: User & unknown) => void;
 
 	/**
 	 * Synchronizes local user data with actual user data on the server
-	 *
-	 * @returns void
 	 */
 	sync: () => void;
 
