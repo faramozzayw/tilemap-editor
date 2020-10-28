@@ -66,6 +66,17 @@ export const MainNavbar = () => {
 					</NavLink>
 
 					<NavLink
+						to="/posts"
+						className="navbar-item link"
+						exact
+						activeClassName="ActiveLink"
+					>
+						<span>
+							<i className="fas fa-newspaper"></i> Posts
+						</span>
+					</NavLink>
+
+					<NavLink
 						to="/docs"
 						className="navbar-item link"
 						exact

@@ -1,6 +1,5 @@
 .MapPreviewCard {
-	border-radius: 0.75rem;
-	/* border: 3px outset #00947e; */
+	border-radius: 0.25rem;
 }
 
 .MapPreviewCard:hover {

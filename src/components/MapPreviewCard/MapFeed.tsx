@@ -10,6 +10,7 @@ import {
 	Notification,
 	Title,
 } from "@faramo.zayw/reabulma";
+import Masonry from "react-masonry-component";
 
 import MapFeedStyle from "./MapFeed.module.css";
 import { Map } from "../../types/graphql";
@@ -39,17 +40,19 @@ export const MapFeed: React.FC<MapFeed> = ({
 	onLoadMore,
 }) => (
 	<div className={classnames("container", MapFeedStyle.Container)}>
-		<div className="columns is-multiline is-left" style={{ flex: "1" }}>
-			{maps?.map((mapData) => (
-				<div className="column is-4" key={mapData.id}>
-					<MapPreviewCard {...mapData} isAuth={isAuth} />
-				</div>
-			))}
+		<section>
+			<Masonry>
+				{maps?.map((mapData) => (
+					<div className="column is-4" key={mapData.id}>
+						<MapPreviewCard {...mapData} isAuth={isAuth} />
+					</div>
+				))}
+			</Masonry>
 
 			{error && <MapFeedError />}
 
 			{loading && <ProgressBar isColor="primary" isSize="small" max="100" />}
-		</div>
+		</section>
 		{!error && (
 			<div className="container has-text-centered">
 				<Button
