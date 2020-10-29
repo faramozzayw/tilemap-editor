@@ -2,7 +2,6 @@ import React from "react";
 import { QueryResult } from "@apollo/client";
 import classnames from "classnames";
 
-import { IAuth } from "../../types/auth";
 import { MapPreviewCard } from ".";
 import {
 	ProgressBar,
@@ -10,8 +9,9 @@ import {
 	Notification,
 	Title,
 } from "@faramo.zayw/reabulma";
-import Masonry from "react-masonry-component";
+import Masonry from "react-masonry-css";
 
+import { IAuth } from "../../types/auth";
 import MapFeedStyle from "./MapFeed.module.css";
 import { Map } from "../../types/graphql";
 
@@ -32,6 +32,12 @@ const MapFeedError = () => (
 	</Notification>
 );
 
+const breakpointColumnsObj = {
+	default: 3,
+	700: 2,
+	500: 1,
+};
+
 export const MapFeed: React.FC<MapFeed> = ({
 	loading,
 	error,
@@ -41,11 +47,13 @@ export const MapFeed: React.FC<MapFeed> = ({
 }) => (
 	<div className={classnames("container", MapFeedStyle.Container)}>
 		<section>
-			<Masonry>
+			<Masonry
+				breakpointCols={breakpointColumnsObj}
+				className="masonry-grid"
+				columnClassName="masonry-grid_column"
+			>
 				{maps?.map((mapData) => (
-					<div className="column is-4" key={mapData.id}>
-						<MapPreviewCard {...mapData} isAuth={isAuth} />
-					</div>
+					<MapPreviewCard {...mapData} isAuth={isAuth} key={mapData.id} />
 				))}
 			</Masonry>
 
