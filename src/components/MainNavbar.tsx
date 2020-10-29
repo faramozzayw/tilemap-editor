@@ -32,7 +32,7 @@ export const MainNavbar = () => {
 			className="MainNavbar"
 		>
 			<NavbarBrand>
-				<NavbarItem className="is-size-2 has-text-weight-bold is-family-code">
+				<NavbarItem className="is-size-2 has-text-weight-bold">
 					<NavLink to="/" className="has-text-light">
 						TW!+
 					</NavLink>

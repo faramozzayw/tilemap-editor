@@ -1,3 +1,8 @@
+@font-face {
+	font-family: "Skyrim";
+	src: local("Aetherius"), url(./fonts/Aetherius.ttf) format("truetype");
+}
+
 #canvas-wrapper {
 	background-color: hsla(271, 12%, 61%, 0.363);
 	width: 100% !important;

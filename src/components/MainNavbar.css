@@ -3,6 +3,8 @@
 	border-bottom-left-radius: 1rem;
 	border-bottom-right-radius: 1rem;
 	z-index: 9999;
+	font-family: "Skyrim";
+	font-size: 1.25rem;
 }
 
 .MainNavbar .ActiveLink {
