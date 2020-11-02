@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { ProgressBar, Tile } from "@faramo.zayw/reabulma";
 
 import { useAuthState } from "../hooks/auth";
-import { Layout, Box, Title } from "../common";
+import { Layout, Box, Title, CoolBox } from "../common";
 
 import {
 	ProfilePic,
@@ -16,6 +16,7 @@ import {
 	useGetMapsByUserQuery,
 	useGetUserByUsernameQuery,
 } from "../types/graphql";
+import styles from "./Profile.module.css";
 
 const style: React.CSSProperties = { display: "grid" };
 
@@ -47,10 +48,14 @@ export const ProfilePage = () => {
 
 	if (loading) {
 		return (
-			<Layout style={style}>
+			<Layout>
 				<ProgressBar isColor="info" isSize="small" max="100" />
 			</Layout>
 		);
+	}
+
+	if (!user) {
+		return <Layout>Error!</Layout>;
 	}
 
 	return (
@@ -58,60 +63,54 @@ export const ProfilePage = () => {
 			<Tile isAncestor tag="section">
 				<Tile isVertical isParent className="is-3">
 					<Tile isChild className="content">
-						<Box>
+						<CoolBox title="Status" className={styles.status}>
 							<ProfilePic />
-							<Title>Status</Title>
 							<ProfileDescription
 								description={
 									"`code` *italic* **bold** [link](https://localhost:300/)"
 								}
 							/>
-						</Box>
+						</CoolBox>
 					</Tile>
 					<Tile isChild className="content">
-						<Box>
-							<Title>Roles</Title>
+						<CoolBox title="Roles">
 							<div className="tags">
 								<span className="tag is-danger">Admin</span>
 								<span className="tag is-link">Moderator</span>
 								<span className="tag is-light">User</span>
 							</div>
-						</Box>
+						</CoolBox>
 					</Tile>
 				</Tile>
-				<Tile isParent>
+				<Tile isParent isVertical>
 					<Tile isChild className="content">
-						<Box>
-							<Title>Bio</Title>
-							{user && <ProfileInfo user={user} isAuth={isAuth} />}
-						</Box>
+						<CoolBox title="Bio" className={styles.bio}>
+							<ProfileInfo user={user} isAuth={isAuth} />
+						</CoolBox>
 					</Tile>
 				</Tile>
 			</Tile>
-			<section>
-				<Box>
-					<Title>{`__${user?.username}'s maps~`}</Title>
-					<MapFeed
-						loading={loading}
-						error={error}
-						isAuth={isAuth}
-						maps={mapsData?.maps}
-						onLoadMore={() => {
-							fetchMore({
-								variables: {
-									offset: mapsData?.maps.length,
-								},
-								updateQuery: (prev, { fetchMoreResult }) => {
-									if (!fetchMoreResult) return prev;
-									return Object.assign({}, prev, {
-										maps: [...prev.maps, ...fetchMoreResult.maps],
-									});
-								},
-							});
-						}}
-					/>
-				</Box>
-			</section>
+			<CoolBox title={`__${user?.username}'s maps~`} className={styles.maps}>
+				<MapFeed
+					loading={loading}
+					error={error}
+					isAuth={isAuth}
+					maps={mapsData?.maps}
+					onLoadMore={() => {
+						fetchMore({
+							variables: {
+								offset: mapsData?.maps.length,
+							},
+							updateQuery: (prev, { fetchMoreResult }) => {
+								if (!fetchMoreResult) return prev;
+								return Object.assign({}, prev, {
+									maps: [...prev.maps, ...fetchMoreResult.maps],
+								});
+							},
+						});
+					}}
+				/>
+			</CoolBox>
 		</Layout>
 	);
 };

@@ -4,13 +4,13 @@ import classnames from "classnames";
 import styles from "./CoolBox.module.css";
 
 export interface CoolBox extends React.HTMLAttributes<HTMLFieldSetElement> {
-	title: string;
+	title?: string;
 }
 
 export const CoolBox: React.FC<CoolBox> = ({ title, children, ...props }) => {
 	return (
 		<fieldset className={classnames(styles.coolbox, props.className)}>
-			<legend>{title}</legend>
+			{title ? <legend>{title}</legend> : null}
 			{children}
 		</fieldset>
 	);

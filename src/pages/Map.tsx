@@ -52,13 +52,20 @@ export const Map = () => {
 
 	const screenshots = fakeScreenshots;
 
+	if (loading) {
+		return (
+			<Layout>
+				<ProgressBar isColor="info" isSize="small" max="100" />
+			</Layout>
+		);
+	}
+
 	return (
 		<Layout
 			style={{
 				flexFlow: "column",
 			}}
 		>
-			{loading && <ProgressBar isColor="info" isSize="small" max="100" />}
 			{mapData && (
 				<>
 					<div className={styles.pageNav}>
