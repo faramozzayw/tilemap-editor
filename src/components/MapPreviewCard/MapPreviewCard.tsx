@@ -17,6 +17,8 @@ import { PreviewCardFooter } from "./PreviewCardFooter";
 import { UserLink, MapName, Can } from "../../common";
 import { Map } from "../../types/graphql";
 
+import fakeImage from "../../logo512.png";
+
 export interface MapPreviewCardProps extends Map, IAuth {}
 
 const duration = 200;
@@ -70,7 +72,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 						<Image
 							isRounded
 							isSize="128x128"
-							src="https://lh3.googleusercontent.com/proxy/wWaA4wQuzFpjH4iIEqWhXreE9GnwGZJj244vrO_1c-6Sw5G7Dn3WJR1kevtiKk4SsjYkRzyjtvLNroSsu0cf8GQ8bRKHURfYYN2lrJdb7kX7ds_UqJocYwzTpKanc6-YqxojvyksY3XGAEdzNV_rnsui9lZqaw0_KUUvFX1QKsmaefAz4T9kyGditmmhbhfe3SYDVEc"
+							src={fakeImage}
 							alt="Preview"
 							style={{
 								margin: "auto",
