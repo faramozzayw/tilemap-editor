@@ -13,14 +13,18 @@
 }
 
 .AvatarMenu a {
-	font-size: 1rem;
+	text-align: center;
 	font-weight: bolder;
+	padding: 0.5rem 0.25rem;
+	width: 100%;
 }
 
 .AvatarMenu a:hover,
 .AvatarMenu a:focus {
 	color: #3273dc;
 	text-decoration: underline;
+	background: #292828;
+	border-radius: 0.5rem;
 }
 
 .AvatarMenu figure.image {
@@ -35,7 +39,14 @@
 }
 
 .AvatarMenu .navbar-dropdown {
+	padding-bottom: 0;
+	font-family: "Skyrim";
+	font-size: 1.25rem !important;
 	border-top-color: var(--divider-color) !important;
+}
+
+.AvatarMenu .navbar-dropdown .navbar-item {
+	padding: 0;
 }
 
 .AvatarMenu hr {
