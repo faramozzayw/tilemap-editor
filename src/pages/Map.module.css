@@ -35,32 +35,12 @@
 
 /* --------------------------------------------- */
 
-.description {
-	--bg-color: rgb(212, 56, 56);
-	--text-color: rgb(183, 226, 29);
-	--text-align: left;
-	--font-weight: bolder;
-}
-
-.screenshots {
-	--text-align: center;
-	--bg-color: rgb(23, 84, 79);
-	--text-color: rgb(143, 225, 51);
-}
-
 .screenshots section {
+	padding-top: 1rem;
+
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-evenly;
 	gap: 1rem;
-}
-
-.common {
-	--bg-color: rgb(58, 42, 72);
-	--text-color: rgb(47, 204, 204);
-	--text-align: right;
-	--font-weight: bolder;
-	--x-direction: 1.25;
-	--y-direction: -1;
 }

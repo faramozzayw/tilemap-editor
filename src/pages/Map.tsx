@@ -124,7 +124,7 @@ export const Map = () => {
 						<Tile isParent isVertical className="is-3">
 							<Tile isChild>
 								<Tile isChild className="content">
-									<CoolBox title={"common"} className={styles.common}>
+									<CoolBox title="common" className={styles.common}>
 										<Block className={styles.config}>
 											<MapConfig {...props} />
 										</Block>
@@ -145,16 +145,16 @@ export const Map = () => {
 								</Tile>
 							</Tile>
 						</Tile>
-						<Tile isParent isVertical>
+						<Tile isParent isVertical style={{ alignSelf: "baseline" }}>
 							{!!description?.trim() && (
 								<Tile isChild className="content">
-									<CoolBox title={"description"} className={styles.description}>
+									<CoolBox title="description" className={styles.description}>
 										<MarkdownRemark markdown={description} />
 									</CoolBox>
 								</Tile>
 							)}
 							<Tile isChild>
-								<CoolBox title={"screenshot"} className={styles.screenshots}>
+								<CoolBox title="screenshots" className={styles.screenshots}>
 									<section>
 										{screenshots.map(({ src, alt }) => (
 											<Image isSize="128x128" src={src} alt={alt} />

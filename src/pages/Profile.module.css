@@ -1,35 +1,19 @@
 .status {
-	--bg-color: rgb(155, 196, 132);
-	--text-color: rgb(53, 56, 42);
 	--x-direction: -1.25;
 	--y-direction: 1;
 }
 
 .bio {
 	--text-align: left;
-	--bg-color: rgb(206, 230, 195);
-	--text-color: rgb(33, 96, 196);
-	--y-direction: -1;
-}
-
-.maps {
-	--bg-color: rgb(32, 31, 31);
-	--text-color: rgb(196, 139, 33);
-}
-
-.screenshots section {
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
-	justify-content: space-evenly;
-	gap: 1rem;
 }
 
 .common {
-	--bg-color: rgb(58, 42, 72);
-	--text-color: rgb(47, 204, 204);
 	--text-align: right;
 	--font-weight: bolder;
 	--x-direction: 1.25;
 	--y-direction: -1;
+}
+
+.maps {
+	padding-top: 3vmax;
 }

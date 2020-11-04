@@ -16,8 +16,8 @@
 	font-size: 1.75rem;
 	border: 3px solid var(--color);
 	border-radius: var(--border-radius, 15px);
-	background: var(--bg-color, hsl(0deg 0% 30%));
-	color: var(--text-color, inherit);
+	color: var(--text-color, hsl(141, 71%, 48%)); /* has-text-success */
+	background: hsl(0, 0%, 21%);
 
 	text-align: var(--text-align, center);
 	font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",

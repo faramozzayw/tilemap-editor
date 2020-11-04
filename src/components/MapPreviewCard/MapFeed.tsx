@@ -34,8 +34,8 @@ const MapFeedError = () => (
 
 const breakpointColumnsObj = {
 	default: 3,
-	700: 2,
-	500: 1,
+	850: 2,
+	580: 1,
 };
 
 export const MapFeed: React.FC<MapFeed> = ({
