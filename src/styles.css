@@ -3,6 +3,11 @@
 	src: local("Aetherius"), url(./fonts/Aetherius.ttf) format("truetype");
 }
 
+*:focus {
+	outline: 2px solid currentColor;
+	outline-offset: 4px;
+}
+
 #canvas-wrapper {
 	background-color: hsla(271, 12%, 61%, 0.363);
 	width: 100% !important;

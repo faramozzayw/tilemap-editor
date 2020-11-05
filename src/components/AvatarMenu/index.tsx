@@ -1,11 +1,5 @@
 import React from "react";
-import {
-	NavbarItem,
-	NavbarDropdown,
-	NavbarDivider,
-	Image,
-	Button,
-} from "@faramo.zayw/reabulma";
+import { NavbarItem, NavbarDropdown, Image } from "@faramo.zayw/reabulma";
 
 import "./AvatarMenu.css";
 

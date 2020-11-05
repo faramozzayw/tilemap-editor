@@ -1,5 +1,13 @@
 .MapName {
+	--border-width: thin;
 	font-weight: bold;
-	color: #66e499 !important;
-	text-shadow: 2px 2px 1px #3e2e72;
+	color: hsl(144, 70%, 65%) !important;
+	text-shadow: 2px 2px 1px hsl(254, 43%, 31%);
+	text-underline-position: auto;
+	border-bottom: var(--border-width) solid rgb(0 0 0 / 0%);
+}
+
+a.MapName:hover,
+a.MapName:focus {
+	border-bottom: var(--border-width) solid currentColor;
 }

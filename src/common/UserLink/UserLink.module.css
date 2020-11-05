@@ -1,5 +1,12 @@
 .UserLink {
+	--border-width: thin;
 	font-weight: bold;
 	color: #3298dc !important;
 	text-shadow: 2px 2px 1px #242525;
+	border-bottom: var(--border-width) solid rgb(0 0 0 / 0%);
+}
+
+.UserLink:hover,
+.UserLink:focus {
+	border-bottom: var(--border-width) solid currentColor;
 }

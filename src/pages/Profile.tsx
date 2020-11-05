@@ -3,13 +3,9 @@ import { useParams } from "react-router-dom";
 import { ProgressBar, Tile } from "@faramo.zayw/reabulma";
 
 import { useAuthState } from "../hooks/auth";
-import { Layout, Box, Title, CoolBox } from "../common";
+import { Layout, CoolBox, MarkdownRemark } from "../common";
 
-import {
-	ProfilePic,
-	ProfileInfo,
-	ProfileDescription,
-} from "../components/Profile";
+import { ProfilePic, ProfileInfo } from "../components/Profile";
 
 import { MapFeed } from "../components/MapPreviewCard";
 import {
@@ -17,8 +13,6 @@ import {
 	useGetUserByUsernameQuery,
 } from "../types/graphql";
 import styles from "./Profile.module.css";
-
-const style: React.CSSProperties = { display: "grid" };
 
 export interface ProfilePageParams {
 	username: string;
@@ -59,14 +53,18 @@ export const ProfilePage = () => {
 	}
 
 	return (
-		<Layout style={style}>
-			<Tile isAncestor tag="section">
-				<Tile isVertical isParent className="is-3">
-					<Tile isChild className="content">
+		<Layout
+			style={{
+				flexFlow: "column",
+			}}
+		>
+			<Tile tag="section" isAncestor style={{ width: "100%" }}>
+				<Tile isParent isVertical className="is-3">
+					<Tile isChild>
 						<CoolBox title="Status" className={styles.status}>
 							<ProfilePic />
-							<ProfileDescription
-								description={
+							<MarkdownRemark
+								markdown={
 									"`code` *italic* **bold** [link](https://localhost:300/)"
 								}
 							/>

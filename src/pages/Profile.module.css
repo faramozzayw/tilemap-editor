@@ -1,19 +1,4 @@
-.status {
-	--x-direction: -1.25;
-	--y-direction: 1;
-}
-
-.bio {
-	--text-align: left;
-}
-
-.common {
-	--text-align: right;
-	--font-weight: bolder;
-	--x-direction: 1.25;
-	--y-direction: -1;
-}
-
 .maps {
 	padding-top: 3vmax;
+	width: 100%;
 }
