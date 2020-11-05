@@ -11,3 +11,8 @@ a.MapName:hover,
 a.MapName:focus {
 	border-bottom: var(--border-width) solid currentColor;
 }
+
+a.MapName:focus {
+	outline: 2px solid currentColor;
+	outline-offset: 4px;
+}

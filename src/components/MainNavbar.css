@@ -1,16 +1,12 @@
 .MainNavbar {
 	background-color: #2f2f2f !important;
-	border-bottom-left-radius: 1rem;
-	border-bottom-right-radius: 1rem;
 	z-index: 9999;
 	font-family: "Skyrim";
 	font-size: 1.25rem;
 }
 
 .MainNavbar .ActiveLink {
-	background: #444444;
-	color: springgreen !important; /*springgreen, aquamarine*/
-	border-radius: 1rem;
+	color: springgreen !important;
 }
 
 .MainNavbar .link {
@@ -18,10 +14,12 @@
 }
 
 .MainNavbar .link:hover,
-.MainNavbar .link:focus {
+.MainNavbar .ActiveLink {
 	background: #444444;
-	color: #ffe740; /*springgreen, aquamarine*/
-	border-radius: 1rem;
+}
+
+.MainNavbar .link:hover {
+	color: #ffe740;
 }
 
 .MainNavbar .navbar-burger {

@@ -10,3 +10,8 @@
 .UserLink:focus {
 	border-bottom: var(--border-width) solid currentColor;
 }
+
+.UserLink:focus {
+	outline: 2px solid currentColor;
+	outline-offset: 4px;
+}
