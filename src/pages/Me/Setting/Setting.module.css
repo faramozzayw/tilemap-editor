@@ -1,0 +1,23 @@
+.setting {
+	--text-align: left; /* for coolbox */
+	padding-top: 0;
+	align-items: baseline !important;
+}
+
+.setting > * {
+	width: 100%;
+	margin: 2rem auto;
+}
+
+.setting :global(.panel) :global(.panel-block) {
+	color: #dcdbdb;
+	background: hsl(0 0% 21%);
+}
+
+.setting :global(.panel) :global(.panel-block):hover {
+	background: hsl(0 0% 15%);
+}
+
+.setting :global(.panel-block:not(:last-child)) {
+	border-bottom: 1px solid hsl(0deg 0% 15%);
+}

@@ -1,0 +1,59 @@
+.label,
+.title {
+	color: #ffffff;
+}
+
+.labelWithHelp {
+	display: flex;
+	justify-content: space-between;
+}
+
+.input {
+	position: relative;
+	background: hsl(0 0% 0% / 0.15);
+	color: whitesmoke;
+	border: 0;
+	border-bottom: 1px dashed hsl(335deg 44% 54%);
+	border-radius: 0.25rem;
+}
+
+.input:hover {
+	border-bottom-color: hsl(247deg 34% 34%);
+}
+
+.input:invalid {
+	border: 1px solid orangered;
+}
+
+.input:disabled {
+	background: hsl(0 0% 0% / 0.15);
+}
+
+.input::placeholder {
+	color: hsl(0, 14%, 88%);
+}
+
+.input:-webkit-autofill {
+	transition-delay: 3600s;
+}
+
+.passwordToggle {
+	position: absolute;
+	right: 0;
+	top: 0;
+	background: hsl(0deg 0% 16%);
+	height: 100%;
+	display: flex;
+	align-items: center;
+	padding: 0 1.25rem;
+	border: 2px solid hsl(0deg 0% 25%);
+	color: #3298dc;
+	font-size: 1rem;
+	font-weight: bold;
+}
+
+.passwordToggle:hover {
+	cursor: pointer;
+	background: hsl(0 0% 10%) !important;
+	transition: background 100ms;
+}

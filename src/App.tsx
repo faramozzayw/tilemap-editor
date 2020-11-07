@@ -11,10 +11,14 @@ import {
 	SignUp,
 	Login,
 	Posts,
+	Setting,
 } from "./pages";
 import { NotifyLayout } from "./components";
+import { ProtectedRouter } from "./common";
+import { useAuthState } from "./hooks/auth";
 
 const App = () => {
+	const { isAuthenticated } = useAuthState();
 	return (
 		<>
 			<Switch>
@@ -22,6 +26,11 @@ const App = () => {
 
 				<Route exact path="/@:username" component={ProfilePage} />
 				<Route exact path="/maps/:mapID" component={Map} />
+				<ProtectedRouter
+					path="/me/setting"
+					component={Setting}
+					isAuth={isAuthenticated}
+				/>
 				<Route path="/signup" component={SignUp} />
 				<Route path="/login" component={Login} />
 				<Route path="/posts" component={Posts} />
