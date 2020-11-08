@@ -11,6 +11,7 @@ export type Scalars = {
 	Boolean: boolean;
 	Int: number;
 	Float: number;
+	Cursor: any;
 	/** UtcDateTime */
 	UtcDateTime: any;
 	/** Uuid */
@@ -106,15 +107,20 @@ export type Jwt = {
 	refreshToken: Scalars["Uuid"];
 };
 
-export type GoogleInput = {
-	gooogleId: Scalars["String"];
-	email: Scalars["String"];
-	username: Scalars["String"];
-	imageUrl?: Maybe<Scalars["String"]>;
+export type MapPage = {
+	__typename?: "MapPage";
+	edges?: Maybe<Array<MapEdge>>;
+	pageInfo?: Maybe<PageInfo>;
+};
+
+export type UpdateMap = {
+	name?: Maybe<Scalars["String"]>;
+	description?: Maybe<Scalars["String"]>;
 };
 
 export type QueryRoot = {
 	__typename?: "QueryRoot";
+	mapsPagination: MapPage;
 	/** Get a game map by ID */
 	map: Map;
 	maps: Array<Map>;
@@ -123,6 +129,13 @@ export type QueryRoot = {
 	me: User;
 	getUserById: User;
 	getUserByUsername: User;
+};
+
+export type QueryRootMapsPaginationArgs = {
+	filter?: Maybe<MapFilter>;
+	first?: Maybe<Scalars["Int"]>;
+	after?: Maybe<Scalars["Cursor"]>;
+	sort?: Maybe<MapSort>;
 };
 
 export type QueryRootMapArgs = {
@@ -149,9 +162,11 @@ export type NewMapSize = {
 	column: Scalars["Int"];
 };
 
-export type UpdateMap = {
-	name?: Maybe<Scalars["String"]>;
-	description?: Maybe<Scalars["String"]>;
+export type GoogleInput = {
+	gooogleId: Scalars["String"];
+	email: Scalars["String"];
+	username: Scalars["String"];
+	imageUrl?: Maybe<Scalars["String"]>;
 };
 
 export type UpdateTileConfig = {
@@ -208,6 +223,12 @@ export type MapFilter = {
 	description?: Maybe<Scalars["String"]>;
 };
 
+export type MapEdge = {
+	__typename?: "MapEdge";
+	node: Map;
+	cursor: Scalars["Cursor"];
+};
+
 /** Specify the whether the values ​​in the specified column should be sorted in ascending or descending order. */
 export enum SortOrder {
 	Desc = "DESC",
@@ -230,6 +251,12 @@ export type NewMap = {
 	author?: Maybe<Scalars["String"]>;
 	description?: Maybe<Scalars["String"]>;
 	size: NewMapSize;
+};
+
+export type PageInfo = {
+	__typename?: "PageInfo";
+	startCursor?: Maybe<Scalars["Cursor"]>;
+	endCursor?: Maybe<Scalars["Cursor"]>;
 };
 
 export type UpdateUser = {
