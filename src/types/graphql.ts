@@ -162,18 +162,18 @@ export type NewMapSize = {
 	column: Scalars["Int"];
 };
 
-export type GoogleInput = {
-	gooogleId: Scalars["String"];
-	email: Scalars["String"];
-	username: Scalars["String"];
-	imageUrl?: Maybe<Scalars["String"]>;
-};
-
 export type UpdateTileConfig = {
 	baseTerrain?: Maybe<BaseTerrain>;
 	terrainFeatures?: Maybe<Scalars["String"]>;
 	resource?: Maybe<Scalars["String"]>;
 	units?: Maybe<Scalars["String"]>;
+};
+
+export type GoogleInput = {
+	gooogleId: Scalars["String"];
+	email: Scalars["String"];
+	username: Scalars["String"];
+	imageUrl?: Maybe<Scalars["String"]>;
 };
 
 /** not active now */
@@ -255,6 +255,8 @@ export type NewMap = {
 
 export type PageInfo = {
 	__typename?: "PageInfo";
+	hasNextPage: Scalars["Boolean"];
+	hasPreviousPage: Scalars["Boolean"];
 	startCursor?: Maybe<Scalars["Cursor"]>;
 	endCursor?: Maybe<Scalars["Cursor"]>;
 };
@@ -392,6 +394,30 @@ export type GetMapsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetMapsQuery = { __typename?: "QueryRoot" } & {
 	maps: Array<{ __typename?: "Map" } & MapInfoFragment>;
+};
+
+export type MapsPaginationQueryVariables = Exact<{
+	first?: Maybe<Scalars["Int"]>;
+	after?: Maybe<Scalars["Cursor"]>;
+	filter?: Maybe<MapFilter>;
+}>;
+
+export type MapsPaginationQuery = { __typename?: "QueryRoot" } & {
+	mapsPagination: { __typename?: "MapPage" } & {
+		edges?: Maybe<
+			Array<
+				{ __typename?: "MapEdge" } & Pick<MapEdge, "cursor"> & {
+						node: { __typename?: "Map" } & MapInfoFragment;
+					}
+			>
+		>;
+		pageInfo?: Maybe<
+			{ __typename?: "PageInfo" } & Pick<
+				PageInfo,
+				"startCursor" | "endCursor" | "hasNextPage" | "hasPreviousPage"
+			>
+		>;
+	};
 };
 
 export type GetMapsByUserQueryVariables = Exact<{
@@ -1028,6 +1054,76 @@ export type GetMapsLazyQueryHookResult = ReturnType<typeof useGetMapsLazyQuery>;
 export type GetMapsQueryResult = Apollo.QueryResult<
 	GetMapsQuery,
 	GetMapsQueryVariables
+>;
+export const MapsPaginationDocument = gql`
+	query mapsPagination($first: Int, $after: Cursor, $filter: MapFilter) {
+		mapsPagination(first: $first, after: $after, filter: $filter) {
+			edges {
+				node {
+					...MapInfo
+				}
+				cursor
+			}
+			pageInfo {
+				startCursor
+				endCursor
+				hasNextPage
+				hasPreviousPage
+			}
+		}
+	}
+	${MapInfoFragmentDoc}
+`;
+
+/**
+ * __useMapsPaginationQuery__
+ *
+ * To run a query within a React component, call `useMapsPaginationQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMapsPaginationQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMapsPaginationQuery({
+ *   variables: {
+ *      first: // value for 'first'
+ *      after: // value for 'after'
+ *      filter: // value for 'filter'
+ *   },
+ * });
+ */
+export function useMapsPaginationQuery(
+	baseOptions?: Apollo.QueryHookOptions<
+		MapsPaginationQuery,
+		MapsPaginationQueryVariables
+	>,
+) {
+	return Apollo.useQuery<MapsPaginationQuery, MapsPaginationQueryVariables>(
+		MapsPaginationDocument,
+		baseOptions,
+	);
+}
+export function useMapsPaginationLazyQuery(
+	baseOptions?: Apollo.LazyQueryHookOptions<
+		MapsPaginationQuery,
+		MapsPaginationQueryVariables
+	>,
+) {
+	return Apollo.useLazyQuery<MapsPaginationQuery, MapsPaginationQueryVariables>(
+		MapsPaginationDocument,
+		baseOptions,
+	);
+}
+export type MapsPaginationQueryHookResult = ReturnType<
+	typeof useMapsPaginationQuery
+>;
+export type MapsPaginationLazyQueryHookResult = ReturnType<
+	typeof useMapsPaginationLazyQuery
+>;
+export type MapsPaginationQueryResult = Apollo.QueryResult<
+	MapsPaginationQuery,
+	MapsPaginationQueryVariables
 >;
 export const GetMapsByUserDocument = gql`
 	query GetMapsByUser($username: String!, $limit: Int, $offset: Int) {

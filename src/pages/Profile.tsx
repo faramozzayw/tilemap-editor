@@ -11,6 +11,7 @@ import { MapFeed } from "../components/MapPreviewCard";
 import {
 	useGetMapsByUserQuery,
 	useGetUserByUsernameQuery,
+	useMapsPaginationQuery,
 } from "../types/graphql";
 import styles from "./Profile.module.css";
 
@@ -22,34 +23,45 @@ export const ProfilePage = () => {
 	const { username } = useParams<ProfilePageParams>();
 	const { isAuthenticated: isAuth } = useAuthState();
 
-	const { data: userData } = useGetUserByUsernameQuery({
+	const { error: errorUser, data: userData } = useGetUserByUsernameQuery({
 		variables: { username },
 		onError: console.error,
 		fetchPolicy: "cache-and-network",
 	});
 
-	const { loading, error, data: mapsData, fetchMore } = useGetMapsByUserQuery({
+	const {
+		loading: loadingMaps,
+		error: errorMaps,
+		data,
+		fetchMore,
+	} = useMapsPaginationQuery({
 		variables: {
-			username,
-			offset: 0,
-			limit: 5,
+			filter: {
+				author: username,
+			},
+			first: 5,
 		},
 		onError: console.error,
 		fetchPolicy: "cache-and-network",
 	});
 
+	const nodes = data?.mapsPagination?.edges?.map((edge) => edge.node);
 	const user = userData?.getUserByUsername;
 
-	if (loading) {
+	if (errorUser) {
 		return (
 			<Layout>
-				<ProgressBar isColor="info" isSize="small" max="100" />
+				<div>Error!</div>
 			</Layout>
 		);
 	}
 
 	if (!user) {
-		return <Layout>Error!</Layout>;
+		return (
+			<Layout>
+				<ProgressBar isColor="info" isSize="small" max="100" />
+			</Layout>
+		);
 	}
 
 	return (
@@ -90,20 +102,14 @@ export const ProfilePage = () => {
 			</Tile>
 			<CoolBox title={`__${user?.username}'s maps~`} className={styles.maps}>
 				<MapFeed
-					loading={loading}
-					error={error}
+					loading={loadingMaps}
+					error={errorMaps}
 					isAuth={isAuth}
-					maps={mapsData?.maps}
+					maps={nodes}
 					onLoadMore={() => {
 						fetchMore({
 							variables: {
-								offset: mapsData?.maps.length,
-							},
-							updateQuery: (prev, { fetchMoreResult }) => {
-								if (!fetchMoreResult) return prev;
-								return Object.assign({}, prev, {
-									maps: [...prev.maps, ...fetchMoreResult.maps],
-								});
+								after: data?.mapsPagination.pageInfo?.endCursor,
 							},
 						});
 					}}

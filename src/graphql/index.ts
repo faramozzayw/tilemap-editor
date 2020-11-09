@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 
 import { getAccessToken, refreshToken, getRefreshToken } from "../hooks/utils";
 import { Claims } from "../types";
+import { relayStylePagination } from "@apollo/client/utilities";
 
 const authLink = setContext(async (_, { headers }) => {
 	let token = getAccessToken();
@@ -47,5 +48,13 @@ const httpLink = createHttpLink({
 
 export const client = new ApolloClient({
 	link: ApolloLink.from([authLink, httpLink]),
-	cache: new InMemoryCache(),
+	cache: new InMemoryCache({
+		typePolicies: {
+			Query: {
+				fields: {
+					mapsPagination: relayStylePagination(),
+				},
+			},
+		},
+	}),
 });

@@ -17,6 +17,23 @@ query GetMaps {
 	}
 }
 
+query mapsPagination($first: Int, $after: Cursor, $filter: MapFilter) {
+	mapsPagination(first: $first, after: $after, filter: $filter) {
+		edges {
+			node {
+				...MapInfo
+			}
+			cursor
+		}
+		pageInfo {
+			startCursor
+			endCursor
+			hasNextPage
+			hasPreviousPage
+		}
+	}
+}
+
 query GetMapsByUser($username: String!, $limit: Int, $offset: Int) {
 	maps(filter: { author: $username }, limit: $limit, skip: $offset) {
 		...MapInfo

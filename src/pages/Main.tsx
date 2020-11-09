@@ -3,20 +3,20 @@ import React from "react";
 import { useAuthState } from "../hooks/auth";
 import { MapFeed } from "../components/MapPreviewCard";
 import { Layout } from "../common";
-import { useGetMapsPaginationQuery } from "../types/graphql";
-
-const limit = 10;
+import { useMapsPaginationQuery } from "../types/graphql";
 
 export const Main = () => {
 	const { isAuthenticated: isAuth } = useAuthState();
 
-	const { loading, error, data, fetchMore } = useGetMapsPaginationQuery({
+	const { loading, error, data, fetchMore } = useMapsPaginationQuery({
 		variables: {
-			offset: 0,
-			limit,
+			first: 5,
 		},
 		fetchPolicy: "cache-and-network",
+		onError: console.error,
 	});
+
+	const nodes = data?.mapsPagination?.edges?.map((edge) => edge.node);
 
 	return (
 		<Layout style={{ flexFlow: "column" }}>
@@ -24,17 +24,11 @@ export const Main = () => {
 				loading={loading}
 				error={error}
 				isAuth={isAuth}
-				maps={data?.maps}
+				maps={nodes}
 				onLoadMore={() => {
 					fetchMore({
 						variables: {
-							offset: data?.maps.length,
-						},
-						updateQuery: (prev, { fetchMoreResult }) => {
-							if (!fetchMoreResult) return prev;
-							return Object.assign({}, prev, {
-								maps: [...prev.maps, ...fetchMoreResult.maps],
-							});
+							after: data?.mapsPagination.pageInfo?.endCursor,
 						},
 					});
 				}}
