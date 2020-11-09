@@ -19,13 +19,17 @@ mutation UpdateTile(
 	updateTile(mapId: $mapID, tileId: $tileID, updateValue: $updateValue)
 }
 
-mutation UpdateUser($updateValue: UpdateUser!) {
-	updateUserInfo(updateValue: $updateValue) {
+mutation UpdateUser($data: UpdateUser!) {
+	updateUserInfo(updateValue: $data) {
 		id
 		username
 		description
 		email
 	}
+}
+
+mutation DeleteUser($id: Uuid!) {
+	deleteUser(id: $id)
 }
 
 mutation SignUp($data: CreateUser!) {

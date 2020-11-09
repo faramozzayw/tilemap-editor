@@ -59,6 +59,7 @@ export type MutationRoot = {
 	login: Jwt;
 	loginByGoolge: Jwt;
 	refreshAccessToken: Jwt;
+	deleteUser: Scalars["String"];
 };
 
 export type MutationRootCreateMapArgs = {
@@ -98,6 +99,10 @@ export type MutationRootLoginByGoolgeArgs = {
 
 export type MutationRootRefreshAccessTokenArgs = {
 	refreshToken: Scalars["Uuid"];
+};
+
+export type MutationRootDeleteUserArgs = {
+	id: Scalars["Uuid"];
 };
 
 /** JSON Web Token */
@@ -325,7 +330,7 @@ export type UpdateTileMutation = { __typename?: "MutationRoot" } & Pick<
 >;
 
 export type UpdateUserMutationVariables = Exact<{
-	updateValue: UpdateUser;
+	data: UpdateUser;
 }>;
 
 export type UpdateUserMutation = { __typename?: "MutationRoot" } & {
@@ -334,6 +339,15 @@ export type UpdateUserMutation = { __typename?: "MutationRoot" } & {
 		"id" | "username" | "description" | "email"
 	>;
 };
+
+export type DeleteUserMutationVariables = Exact<{
+	id: Scalars["Uuid"];
+}>;
+
+export type DeleteUserMutation = { __typename?: "MutationRoot" } & Pick<
+	MutationRoot,
+	"deleteUser"
+>;
 
 export type SignUpMutationVariables = Exact<{
 	data: CreateUser;
@@ -643,8 +657,8 @@ export type UpdateTileMutationOptions = Apollo.BaseMutationOptions<
 	UpdateTileMutationVariables
 >;
 export const UpdateUserDocument = gql`
-	mutation UpdateUser($updateValue: UpdateUser!) {
-		updateUserInfo(updateValue: $updateValue) {
+	mutation UpdateUser($data: UpdateUser!) {
+		updateUserInfo(updateValue: $data) {
 			id
 			username
 			description
@@ -670,7 +684,7 @@ export type UpdateUserMutationFn = Apollo.MutationFunction<
  * @example
  * const [updateUserMutation, { data, loading, error }] = useUpdateUserMutation({
  *   variables: {
- *      updateValue: // value for 'updateValue'
+ *      data: // value for 'data'
  *   },
  * });
  */
@@ -694,6 +708,54 @@ export type UpdateUserMutationResult = Apollo.MutationResult<
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<
 	UpdateUserMutation,
 	UpdateUserMutationVariables
+>;
+export const DeleteUserDocument = gql`
+	mutation DeleteUser($id: Uuid!) {
+		deleteUser(id: $id)
+	}
+`;
+export type DeleteUserMutationFn = Apollo.MutationFunction<
+	DeleteUserMutation,
+	DeleteUserMutationVariables
+>;
+
+/**
+ * __useDeleteUserMutation__
+ *
+ * To run a mutation, you first call `useDeleteUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteUserMutation, { data, loading, error }] = useDeleteUserMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteUserMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		DeleteUserMutation,
+		DeleteUserMutationVariables
+	>,
+) {
+	return Apollo.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(
+		DeleteUserDocument,
+		baseOptions,
+	);
+}
+export type DeleteUserMutationHookResult = ReturnType<
+	typeof useDeleteUserMutation
+>;
+export type DeleteUserMutationResult = Apollo.MutationResult<
+	DeleteUserMutation
+>;
+export type DeleteUserMutationOptions = Apollo.BaseMutationOptions<
+	DeleteUserMutation,
+	DeleteUserMutationVariables
 >;
 export const SignUpDocument = gql`
 	mutation SignUp($data: CreateUser!) {

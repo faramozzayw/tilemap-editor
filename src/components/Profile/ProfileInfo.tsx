@@ -58,7 +58,7 @@ export const ProfileInfo: React.FC<ProfileInfo> = ({ user }) => {
 
 		updateUserInfo({
 			variables: {
-				updateValue: { username, email },
+				data: { username, email },
 			},
 		});
 	};
