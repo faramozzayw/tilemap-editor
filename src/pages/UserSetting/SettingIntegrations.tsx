@@ -1,8 +1,9 @@
 import React from "react";
-import { CoolBox } from "../../../common";
 import GoogleLogin from "react-google-login";
-import { googleClientID } from "../../../components/AuthForms/consts";
-import { useAuthState } from "../../../hooks/auth";
+
+import { CoolBox } from "../../common";
+import { googleClientID } from "../../components/AuthForms/consts";
+import { useAuthState } from "../../hooks/auth";
 
 export const SettingIntegrations = () => {
 	const { user } = useAuthState();

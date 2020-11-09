@@ -1,10 +1,12 @@
 import React from "react";
-import { Layout } from "../../../common";
+import { Route } from "react-router-dom";
+
+import { Layout } from "../../common";
+
+import { SettingPanel } from "./SettingPanel";
+import { SettingIntegrations, SettingPrivacy, SettingInfo } from "./index";
 
 import styles from "./Setting.module.css";
-import { SettingPanel } from "./SettingPanel";
-import { Route } from "react-router-dom";
-import { SettingIntegrations, SettingPrivacy, SettingInfo } from "./index";
 
 export const SettingRoutes = () => (
 	<>

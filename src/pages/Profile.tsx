@@ -74,12 +74,8 @@ export const ProfilePage = () => {
 				<Tile isParent isVertical className="is-3">
 					<Tile isChild>
 						<CoolBox title="Status" className={styles.status}>
-							<ProfilePic />
-							<MarkdownRemark
-								markdown={
-									"`code` *italic* **bold** [link](https://localhost:300/)"
-								}
-							/>
+							<ProfilePic image={user?.imageUrl ?? undefined} />
+							<MarkdownRemark markdown={user.description} />
 						</CoolBox>
 					</Tile>
 					<Tile isChild className="content">
