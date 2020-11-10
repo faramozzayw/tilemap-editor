@@ -60,6 +60,7 @@ export type MutationRoot = {
 	loginByGoolge: Jwt;
 	refreshAccessToken: Jwt;
 	deleteUser: Scalars["String"];
+	changePassword: Scalars["String"];
 };
 
 export type MutationRootCreateMapArgs = {
@@ -103,6 +104,12 @@ export type MutationRootRefreshAccessTokenArgs = {
 
 export type MutationRootDeleteUserArgs = {
 	id: Scalars["Uuid"];
+};
+
+export type MutationRootChangePasswordArgs = {
+	id?: Maybe<Scalars["Uuid"]>;
+	newPassword: Scalars["String"];
+	confirm: Scalars["String"];
 };
 
 /** JSON Web Token */
@@ -386,6 +393,17 @@ export type LoginByGoolgeMutation = { __typename?: "MutationRoot" } & {
 		"accessToken" | "refreshToken"
 	>;
 };
+
+export type ChangePasswordMutationVariables = Exact<{
+	id?: Maybe<Scalars["Uuid"]>;
+	newPassword: Scalars["String"];
+	confirm: Scalars["String"];
+}>;
+
+export type ChangePasswordMutation = { __typename?: "MutationRoot" } & Pick<
+	MutationRoot,
+	"changePassword"
+>;
 
 export type GetMapByIdQueryVariables = Exact<{
 	mapID: Scalars["ID"];
@@ -953,6 +971,56 @@ export type LoginByGoolgeMutationResult = Apollo.MutationResult<
 export type LoginByGoolgeMutationOptions = Apollo.BaseMutationOptions<
 	LoginByGoolgeMutation,
 	LoginByGoolgeMutationVariables
+>;
+export const ChangePasswordDocument = gql`
+	mutation ChangePassword($id: Uuid, $newPassword: String!, $confirm: String!) {
+		changePassword(id: $id, newPassword: $newPassword, confirm: $confirm)
+	}
+`;
+export type ChangePasswordMutationFn = Apollo.MutationFunction<
+	ChangePasswordMutation,
+	ChangePasswordMutationVariables
+>;
+
+/**
+ * __useChangePasswordMutation__
+ *
+ * To run a mutation, you first call `useChangePasswordMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangePasswordMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changePasswordMutation, { data, loading, error }] = useChangePasswordMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      newPassword: // value for 'newPassword'
+ *      confirm: // value for 'confirm'
+ *   },
+ * });
+ */
+export function useChangePasswordMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		ChangePasswordMutation,
+		ChangePasswordMutationVariables
+	>,
+) {
+	return Apollo.useMutation<
+		ChangePasswordMutation,
+		ChangePasswordMutationVariables
+	>(ChangePasswordDocument, baseOptions);
+}
+export type ChangePasswordMutationHookResult = ReturnType<
+	typeof useChangePasswordMutation
+>;
+export type ChangePasswordMutationResult = Apollo.MutationResult<
+	ChangePasswordMutation
+>;
+export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
+	ChangePasswordMutation,
+	ChangePasswordMutationVariables
 >;
 export const GetMapByIdDocument = gql`
 	query GetMapById($mapID: ID!) {

@@ -59,3 +59,7 @@ mutation LoginByGoolge($loginData: GoogleInput!) {
 		refreshToken
 	}
 }
+
+mutation ChangePassword($id: Uuid, $newPassword: String!, $confirm: String!) {
+	changePassword(id: $id, newPassword: $newPassword, confirm: $confirm)
+}
