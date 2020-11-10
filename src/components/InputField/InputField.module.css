@@ -9,20 +9,24 @@
 }
 
 .input {
+	--regular-border-color: hsl(335deg 44% 54%);
+	--invalied-border-color: orangered;
+	--hover-border-color: hsl(247deg 34% 34%);
+
 	position: relative;
-	background: hsl(0 0% 0% / 0.15);
+	background: hsl(0deg 0% 16%);
 	color: whitesmoke;
 	border: 0;
-	border-bottom: 1px dashed hsl(335deg 44% 54%);
+	border-bottom: 1px dashed var(--regular-border-color);
 	border-radius: 0.25rem;
 }
 
 .input:hover {
-	border-bottom-color: hsl(247deg 34% 34%);
+	border-bottom-color: var(--hover-border-color);
 }
 
 .input:invalid {
-	border: 1px solid orangered;
+	border: 1px solid var(--invalied-border-color);
 }
 
 .input:disabled {
@@ -30,7 +34,7 @@
 }
 
 .input::placeholder {
-	color: hsl(0, 14%, 88%);
+	color: gainsboro;
 }
 
 .input:-webkit-autofill {

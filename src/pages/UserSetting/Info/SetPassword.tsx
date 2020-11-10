@@ -1,11 +1,17 @@
 import React from "react";
 import { Button } from "@faramo.zayw/reabulma";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 import { CoolBox } from "../../../common";
 import { PasswordInput } from "../../../components/InputField";
 import { useChangePasswordMutation } from "../../../types/graphql";
 import { addNotification } from "../../../store/notificationStore";
+import { password } from "../../../validation-subsets";
+
+const Schema = Yup.object().shape({
+	password,
+});
 
 export const SetPassword = () => {
 	const [changePassword, { loading }] = useChangePasswordMutation({
@@ -32,6 +38,9 @@ export const SetPassword = () => {
 				};
 			}
 		},
+		validateOnMount: true,
+		validateOnChange: true,
+		validationSchema: Schema,
 		onSubmit: (values) =>
 			changePassword({
 				variables: {
@@ -48,8 +57,9 @@ export const SetPassword = () => {
 					<PasswordInput
 						value={formik.values.password}
 						onChange={formik.handleChange}
-						min="2"
-						max="25"
+						hepler={formik.errors.password}
+						min="10"
+						max="50"
 						name="password"
 						autoComplete="new-password"
 						placeholder="new password"
@@ -59,8 +69,8 @@ export const SetPassword = () => {
 						value={formik.values.confirm}
 						hepler={formik.errors.confirm}
 						onChange={formik.handleChange}
-						min="2"
-						max="25"
+						min="10"
+						max="50"
 						autoComplete="new-password"
 						name="confirm"
 						placeholder="confirm new password"
