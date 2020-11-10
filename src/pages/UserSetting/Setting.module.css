@@ -1,4 +1,5 @@
 .setting {
+	--navbar-height: 76px;
 	--text-align: left; /* for coolbox */
 	padding-top: 0;
 	align-items: baseline !important;
@@ -7,6 +8,12 @@
 .setting > * {
 	width: 100%;
 	margin: 2rem auto;
+}
+
+.setting :global(.panel) {
+	height: max-content;
+	position: sticky;
+	top: calc(var(--navbar-height) + 1rem);
 }
 
 .setting :global(.panel) :global(.panel-block) {
