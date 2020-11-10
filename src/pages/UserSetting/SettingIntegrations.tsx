@@ -18,8 +18,8 @@ export const SettingIntegrations = () => {
 							user?.googleId ? "Sync with google" : "Connect to google"
 						}
 						// @ts-ignore
-						onSuccess={() => {}}
-						onFailure={() => {}}
+						onSuccess={() => alert("Success")}
+						onFailure={() => alert("Failure")}
 						theme="dark"
 						accessType="offline"
 					/>

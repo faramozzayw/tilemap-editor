@@ -299,7 +299,7 @@ export type MapTilesFragment = { __typename?: "Map" } & {
 
 export type UserInfoFragment = { __typename?: "User" } & Pick<
 	User,
-	"id" | "username" | "email" | "description" | "imageUrl"
+	"id" | "username" | "email" | "description" | "imageUrl" | "googleId"
 >;
 
 export type CreateMapMutationVariables = Exact<{
@@ -501,6 +501,7 @@ export const UserInfoFragmentDoc = gql`
 		email
 		description
 		imageUrl
+		googleId
 	}
 `;
 export const CreateMapDocument = gql`

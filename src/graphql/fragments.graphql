@@ -30,4 +30,5 @@ fragment UserInfo on User {
 	email
 	description
 	imageUrl
+	googleId
 }
