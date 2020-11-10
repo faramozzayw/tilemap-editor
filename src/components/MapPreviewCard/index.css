@@ -6,6 +6,10 @@
 	box-shadow: 3px 4px 6px 1px #272727;
 }
 
+.MapPreviewCard .media-content {
+	overflow: unset;
+}
+
 .MapPreviewCard a,
 .MapPreviewCard button {
 	color: #fff;

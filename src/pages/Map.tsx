@@ -85,7 +85,7 @@ export const Map = () => {
 						</li>
 					</ul>
 				</nav>
-				<Tabs isBoxed isAlign="left" isSize="normal">
+				<Tabs isBoxed isAlign="left" isSize="normal" className="scrollbar">
 					<ul>
 						<Tab isActive>
 							<a>
