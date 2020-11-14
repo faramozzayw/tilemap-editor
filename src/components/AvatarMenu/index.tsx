@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { NavbarItem, NavbarDropdown, Image } from "@faramo.zayw/reabulma";
 
 import "./AvatarMenu.css";
@@ -6,7 +7,6 @@ import "./AvatarMenu.css";
 import { LogOut } from "./../AuthForms";
 import { UserLink } from "../../common";
 import { User } from "../../types/graphql";
-import { Link } from "react-router-dom";
 
 export interface AvatarMenuProps extends Pick<User, "imageUrl" | "username"> {}
 
@@ -20,7 +20,7 @@ const AvatarMenu: React.FC<AvatarMenuProps> = ({ username, imageUrl }) => (
 					<i className="far fa-user fa-lg"></i>
 				</figure>
 			)}
-			<span className="username">{username}</span>
+			<UserLink username={username}>{username}</UserLink>
 		</NavbarItem>
 		<NavbarDropdown className="is-right has-background-dark">
 			<NavbarItem>
