@@ -3,8 +3,9 @@ import classnames from "classnames";
 
 import styles from "./CoolBox.module.css";
 
-export interface CoolBox extends React.HTMLAttributes<HTMLFieldSetElement> {
-	title?: string;
+export interface CoolBox
+	extends Omit<React.HTMLAttributes<HTMLFieldSetElement>, "title"> {
+	title?: string | JSX.Element;
 }
 
 export const CoolBox: React.FC<CoolBox> = ({ title, children, ...props }) => {

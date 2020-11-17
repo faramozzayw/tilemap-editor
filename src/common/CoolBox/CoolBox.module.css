@@ -9,6 +9,8 @@
 		calc(13px * var(--y-direction, 1)) 0px 0px var(--color);
 
 	--font-family: "Segoi UI", monospace;
+
+	transition: box-shadow 250ms;
 }
 
 .coolbox legend {

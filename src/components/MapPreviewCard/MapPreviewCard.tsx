@@ -1,5 +1,5 @@
 import React, { CSSProperties, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { Transition } from "react-transition-group";
 
 import { Title, Card, CardContent, Image } from "@faramo.zayw/reabulma";
@@ -7,11 +7,12 @@ import { Title, Card, CardContent, Image } from "@faramo.zayw/reabulma";
 import "./index.css";
 import { MapConfig } from "./MapConfig";
 import { IAuth } from "../../types/auth";
-import { PreviewCardFooter } from "./PreviewCardFooter";
-import { UserLink, MapName, Can } from "../../common";
+import { UserLink, MapName, Can, CoolBox, MarkdownRemark } from "../../common";
 import { Map } from "../../types/graphql";
 
-import fakeImage from "../../logo512.png";
+import { Key } from "./MapConfig";
+
+import fakeImage from "./fake.jpg";
 
 export interface MapPreviewCardProps extends Map, IAuth {}
 
@@ -29,11 +30,21 @@ const transitionStyles: any = {
 	exited: { opacity: 0 },
 };
 
+/*
+<Can role={isAuth ? "user" : ""} perform="like:map"></Can>
+*/
+
+/*
+title={<MapName name={name} to={`/maps/${id}`} />}
+*/
+
 export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	author,
 	name,
 	id,
 	isAuth,
+	description,
+	size,
 	...props
 }) => {
 	const history = useHistory();
@@ -48,10 +59,6 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 		return null;
 	}
 
-	const editHandler = () => history.push(`/editor/${id}`);
-	const forkHandler = () => alert("forked!");
-	const viewHandler = () => history.push(`/maps/${id}`);
-
 	return (
 		<Transition in={inProp} timeout={duration}>
 			{(state) => (
@@ -62,55 +69,50 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 						...transitionStyles[state],
 					}}
 				>
-					<div className="image-wrapper">
-						<Image
-							isRounded
-							isSize="128x128"
-							src={fakeImage}
-							alt="Preview"
-							style={{
-								margin: "auto",
-							}}
-						/>
-					</div>
-					<Card>
-						<CardContent className="has-background-grey-dark has-text-primary-light">
-							<div className="media">
-								<div className="media-content">
-									<Title isSize={4}>
-										<MapName name={name} to={`/maps/${id}`} />
-									</Title>
-									<Title tag="p" isSubtitle isSize={6}>
-										<UserLink username={author.username} />
-									</Title>
-								</div>
-								<Can role={isAuth ? "user" : ""} perform="like:map">
-									<div className="media-right">
-										<button
-											className="like-button"
-											onClick={() => setLiked((prev) => !prev)}
-										>
-											{liked ? (
-												<i className="fas fa-heart has-text-danger"></i>
-											) : (
-												<i className="fas fa-heart-broken has-text-grey-light"></i>
-											)}
-										</button>
-									</div>
-								</Can>
+					<CoolBox>
+						<Link to={`/maps/${id}`}>
+							<Image src={fakeImage} />
+						</Link>
+						<div className="mapContent">
+							<div className="summary">
+								<p>
+									<Key>Map size:</Key> {size.row} x {size.column}
+								</p>
+								<p>
+									<Key>Create:</Key>{" "}
+									<time dateTime="2016-1-1">
+										{new Date(props.createdAt).toLocaleDateString()}
+									</time>
+								</p>
+								<p>
+									<Key>Last edit:</Key>{" "}
+									<time dateTime="2016-1-1">
+										{props.updatedAt
+											? new Date(props.updatedAt).toLocaleDateString()
+											: "not edited yet"}
+									</time>
+								</p>
+								<p>
+									<Key>Auhtor:</Key> <UserLink username={author.username} />
+								</p>
 							</div>
-
-							<MapConfig {...props} />
-						</CardContent>
-						<PreviewCardFooter
-							id={id}
-							author={author}
-							isAuth={isAuth}
-							viewHandler={viewHandler}
-							editHandler={editHandler}
-							forkHandler={forkHandler}
-						/>
-					</Card>
+							<MarkdownRemark markdown={description} />
+						</div>
+						<div className="activitySummary">
+							<span className="icon">
+								<i className="fas fa-database"></i>
+								<span>142mb</span>
+							</span>
+							<span className="icon">
+								<i className="fas fa-heart"></i>
+								<span>150k</span>
+							</span>
+							<span className="icon">
+								<i className="fas fa-download"></i>
+								<span>150k</span>
+							</span>
+						</div>
+					</CoolBox>
 				</article>
 			)}
 		</Transition>

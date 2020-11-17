@@ -1,72 +1,49 @@
-.MapPreviewCard .card {
-	border-radius: 0;
+.MapPreviewCard {
+	--x-direction: 0;
+	--y-direction: 0;
+
+	transition: all 3s ease-out;
 }
 
 .MapPreviewCard:hover {
-	box-shadow: 3px 4px 6px 1px #272727;
+	--x-direction: unset;
+	--y-direction: unset;
 }
 
-.MapPreviewCard .media-content {
-	overflow: unset;
+.MapPreviewCard .image {
+	border-bottom: 3px solid #151414;
+}
+
+.MapPreviewCard fieldset {
+	padding: 0;
+}
+
+.MapPreviewCard .mapContent {
+	padding: 1rem;
+}
+
+.MapPreviewCard .summary p {
+	margin: 0;
+}
+
+.MapPreviewCard .activitySummary {
+	width: 100% !important;
+	background: #262626;
+	display: inline-grid;
+	grid-auto-flow: column;
+	padding: 0.5rem 1rem;
+}
+
+.MapPreviewCard .activitySummary .icon {
+	width: 100%;
+	display: grid;
+	grid-auto-flow: column;
+	column-gap: 0.3rem;
 }
 
 .MapPreviewCard a,
 .MapPreviewCard button {
 	color: #fff;
-}
-
-.MapPreviewCard .config {
-	padding: 1rem;
-	border-radius: 0.25rem;
-	background-color: #3e3e3e;
-}
-
-.MapPreviewCard .card-footer {
-	border: none;
-}
-
-.MapPreviewCard .card-footer-item {
-	border: none;
-}
-
-.MapPreviewCard .card-footer .button {
-	border-radius: 0;
-}
-
-.MapPreviewCard .like-button {
-	background: transparent;
-	border: none;
-	font-size: 2rem;
-}
-
-.MapPreviewCard .like-button:hover {
-	cursor: pointer;
-}
-
-.MapPreviewCard .like-button:focus,
-.MapPreviewCard .like-button:focus-within {
-	outline: 2px dashed indianred;
-}
-
-.MapPreviewCard .image-wrapper {
-	background: linear-gradient(180deg, #88c767, #545050, #4a4a4a);
-	padding: 0.25rem;
-	border-radius: 0.25rem 0.25rem 0 0;
-}
-
-.MapPreviewCard .image {
-	z-index: 10;
-	transition: transform 0.35s ease-in;
-}
-
-.MapPreviewCard .image img {
-	box-shadow: 18px -3px 0px 13px rgb(0 0 0 / 55%);
-}
-
-.MapPreviewCard .image:hover,
-.MapPreviewCard .image:focus {
-	cursor: pointer;
-	transform: scale(1.5) rotate(1turn);
 }
 
 .masonry-grid {
