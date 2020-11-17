@@ -8,7 +8,10 @@ export const SettingPrivacy = () => (
 		<form>
 			<Field>
 				<Control>
-					<Checkbox className="has-text-white-bis"> show email</Checkbox>
+					<Checkbox disabled className="has-text-white-bis">
+						{" "}
+						show email
+					</Checkbox>
 				</Control>
 			</Field>
 		</form>
