@@ -88,6 +88,7 @@ export const SignUp = () => {
 				<fieldset disabled={loading}>
 					<InputField
 						description="Username"
+						hepler={formik.errors.username}
 						onChange={formik.handleChange}
 						value={formik.values.username}
 						min="2"
