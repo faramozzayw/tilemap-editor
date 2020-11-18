@@ -1,16 +1,14 @@
 import React, { useLayoutEffect } from "react";
 import { useFormik } from "formik";
-import classnames from "classnames";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import * as Yup from "yup";
 import {
 	Button,
 	Control,
-	Label,
 	Title,
 	Buttons,
 	Hero,
-	Help,
+	Field,
 } from "@faramo.zayw/reabulma";
 
 import Styles from "./AuthForm.module.css";
@@ -21,6 +19,8 @@ import { addNotification } from "../store/notificationStore";
 import { $ } from "./../utils";
 import { useAuthState } from "../hooks/auth";
 import { email, password, username } from "../validation-subsets";
+import { InputField } from "../components/Profile";
+import { PasswordInput } from "../components/InputField";
 
 const SignupSchema = Yup.object().shape({
 	username,
@@ -86,64 +86,41 @@ export const SignUp = () => {
 				<Title className={Styles.AuthFormTitle}>Sign Up</Title>
 				<hr className={Styles.Divider} />
 				<fieldset disabled={loading}>
-					<div className="field">
-						<Label className={classnames(Styles.Label, Styles.LabelWithHelp)}>
-							Username
-							<Help isColor="warning">{formik.errors.username}</Help>
-						</Label>
-						<Control>
-							<input
-								value={formik.values.username}
-								onChange={formik.handleChange}
-								className={classnames("input", Styles.Input)}
-								min="2"
-								max="25"
-								type="text"
-								name="username"
-								placeholder="Input username"
-								autoFocus
-								required
-							/>
-						</Control>
-					</div>
-					<div className="field">
-						<Label className={classnames(Styles.Label, Styles.LabelWithHelp)}>
-							Email
-							<Help isColor="warning">{formik.errors.email}</Help>
-						</Label>
-						<Control>
-							<input
-								value={formik.values.email}
-								onChange={formik.handleChange}
-								className={classnames("input", Styles.Input)}
-								type="email"
-								name="email"
-								placeholder="Input email"
-								required
-							/>
-						</Control>
-					</div>
-					<div className="field">
-						<Label className={classnames(Styles.Label, Styles.LabelWithHelp)}>
-							Password
-							<Help isColor="warning">{formik.errors.password}</Help>
-						</Label>
-						<Control>
-							<input
-								value={formik.values.password}
-								onChange={formik.handleChange}
-								className={classnames("input", Styles.Input)}
-								min="10"
-								max="50"
-								type="password"
-								name="password"
-								autoComplete="new-password"
-								placeholder="Input password"
-								required
-							/>
-						</Control>
-					</div>
-					<div className="field is-grouped">
+					<InputField
+						description="Username"
+						onChange={formik.handleChange}
+						value={formik.values.username}
+						min="2"
+						max="25"
+						type="text"
+						name="username"
+						placeholder="Input username"
+						autoFocus
+						required
+					/>
+					<InputField
+						description="Email"
+						hepler={formik.errors.email}
+						value={formik.values.email}
+						onChange={formik.handleChange}
+						type="email"
+						name="email"
+						placeholder="Input email"
+						required
+					/>
+					<PasswordInput
+						description="Password"
+						value={formik.values.password}
+						onChange={formik.handleChange}
+						hepler={formik.errors.password}
+						min="10"
+						max="50"
+						name="password"
+						autoComplete="new-password"
+						placeholder="Input password"
+						required
+					/>
+					<Field className="is-grouped">
 						<Control>
 							<Buttons>
 								<Button
@@ -159,7 +136,7 @@ export const SignUp = () => {
 								</Button>
 							</Buttons>
 						</Control>
-					</div>
+					</Field>
 					<GoogleAuth />
 				</fieldset>
 				<br />
