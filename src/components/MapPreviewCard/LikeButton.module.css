@@ -1,0 +1,25 @@
+.likeButton {
+	--red-color: #ff3860;
+	--offset: 10px;
+
+	z-index: 9;
+	position: absolute;
+	right: var(--offset);
+	top: var(--offset);
+
+	padding: 1.75rem;
+	font-size: 1.5rem;
+
+	border-radius: 100%;
+	background-color: rgba(0, 0, 0, 0.75);
+
+	transition: all 300ms ease-in-out;
+}
+
+.likeButton .liked {
+	color: var(--red-color);
+}
+
+.likeButton:hover {
+	color: var(--red-color);
+}

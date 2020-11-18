@@ -1,0 +1,54 @@
+.MapCard {
+	transition: box-shadow 200ms ease-in;
+
+	border: 3px solid black;
+	border-radius: 5px;
+}
+
+.MapCard:hover {
+	box-shadow: 8px 8px 0px 0px black;
+}
+
+.MapCard .image {
+	border-bottom: 3px solid black;
+}
+
+.MapCard .title {
+	z-index: 9;
+	position: absolute;
+	top: -1.5rem;
+	left: 1rem;
+	font-size: 1.4rem;
+	background: #363636;
+	padding: 5px 10px;
+	border-radius: 1rem;
+	border: 3px solid black;
+	transition: transform 300ms;
+}
+
+.MapCard .title:hover {
+	transform: scale(1.15);
+}
+
+.MapCard .mapContent {
+	padding: 1rem;
+}
+
+.MapCard .summary p {
+	margin: 0;
+}
+
+.MapCard .activitySummary {
+	width: 100% !important;
+	background: #262626;
+	display: inline-grid;
+	grid-auto-flow: column;
+	padding: 0.5rem 1rem;
+}
+
+.MapCard .activitySummary :global(.icon) {
+	width: 100%;
+	display: grid;
+	grid-auto-flow: column;
+	column-gap: 0.3rem;
+}
