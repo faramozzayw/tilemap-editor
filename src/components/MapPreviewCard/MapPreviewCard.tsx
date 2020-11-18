@@ -1,20 +1,20 @@
 import React, { CSSProperties, useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import classnames from "classnames";
+import { Link } from "react-router-dom";
 import { Transition } from "react-transition-group";
 
-import { Title, Card, CardContent, Image } from "@faramo.zayw/reabulma";
+import { Title, Image } from "@faramo.zayw/reabulma";
 
-import "./index.css";
-import { MapConfig } from "./MapConfig";
 import { IAuth } from "../../types/auth";
 import { UserLink, MapName, Can, CoolBox, MarkdownRemark } from "../../common";
 import { Map } from "../../types/graphql";
-
 import { Key } from "./MapConfig";
+import { LikeButton } from "./LikeButton";
+
+import "./../../masonry.css";
+import styles from "./MapCard.module.css";
 
 import fakeImage from "./fake.jpg";
-
-export interface MapPreviewCardProps extends Map, IAuth {}
 
 const duration = 200;
 
@@ -33,12 +33,9 @@ const transitionStyles: any = {
 /*
 <Can role={isAuth ? "user" : ""} perform="like:map"></Can>
 */
+export interface MapCardProps extends Map, IAuth {}
 
-/*
-title={<MapName name={name} to={`/maps/${id}`} />}
-*/
-
-export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
+export const MapCard: React.FC<MapCardProps> = ({
 	author,
 	name,
 	id,
@@ -47,9 +44,9 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	size,
 	...props
 }) => {
-	const history = useHistory();
 	const [inProp, setInProp] = useState(false);
 	const [liked, setLiked] = useState(false);
+	const toggleLike = () => setLiked((prev) => !prev);
 
 	useEffect(() => {
 		setTimeout(() => setInProp(true), duration);
@@ -62,18 +59,22 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 	return (
 		<Transition in={inProp} timeout={duration}>
 			{(state) => (
-				<article
-					className="MapPreviewCard"
+				<div
+					className="masonry-card"
 					style={{
 						...defaultStyle,
 						...transitionStyles[state],
 					}}
 				>
-					<CoolBox>
+					<article className={classnames("is-relative", styles.MapCard)}>
+						<Title tag="h3" isSize="3" className={styles.title}>
+							<MapName name={name} to={`/maps/${id}`} />
+						</Title>
+						<LikeButton isLiked={liked} onClick={toggleLike} />
 						<Link to={`/maps/${id}`}>
 							<Image src={fakeImage} />
 						</Link>
-						<div className="mapContent">
+						<div className={styles.mapContent}>
 							<div className="summary">
 								<p>
 									<Key>Map size:</Key> {size.row} x {size.column}
@@ -98,7 +99,7 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 							</div>
 							<MarkdownRemark markdown={description} />
 						</div>
-						<div className="activitySummary">
+						<div className={styles.activitySummary}>
 							<span className="icon">
 								<i className="fas fa-database"></i>
 								<span>142mb</span>
@@ -112,8 +113,8 @@ export const MapPreviewCard: React.FC<MapPreviewCardProps> = ({
 								<span>150k</span>
 							</span>
 						</div>
-					</CoolBox>
-				</article>
+					</article>
+				</div>
 			)}
 		</Transition>
 	);
