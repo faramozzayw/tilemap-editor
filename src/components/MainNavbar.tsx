@@ -33,8 +33,9 @@ export const MainNavbar = () => {
 		>
 			<NavbarBrand>
 				<NavbarItem className="is-size-2 has-text-weight-bold">
-					<NavLink to="/" className="has-text-light">
+					<NavLink to="/" className="has-text-light brand">
 						TW!+
+						{/*<i className="fas fa-shield-alt"></i>*/}
 					</NavLink>
 				</NavbarItem>
 
