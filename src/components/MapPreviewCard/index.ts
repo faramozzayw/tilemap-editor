@@ -1,3 +1,3 @@
 export { MapFeed } from "./MapFeed";
-export { MapCard as MapPreviewCard } from "./MapPreviewCard";
+export { MapCard as MapPreviewCard } from "./MapCard";
 export { MapConfig } from "./MapConfig";

@@ -6,7 +6,7 @@ import { Transition } from "react-transition-group";
 import { Title, Image } from "@faramo.zayw/reabulma";
 
 import { IAuth } from "../../types/auth";
-import { UserLink, MapName, Can, CoolBox, MarkdownRemark } from "../../common";
+import { UserLink, MapName, Can, MarkdownRemark } from "../../common";
 import { Map } from "../../types/graphql";
 import { Key } from "./MapConfig";
 import { LikeButton } from "./LikeButton";
@@ -29,10 +29,6 @@ const transitionStyles: any = {
 	exiting: { opacity: 0 },
 	exited: { opacity: 0 },
 };
-
-/*
-<Can role={isAuth ? "user" : ""} perform="like:map"></Can>
-*/
 export interface MapCardProps extends Map, IAuth {}
 
 export const MapCard: React.FC<MapCardProps> = ({
@@ -70,7 +66,9 @@ export const MapCard: React.FC<MapCardProps> = ({
 						<Title tag="h3" isSize="3" className={styles.title}>
 							<MapName name={name} to={`/maps/${id}`} />
 						</Title>
-						<LikeButton isLiked={liked} onClick={toggleLike} />
+						<Can role={isAuth ? "user" : ""} perform="like:map">
+							<LikeButton isLiked={liked} onClick={toggleLike} />
+						</Can>
 						<Link to={`/maps/${id}`}>
 							<Image src={fakeImage} />
 						</Link>
