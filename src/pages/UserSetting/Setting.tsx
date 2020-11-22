@@ -1,9 +1,8 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import { Layout } from "../../common";
+import { Layout, NavPanel } from "../../common";
 
-import { SettingPanel } from "./SettingPanel";
 import { SettingIntegrations, SettingPrivacy, SettingInfo } from "./index";
 
 import styles from "./Setting.module.css";
@@ -20,12 +19,31 @@ export const SettingRoutes = () => (
 	</>
 );
 
+const navLinks = [
+	{
+		name: "info",
+		to: "/me/setting/",
+		exact: true,
+		icon: "fas fa-info",
+	},
+	{
+		name: "integrations",
+		to: "/me/setting/integrations/",
+		icon: "fab fa-google",
+	},
+	{
+		name: "privacy",
+		to: "/me/setting/privacy/",
+		icon: "fas fa-user-secret",
+	},
+];
+
 export const Setting = () => {
 	return (
 		<Layout className={styles.setting}>
 			<div className="columns">
 				<div className="column is-one-fifth">
-					<SettingPanel />
+					<NavPanel heading="Setting" items={navLinks} />
 				</div>
 				<div className="column">
 					<SettingRoutes />

@@ -15,6 +15,7 @@ const rules = {
 		],
 		dynamic: {
 			"user:edit": userIsOwned,
+			"map:edit": userIsOwned,
 		},
 	},
 	admin: {

@@ -13,13 +13,12 @@
 }
 
 .pageNav :global(.tabs) {
-	border-bottom: 1px solid #ffffff;
+	border-bottom: 1px solid #191b1b;
 }
 
-.pageNav :global(.breadcrumb) ul {
-	padding: 0.25rem 0.7rem;
-	border-radius: 10px;
-	background: rgb(23 29 28 / 50%);
+.pageNav .active {
+	background: #262929;
+	border: 1px solid #191b1b !important;
 }
 
 @media (max-width: 800px) {

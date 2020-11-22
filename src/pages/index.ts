@@ -1,5 +1,5 @@
 export { Main } from "./Main";
-export { Map } from "./Map";
+export { Map, MapSetting } from "./Map";
 export { ProfilePage } from "./Profile";
 export { NotFound } from "./NotFound";
 export { SignUp } from "./SignUp";

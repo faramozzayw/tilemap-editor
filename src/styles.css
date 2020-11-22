@@ -52,3 +52,9 @@ html::-webkit-scrollbar-thumb,
 	border-radius: 1rem;
 	background-color: var(--scrollbar-color);
 }
+
+.breadcrumb ul {
+	padding: 0.25rem 0.7rem;
+	border-radius: 10px;
+	background: rgb(23 29 28 / 50%);
+}

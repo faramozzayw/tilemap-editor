@@ -285,6 +285,11 @@ export type LoginUser = {
 	password: Scalars["String"];
 };
 
+export type MapUpdateInfoFragment = { __typename?: "Map" } & Pick<
+	Map,
+	"name" | "description"
+>;
+
 export type MapInfoFragment = { __typename?: "Map" } & Pick<
 	Map,
 	"id" | "name" | "description" | "createdAt" | "updatedAt"
@@ -405,6 +410,16 @@ export type ChangePasswordMutation = { __typename?: "MutationRoot" } & Pick<
 	"changePassword"
 >;
 
+export type UpdateMapInfoMutationVariables = Exact<{
+	id: Scalars["ID"];
+	data: UpdateMap;
+}>;
+
+export type UpdateMapInfoMutation = { __typename?: "MutationRoot" } & Pick<
+	MutationRoot,
+	"updateMapInfo"
+>;
+
 export type GetMapByIdQueryVariables = Exact<{
 	mapID: Scalars["ID"];
 }>;
@@ -484,6 +499,12 @@ export type GetUserByUsernameQuery = { __typename?: "QueryRoot" } & {
 	getUserByUsername: { __typename?: "User" } & UserInfoFragment;
 };
 
+export const MapUpdateInfoFragmentDoc = gql`
+	fragment MapUpdateInfo on Map {
+		name
+		description
+	}
+`;
 export const MapInfoFragmentDoc = gql`
 	fragment MapInfo on Map {
 		id
@@ -1021,6 +1042,55 @@ export type ChangePasswordMutationResult = Apollo.MutationResult<
 export type ChangePasswordMutationOptions = Apollo.BaseMutationOptions<
 	ChangePasswordMutation,
 	ChangePasswordMutationVariables
+>;
+export const UpdateMapInfoDocument = gql`
+	mutation UpdateMapInfo($id: ID!, $data: UpdateMap!) {
+		updateMapInfo(mapId: $id, updateValue: $data)
+	}
+`;
+export type UpdateMapInfoMutationFn = Apollo.MutationFunction<
+	UpdateMapInfoMutation,
+	UpdateMapInfoMutationVariables
+>;
+
+/**
+ * __useUpdateMapInfoMutation__
+ *
+ * To run a mutation, you first call `useUpdateMapInfoMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateMapInfoMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateMapInfoMutation, { data, loading, error }] = useUpdateMapInfoMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useUpdateMapInfoMutation(
+	baseOptions?: Apollo.MutationHookOptions<
+		UpdateMapInfoMutation,
+		UpdateMapInfoMutationVariables
+	>,
+) {
+	return Apollo.useMutation<
+		UpdateMapInfoMutation,
+		UpdateMapInfoMutationVariables
+	>(UpdateMapInfoDocument, baseOptions);
+}
+export type UpdateMapInfoMutationHookResult = ReturnType<
+	typeof useUpdateMapInfoMutation
+>;
+export type UpdateMapInfoMutationResult = Apollo.MutationResult<
+	UpdateMapInfoMutation
+>;
+export type UpdateMapInfoMutationOptions = Apollo.BaseMutationOptions<
+	UpdateMapInfoMutation,
+	UpdateMapInfoMutationVariables
 >;
 export const GetMapByIdDocument = gql`
 	query GetMapById($mapID: ID!) {
