@@ -1,27 +1,13 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink, Route } from "react-router-dom";
 
-import {
-	ProgressBar,
-	Tile,
-	Block,
-	Tabs,
-	Tab,
-	Image,
-} from "@faramo.zayw/reabulma";
-import { useGetMapByIdQuery, Map as MapType } from "../types/graphql";
-import {
-	Layout,
-	UserLink,
-	MarkdownRemark,
-	CoolBox,
-	MapName,
-	ForkButton,
-} from "../common";
-import { MapConfig } from "../components/MapPreviewCard";
+import { ProgressBar, Tabs, Tab } from "@faramo.zayw/reabulma";
+import { useGetMapByIdQuery, Map as MapType } from "../../types/graphql";
+import { Layout, UserLink, MapName, CoolBox } from "../../common";
 
 import styles from "./Map.module.css";
-import { useAuthState } from "../hooks/auth";
+import { useAuthState } from "../../hooks/auth";
+import { MapInfo } from "./MapInfo";
 
 export interface MapParams {
 	mapID: string;
@@ -32,12 +18,12 @@ export const Key: React.FC = ({ children }) => (
 );
 
 // prettier-ignore
-const fakeImage = {
+export const fakeImage = {
     src: "https://bulma.io/images/placeholders/480x480.png",
     alt: "Map screenshot"
 }
 // prettier-ignore
-const fakeScreenshots = [{...fakeImage}, {...fakeImage}, {...fakeImage}, {...fakeImage}, {...fakeImage}];
+export const fakeScreenshots = [{...fakeImage}, {...fakeImage}, {...fakeImage}, {...fakeImage}, {...fakeImage}];
 
 export const Map = () => {
 	const { isAuthenticated: isAuth, user } = useAuthState();
@@ -46,7 +32,7 @@ export const Map = () => {
 		variables: { mapID },
 	});
 
-	const { author, name, description, ...props } = {
+	const { author, name, ...props } = {
 		...mapData?.map,
 	} as MapType;
 
@@ -88,84 +74,55 @@ export const Map = () => {
 				<Tabs isBoxed isAlign="left" isSize="normal" className="scrollbar">
 					<ul>
 						<Tab isActive>
-							<a>
+							<NavLink to={`/maps/${mapData.map.id}/`} exact>
 								<span className="icon is-small">
 									<i className="fas fa-info" aria-hidden="true"></i>
 								</span>
 								<span>Info</span>
-							</a>
+							</NavLink>
 						</Tab>
 						<Tab>
-							<a>
+							<NavLink to={`/maps/${mapData.map.id}/discussion`}>
 								<span className="icon is-small">
 									<i className="far fa-comments" aria-hidden="true"></i>
 								</span>
 								<span>Discussion</span>
-							</a>
+							</NavLink>
 						</Tab>
 						<Tab>
-							<a>
+							<NavLink to={`/maps/${mapData.map.id}/issues`}>
 								<span className="icon is-small">
 									<i className="fas fa-exclamation" aria-hidden="true"></i>
 								</span>
 								<span>Issues</span>
-							</a>
+							</NavLink>
 						</Tab>
 						<Tab>
-							<a>
+							<NavLink to={`/maps/${mapData.map.id}/setting`}>
 								<span className="icon is-small">
 									<i className="fas fa-cogs" aria-hidden="true"></i>
 								</span>
 								<span>Setting</span>
-							</a>
+							</NavLink>
 						</Tab>
 					</ul>
 				</Tabs>
 			</div>
-			<Tile tag="section" isAncestor style={{ width: "100%" }}>
-				<Tile isParent isVertical className="is-3">
-					<Tile isChild>
-						<Tile isChild className="content">
-							<CoolBox title="common" className={styles.common}>
-								<Block className={styles.config}>
-									<MapConfig {...props} />
-								</Block>
-								<Block>
-									<span>co-author: </span>
-									<UserLink {...author} />, <UserLink {...author} />,{" "}
-									<UserLink {...author} />
-								</Block>
-								<Block>
-									<ForkButton
-										isFullWidth
-										isAuth={isAuth}
-										userId={user?.id}
-										ownerId={author.id}
-									/>
-								</Block>
-							</CoolBox>
-						</Tile>
-					</Tile>
-				</Tile>
-				<Tile isParent isVertical style={{ alignSelf: "baseline" }}>
-					{!!description?.trim() && (
-						<Tile isChild className="content">
-							<CoolBox title="description" className={styles.description}>
-								<MarkdownRemark markdown={description} />
-							</CoolBox>
-						</Tile>
+			<div>
+				<Route
+					exact
+					path="/maps/:mapID/"
+					component={() => (
+						<MapInfo
+							{...props}
+							user={user as any}
+							author={author}
+							name={name}
+							screenshots={screenshots}
+						/>
 					)}
-					<Tile isChild>
-						<CoolBox title="screenshots" className={styles.screenshots}>
-							<section>
-								{screenshots.map(({ src, alt }) => (
-									<Image isSize="128x128" src={src} alt={alt} />
-								))}
-							</section>
-						</CoolBox>
-					</Tile>
-				</Tile>
-			</Tile>
+				/>
+			</div>
 		</Layout>
 	);
 };

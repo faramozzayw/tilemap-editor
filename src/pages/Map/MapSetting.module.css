@@ -1,0 +1,10 @@
+.setting {
+	--navbar-height: 76px;
+	--text-align: left; /* for coolbox */
+	align-items: baseline !important;
+	flex-flow: column;
+}
+
+.setting > :global(.columns) {
+	width: 100%;
+}

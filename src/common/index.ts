@@ -12,4 +12,6 @@ export { default as ScrollToTop } from "./ScrollToTop";
 
 export { CoolBox } from "./CoolBox/CoolBox";
 
+export { NavPanel } from "./NavPanel/NavPanel";
+
 export { ForkButton } from "./Buttons";
