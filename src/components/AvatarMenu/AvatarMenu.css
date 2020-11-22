@@ -3,8 +3,8 @@
 
 	background: #262727;
 	border-radius: 1rem;
-	padding: 1rem;
-	transition: border-radius 0.2s ease-in-out;
+	box-shadow: 0 0 4px 0 #151414;
+	transition: border-radius 0.25s ease-in-out;
 }
 
 .AvatarMenu:hover,
@@ -13,8 +13,8 @@
 }
 
 .AvatarMenu .navbar-dropdown {
-	border: 4px solid #151414;
 	border-radius: 0;
+	border-top: none;
 }
 
 .AvatarMenu .navbar-dropdown .navbar-item {
@@ -22,15 +22,19 @@
 	font-weight: bolder;
 }
 
-.AvatarMenu a {
-	font-weight: bolder;
+.AvatarMenu .navbar-dropdown a {
 	width: 100%;
-	padding: 0.5rem 0.25rem;
 }
 
-.AvatarMenu a:hover,
-.AvatarMenu a:focus {
-	color: #3273dc;
+.AvatarMenu .navbar-item {
+	font-weight: bolder;
+	width: 100%;
+}
+
+.AvatarMenu .navbar-dropdown .navbar-item:hover,
+.AvatarMenu .navbar-dropdown .navbar-item:focus,
+.AvatarMenu .navbar-dropdown a:hover {
+	color: #3273dc !important;
 	background: #292828;
 }
 
