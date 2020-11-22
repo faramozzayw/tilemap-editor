@@ -40,10 +40,7 @@ export const MainNavbar = () => {
 				</NavbarItem>
 
 				<NavbarBurger
-					style={{
-						height: "auto",
-						width: "4.35rem",
-					}}
+					className="has-text-white"
 					isActive={isActive}
 					onClick={() => togggleMenu(!isActive)}
 				/>

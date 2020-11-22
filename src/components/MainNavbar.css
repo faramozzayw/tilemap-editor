@@ -5,6 +5,11 @@
 	font-size: 1.25rem;
 }
 
+.MainNavbar .navbar-burger {
+	height: auto;
+	width: 4.25rem;
+}
+
 .MainNavbar .brand {
 	background: -webkit-linear-gradient(#ffee28, #da4c22, #9a0101);
 	filter: drop-shadow(2px 4px 6px #840707);
