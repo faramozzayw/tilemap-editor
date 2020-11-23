@@ -8,6 +8,7 @@ import {
 	Button,
 	Notification,
 	Title,
+	Container,
 } from "@faramo.zayw/reabulma";
 import Masonry from "react-masonry-css";
 
@@ -18,6 +19,7 @@ import { Map } from "../../types/graphql";
 export interface MapFeed extends Pick<QueryResult, "loading" | "error">, IAuth {
 	maps?: Map[];
 	onLoadMore?: () => void;
+	refetch?: () => void;
 }
 
 const MapFeedError = () => (
@@ -42,10 +44,11 @@ export const MapFeed: React.FC<MapFeed> = ({
 	loading,
 	error,
 	maps,
+	refetch,
 	isAuth,
 	onLoadMore,
 }) => (
-	<div className={classnames("container", MapFeedStyle.Container)}>
+	<Container className={classnames(MapFeedStyle.Container)}>
 		<section>
 			<Masonry
 				breakpointCols={breakpointColumnsObj}
@@ -57,21 +60,41 @@ export const MapFeed: React.FC<MapFeed> = ({
 				))}
 			</Masonry>
 
-			{error && <MapFeedError />}
-
 			{loading && <ProgressBar isColor="primary" isSize="small" max="100" />}
 		</section>
-		{!error && (
-			<div className="container has-text-centered">
+		{!error && !loading && (
+			<Container className="has-text-centered">
 				<Button
 					onClick={onLoadMore}
-					isColor="light"
+					isColor="primary"
+					isOutlined
+					isSize="medium"
 					disabled={loading}
 					isLoading={loading}
 				>
 					Load more!
 				</Button>
-			</div>
+			</Container>
 		)}
-	</div>
+
+		{error && (
+			<Container className="has-text-centered">
+				<Notification isColor="info">
+					Something is wrong with this world, but u can try again. Just click
+					the button below
+				</Notification>
+				<Button
+					onClick={refetch}
+					isOutlined
+					isFullWidth
+					isColor="info"
+					isSize="medium"
+					disabled={loading}
+					isLoading={loading}
+				>
+					TRY AGAIN!
+				</Button>
+			</Container>
+		)}
+	</Container>
 );

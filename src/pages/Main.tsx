@@ -8,7 +8,7 @@ import { useMapsPaginationQuery } from "../types/graphql";
 export const Main = () => {
 	const { isAuthenticated: isAuth } = useAuthState();
 
-	const { loading, error, data, fetchMore } = useMapsPaginationQuery({
+	const { loading, error, data, fetchMore, refetch } = useMapsPaginationQuery({
 		variables: {
 			first: 5,
 		},
@@ -25,6 +25,7 @@ export const Main = () => {
 				error={error}
 				isAuth={isAuth}
 				maps={nodes}
+				refetch={refetch}
 				onLoadMore={() => {
 					fetchMore({
 						variables: {
