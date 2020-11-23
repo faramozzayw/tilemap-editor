@@ -16,4 +16,4 @@ export const mapName = Yup.string()
 	.min(3, "Too Short!")
 	.max(30, "Too Long!")
 	.ensure();
-export const mapDescription = Yup.string().max(300, "Too Long!").ensure();
+export const mapDescription = Yup.string().max(1500, "Too Long!").ensure();

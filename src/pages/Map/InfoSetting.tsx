@@ -93,7 +93,7 @@ export const InfoSetting = () => {
 						hepler={formik.errors.description}
 						value={formik.values.description}
 						onChange={formik.handleChange}
-						max="300"
+						max="1500"
 					/>
 					<Button type="submit" isOutlined isColor="info">
 						update info
