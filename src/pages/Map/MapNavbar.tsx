@@ -45,7 +45,7 @@ export const MapNavbar: React.FC<MapNavbarProps> = ({
 				<Can
 					role="user"
 					perform="map:edit"
-					data={{ userId: currentUser.id, ownerId: author.id }}
+					data={{ userId: currentUser?.id, ownerId: author.id }}
 				>
 					<Tab>
 						<NavLink to={`/maps/${id}/setting`} activeClassName={styles.active}>
