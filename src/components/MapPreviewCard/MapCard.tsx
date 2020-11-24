@@ -31,6 +31,16 @@ const transitionStyles: any = {
 };
 export interface MapCardProps extends Map, IAuth {}
 
+const getPreviewText = (text?: string | null) => {
+	if (!text) return null;
+	const max = 150;
+	const min = 0;
+
+	if (text.length <= max) return text;
+
+	return text.slice(min, max).concat("...");
+};
+
 export const MapCard: React.FC<MapCardProps> = ({
 	author,
 	name,
@@ -95,7 +105,7 @@ export const MapCard: React.FC<MapCardProps> = ({
 									<Key>Auhtor:</Key> <UserLink username={author.username} />
 								</p>
 							</div>
-							<MarkdownRemark markdown={description} />
+							<MarkdownRemark markdown={getPreviewText(description)} />
 						</div>
 						<div className={styles.activitySummary}>
 							<span className="icon">
