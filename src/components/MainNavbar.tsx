@@ -33,16 +33,14 @@ export const MainNavbar = () => {
 		>
 			<NavbarBrand>
 				<NavbarItem className="is-size-2 has-text-weight-bold">
-					<NavLink to="/" className="has-text-light">
+					<NavLink to="/" className="has-text-light brand">
 						TW!+
+						{/*<i className="fas fa-shield-alt"></i>*/}
 					</NavLink>
 				</NavbarItem>
 
 				<NavbarBurger
-					style={{
-						height: "auto",
-						width: "4.35rem",
-					}}
+					className="has-text-white"
 					isActive={isActive}
 					onClick={() => togggleMenu(!isActive)}
 				/>

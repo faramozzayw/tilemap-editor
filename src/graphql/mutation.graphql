@@ -63,3 +63,7 @@ mutation LoginByGoolge($loginData: GoogleInput!) {
 mutation ChangePassword($id: Uuid, $newPassword: String!, $confirm: String!) {
 	changePassword(id: $id, newPassword: $newPassword, confirm: $confirm)
 }
+
+mutation UpdateMapInfo($id: ID!, $data: UpdateMap!) {
+	updateMapInfo(mapId: $id, updateValue: $data)
+}

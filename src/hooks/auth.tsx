@@ -82,13 +82,21 @@ const initState = () => {
 export const AuthProvider: React.FC = ({ children }) => {
 	const [state, setState] = useState<AuthContextState>(() => initState());
 	const [getMe] = useMeLazyQuery({
-		onCompleted: ({ me }) => updateUser(me),
+		onCompleted: ({ me }) => {
+			updateUser(me);
+			setState((prev) => ({
+				...prev,
+				status: "success",
+			}));
+		},
 		onError: console.error,
 	});
 
 	useEffect(() => {
 		if (isAuthenticatedByToken()) {
 			getMe();
+		} else {
+			setTimeout(getMe, 1500);
 		}
 	}, [getMe]);
 

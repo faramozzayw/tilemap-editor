@@ -1,16 +1,13 @@
 import React, { useLayoutEffect } from "react";
 import { useFormik } from "formik";
-import classnames from "classnames";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import * as Yup from "yup";
 import {
 	Button,
 	Control,
-	Label,
 	Title,
 	Buttons,
 	Hero,
-	Help,
 	Field,
 } from "@faramo.zayw/reabulma";
 
@@ -22,6 +19,8 @@ import { useAuthState } from "../hooks/auth";
 import { useLoginMutation } from "./../types/graphql";
 import { $ } from "./../utils";
 import { password, username } from "../validation-subsets";
+import { InputField } from "../components/Profile";
+import { PasswordInput } from "../components/InputField";
 
 const LoginSchema = Yup.object().shape({
 	username,
@@ -85,48 +84,30 @@ export const Login = () => {
 				<Title className={Styles.AuthFormTitle}>Login</Title>
 				<hr className={Styles.Divider} />
 				<fieldset disabled={loading}>
-					<Field>
-						<Label className={classnames(Styles.Label, Styles.LabelWithHelp)}>
-							Username
-							<Help isColor="warning">{formik.errors.username}</Help>
-						</Label>
-						<Control>
-							<input
-								onChange={formik.handleChange}
-								value={formik.values.username}
-								className={classnames("input", Styles.Input)}
-								min="2"
-								max="25"
-								type="text"
-								name="username"
-								placeholder="Input username"
-								autoFocus
-								required
-							/>
-						</Control>
-					</Field>
-					<Field>
-						<Label className={classnames(Styles.Label, Styles.LabelWithHelp)}>
-							Password
-							<Help isColor="warning">{formik.errors.password}</Help>
-						</Label>
-						<Control>
-							<input
-								onChange={formik.handleChange}
-								value={formik.values.password}
-								className={classnames("input", Styles.Input)}
-								min="10"
-								max="50"
-								id="password"
-								type="password"
-								name="password"
-								autoComplete="current-password"
-								placeholder="Input password"
-								required
-							/>
-							{/* <Help isColor="primary">Show password</Help> */}
-						</Control>
-					</Field>
+					<InputField
+						description="Username"
+						onChange={formik.handleChange}
+						value={formik.values.username}
+						min="2"
+						max="25"
+						type="text"
+						name="username"
+						placeholder="Input username"
+						autoFocus
+						required
+					/>
+					<PasswordInput
+						description="Password"
+						value={formik.values.password}
+						onChange={formik.handleChange}
+						hepler={formik.errors.password}
+						min="10"
+						max="50"
+						name="password"
+						autoComplete="current-password"
+						placeholder="Input password"
+						required
+					/>
 					<Field className="is-grouped">
 						<Control>
 							<Buttons>

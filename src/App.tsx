@@ -11,7 +11,8 @@ import {
 	SignUp,
 	Login,
 	Posts,
-	Setting,
+	Setting as UserSetting,
+	MapSetting,
 } from "./pages";
 import { NotifyLayout } from "./components";
 import { ProtectedRouter } from "./common";
@@ -25,10 +26,10 @@ const App = () => {
 				<Route exact path="/" component={Main} />
 
 				<Route exact path="/@:username" component={ProfilePage} />
-				<Route exact path="/maps/:mapID" component={Map} />
+				<Route sensitive path="/maps/:mapID" component={Map} />
 				<ProtectedRouter
 					path="/me/setting"
-					component={Setting}
+					component={UserSetting}
 					isAuth={isAuthenticated}
 				/>
 				<Route path="/signup" component={SignUp} />

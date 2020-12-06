@@ -1,0 +1,18 @@
+.panel {
+	height: max-content;
+	position: sticky;
+	top: calc(var(--navbar-height, 76px) + 1rem);
+}
+
+.panel :global(.panel-block) {
+	color: #dcdbdb;
+	background: hsl(0 0% 21%);
+}
+
+.panel :global(.panel-block):hover {
+	background: hsl(0 0% 15%);
+}
+
+.panel :global(.panel-block:not(:last-child)) {
+	border-bottom: 1px solid hsl(0deg 0% 15%);
+}

@@ -5,23 +5,37 @@
 	font-size: 1.25rem;
 }
 
-.MainNavbar .ActiveLink {
-	color: springgreen !important;
+.MainNavbar .navbar-burger {
+	height: auto;
+	width: 4.25rem;
+}
+
+.MainNavbar .brand {
+	background: -webkit-linear-gradient(#ffee28, #da4c22, #9a0101);
+	filter: drop-shadow(2px 4px 6px #840707);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.MainNavbar .brand i {
+	font-size: 2rem;
 }
 
 .MainNavbar .link {
 	color: #fff;
 }
 
-.MainNavbar .link:hover,
-.MainNavbar .ActiveLink {
-	background: #444444;
-}
-
 .MainNavbar .link:hover {
 	color: #ffe740;
+	background-color: #292929;
 }
 
-.MainNavbar .navbar-burger {
-	color: #e4e4e4;
+.MainNavbar .ActiveLink {
+	color: springgreen !important;
+	background-color: #262626 !important;
+}
+
+.MainNavbar .ActiveLink,
+.MainNavbar .link:hover {
+	box-shadow: inset 0px 4px currentColor;
 }

@@ -22,7 +22,7 @@ export const Textarea = forwardRef<
 			<Control>
 				<TextArea
 					{...props}
-					className={classnames(styles.input, props.className)}
+					className={classnames("scrollbar", styles.input, props.className)}
 					ref={ref}
 				/>
 			</Control>

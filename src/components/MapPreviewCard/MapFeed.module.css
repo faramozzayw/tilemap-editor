@@ -10,3 +10,14 @@
 	border-radius: 0.25rem;
 	background-color: #3e3e3e !important;
 }
+
+.Container :global(.masonry-grid) {
+	margin-top: 1rem;
+	margin-bottom: 2rem;
+}
+
+.Container :global(.masonry-grid_column) {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
