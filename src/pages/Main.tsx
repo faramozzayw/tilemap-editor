@@ -76,7 +76,7 @@ export const Main = () => {
 				error={error}
 				isAuth={isAuth}
 				maps={nodes}
-				refetch={refetch}
+				refetch={() => refetch()}
 				onLoadMore={() => {
 					fetchMore({
 						variables: {
