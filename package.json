@@ -23,6 +23,7 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "3.4.4",
 		"react-transition-group": "^4.4.1",
+		"tauri": "^0.14.1",
 		"yup": "^0.29.3"
 	},
 	"scripts": {
@@ -33,7 +34,8 @@
 		"test:coverage": "react-scripts test --coverage --watchAll",
 		"eject": "react-scripts eject",
 		"codegen": "graphql-codegen --config codegen.yml",
-		"codegen:watch": "yarn codegen -w"
+		"codegen:watch": "yarn codegen -w",
+		"tauri": "tauri"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
