@@ -2,16 +2,18 @@ import { StrictMode } from "react";
 import { ApolloProvider } from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
 
+import "./styles.css";
+import "./masonry.css";
 import "bulma/css/bulma.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-import App from "./src/App";
-import * as serviceWorker from "./src/serviceWorker";
+import App from "../src/App";
+import * as serviceWorker from "../src/serviceWorker";
 
-import { AuthProvider } from "./src/hooks/auth";
+import { AuthProvider } from "../src/hooks/auth";
 
-import { client } from "./src/graphql";
-import { ScrollToTop } from "./src/common";
+import { client } from "../src/graphql";
+import { ScrollToTop } from "../src/common";
 
 const Index = () => (
 	<ApolloProvider client={client}>

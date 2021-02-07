@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "@testing-library/react";
 
-import { UserLink } from "./../common";
+import { UserLink } from "../common";
 import { BrowserRouter } from "react-router-dom";
 
 test("renders correctly", () => {
