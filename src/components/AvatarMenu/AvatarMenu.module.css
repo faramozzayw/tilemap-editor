@@ -12,17 +12,17 @@
 	border-radius: 1rem 1rem 0 0;
 }
 
-.AvatarMenu .navbar-dropdown {
+.AvatarMenu :global(.navbar-dropdown) {
 	border-radius: 0;
 	border-top: none;
 }
 
-.AvatarMenu .navbar-dropdown .navbar-item {
+.AvatarMenu :global(.navbar-dropdown) :global(.navbar-item) {
 	text-align: center;
 	font-weight: bolder;
 }
 
-.AvatarMenu .navbar-dropdown a {
+.AvatarMenu :global(.navbar-dropdown) a {
 	width: 100%;
 }
 
@@ -31,9 +31,9 @@
 	width: 100%;
 }
 
-.AvatarMenu .navbar-dropdown .navbar-item:hover,
-.AvatarMenu .navbar-dropdown .navbar-item:focus,
-.AvatarMenu .navbar-dropdown a:hover {
+.AvatarMenu :global(.navbar-dropdown) .navbar-item:hover,
+.AvatarMenu :global(.navbar-dropdown) .navbar-item:focus,
+.AvatarMenu :global(.navbar-dropdown) a:hover {
 	color: #3273dc !important;
 	background: #292828;
 }
@@ -42,7 +42,7 @@
 	margin: 5px;
 }
 
-.AvatarMenu .navbar-dropdown {
+.AvatarMenu :global(.navbar-dropdown) {
 	padding-bottom: 0;
 	font-family: "Skyrim";
 	font-size: 1.25rem !important;

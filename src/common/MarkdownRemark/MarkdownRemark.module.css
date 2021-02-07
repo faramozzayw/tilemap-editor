@@ -8,21 +8,21 @@
 	font-family: var(--font-family, var(--default-font-family));
 }
 
-.MarkdownRemark h1,
-.MarkdownRemark h2,
-.MarkdownRemark h3,
-.MarkdownRemark h4,
-.MarkdownRemark h5,
-.MarkdownRemark h6,
-.MarkdownRemark strong,
-.MarkdownRemark p,
-.MarkdownRemark span,
-.MarkdownRemark del,
-.MarkdownRemark em {
+.MarkdownRemark :global(h1),
+.MarkdownRemark :global(h2),
+.MarkdownRemark :global(h3),
+.MarkdownRemark :global(h4),
+.MarkdownRemark :global(h5),
+.MarkdownRemark :global(h6),
+.MarkdownRemark :global(strong),
+.MarkdownRemark :global(p),
+.MarkdownRemark :global(span),
+.MarkdownRemark :global(del),
+.MarkdownRemark :global(em) {
 	color: var(--md-color);
 }
 
-.MarkdownRemark a {
+.MarkdownRemark :global(a) {
 	--md-color: hsl(0, 0%, 100%);
 
 	align-items: center;
@@ -40,7 +40,7 @@
 	color: var(--md-color);
 }
 
-.MarkdownRemark a:visited {
+.MarkdownRemark :global(a):visited {
 	background-color: #1d2580;
 	color: var(--md-color);
 }

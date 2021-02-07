@@ -2,7 +2,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import { Content } from "@faramo.zayw/reabulma";
 
-import "./MarkdownRemark.css";
+import styles from "./MarkdownRemark.module.css";
 
 export interface MarkdownRemark {
 	markdown?: string | null;
@@ -13,7 +13,7 @@ export const MarkdownRemark: React.FC<MarkdownRemark> = ({ markdown }) =>
 		<Content>
 			<ReactMarkdown
 				source={markdown}
-				className="MarkdownRemark"
+				className={styles.MarkdownRemark}
 				linkTarget="_blank"
 			/>
 		</Content>

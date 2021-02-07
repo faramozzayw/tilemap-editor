@@ -13,9 +13,10 @@
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"noEmit": true,
-		"jsx": "react",
+		"jsx": "preserve",
 		"downlevelIteration": true,
 		"types": ["jest"]
 	},
-	"include": ["src"]
+	"include": ["src", "index.tsx"],
+	"exclude": ["node_modules"]
 }

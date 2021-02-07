@@ -11,10 +11,7 @@ import { Map } from "../../types/graphql";
 import { Key } from "./MapConfig";
 import { LikeButton } from "./LikeButton";
 
-import "./../../masonry.css";
 import styles from "./MapCard.module.css";
-
-import fakeImage from "./fake.jpg";
 
 const duration = 200;
 
@@ -80,7 +77,7 @@ export const MapCard: React.FC<MapCardProps> = ({
 							<LikeButton isLiked={liked} onClick={toggleLike} />
 						</Can>
 						<Link to={`/maps/${id}`}>
-							<Image src={fakeImage} />
+							<Image src="/fakeImage.jpg" />
 						</Link>
 						<div className={styles.mapContent}>
 							<div className="summary">

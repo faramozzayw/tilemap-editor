@@ -15,7 +15,7 @@ import {
 	Button,
 } from "@faramo.zayw/reabulma";
 
-import "./MainNavbar.css";
+import styles from "./MainNavbar.module.css";
 
 const AvatarMenu = React.lazy(() => import("./AvatarMenu"));
 
@@ -56,7 +56,7 @@ export const MainNavbar = () => {
 						to="/"
 						className="navbar-item link"
 						exact
-						activeClassName="ActiveLink"
+						activeClassName={styles.ActiveLink}
 					>
 						<span>
 							<i className="fas fa-tachometer-alt"></i> Dashbord
@@ -67,7 +67,7 @@ export const MainNavbar = () => {
 						to="/posts"
 						className="navbar-item link"
 						exact
-						activeClassName="ActiveLink"
+						activeClassName={styles.ActiveLink}
 					>
 						<span>
 							<i className="fas fa-newspaper"></i> Posts
@@ -78,7 +78,7 @@ export const MainNavbar = () => {
 						to="/docs"
 						className="navbar-item link"
 						exact
-						activeClassName="ActiveLink"
+						activeClassName={styles.ActiveLink}
 					>
 						<span>
 							<i className="fas fa-book"></i> Documentation

@@ -1,5 +1,7 @@
 import React from "react";
+
 import "./styles.css";
+import "./masonry.css";
 
 import { Switch, Route } from "react-router-dom";
 

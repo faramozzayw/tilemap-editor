@@ -14,6 +14,8 @@
 		"graphql": "^15.3.0",
 		"js-cookie": "^2.2.1",
 		"jwt-decode": "^2.2.0",
+		"next": "^10.0.6",
+		"next-transpile-modules": "^6.2.0",
 		"query-string": "^6.13.7",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1",
@@ -26,8 +28,9 @@
 		"yup": "^0.29.3"
 	},
 	"scripts": {
-		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start",
 		"test": "react-scripts test --env=jsdom-fourteen",
 		"test:clear": "jest --clearCache",
 		"test:coverage": "react-scripts test --coverage --watchAll",

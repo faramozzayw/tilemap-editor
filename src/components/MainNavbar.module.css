@@ -5,27 +5,27 @@
 	font-size: 1.25rem;
 }
 
-.MainNavbar .navbar-burger {
+.MainNavbar :global(.navbar-burger) {
 	height: auto;
 	width: 4.25rem;
 }
 
-.MainNavbar .brand {
+.MainNavbar :global(.brand) {
 	background: -webkit-linear-gradient(#ffee28, #da4c22, #9a0101);
 	filter: drop-shadow(2px 4px 6px #840707);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }
 
-.MainNavbar .brand i {
+.MainNavbar :global(.brand) i {
 	font-size: 2rem;
 }
 
-.MainNavbar .link {
+.MainNavbar :global(.link) {
 	color: #fff;
 }
 
-.MainNavbar .link:hover {
+.MainNavbar :global(.link):hover {
 	color: #ffe740;
 	background-color: #292929;
 }
@@ -36,6 +36,6 @@
 }
 
 .MainNavbar .ActiveLink,
-.MainNavbar .link:hover {
+.MainNavbar :global(.link):hover {
 	box-shadow: inset 0px 4px currentColor;
 }
