@@ -46,15 +46,16 @@ const httpLink = createHttpLink({
 	},
 });
 
-export const client = new ApolloClient({
-	link: ApolloLink.from([authLink, httpLink]),
-	cache: new InMemoryCache({
-		typePolicies: {
-			Query: {
-				fields: {
-					mapsPagination: relayStylePagination(),
+export const clientWithInitState = ({ initialState }: any) =>
+	new ApolloClient({
+		link: ApolloLink.from([authLink, httpLink]),
+		cache: new InMemoryCache({
+			typePolicies: {
+				Query: {
+					fields: {
+						mapsPagination: relayStylePagination(),
+					},
 				},
 			},
-		},
-	}),
-});
+		}).restore(initialState || {}),
+	});

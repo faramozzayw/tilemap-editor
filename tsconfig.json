@@ -17,6 +17,6 @@
 		"downlevelIteration": true,
 		"types": ["jest"]
 	},
-	"include": ["src", "pages/index.tsx", "react-app-env.d.ts"],
+	"include": ["pages/index.tsx", "react-app-env.d.ts"],
 	"exclude": ["node_modules"]
 }
