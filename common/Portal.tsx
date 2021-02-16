@@ -12,7 +12,9 @@ export const Portal: React.FC<PortalProps> = ({
 	tag = "div",
 	children,
 }) => {
-	const [modalRoot] = useState<HTMLElement>(document.createElement(tag));
+	if (typeof document === "undefined") return null;
+
+	const modalRoot = document.createElement(tag);
 
 	modalRoot.classList.add("modalRoot");
 

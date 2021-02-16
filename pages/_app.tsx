@@ -1,19 +1,17 @@
-import { StrictMode } from "react";
+import { StrictMode, useState } from "react";
 import { ApolloProvider } from "@apollo/client";
-import withApollo from "next-with-apollo";
 
 import "bulma/css/bulma.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 
-import "./styles.css";
-import "./masonry.css";
+import withApollo from "next-with-apollo";
 
-//import * as serviceWorker from "../serviceWorker";
+import "../styles.css";
+import "../masonry.css";
 
 import { AuthProvider } from "../hooks/auth";
 
 import { NotifyLayout } from "../components";
-//import { ProtectedRouter } from "../common";
 
 import { initializeApollo } from "../graphql";
 import { ScrollToTop } from "../common";
@@ -33,5 +31,3 @@ const App = ({ Component, pageProps, apollo }) => (
 export default withApollo(({ initialState }) => {
 	return initializeApollo({ initialState });
 })(App);
-
-//serviceWorker.unregister();

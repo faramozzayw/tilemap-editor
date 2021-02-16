@@ -116,7 +116,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({
 		});
 
 		authClient?.resetStore();
-		localStorage.removeItem("user");
+		localStorage?.removeItem("user");
 		removeTokens();
 	};
 

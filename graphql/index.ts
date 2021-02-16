@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
 	ApolloClient,
 	InMemoryCache,
@@ -5,13 +6,17 @@ import {
 	ApolloLink,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
+import { relayStylePagination } from "@apollo/client/utilities";
 import jwt_decode from "jwt-decode";
 
 import { getAccessToken, refreshToken, getRefreshToken } from "../hooks/utils";
 import { Claims } from "../types";
-import { relayStylePagination } from "@apollo/client/utilities";
 
 const authLink = setContext(async (_, { headers }) => {
+	if (typeof window === "undefined") {
+		return {};
+	}
+
 	let token = getAccessToken();
 
 	if (token) {
@@ -46,7 +51,9 @@ const httpLink = createHttpLink({
 	},
 });
 
-export const initializeApollo = ({ initialState }: any) =>
+let apolloClient: ApolloClient<any> | null = null;
+
+export const createApolloClient = ({ initialState }: any) =>
 	new ApolloClient({
 		link: ApolloLink.from([authLink, httpLink]),
 		ssrMode: typeof window === "undefined",
@@ -61,31 +68,16 @@ export const initializeApollo = ({ initialState }: any) =>
 		}).restore(initialState || {}),
 	});
 
-/*
-export const createeApolloClient = () =>
-	new ApolloClient({
-		link: ApolloLink.from([authLink, httpLink]),
-		ssrMode: typeof window === "undefined",
-		cache: new InMemoryCache({
-			typePolicies: {
-				Query: {
-					fields: {
-						mapsPagination: relayStylePagination(),
-					},
-				},
-			},
-		}),
-	});
-
 export const initializeApollo = (initialState = null) => {
-	const apolloClient = createeApolloClient();
+	const _apolloClient = apolloClient ?? createApolloClient({ initialState });
 
 	if (initialState) {
-		const existingCache = apolloClient.extract();
-
-		apolloClient.cache.restore({ ...existingCache, ...initialState });
+		const existingCache = _apolloClient.extract();
+		_apolloClient.cache.restore({ ...existingCache, ...initialState });
 	}
 
-	return apolloClient;
+	if (typeof window === "undefined") return _apolloClient;
+	if (!apolloClient) apolloClient = _apolloClient;
+
+	return _apolloClient;
 };
- */

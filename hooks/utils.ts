@@ -7,7 +7,7 @@ import { RefreshAccessTokenMutationResult } from "../types/graphql";
 import { User } from "./auth";
 
 export const getAccessToken = () => Cookies.get("access_token");
-export const getRefreshToken = () => localStorage.getItem("refresh_token");
+export const getRefreshToken = () => localStorage?.getItem("refresh_token");
 export const isAuthenticatedByToken = () => !!getAccessToken();
 
 export const inOneHour = () => {
@@ -26,11 +26,13 @@ export const setTokens = ({
 }: Tokens) => {
 	Cookies.set("access_token", access_token, { expires: expires_in });
 	if (refresh_token) {
-		localStorage.setItem("refresh_token", refresh_token);
+		localStorage?.setItem("refresh_token", refresh_token);
 	}
 };
 
 export const getUserFromStorage = (): User | null => {
+	if (typeof localStorage === "undefined") return null;
+
 	const rawUser = localStorage?.getItem("user");
 
 	return rawUser ? JSON.parse(rawUser) : null;
