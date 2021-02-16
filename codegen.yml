@@ -1,8 +1,8 @@
 overwrite: true
 schema: "https://api-tilemap-editor.herokuapp.com/graphql"
-documents: "src/**/*.graphql"
+documents: "./**/*.graphql"
 generates:
-  src/types/graphql.ts:
+  ./types/graphql.ts:
     plugins:
       - "typescript"
       - "typescript-operations"

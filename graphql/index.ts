@@ -46,9 +46,10 @@ const httpLink = createHttpLink({
 	},
 });
 
-export const clientWithInitState = ({ initialState }: any) =>
+export const initializeApollo = ({ initialState }: any) =>
 	new ApolloClient({
 		link: ApolloLink.from([authLink, httpLink]),
+		ssrMode: typeof window === "undefined",
 		cache: new InMemoryCache({
 			typePolicies: {
 				Query: {
@@ -59,3 +60,32 @@ export const clientWithInitState = ({ initialState }: any) =>
 			},
 		}).restore(initialState || {}),
 	});
+
+/*
+export const createeApolloClient = () =>
+	new ApolloClient({
+		link: ApolloLink.from([authLink, httpLink]),
+		ssrMode: typeof window === "undefined",
+		cache: new InMemoryCache({
+			typePolicies: {
+				Query: {
+					fields: {
+						mapsPagination: relayStylePagination(),
+					},
+				},
+			},
+		}),
+	});
+
+export const initializeApollo = (initialState = null) => {
+	const apolloClient = createeApolloClient();
+
+	if (initialState) {
+		const existingCache = apolloClient.extract();
+
+		apolloClient.cache.restore({ ...existingCache, ...initialState });
+	}
+
+	return apolloClient;
+};
+ */

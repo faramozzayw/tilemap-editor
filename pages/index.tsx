@@ -11,22 +11,32 @@ import { InputField } from "../components/Profile";
 export default function Index() {
 	const { isAuthenticated: isAuth } = useAuthState();
 
-	const [searchValue, setSearchValue] = useState(() => ({
-		name: (queryString.parse(window.location.search).name as any) ?? "",
-	}));
+	const [searchValue, setSearchValue] = useState(() => {
+		if (typeof window !== "undefined") {
+			return {
+				name: (queryString.parse(window.location.search).name as any) ?? "",
+			};
+		}
+
+		return {
+			name: "",
+		};
+	});
 	const [searching, setSearching] = useState(false);
 
 	const handlerSearchStatus = () => {
-		setSearching((p) => {
-			const value = !p;
+		if (typeof window !== "undefined") {
+			setSearching((p) => {
+				const value = !p;
 
-			if (!value) {
-				setSearchValue({ name: "" });
-				window.history.replaceState(null, "", `/`);
-			}
+				if (!value) {
+					setSearchValue({ name: "" });
+					window.history.replaceState(null, "", `/`);
+				}
 
-			return value;
-		});
+				return value;
+			});
+		}
 	};
 
 	const searchValueHandler = (e: React.FormEvent<HTMLInputElement>) => {
@@ -34,7 +44,7 @@ export default function Index() {
 			currentTarget: { value, name },
 		} = e;
 
-		window.history.replaceState(null, "", `/?name=${value}`);
+		window?.history.replaceState(null, "", `/?name=${value}`);
 
 		setSearchValue((prev) => ({
 			...prev,

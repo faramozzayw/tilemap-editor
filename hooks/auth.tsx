@@ -9,8 +9,9 @@ import {
 	setUserToStorage,
 	getUserFromStorage,
 } from "./utils";
-import { client } from "../graphql";
+//import { client } from "../graphql";
 import { Jwt, User as BasicUser, useMeLazyQuery } from "../types/graphql";
+import { ApolloClient } from "@apollo/client";
 
 export type AuthStatus = "pending" | "error" | "success";
 
@@ -79,7 +80,14 @@ const initState = () => {
 	};
 };
 
-export const AuthProvider: React.FC = ({ children }) => {
+export interface AuthProviderProps {
+	authClient?: ApolloClient<unknown>;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({
+	authClient,
+	children,
+}) => {
 	const [state, setState] = useState<AuthContextState>(() => initState());
 	const [getMe] = useMeLazyQuery({
 		onCompleted: ({ me }) => {
@@ -107,7 +115,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 			status: "pending",
 		});
 
-		client.resetStore();
+		authClient?.resetStore();
 		localStorage.removeItem("user");
 		removeTokens();
 	};
