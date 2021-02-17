@@ -1,5 +1,6 @@
-import { StrictMode, useState } from "react";
+import { StrictMode } from "react";
 import { ApolloProvider } from "@apollo/client";
+import { StaticRouter } from "react-router";
 
 import "bulma/css/bulma.css";
 import "@fortawesome/fontawesome-free/css/all.css";
@@ -19,11 +20,13 @@ import { ScrollToTop } from "../common";
 const App = ({ Component, pageProps, apollo }) => (
 	<ApolloProvider client={apollo}>
 		<AuthProvider authClient={apollo}>
-			<StrictMode>
-				<ScrollToTop />
-				<NotifyLayout />
-				<Component {...pageProps} />
-			</StrictMode>
+			<StaticRouter>
+				<StrictMode>
+					<ScrollToTop />
+					<NotifyLayout />
+					<Component {...pageProps} />
+				</StrictMode>
+			</StaticRouter>
 		</AuthProvider>
 	</ApolloProvider>
 );
