@@ -32,9 +32,9 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"test": "react-scripts test --env=jsdom-fourteen",
+		"test": "jest",
 		"test:clear": "jest --clearCache",
-		"test:coverage": "react-scripts test --coverage --watchAll",
+		"test:coverage": "yarn test --coverage --watchAll",
 		"eject": "react-scripts eject",
 		"codegen": "graphql-codegen --config codegen.yml",
 		"codegen:watch": "yarn codegen -w"
@@ -93,10 +93,5 @@
 	},
 	"engines": {
 		"node": ">=12.0.0"
-	},
-	"jest": {
-		"transformIgnorePatterns": [
-			"<roodDir>/node_modules/(?!@faramo.zayw)"
-		]
 	}
 }
