@@ -7,7 +7,7 @@ import {
 	cleanup,
 	waitFor,
 } from "@testing-library/react";
-import { NotFound } from "../../__pages";
+import { NotFound } from "../../pages/mod";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
 

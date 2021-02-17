@@ -1,4 +1,4 @@
-export { Main } from "./Main";
+export { default as Main } from "./index";
 export { Map, MapSetting } from "./Map";
 export { ProfilePage } from "./Profile";
 export { NotFound } from "./NotFound";

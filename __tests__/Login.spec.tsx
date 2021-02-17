@@ -7,7 +7,7 @@ import {
 	cleanup,
 	waitFor,
 } from "@testing-library/react";
-import { Login } from "../__pages";
+import { Login } from "../pages/mod";
 import { AllTheProviders, wait } from "../testUtils";
 import { loginMocks, meMocks, data } from "./mocks";
 
